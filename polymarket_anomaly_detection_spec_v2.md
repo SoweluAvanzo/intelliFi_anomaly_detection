@@ -1,8 +1,8 @@
 # Polymarket Anomaly-Detection Tool — Specification v2
 
-**Date:** 2026-05-11
+**Date:** 2026-05-11 (initial); last refresh 2026-05-25
 **Supersedes:** `polymarket_market_manipulation_data_spec.md` (v1)
-**Status:** Planning / pre-implementation
+**Status:** Living spec — Phases 1–2 implemented; Phase 3 partial (on-chain transfer enrichment only, no CTF/UMA subgraph yet); Phase 5 prototype (mirror backtest + entity-resolution); Phases 4 and 6 pending. See `CLAUDE.md` for the up-to-date implementation status and the module map.
 
 This v2 spec is informed by:
 

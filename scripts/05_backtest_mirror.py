@@ -16,6 +16,7 @@ import json
 import logging
 import random
 import sys
+from collections import Counter
 
 import networkx as nx
 import pandas as pd
@@ -67,7 +68,24 @@ def main() -> int:
     entity0 = _onchain_entity0(addresses)
     beh = json.loads((config.PARQUET_DIR / "coordination" / "behavioural_partition.json")
                      .read_text())
-    beh_65 = sorted([w for w, c in beh.items() if c == 65])
+
+    # Pick the behavioural community that maximally overlaps with the on-chain
+    # Sybil cluster — the "behavioural twin of entity0". Louvain community ids
+    # are not stable across runs (graph structure changes → renumbering), so
+    # the cluster must be identified structurally, not by a literal id.
+    overlap = Counter(beh[w] for w in entity0 if w in beh)
+    if overlap:
+        twin_c, twin_overlap = overlap.most_common(1)[0]
+    else:
+        # Degenerate fallback: no entity0 wallet is in the partition. Pick the
+        # largest multi-wallet community so the leader set is non-empty.
+        sizes = Counter(beh.values())
+        multi = [(c, n) for c, n in sizes.items() if n >= 2]
+        twin_c = max(multi, key=lambda x: x[1])[0] if multi else None
+        twin_overlap = 0
+    beh_twin = sorted([w for w, c in beh.items() if c == twin_c]) if twin_c is not None else []
+    print(f"behavioural twin of entity0: c={twin_c}  members={len(beh_twin)}  "
+          f"overlap_with_entity0={twin_overlap}/{len(entity0)}")
 
     top_skill = (universe.filter(pl.col("rk_skill").is_not_null())
                           .sort("rk_skill")["proxy_wallet"].to_list())
@@ -85,7 +103,7 @@ def main() -> int:
 
     leader_sets = [
         ("onchain_entity0",   entity0),
-        ("behavioural_65",    beh_65),
+        ("behavioural_twin",  beh_twin),
         ("top_skill_50",      top_skill),
         ("random_sample_50",  random_sample),
     ]
