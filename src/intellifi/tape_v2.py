@@ -39,7 +39,12 @@ def register_v2_views(con: duckdb.DuckDBPyConnection, *, from_block: int | None 
         CREATE OR REPLACE VIEW v2_raw AS
         SELECT *, (taker IN ({exch})) AS is_taker_rec
         FROM read_parquet('{glob}', hive_partitioning = true)
-        WHERE {' AND '.join(where)};
+        WHERE {' AND '.join(where)}
+        -- Dedup overlapping chunks: the resumable/rebalanced crawl can write
+        -- differently-cut chunk files over the same blocks (crawler races), so a
+        -- fill can appear in >1 part.parquet. (tx_hash, evt_index) is the unique
+        -- key of an OrderFilled log, so keep one row per key. (2026-08-31)
+        QUALIFY row_number() OVER (PARTITION BY tx_hash, evt_index ORDER BY block_number) = 1;
     """)
     con.execute(f"""
         CREATE OR REPLACE VIEW v2_conditions AS
