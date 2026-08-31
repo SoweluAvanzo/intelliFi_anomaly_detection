@@ -12,6 +12,7 @@ dependencies = [
     "scipy>=1.11",
     "tqdm>=4.66",
     "python-dateutil>=2.9",
+    "eth-hash[pycryptodome]>=0.7",
 ]
 
 [project.optional-dependencies]

@@ -10,6 +10,35 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 
+
+def _load_dotenv(path: Path) -> None:
+    """Load KEY=VALUE lines from a gitignored ``.env`` into os.environ (no override)."""
+    if not path.exists():
+        return
+    for line in path.read_text().splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        k, v = line.split("=", 1)
+        os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+
+
+for _f in sorted(REPO_ROOT.glob(".env*")):
+    if _f.name != ".env.example":
+        _load_dotenv(_f)
+
+# Third-party keys (all optional; free tiers). Put them in ``.env``:
+#   POLYGONSCAN_API_KEY=...   Etherscan V2 (on-chain transfers, logs)
+#   DUNE_API_KEY=...          Dune Analytics (fill reconstruction, scripts/08)
+DUNE_API = os.getenv("INTELLIFI_DUNE_API", "https://api.dune.com/api/v1")
+DUNE_API_KEY = os.getenv("DUNE_API_KEY") or os.getenv("DUNE_KEY")
+# Etherscan V2 key (one key serves every chain, Polygon = chainid 137). Accept
+# the historical variable name and the plain ones.
+_esk = os.getenv("POLYGONSCAN_API_KEY") or os.getenv("ETHERSCAN_API_KEY") or os.getenv("ETHERSCAN_KEY")
+if _esk:
+    os.environ.setdefault("POLYGONSCAN_API_KEY", _esk)
+ETHERSCAN_API_KEY = _esk
+
 # --- API roots -------------------------------------------------------------
 GAMMA = os.getenv("INTELLIFI_GAMMA", "https://gamma-api.polymarket.com")
 CLOB = os.getenv("INTELLIFI_CLOB", "https://clob.polymarket.com")
@@ -42,7 +71,7 @@ USER_AGENT = os.getenv(
 RESOLVED_LOOKBACK_DAYS = int(os.getenv("INTELLIFI_LOOKBACK_DAYS", "180"))
 
 # Gamma /markets page size (max appears to be 500).
-GAMMA_PAGE_SIZE = int(os.getenv("INTELLIFI_GAMMA_PAGE_SIZE", "500"))
+GAMMA_PAGE_SIZE = int(os.getenv("INTELLIFI_GAMMA_PAGE_SIZE", "100"))  # Gamma /markets caps a page at 100 rows
 
 # Data API /trades page size (max appears to be 500).
 TRADES_PAGE_SIZE = int(os.getenv("INTELLIFI_TRADES_PAGE_SIZE", "500"))

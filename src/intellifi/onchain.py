@@ -27,6 +27,8 @@ from typing import Any
 
 import requests
 
+from . import config
+
 log = logging.getLogger(__name__)
 
 
@@ -172,9 +174,13 @@ class Polygonscan:
     min_interval_s: float = 0.25
     # Hard cap. ``None`` disables it; default leaves headroom under the daily quota.
     max_calls: int | None = 80_000
+    # Retries per call on transient errors / rate limits (the free key is
+    # enforced at 3 calls/s, measured 2026-08-30 — parallel crawlers must share it).
+    max_retries: int = 5
 
     _last_call_ts: float = 0.0
-    calls_made: int = 0
+    calls_made: int = 0          # every HTTP attempt (retries included) — quota accounting
+    ok_calls: int = 0            # successful responses — efficiency accounting
 
     def __post_init__(self) -> None:
         if not self.api_key:
@@ -198,7 +204,8 @@ class Polygonscan:
         "rate limit", "max rate limit", "max calls per sec",
     )
 
-    def _get(self, params: dict[str, Any], *, max_retries: int = 5) -> Any:
+    def _get(self, params: dict[str, Any], *, max_retries: int | None = None) -> Any:
+        max_retries = max_retries or self.max_retries
         if self.max_calls is not None and self.calls_made >= self.max_calls:
             raise PolygonscanError(
                 f"daily call cap hit ({self.calls_made}/{self.max_calls}); "
@@ -210,7 +217,8 @@ class Polygonscan:
             self._throttle()
             try:
                 self.calls_made += 1
-                r = requests.get(self.base_url, params=params, timeout=self.timeout)
+                r = requests.get(self.base_url, params=params, timeout=self.timeout,
+                                 headers={"User-Agent": config.USER_AGENT})
             except requests.RequestException as exc:
                 last_err = f"transport: {exc}"
                 time.sleep(1.5 ** attempt)
@@ -221,8 +229,12 @@ class Polygonscan:
                 continue
             r.raise_for_status()
             body = r.json()
+            if "jsonrpc" in body:          # proxy module answers JSON-RPC style, no "status"
+                self.ok_calls += 1
+                return body.get("result")
             status = str(body.get("status", "0"))
             if status == "1":
+                self.ok_calls += 1
                 return body.get("result", [])
             message = body.get("message", "") or ""
             result = body.get("result")
@@ -230,6 +242,8 @@ class Polygonscan:
             if isinstance(result, str) and "no transactions" in result.lower():
                 return []
             if isinstance(message, str) and "no transactions" in message.lower():
+                return []
+            if "no records found" in f"{message} {result}".lower():   # getLogs empty result
                 return []
             # Retry-worthy transient errors.
             combined = f"{message} {result}".lower()
@@ -242,6 +256,11 @@ class Polygonscan:
         raise PolygonscanError(f"Etherscan V2: retries exhausted ({last_err})")
 
     # ---- ERC-20 transfers (used for USDC) ----
+
+    def latest_block(self) -> int:
+        """Current Polygon head via the proxy module (one call)."""
+        r = self._get({"module": "proxy", "action": "eth_blockNumber"})
+        return int(str(r), 16)
 
     def erc20_transfers(
         self,

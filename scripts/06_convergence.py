@@ -46,7 +46,7 @@ def main() -> int:
     logging.basicConfig(level=max(level, logging.DEBUG),
                         format="%(levelname)s %(name)s | %(message)s")
 
-    markets = pl.read_parquet(config.MARKETS_PARQUET / "markets.parquet")
+    markets = open_warehouse(":memory:").sql("SELECT * FROM markets").pl()   # source-agnostic (parquet or archive)
     tokens = (markets
               .filter(pl.col("clob_token_ids").list.len() > 0)
               ["clob_token_ids"].list.explode().drop_nulls().unique().to_list())

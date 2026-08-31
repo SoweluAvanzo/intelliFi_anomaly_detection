@@ -416,7 +416,129 @@ Goal: pull, persist, validate. No scoring.
 
 ---
 
-## 10. References
+## 9b. 2026-08-29 audit addendum (overrides earlier sections where they conflict)
+
+1. **Time reference.** All "hours before close" quantities use Gamma `closedTime` (`markets.closed_time`), never `endDate`. §6.1 windows anchored on `end_date` are void.
+2. **Entity graph edges.** ERC-1155 transfers are settlement of CLOB fills and are excluded from relationship inference; direct edges are USDC transfers only; universe members count toward counterparty popularity. Sybil/entity claims require funding-flow evidence.
+3. **Null models.** Cotrade and lead–lag tables carry activity-preserving expected counts, Poisson p-values and BH q-values; only pairs with q < 0.05 may be described as anomalous. Lead–lag adjacency is defined on consecutive distinct seconds.
+4. **Skill (§6.2).** The wallet skill / calibration score is the position-level statistic (`skill.position_skill`): one trial per (wallet, market), implied p ∈ [0.05, 0.95], ≥ 5 positions in ≥ 3 markets, Beta prior strength 4 centred on the wallet's mean implied p, exact quantiles, leave-one-out reliability-curve benchmark. The size-weighted variant is legacy.
+5. **Backtest.** Leader trades after `event_ts` (last unconverged trade) are excluded; exits use `closed_time`; every leader set is compared with a matched placebo control (same asset, side, ±900 s, ±0.05) and inference is clustered by market. Universe-drawn random sets are not controls.
+6. **Data limitations to state in every output.** Taker-side, 4000-fill tail sample; holders capped at 500/outcome; price history = 30-day window; on-chain history page-capped. Positive wallet-level claims are deferred until the Phase 3 `OrderFilled` reconstruction ships.
+7. **Wash trading.** Renamed "rapid position flipping"; one-to-one matching; maker signature reported. Wash labels require counterparty attribution (Phase 3).
+
+8. **Fill reconstruction (Phase 3) is the data source for every wallet-level claim.** `OrderFilled` on the CTF Exchange (0x4bfb…982e) and NegRisk CTF Exchange (0xc5d5…f80a): one record per maker order plus one taker-order record whose `taker` is the exchange; mint/merge matches pair the taker's token with the complementary token at 1 − p, so shares conserve per (tx, market). Reconciliation invariants: exact taker match with the feed, per-tx conservation, coverage gain, and completeness = Σ taker shares / Gamma `volumeClob` (Gamma volume is share volume). Validated 2026-08-29 on 5 markets.
+
+## 10. Stage II — Explore / confirm protocol (subsequent stage, added 2026-08-29)
+
+Stage I (everything above, as corrected by the §9b audit) is complete: a
+validated, reproducible measurement stack whose corrected results on the
+2026-05-11 corpus are null. Stage II is a **new stage of the project**, not a
+revision of Stage I, and it changes the study design in response to two facts
+established on 2026-08-29:
+
+1. The cross-sectional versions of RQ1–RQ3 have been answered in 2026 on
+   complete data by other groups (Mitts & Ofir 2026; Gómez-Cram, Guo, Kung &
+   Jensen 2026; Sirolly, Ma, Kanoria & Sethi 2025; arXiv:2603.03136;
+   arXiv:2604.24366; arXiv:2606.16852; the Polymarket-v1 Database,
+   arXiv:2606.04217, CC-BY-4.0). Re-asking them cross-sectionally is not a
+   contribution.
+2. Polymarket migrated to v2 on 2026-04-28 (new exchange contracts
+   `0xe111180000d2663c0091e4f400237545b87b996b` and
+   `0xe2222d279d744050d28e00520010520000310f59`, pUSD collateral
+   `0xC011a7E12a19f7B1f670d46F03B03f3342E82DFB`) after phasing in taker fees
+   with per-market maker rebates from 2026-03-30 by category, with
+   geopolitics / world events fee-exempt. No published work covers v2.
+
+### 10.1 Design: two independent samples
+
+- **Sample A (exploration): v1, 2025-10-01 → 2026-04-28**, from the public
+  Polymarket-v1 archive (`OrderFilled`, `daily_aligned`, `daily_aligned_multi`,
+  `CTF` layers; maker, taker, ground-truth direction, price, fee, categories,
+  resolutions, redemptions). Our own Dune/Etherscan reconstruction (5 markets,
+  134 wallets, `fills.py` invariants) is the QA layer: it must reconcile
+  exactly with the archive on the overlap before the archive is used.
+- **Sample B (confirmation): v2, 2026-04-28 → collection date**, collected by
+  us from the chain: v2 `OrderFilled(orderHash, maker, taker, side, tokenId,
+  makerAmountFilled, takerAmountFilled, fee, builder, metadata)`,
+  `OrdersMatched`, `FeeCharged(receiver, amount)` on both v2 exchanges, and
+  the v2 conditional-tokens resolution / redemption events; Etherscan V2
+  `getLogs` with block-range bisection (free tier, ≈1–2k calls per day of
+  tape). Invariants: taker match via `OrdersMatched`, per-tx conservation,
+  completeness vs `FeeCharged` totals. Market metadata and the category →
+  fee mapping come from Gamma, which must be fetched from an unblocked
+  network (EU VPS or collaborator).
+
+### 10.2 Protocol
+
+1. **Explore on A only.** Compute the atlas (§10.3) and report it as
+   descriptive statistics — no hypothesis tests presented as confirmatory.
+2. **Register before touching B.** Every hypothesis suggested by the atlas is
+   written into `docs/stage2_preregistration.md` with its statistic,
+   direction, subgroup, null model and decision rule, dated and committed
+   *before* any B-side statistic is computed. Thresholds (buckets, lags,
+   notional cuts, minimum positions) are frozen there.
+3. **Confirm on B.** The registered hypotheses are tested on B with the
+   fee-regime design (§10.4). Unregistered findings on B are reported as
+   exploratory in a separate section.
+4. **Replication rule.** A result is claimed only if it (a) holds on B under
+   the registered rule, or (b) is the registered difference between A and B
+   attributable to the regime change. Atlas findings that fail on B are
+   reported as such.
+
+### 10.3 Atlas statistics (exploration set; computed on A, then on B)
+
+- Order-flow attribution (B only has `builder`): fill share, maker/taker mix,
+  effective half-spread, price impact and informed-trading signatures by
+  order-flow source.
+- Fee / rebate flows (B): per-fill fee incidence, rebate concentration,
+  rebate per notional by wallet, self-matching that earns rebates.
+- Liquidity provision: maker share and concentration by market, category,
+  negRisk status; Kyle's λ per market; effective half-spread from fills.
+- Wallet lifecycle: entry, exit, v1→v2 migration by wallet type (maker-
+  dominant, taker-dominant, skilled minority per Gómez-Cram criteria).
+- Position-level calibration with the leave-one-out reliability-curve
+  benchmark (`skill.position_skill`), stratified by category, lifetime,
+  holding horizon; documented insider cases (FFIC, CC-BY) as validation.
+- Coordination with counterparty attribution: self-counterparty and one-step
+  round-trip shares, activity-preserving nulls with BH control, network
+  clusters; negRisk family consolidation.
+- Redemption behaviour: resolution-to-redemption delay, unredeemed winnings
+  by wallet type.
+
+### 10.4 Confirmatory design
+
+Difference-in-differences / event study around 2026-03-30 (fee schedule) and
+2026-04-28 (exchange upgrade), treated = fee-charged categories, control =
+fee-exempt categories; staggered rollout handled with a staggered-DiD
+estimator; category-by-week panels; market-clustered standard errors;
+pre-trend checks; sensitivity excluding reverted matches (ghost fills), the
+migration week, and 15-minute crypto markets. Refined questions: RQ1′
+liquidity provision and price impact under maker rebates; RQ2′ wash-like
+activity vs rebate farming; RQ3′ persistence of informed-trading signatures
+across regimes.
+
+### 10.5 Constraints
+
+Measured 2026-08-29: v2 runs ~3.4 M `OrderFilled` per day across the two
+exchanges (first 2,000 v2 blocks: 166,576 fills, 64,377 taker orders, 297
+distinct `builder` codes). Etherscan bisection needs roughly 5,000 calls per
+day of tape for `OrderFilled` alone, so the full May–August tape is ~6 days
+of the 100k/day quota; the crawl (`scripts/10`) is chunked, resumable and
+relaunched daily. `OrdersMatched` and `FeeCharged` are not crawled by
+default: the taker-order record and the per-fill `fee` field carry the same
+information. **Close reference:** the archive's `resolved_at` is NULL for
+early/contested resolutions and `close_at` is the scheduled deadline; the
+on-chain `ConditionResolution` timestamp (`ctf_resolutions*.parquet`) is the
+only authoritative close and is used first (`archive.materialise_markets`
+refuses to proceed if any market shows fills after its close).
+
+All data sources are free: the v1 archive (HuggingFace), Etherscan V2
+(5 calls/s, 100k/day), Blockscout (keyless), Gamma (unblocked network
+required). Dune is not used (per-row billing). Nothing in Stage II modifies
+Stage I outputs; Stage I snapshots remain the reference for the audit
+history.
+
+## 11. References
 
 - Rahman, Al-Chami, Clark. *SoK: Market Microstructure for Decentralized Prediction Markets*, arXiv:2510.15612v2 (2026).
 - Saguillo et al. *Unravelling the probabilistic forest: Arbitrage in prediction markets*. Advances in Financial Technology 2025.

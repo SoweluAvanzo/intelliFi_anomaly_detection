@@ -6,13 +6,17 @@ outcome? For each resolved market we have:
 * The price trajectory ``p(t)`` for each outcome token (from CLOB
   ``/prices-history``).
 * The winning outcome index.
-* ``end_date`` from Gamma — the closing timestamp.
+* ``closed_time`` from Gamma — when trading actually stopped (falls back to
+  the scheduled ``end_date`` only if ``closed_time`` is missing). The two
+  differ by a median of ~21 h and by weeks in either direction for markets
+  that resolved early or were extended, so ``end_date`` must not be used as
+  the reference.
 
-We compute, for each market and at each time offset before ``end_date``,
+We compute, for each market and at each time offset before ``closed_time``,
 the **convergence error** ``|p(t) - 1[winner]|``. Averaged across markets,
 this curve answers "how informed is the market as a function of time
 remaining". A market that knows the answer 7 days early shows near-zero
-error at t = end_date − 7 days; an inefficient market only converges in
+error at t = closed_time − 7 days; an inefficient market only converges in
 the final minutes.
 
 The module is purely analytical — it expects the CLOB prices_history
@@ -34,7 +38,14 @@ log = logging.getLogger(__name__)
 
 
 def all_prices_history_relation(con: duckdb.DuckDBPyConnection) -> None:
-    """Register a view ``prices_history`` over every per-token parquet."""
+    """Register a view ``prices_history`` over every per-token parquet.
+
+    When ``INTELLIFI_SOURCE=archive`` the view already exists (minute VWAP
+    from the complete fill tape) and is left untouched.
+    """
+    import os
+    if os.getenv("INTELLIFI_SOURCE", "parquet") == "archive":
+        return
     glob = str(PRICES_HISTORY_DIR / "*.parquet")
     con.execute(f"""
         CREATE OR REPLACE VIEW prices_history AS
@@ -55,7 +66,8 @@ def convergence_table(
     Returns a long table with columns:
         condition_id, slug, hours_before_end, n_observations,
         winning_token_id, last_price_before_offset,
-        abs_error, signed_error, market_lifespan_hours.
+        abs_error, signed_error, history_span_hours (span of the available
+        price history before close — NOT the market lifetime).
 
     Only markets with prices_history coverage and a valid winning outcome
     are included.
@@ -70,20 +82,24 @@ def convergence_table(
         WITH offsets(hours_before_end) AS ({offsets_sql}),
         ph_with_winner AS (
             SELECT ph.token_id, ph.ts_utc, ph.price,
-                   w.condition_id, w.slug, w.winning_token_id, m.end_date,
+                   w.condition_id, w.slug, w.winning_token_id,
+                   COALESCE(m.closed_time, m.end_date) AS close_ref,
+                   CASE WHEN m.game_start_time IS NOT NULL THEN 'scheduled_game'
+                        WHEN m.closed_time < m.end_date - INTERVAL 1 HOUR THEN 'resolved_early'
+                        ELSE 'deadline' END AS market_type,
                    CASE WHEN ph.token_id = w.winning_token_id THEN 1.0 ELSE 0.0 END
                        AS target,
-                   DATE_DIFF('second', ph.ts_utc, m.end_date) / 3600.0
+                   DATE_DIFF('second', ph.ts_utc, COALESCE(m.closed_time, m.end_date)) / 3600.0
                        AS hours_to_end
             FROM prices_history ph
             JOIN markets m         ON m.clob_token_ids[1] = ph.token_id
                                    OR m.clob_token_ids[2] = ph.token_id
             JOIN winning_outcomes w ON w.condition_id = m.condition_id
-            WHERE m.end_date IS NOT NULL
-              AND ph.ts_utc < m.end_date
+            WHERE COALESCE(m.closed_time, m.end_date) IS NOT NULL
+              AND ph.ts_utc < COALESCE(m.closed_time, m.end_date)
         ),
-        -- For each (condition_id, offset), take the **last observation strictly
-        -- before** end_date - offset hours.
+        -- For each (condition_id, offset), take the last observation at or
+        -- before close_ref - offset hours.
         ranked AS (
             SELECT p.*,
                    o.hours_before_end,
@@ -95,7 +111,7 @@ def convergence_table(
             CROSS JOIN offsets o
             WHERE p.hours_to_end >= o.hours_before_end
         )
-        SELECT condition_id, slug, hours_before_end,
+        SELECT condition_id, slug, market_type, hours_before_end,
                winning_token_id,
                price       AS last_price_before_offset,
                token_id    AS observed_token,
@@ -104,7 +120,7 @@ def convergence_table(
                EXTRACT('epoch' FROM (
                    SELECT MAX(ts_utc) - MIN(ts_utc) FROM ph_with_winner p2
                    WHERE p2.condition_id = ranked.condition_id
-               )) / 3600.0 AS market_lifespan_hours
+               )) / 3600.0 AS history_span_hours
         FROM ranked
         WHERE rk_within_offset = 1
           AND token_id = winning_token_id

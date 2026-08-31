@@ -24,8 +24,8 @@ import polars as pl
 
 from intellifi import config
 from intellifi.coordination import (
-    cotrade_pairs,
-    leader_lag_pairs,
+    cotrade_pairs_with_null,
+    leader_lag_pairs_with_null,
     wash_round_trips,
 )
 from intellifi.warehouse import open_warehouse
@@ -56,7 +56,7 @@ def build_behavioural_graph(
             weight=weight,
             cotrade_events=row["cotrade_events"],
             cotrade_markets=row["cotrade_markets"],
-            combined_notional=row["combined_bucket_notional"],
+            pair_notional=row["pair_notional"],
         )
     return g
 
@@ -83,16 +83,16 @@ def main() -> int:
     con = open_warehouse()
 
     print(f"\n[1/3] co-trade pairs (window={args.window_seconds}s, min_events={args.min_cotrade_events})...")
-    ct = cotrade_pairs(con, window_seconds=args.window_seconds,
-                       universe=addresses, min_pair_events=args.min_cotrade_events).pl()
+    ct = cotrade_pairs_with_null(con, window_seconds=args.window_seconds,
+                                 universe=addresses, min_pair_events=args.min_cotrade_events)
     ct.write_parquet(OUT_DIR / "cotrade_pairs.parquet", compression="zstd")
-    print(f"  {ct.height} pairs written")
+    print(f"  {ct.height} pairs written ({ct.filter(pl.col('q_value') < 0.05).height} with BH q < 0.05 vs activity null)")
 
     print(f"\n[2/3] leader→follower (lag_max={args.lag_max_seconds}s)...")
-    ll = leader_lag_pairs(con, lag_max_seconds=args.lag_max_seconds,
-                          universe=addresses, min_events=5).pl()
+    ll = leader_lag_pairs_with_null(con, lag_max_seconds=args.lag_max_seconds,
+                                    universe=addresses, min_events=5)
     ll.write_parquet(OUT_DIR / "leader_lag.parquet", compression="zstd")
-    print(f"  {ll.height} directed pairs written")
+    print(f"  {ll.height} directed pairs written ({ll.filter(pl.col('q_value') < 0.05).height} with BH q < 0.05 vs activity null)")
 
     print(f"\n[3/3] wash round-trips (window={args.wash_window}s)...")
     wt = wash_round_trips(con, window_seconds=args.wash_window,

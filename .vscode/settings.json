@@ -1,0 +1,22 @@
+{
+  "files.watcherExclude": {
+    "**/data/**": true,
+    "**/data_stage2_v1/**": true,
+    "**/.venv/**": true
+  },
+  "files.exclude": {
+    "**/data/external/**": true,
+    "**/data/raw/**": true
+  },
+  "search.exclude": {
+    "**/data/**": true,
+    "**/data_stage2_v1/**": true,
+    "**/.venv/**": true
+  },
+  "python.analysis.exclude": [
+    "**/data/**",
+    "**/data_stage2_v1/**",
+    "**/.venv/**"
+  ],
+  "python.analysis.indexing": false
+}

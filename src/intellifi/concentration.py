@@ -7,9 +7,17 @@ market (or family). Two natural weight choices are exposed:
   Captures *trading activity* concentration. Robust on resolved markets
   because we have the trade-level data (subject to the 4000-trade cap
   documented in ``data_api``).
+* ``net_flow`` — |Σ signed notional| per wallet toward outcome 0. Nets out
+  two-sided liquidity provision, so it measures *directional* footprint.
 * ``holdings_amount`` — wallet's outcome-share balance from the holders
-  snapshot. Captures *position* concentration **at resolution**, since the
-  holders snapshot for a resolved market reflects who got paid out.
+  snapshot taken at fetch time (2026-05-11, after every market's close).
+  Caveats (audit 2026-08-29): winners redeem and burn, so most remaining
+  weight is on the losing outcome (unredeemed positions), and ``/holders``
+  returns at most 500 holders per outcome token, so 92/100 markets are
+  truncated and their Gini is biased downward.
+
+All trade-based weights are **taker-side only**: the Data API records one
+row per fill, for the taker; maker flow is invisible (audit 2026-08-29).
 
 Both metrics expose a ``per_market`` and a ``per_family`` form so we can
 respect the v2 spec rule (§4.4): for negRisk markets, consolidate flow
@@ -24,7 +32,7 @@ from typing import Literal
 
 import duckdb
 
-WeightKind = Literal["trade_notional", "holdings_amount"]
+WeightKind = Literal["trade_notional", "net_flow", "holdings_amount"]
 
 
 # ---------------------------------------------------------------------------
@@ -112,6 +120,25 @@ def _wallet_weights_sql(weight: WeightKind, group: Literal["market", "family"]) 
         GROUP BY 1, 2
         """
 
+    if weight == "net_flow":
+        # |Σ signed notional| toward outcome 0 (BUY outcome 0 / SELL outcome 1
+        # positive): a directional footprint that nets out two-sided
+        # liquidity provision, which gross notional counts as 'control'.
+        return f"""
+        SELECT {group_expr}            AS group_key,
+               t.proxy_wallet          AS proxy_wallet,
+               ABS(SUM(CASE WHEN (t.side = 'BUY' AND t.outcome_index = 0)
+                              OR (t.side = 'SELL' AND t.outcome_index <> 0)
+                            THEN t.notional_usdc ELSE -t.notional_usdc END)) AS weight
+        FROM trades t
+        {family_join}
+        WHERE t.proxy_wallet IS NOT NULL
+          AND t.notional_usdc IS NOT NULL
+          AND t.notional_usdc > 0
+          AND t.side IN ('BUY', 'SELL')
+        GROUP BY 1, 2
+        """
+
     if weight == "holdings_amount":
         # Sum across outcomes within a market or family so a wallet that
         # holds both sides (e.g. arb / wash) is counted as a single weight.
@@ -159,19 +186,21 @@ def concentration_table(
         """
         order_by = "ORDER BY volume_clob DESC NULLS LAST"
     else:
+        # One row per group: a negRisk family (all member markets pooled) or
+        # a standalone market keyed 'M:<condition_id>'. volume_clob is summed
+        # within the group only.
         label_sql = """
-        SELECT DISTINCT
-               COALESCE(f.family_event_id, 'M:' || m.condition_id) AS group_key,
-               f.family_event_slug AS slug,
+        SELECT COALESCE(f.family_event_id, 'M:' || m.condition_id) AS group_key,
+               COALESCE(any_value(f.family_event_slug), any_value(m.slug)) AS slug,
                -- pick any member question as representative
-               first(m.question)   AS question,
-               TRUE                AS neg_risk,
-               f.family_event_id   AS event_id,
-               SUM(m.volume_clob) OVER (PARTITION BY f.family_event_id) AS volume_clob
+               any_value(m.question)                 AS question,
+               bool_or(m.neg_risk)                   AS neg_risk,
+               COALESCE(any_value(f.family_event_id), any_value(m.event_id)) AS event_id,
+               SUM(m.volume_clob)                    AS volume_clob
         FROM markets m
         LEFT JOIN neg_risk_families f ON f.member_condition_id = m.condition_id
         WHERE f.family_event_id IS NOT NULL OR NOT m.neg_risk
-        GROUP BY 1, 2, 4, 5, m.volume_clob
+        GROUP BY 1
         """
         order_by = "ORDER BY volume_clob DESC NULLS LAST"
 
