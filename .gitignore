@@ -17,3 +17,28 @@ data/parquet/
 
 .pytest_cache/
 .ruff_cache/
+
+data/export/
+.env.*
+!.env.example
+
+# --- data: NEVER commit (large parquet/jsonl, the v1 archive, snapshots, logs) ---
+data/
+data_stage2_v1/
+*.parquet
+*.jsonl
+*.duckdb
+*.duckdb.wal
+*.log
+# --- secrets: never commit any real env (only .env.example is allowed) ---
+.env
+.env.*
+!.env.example
+# --- scratch / caches ---
+**/__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# remote crawler runtime output / local env
+deploy/remote_crawler/out/
+deploy/remote_crawler/.env

@@ -17,6 +17,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import os
 import duckdb
 
 from . import config
@@ -34,6 +35,26 @@ def open_warehouse(db_path: Path | None = None) -> duckdb.DuckDBPyConnection:
     """
     db_path = db_path or config.DUCKDB_PATH
     con = duckdb.connect(str(db_path))
+    con.execute("SET TimeZone='UTC'")  # TIMESTAMPTZ must never surface in local time
+
+    # Stage II: INTELLIFI_SOURCE=archive serves the same view names from the
+    # public Polymarket-v1 archive (complete maker/taker tape) instead of the
+    # Data-API parquet store, so every Stage I script runs unchanged on it.
+    if os.getenv("INTELLIFI_SOURCE", "parquet") == "tape_v2":
+        from .tape_v2 import register_v2_views
+        fb, tb = os.getenv("INTELLIFI_V2_FROM_BLOCK"), os.getenv("INTELLIFI_V2_TO_BLOCK")
+        register_v2_views(con, from_block=int(fb) if fb else None, to_block=int(tb) if tb else None)
+        return con
+    if os.getenv("INTELLIFI_SOURCE", "parquet") == "archive":
+        from .archive import register_archive_views, materialise_markets
+        cids_file = os.getenv("INTELLIFI_ARCHIVE_CIDS")
+        cids = None
+        if cids_file:
+            cids = [l.strip().lower() for l in Path(cids_file).read_text().splitlines() if l.strip()]
+        register_archive_views(con, start=os.getenv("INTELLIFI_ARCHIVE_START"),
+                               end=os.getenv("INTELLIFI_ARCHIVE_END"), condition_ids=cids)
+        materialise_markets(con)
+        return con
 
     con.execute(f"""
         CREATE OR REPLACE VIEW markets AS
@@ -79,7 +100,11 @@ def open_warehouse(db_path: Path | None = None) -> duckdb.DuckDBPyConnection:
                clob_token_ids[idx] AS winning_token_id,
                p AS winning_outcome_price
         FROM ranked
-        WHERE rk = 1 AND p IS NOT NULL AND p >= 0.5;
+        -- A resolved binary market has final prices exactly (1, 0). Requiring
+        -- p >= 0.99 keeps closed-but-unresolved markets (UMA 'proposed' /
+        -- 'disputed', mid prices) out of the ground truth instead of labelling
+        -- the current favourite as the winner.
+        WHERE rk = 1 AND p IS NOT NULL AND p >= 0.99;
     """)
 
     return con

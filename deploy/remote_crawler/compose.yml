@@ -1,0 +1,42 @@
+# Isolated compose project for the Polymarket v2 tape crawler.
+# Outbound-only (Etherscan V2 getLogs). NO published ports. Hard-capped.
+name: polymarket-crawler
+services:
+  crawler:
+    build:
+      context: ../..                      # repo root, so src/ and scripts/ are in the image
+      dockerfile: deploy/remote_crawler/Dockerfile
+    image: polymarket-crawler:local
+    container_name: polymarket-crawler
+    restart: unless-stopped
+    # Run as the host 'deploy' user (uid/gid 1000) so the bind-mounted ./out is
+    # owned by deploy — the automated SSH pull can then also PRUNE pulled chunks
+    # (the image's uid 10001 made ./out undeletable by deploy). /app is world-
+    # readable so the editable install still imports fine under uid 1000.
+    user: "1000:1000"
+    env_file: .env                        # ETHERSCAN_KEY5, ETHERSCAN_KEY6, CRAWL_* — never committed
+    environment:
+      INTELLIFI_DATA_DIR: /data
+      INTELLIFI_USER_AGENT: "IntelliFi-research-crawler/1.0 (academic; contact sowelu94@gmail.com)"
+      HOME: /tmp                          # uid 1000 has no passwd entry; give tools a writable HOME
+    volumes:
+      - ./out:/data                       # bind: flat parquet output, rsync-pulled from host
+    networks: [crawler_net]               # dedicated; no web-edge, no other stack reachable
+    # ---- hard resource + privilege caps (verified box: 7.6 GB / 4 CPU, ~4.2 GB
+    # available, shared with 4 stacks: englishwithsoheila, signet-etch, nortadesyco,
+    # ndsc-lab). memswap==mem => no swap escape, so a runaway crawler OOMs itself
+    # (and restarts) instead of thrashing the box's swap and hurting the sites. ----
+    mem_limit: 2200m
+    memswap_limit: 2200m
+    pids_limit: 256
+    cpus: "2.0"
+    security_opt: [ "no-new-privileges:true" ]
+    cap_drop: [ "ALL" ]
+    read_only: false                      # writes only under /data (the bind volume)
+    tmpfs: [ "/tmp" ]
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "3" }
+networks:
+  crawler_net:
+    name: polymarket-crawler_net

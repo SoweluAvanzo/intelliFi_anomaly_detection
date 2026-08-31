@@ -288,10 +288,20 @@ class GraphConfig:
     # sharing one moderately-narrow connector.
     weight_common_by_neighbor_rarity: bool = True
 
-    # Whether to include ERC-1155 transfers in direct edges. Outcome-share
-    # transfers between addresses are very high-signal (no economic reason to
-    # send shares to a stranger).
-    include_erc1155: bool = True
+    # Whether to include ERC-1155 transfers in direct edges. OFF by default
+    # since the 2026-08-29 audit: every CLOB fill settles by moving ERC-1155
+    # outcome shares seller -> buyer, so an ERC-1155 transfer between two
+    # wallets is evidence that they *traded against each other*, not that
+    # they are related (87 of the 681 universe<->universe ERC-1155 txs are
+    # verifiably fills in the 12.8%-coverage trade sample; the rest are
+    # consistent with fills outside it). Only USDC transfers (funding) are
+    # relationship evidence.
+    include_erc1155: bool = False
+
+    # Count in-universe wallets toward a counterparty's popularity so that a
+    # high-turnover universe wallet (a market maker) cannot act as the shared
+    # neighbour that stitches its counterparties into one community.
+    count_universe_in_popularity: bool = True
 
 
 @dataclass
@@ -321,7 +331,9 @@ def build_entity_graph(
     )
     neighbors: dict[str, set[str]] = {a: set() for a in universe_set}
 
-    for addr in universe_set:
+    # Iterate in sorted order so edge insertion order (and hence Louvain
+    # labelling) does not depend on set iteration / scan order.
+    for addr in sorted(universe_set):
         # USDC.e and USDC native
         for token in ("usdc_e", "usdc_native"):
             path = transfers_path(addr, token)
@@ -375,7 +387,7 @@ def build_entity_graph(
     neighbor_counts: dict[str, int] = defaultdict(int)
     for addr, ns in neighbors.items():
         for n in ns:
-            if n in universe_set:
+            if n in universe_set and not cfg.count_universe_in_popularity:
                 continue  # in-universe is direct, not "common"
             if n in POPULAR_ADDRESSES:
                 continue
@@ -403,20 +415,20 @@ def build_entity_graph(
             common[(a, b)] = {
                 "shared": len(shared),
                 "weight": w,
-                "examples": list(shared)[:5],
+                "examples": sorted(shared)[:5],
             }
 
     # 4) Assemble NetworkX graph (undirected, weighted).
     g = nx.Graph()
-    for a in universe_set:
+    for a in sorted(universe_set):
         g.add_node(a)
     direct_edges = []
-    for (a, b), meta in direct.items():
+    for (a, b), meta in sorted(direct.items()):
         direct_edges.append((a, b, dict(meta)))
         weight = meta["usdc_total"] / 1e4 + meta["erc1155_count"] * 5.0
         g.add_edge(a, b, kind="direct", weight=weight, **meta)
     common_edges = []
-    for (a, b), meta in common.items():
+    for (a, b), meta in sorted(common.items()):
         common_edges.append((a, b, dict(meta)))
         if g.has_edge(a, b):
             # Direct edges dominate; still record the shared count.
