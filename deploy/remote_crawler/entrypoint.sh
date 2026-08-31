@@ -33,7 +33,13 @@ while true; do
     done
   done
   BEFORE="$(nchunks)"
-  echo "[$(date -u +%FT%TZ)] $i crawlers running (chunks=$BEFORE)"; wait "${pids[@]}" || true
+  echo "[$(date -u +%FT%TZ)] $i crawlers running (chunks=$BEFORE)"
+  # 30-min supervisor heartbeat so `docker logs` shows liveness without digging slot logs
+  ( while kill -0 "${pids[0]}" 2>/dev/null; do sleep 1800; \
+      kill -0 "${pids[0]}" 2>/dev/null && echo "[$(date -u +%FT%TZ)] heartbeat: chunks=$(nchunks) (+$(( $(nchunks) - BEFORE )) this pass)"; done ) &
+  HB=$!
+  wait "${pids[@]}" || true
+  kill "$HB" 2>/dev/null || true
   AFTER="$(nchunks)"; MISS="$(gaps || echo 1)"; GAINED=$(( AFTER - BEFORE ))
   echo "[$(date -u +%FT%TZ)] pass complete; +$GAINED chunks; missing_blocks=$MISS"
   [ "${MISS:-1}" = "0" ] && { echo "range complete -- idling"; sleep 86400; continue; }
