@@ -38,7 +38,7 @@ Decomposed into three sub-questions, one per results section:
 - **Position:** first causal-style evidence on fees in a prediction market; first evidence on fee effects on cross-market price consistency; first complete v2 tape.
 
 ## 4. Data and methodology
-*(the most detail-critical section — see the companion `research_outline_brief_2026-08-31.md` for the pedagogical long form)*
+*(the most detail-critical section — see the companion `research_outline_brief_2026-08-31.md` for the long form)*
 - **Two samples.** Sample A: the complete v1 tape (public CC-BY archive, validated row-for-row against our independent on-chain reconstruction), used to *explore* and derive predictions. Sample B: the v2 tape, reconstructed by us from Polygon logs, used to *confirm* the pre-registered predictions. Explore/confirm protocol; pre-registration hash recorded before any Sample B statistic.
 - **The tape.** One row per on-chain `OrderFilled`; how maker/taker, price, fee, and token id are decoded; validation invariants (conservation per transaction, re-fetch identity, taker-order count = OrdersMatched); the pre-registered completeness gate.
 - **Market metadata.** The complete market universe from the CLOB cursor API (2.87 M conditions); why Gamma enumeration is lossy; category from CLOB `tags`; negRisk families from `neg_risk_market_id`; the join to the tape by token id (100 % coverage on cohort 1).

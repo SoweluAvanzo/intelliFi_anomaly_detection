@@ -64,7 +64,7 @@ The general question — *how did fees and the migration change who pays, whethe
 - **RQ4 (incidence).** Who pays the fee, and is it regressive?
 - **RQ5–RQ7 (v2-only, in progress).** Order-flow attribution by channel; post-migration settlement integrity; informed-trading persistence across regimes.
 
-## 6. How the data was collected (pedagogical)
+## 6. How the data was collected
 
 **The raw object is one blockchain event per fill.** Every time two orders match on Polymarket, the exchange contract emits an `OrderFilled` log on Polygon. We fetch these logs directly from the chain (via Etherscan's free `getLogs` API), and decode each into a row: which token, maker and taker wallet, price, size, fee, and a timestamp. This is the "tape". We do this for two eras:
 
