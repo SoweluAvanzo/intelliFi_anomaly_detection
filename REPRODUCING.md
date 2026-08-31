@@ -1,6 +1,6 @@
 # Reproducing the results
 
-This document is for collaborators who have the repository and want to
+This document is for researchers who have the repository and want to
 regenerate every table and figure exactly. Read it before running anything.
 
 ## What can and cannot be reproduced

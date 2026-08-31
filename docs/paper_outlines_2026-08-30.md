@@ -129,6 +129,6 @@ Evidence: self-match exactly 0 in both versions (a structural property of the op
 ## Dependencies, sequencing and gaps
 
 - **A** needs nothing further; draft now, in parallel with collection. Its Methodology section is reused verbatim as the measurement basis of B and C.
-- **B** needs cohorts 1–6 (B2 post-period, B3 replication, informed-taker persistence) and **Gamma metadata for v2 markets** (categories and negRisk families for the v2 side of B2/B3) — *needs an unblocked network: the collaborator or an EU VPS*. Without it, the v2 side of B3's band test is limited to families identifiable from the on-chain condition registry.
+- **B** needs cohorts 1–6 (B2 post-period, B3 replication, informed-taker persistence) and **Gamma metadata for v2 markets** (categories and negRisk families for the v2 side of B2/B3) — *needs an unblocked network: an EU VPS*. Without it, the v2 side of B3's band test is limited to families identifiable from the on-chain condition registry.
 - **C** needs cohorts 1–6 and two free additions: operator transaction lists for reverts (C3) and, for C2 category splits, the same Gamma metadata as B.
 - Order of writing: A (weeks 1–6) → C1 and C3 as cohorts land (they need no metadata) → B once cohort 6 and metadata are in → C2 last, since its confirmatory hypotheses are registered only after cohort 1's exploratory pass.

@@ -1,5 +1,5 @@
-# Collaborator brief — motivation, methods, and current results
-*2026-08-31. Written to be self-contained: it assumes no prior knowledge of our pipeline, methods, or the platform. Everything you need to write the methodology and results sections is here or pointed to.*
+# Research outline brief — motivation, methods, and current results
+*2026-08-31. A self-contained overview of the project — motivation, prior work, the identified gap, research questions, data collection, methodology, and current results — assuming no prior knowledge of the pipeline or the platform.*
 
 ---
 
@@ -104,22 +104,21 @@ Everything is reproducible: the pipeline is seeded and deterministic, intermedia
 
 Full numbers and the exact tests: `docs/cohort_reports/cohort1_2026-08-31.md`.
 
-## 9. Responses to your earlier questions
+## 9. Project scope, venue, and reproducibility
 
-**Your first set (scope):**
-1. *Data — size/type/analyses.* Two on-chain tapes: v1 (complete, ~24 GB, validated public archive) and v2 (we are reconstructing it, ~17 GB so far, ~51 GB at completion), plus the complete market/metadata universe (2.87 M conditions) and on-chain resolutions. Analyses: fee incidence, the negRisk no-arbitrage band, wash/round-trip measures with null models, maker-concentration and order-size DiD, and (in progress) order-flow attribution and settlement integrity.
-2. *Venue/schedule.* Finance/fintech journal (JFM, JBF, or Management Science fintech) for the main paper; a CS-venue companion (FC/AFT) for the v2 tape + settlement integrity. Draft the core (RQ1, RQ4, methods) now; slot in cohorts 2–6 as they land (~2–3 Sep for collection).
-3. *What to focus on.* Introduction, institutional background, and related work are the highest-value places for you to start — they don't depend on the last cohorts. RQ7 (informed-trading persistence) is a natural section for you if you'd like an empirical piece, since it connects to the informed-trading literature you know.
-4. *Main direction.* Fees + migration as a two-step natural experiment on market integrity — with RQ1 (band widening) as the positive headline, RQ4 (regressive incidence) as the policy result, well-identified nulls on market quality, and the migration as the structural experiment.
-5. *Work split.* Suggested: you own introduction/related-work and one empirical section (RQ7 or the make/take framing of RQ3); we own the pipeline, data collection, and RQ1/RQ2/RQ4/RQ5/RQ6. Cadence: a short results update per cohort.
+**Data.** Two on-chain tapes: v1 (complete, ~24 GB, validated public archive) and v2 (under reconstruction, ~17 GB so far, ~51 GB at completion), plus the complete market/metadata universe (2.87 M conditions) and on-chain resolutions. Analyses: fee incidence, the negRisk no-arbitrage band, wash/round-trip measures with null models, maker-concentration and order-size DiD, and (in progress) order-flow attribution and settlement integrity.
 
-**Your second set (reproducibility):**
-1. *Result files / intermediates.* All under `data/parquet/` (not in the repo — too large; shipped separately or regenerated). Cohort reports and analysis outputs are in `docs/cohort_reports/` and `docs/atlas_2026-08-30/`. Every headline number has a script under `scripts/` or the atlas `scripts/`.
-2. *Pinned environment.* `requirements-lock.txt` pins exact versions; `pyproject.toml` declares dependencies; always use the project venv (the base Python's older pyarrow cannot read our parquet). Documented in `REPRODUCING.md`.
-3. *Minimal reproducible example.* `examples/verify_export.py` recomputes the core statistics from the exported CSVs with pandas only; `examples/compare_outputs.py` checks a regenerated store against a reference snapshot. Both are in the repo.
+**Venue and schedule.** A finance/fintech journal (Journal of Financial Markets, Journal of Banking & Finance, or Management Science fintech) for the main paper; a CS-venue companion (FC/AFT) for the v2 tape and settlement integrity. The core (RQ1, RQ4, methodology) can be drafted now; cohorts 2–6 slot in as they complete (~2–3 Sep for collection).
 
-*These questions are still relevant and the answers above supersede the earlier ones, now that the v2 pipeline and cohort-1 results exist. The main change since we last spoke: the metadata coverage problem is fully solved (100 % via the CLOB cursor API), cohort 1 is validated and analysed, and the paper's spine has sharpened to "fees are largely integrity-neutral except the no-arbitrage band; the migration is the big structural shock."*
+**Writing order.** Introduction, institutional background, and related work are the highest-value places to begin — they do not depend on the last cohorts. RQ7 (informed-trading persistence) is a natural standalone empirical section, connecting directly to the informed-trading literature.
 
+**Main direction.** Fees and the migration as a two-step natural experiment on market integrity — with RQ1 (no-arbitrage band widening) as the positive headline, RQ4 (regressive incidence) as the policy result, well-identified nulls on market quality, and the migration as the structural experiment.
+
+**Division of labour.** Two natural tracks: (a) introduction, related work, and one empirical section (RQ7, or the make/take framing of RQ3); (b) the data pipeline, collection, and RQ1/RQ2/RQ4/RQ5/RQ6. A short results update accompanies each completed cohort.
+
+**Reproducibility.** Result files and intermediates live under `data/parquet/` (not in the repository — too large; shipped separately or regenerated); cohort reports and analysis outputs are in `docs/cohort_reports/` and `docs/atlas_2026-08-30/`, and every headline number has a script under `scripts/` or the atlas `scripts/`. The environment is pinned — `requirements-lock.txt` (exact versions), `pyproject.toml` (dependencies), and the project virtual environment (required, because the base Python's older pyarrow cannot read the parquet files) — and documented in `REPRODUCING.md`. A minimal reproducible example ships in the repository: `examples/verify_export.py` recomputes the core statistics from exported CSVs with pandas only, and `examples/compare_outputs.py` checks a regenerated store against a reference snapshot.
+
+**Status note.** The v2 pipeline and cohort-1 results now exist; the metadata coverage problem is fully solved (100 % via the CLOB cursor API), cohort 1 is validated and analysed, and the paper's spine has sharpened to: fees are largely integrity-neutral except the no-arbitrage band, and the migration is the dominant structural shock.
 ---
 
 ## 10. Glossary of technical terms

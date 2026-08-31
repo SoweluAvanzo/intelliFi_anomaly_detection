@@ -59,14 +59,14 @@ python scripts/03_resolve_wallet_entities.py
 python scripts/04_coordination_analysis.py
 python scripts/05_backtest_mirror.py
 python scripts/06_convergence.py
-python scripts/07_export_csv.py --zip      # CSV bundle for collaborators -> data/export/
+python scripts/07_export_csv.py --zip      # CSV bundle for external researchers -> data/export/
 python scripts/08_fetch_fills_dune.py --query-id <id> -v   # Phase 3 prototype: on-chain OrderFilled fills via Dune (needs DUNE_API_KEY in .env)
 
 # notebooks
 jupyter lab notebooks/
 ```
 
-`REPRODUCING.md` is the collaborator-facing guide: analysis stages 03–07 are deterministic given the parquet store (seeded Louvain, sorted graph construction, explicit leader-lag tie-break); `examples/compare_outputs.py` checks a regenerated store against `data/snapshots/<date>/`, and `examples/verify_export.py` (shipped inside the CSV bundle) recomputes the core statistics from the raw CSVs with pandas only. Run both after any change to the analysis modules.
+`REPRODUCING.md` is the reproducibility guide: analysis stages 03–07 are deterministic given the parquet store (seeded Louvain, sorted graph construction, explicit leader-lag tie-break); `examples/compare_outputs.py` checks a regenerated store against `data/snapshots/<date>/`, and `examples/verify_export.py` (shipped inside the CSV bundle) recomputes the core statistics from the raw CSVs with pandas only. Run both after any change to the analysis modules.
 
 There is no lint / test target yet. `pyproject.toml` declares `ruff` and `pytest` in `[project.optional-dependencies].dev`, but no tests exist. Add them under `tests/` if introducing new behaviour.
 
@@ -88,7 +88,7 @@ There is no lint / test target yet. `pyproject.toml` declares `ruff` and `pytest
 | `coordination.py` | Cotrade pairs, leader-lag, wash-round-trips. |
 | `backtest.py` | Mirror-strategy engine: latency, exit horizons, fee model. |
 | `convergence.py` | Per-market winner-price abs-error over hours-before-end. |
-| `export.py` | Flattens the whole parquet store to CSV (+ README data dictionary, MANIFEST) for external collaborators. |
+| `export.py` | Flattens the whole parquet store to CSV (+ README data dictionary, MANIFEST) for external researchers. |
 | `fills.py` | Phase 3 prototype: Dune client, `OrderFilled` SQL for both exchanges, fill normaliser, and a four-invariant reconciliation against the Data API sample (taker match, per-tx conservation, coverage gain, completeness vs Gamma share volume). Exchange addresses verified empirically; `is_taker_order` derived at read time. |
 
 Scripts in `scripts/` are thin orchestrators (one per pipeline stage). Notebooks in `notebooks/` are narrative and read parquet outputs only.

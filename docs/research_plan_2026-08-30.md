@@ -86,12 +86,12 @@ Paper A carries the corrected Stage I story and protects priority on the pitfall
 | Polymarket-v1 archive (CC-BY) | 2022-11 → 2026-04-28, all markets | on disk (24 GB), validated 171,126 = 171,126 |
 | On-chain resolutions / token derivation | all markets | corpus done; v2 registry script ready |
 | v2 tape (own) | cohort 1 ≈ 75 %, cohort 2 ≈ 20 %, cohorts 3–6 + genesis gap pending | crawling at ~50 chunks/h on four keys; ≈ 51 GB at completion |
-| Gamma metadata for v2 (categories, families) | pending | requires an unblocked network (collaborator / EU VPS) |
+| Gamma metadata for v2 (categories, families) | pending | requires an unblocked network (an EU VPS) |
 | Stage I corpus, exports, Dune/Etherscan reconstructions | done | reference snapshots |
 
 ## 6. Work split (to decide)
 
-Natural ownership units: [collaborator] — introduction and related work for A; RQ7 (informed-trading persistence with the FFIC inventory) or RQ3 (make/take framing) for B. [you] — data pipeline, gates, cohorts, RQ1–RQ2, RQ5–RQ6. Weekly cadence: cohort report every ~3 days while collection runs; paper A draft by week 6.
+Two natural tracks: (a) introduction and related work for A, plus one empirical section — RQ7 (informed-trading persistence with the FFIC inventory) or RQ3 (make/take framing) — for B; (b) the data pipeline, gates, cohorts, and RQ1–RQ2, RQ5–RQ6. Weekly cadence: cohort report every ~3 days while collection runs; paper A draft by week 6.
 
 ## 7. Risks
 
