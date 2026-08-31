@@ -46,15 +46,15 @@ Decomposed into three sub-questions, one per results section:
 - **Estimators.** TOST equivalence (for "unchanged" claims); staggered/two-step DiD with a fee-free control (geopolitics); class-clustered SEs and wild-cluster bootstrap when the number of clusters is small; Holm across the primary hypotheses.
 - **Assumptions and threats**, stated plainly: fee formula; class assignment; **the migration confound** (v2 vs v1-April conflates fee with migration — the two-step design and the within-v2 cohort trend address it); market-vintage confound; seasonality/event mix.
 
-## 5. Results 1 — Incidence (SQ1)
+## 5. Results 1 — Incidence
 - Fee-rule verification; effective rate by trader-size decile × price band (regressive: 3.0 % small long-shot → 1.15 % large in cohort 1); incidence by vintage (entrants 5.7× via exposure); on-chain fee-receiver accounting (v2).
 
-## 6. Results 2 — Price discipline (SQ2)  ← headline
+## 6. Results 2 — Price discipline
 - **negRisk no-arbitrage band:** A: median |S−1| 0.012 (fee-free) → 0.031 (fee), +3.4–4.2 pp; **B cohort 1: fee-family median 0.020, inside the predicted (0.012, 0.031] band — the widening replicates.**
 - **Wash-like activity:** self-matching structurally 0 (both regimes); round trips small and not systematically higher under fees.
 - **Informed taker behaviour** (RQ7, as cohorts allow): skilled-minority share stable/lower under fees.
 
-## 7. Results 3 — Liquidity provision and the migration (SQ3)
+## 7. Results 3 — Liquidity provision and the migration
 - Fees: maker HHI, top-5 share, order size — **null under fees** once the migration is netted out (DiD, within-B control).
 - Migration: the **large** structural shock — maker concentration and order size shifted platform-wide (order size −2.7 log points across all classes including the fee-free control); this is the natural-experiment result.
 - Cohort trend (cohorts 2–6) separates fee from migration cleanly within v2.

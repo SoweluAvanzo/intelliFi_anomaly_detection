@@ -16,9 +16,9 @@ These two events, four months apart, are a **two-step natural experiment**: the 
 
 The practical stakes: fees change who can afford to trade, whether arbitrageurs keep prices consistent, and whether the market attracts or repels informed traders — all of which bear on whether these markets remain trustworthy "probability" signals.
 
-## 2. How Polymarket works (background)
+## 2. How Polymarket works
 
-*The platform primer, assuming no prior crypto or trading knowledge. Terms in **bold** get a precise one-line definition in the glossary (§10).*
+*The platform primer, assuming no prior crypto or trading knowledge; key terms are defined inline where they first appear.*
 
 **A prediction market.** Polymarket lets people trade **outcome shares** in a future event ("Will X happen?"). Each market has two **outcome tokens**, YES and NO, each of which pays **$1 if its outcome occurs and $0 otherwise**. Because a winning share is worth exactly $1, a YES share trading at $0.63 means the market prices the event at a **63 % probability** — the price *is* a live, crowd-sourced probability, which is what makes these markets worth studying.
 
@@ -79,7 +79,7 @@ The general question — *how did fees and the migration change who pays, whethe
 
 **One honest data caveat (the migration confound).** Sample B is the *new* platform. When we compare a v2 statistic to its v1 value, we are seeing *fees + the migration together*. To isolate the fee we use (a) the fee-free control category that exists in both eras (geopolitics), (b) difference-in-differences that nets out changes common to all categories, and (c) the trend across successive v2 cohorts (all under the same architecture, so differences there are fees, not migration).
 
-## 7. Methodology (the estimators and assumptions)
+## 7. Methodology
 
 - **Unit of analysis** varies by question: a *fill* (incidence), a *taker order* (order size, round trips), a *(maker, class)* pair (concentration), a *family-hour* (no-arbitrage band).
 - **Class scheme.** We assign every market to one of 8 categories (crypto, sports, politics, geopolitics, finance, culture, esports, other) from its tags, using the same mapping on v1 and v2 so the two are comparable. A market with several tags is assigned by a fixed precedence rule.
@@ -90,15 +90,15 @@ The general question — *how did fees and the migration change who pays, whethe
 
 Everything is reproducible: the pipeline is seeded and deterministic, intermediates are parquet files, and each figure/table has a script.
 
-## 8. What we have now (results)
+## 8. Results
 
 **Consolidated (strong):**
-- **RQ4 incidence — regressive.** The effective fee rate falls monotonically from 3.0 % of notional for the smallest taker orders to 1.15 % for the largest (cohort 1); 96 % of taker orders are fee-paying; post-rollout entrants bear ~5.7× the exposure of pre-2024 wallets. Exact fee formula verified.
-- **RQ1 no-arbitrage band — the headline positive result.** On v1, the median deviation |Σ YES − 1| widens from 0.012 (fee-free) to 0.031 (fee), a +3.4–4.2 pp increase robust to fixed effects. On v2 cohort 1, fee families sit at **0.020 — inside the predicted (0.012, 0.031] range**: the widening replicates. Interpretation: fees make it cheaper to move a candidate's price out of line before arbitrage corrects it — a manipulation-resilience result with a measured magnitude.
+- **RQ4 incidence — regressive.** The effective fee rate falls monotonically from 3.0 % of notional (a trade's dollar value, price × shares) for the smallest taker orders to 1.15 % for the largest (cohort 1); 96 % of taker orders are fee-paying; post-rollout entrants bear ~5.7× the exposure of pre-2024 wallets. Exact fee formula verified.
+- **RQ1 no-arbitrage band — the headline positive result.** On v1, the median deviation |Σ YES − 1| widens from 0.012 (fee-free) to 0.031 (fee), a +3.4–4.2 pp (percentage-point) increase robust to fixed effects (controls that absorb fixed differences across categories and periods). On v2 cohort 1, fee families sit at **0.020 — inside the predicted (0.012, 0.031] range**: the widening replicates. Interpretation: fees make it cheaper to move a candidate's price out of line before arbitrage corrects it — a manipulation-resilience result with a measured magnitude.
 
 **Cohort-1 confirmatory (v2), with the migration caveat:**
 - **RQ2 wash — no rise.** Self-matching is exactly 0 of 84.3 M fills (a structural property of the exchange, in both eras). One-step round trips are small and only mixed-slightly-higher under fees (4/7 classes within ±1 pp).
-- **RQ3 market quality — fee-null, migration-large.** Netting out the migration, fees show **no** effect on maker concentration or order size. But the migration itself is a *large* shock: taker order size fell ~2.7 log points across *every* class including the fee-free control, and maker concentration shifted. That uniform drop is the migration (and the explosion of tiny "hourly" markets in v2), not the fee — which is itself a clean natural-experiment finding.
+- **RQ3 market quality — fee-null, migration-large.** Netting out the migration, fees show **no** effect on maker concentration or order size. But the migration itself is a *large* shock: taker order size fell ~2.7 log points (a natural-log change, ≈ % change for small moves) across *every* class including the fee-free control, and maker concentration shifted. That uniform drop is the migration (and the explosion of tiny "hourly" markets in v2), not the fee — which is itself a clean natural-experiment finding.
 
 **The single most important methodological result:** cohort 1 shows that a v2 snapshot compared to v1 conflates fees with the migration, and the migration dominates the raw levels. This *validates the design*: the clean fee identification comes from the within-v2 cohort trend (cohorts 2–6, in collection now), and the migration is a publishable natural experiment in its own right.
 
@@ -119,67 +119,3 @@ Full numbers and the exact tests: `docs/cohort_reports/cohort1_2026-08-31.md`.
 **Reproducibility.** Result files and intermediates live under `data/parquet/` (not in the repository — too large; shipped separately or regenerated); cohort reports and analysis outputs are in `docs/cohort_reports/` and `docs/atlas_2026-08-30/`, and every headline number has a script under `scripts/` or the atlas `scripts/`. The environment is pinned — `requirements-lock.txt` (exact versions), `pyproject.toml` (dependencies), and the project virtual environment (required, because the base Python's older pyarrow cannot read the parquet files) — and documented in `REPRODUCING.md`. A minimal reproducible example ships in the repository: `examples/verify_export.py` recomputes the core statistics from exported CSVs with pandas only, and `examples/compare_outputs.py` checks a regenerated store against a reference snapshot.
 
 **Status note.** The v2 pipeline and cohort-1 results now exist; the metadata coverage problem is fully solved (100 % via the CLOB cursor API), cohort 1 is validated and analysed, and the paper's spine has sharpened to: fees are largely integrity-neutral except the no-arbitrage band, and the migration is the dominant structural shock.
----
-
-## 10. Glossary of technical terms
-
-*Precise one-line definitions of every technical term used above, for a reader from outside crypto or market microstructure.*
-
-**Platform & instruments**
-- **Prediction market** — an exchange for trading shares in a future event's outcome; the price reads as the market's probability of that outcome.
-- **Outcome token / share (YES, NO)** — a token paying $1 if its outcome occurs and $0 otherwise; Polymarket's are ERC-1155 conditional tokens.
-- **Condition / `conditionId`** — the on-chain object for one market (one question); the unit the metadata universe is keyed on (2.87 M total).
-- **Token id** — the on-chain id of one specific outcome (a single YES or NO) inside a condition.
-- **Collateral** — the stablecoin locked to back shares and paid out at resolution: USDC (v1), pUSD (v2).
-- **Complete set / mint / merge** — lock $1 of collateral to create 1 YES + 1 NO ("mint"); redeem the pair back to $1 ("merge"). Pins YES + NO ≈ $1.
-- **Fill** — one executed trade (one buy matched to one sell), emitted on-chain as `OrderFilled`. The **tape** is the full stream of fills.
-- **Notional** — a trade's or position's dollar value (price × shares); the denominator of "effective fee rate".
-
-**Order book, maker/taker & fees**
-- **CLOB (central limit order book)** — a market matched by price/time priority among resting limit orders (as opposed to an AMM).
-- **AMM (automated market maker)** — a pool-priced design (Uniswap, Augur); **not** used by Polymarket, so AMM price-impact theory (LVR, divergence loss) does not apply here.
-- **Off-chain book / on-chain settlement** — orders are signed and matched off-chain by the operator; only the resulting trade settles on Polygon. Hence the order book and its depth are absent from on-chain data.
-- **Maker** — the trader whose limit order rested in the book and was matched against; the liquidity provider.
-- **Taker** — the trader whose incoming order crossed the book and executed; the liquidity consumer.
-- **Maker–taker pricing / make-take fees** — a fee schedule that charges takers and (often) rebates makers, to reward liquidity provision. Polymarket: taker-only, no maker fee, plus v2 per-market rebates.
-- **Taker fee** — the fee paid by the taker; Polymarket's is `0.10 × shares × min(p, 1−p)` (largest near p = 0.5, ~0 for long-shots).
-- **Maker rebate** — a payment *to* the maker for providing liquidity (a negative fee); introduced per-market in v2.
-- **Liquidity provision** — posting resting orders others can trade against; measured via maker concentration and order size.
-- **Maker concentration** — how few makers supply most of the liquidity (via an HHI or top-k share); high = a few dominant providers.
-- **Bid–ask spread** — the gap between the best buy and best sell price; a core liquidity/cost measure (proxied here, since we observe only fills, not the live book).
-- **Order-book depth / quote / top-of-book** — the resting orders and their prices at an instant; off-chain, so approximated in our data.
-
-**Market integrity & structure**
-- **negRisk ("negative-risk") family** — a set of mutually-exclusive candidates for one event, exactly one resolving YES; their YES prices should sum to 1.
-- **Arbitrage / no-arbitrage** — a risk-free profit from a price inconsistency; "no-arbitrage" is the state where such profits have been competed away (here: Σ YES = 1 across a family).
-- **No-arbitrage band** — our price-consistency measure: the deviation |Σ YES − 1| for a family; wider = looser price discipline.
-- **Wash trading / self-matching** — fake volume from trading with oneself or a colluding partner; "self-matching" = a wallet filling its own order (≈ 0 in both eras; contract-blocked in v2).
-- **Round trip** — a buy soon offset by a sell of the same token (a position opened then closed); a wash-like-activity proxy.
-- **Informed trading** — trading on superior information, which pushes price toward the true probability; a fee that taxes it may weaken price discipline.
-- **Settlement / resolution** — fixing the winning outcome (via UMA's optimistic oracle) and paying $1 per winning share; the "three close timestamps" are scheduled end, last trade, and resolution.
-- **Builder attribution** — a v2 field tagging which front-end/integrator ("builder") routed an order; enables order-flow-by-channel analysis.
-- **Self-cross prevention** — a v2 contract rule forbidding a wallet from matching its own order; removes one wash route by construction.
-- **Ghost fill** — a match recorded/attempted that reverts or fails to settle; tracked as a v2 settlement-integrity signal.
-- **Migration (v1 → v2)** — Polymarket's 28 Apr 2026 move to new exchange contracts (pUSD, maker rebates, builder attribution, self-cross prevention).
-
-**Blockchain & data**
-- **Polygon** — the public blockchain (an Ethereum layer-2) Polymarket settles on; every fill is recorded there.
-- **Smart / exchange contract** — the on-chain program that settles matched trades (Polymarket's CTF Exchange and NegRisk CTF Exchange).
-- **Log / event (`OrderFilled`, `OrdersMatched`)** — records a contract emits per action (`OrderFilled` = one filled order; `OrdersMatched` = one match); fetched via Etherscan's `getLogs`.
-- **CLOB API (`tags`, `neg_risk_market_id`)** — Polymarket's public metadata API mapping token → market, category (`tags`) and negRisk family; cursor-enumerated to get the full 2.87 M-condition universe.
-- **Cohort** — a contiguous batch of v2 blocks crawled and validated as a unit (cohorts 1–6), so analysis can begin before all of v2 is collected.
-
-**Econometrics & statistics**
-- **Incidence** — who actually bears a fee once behavior adjusts, not just who legally pays it.
-- **Regressive** — takes a larger share from smaller participants than from larger ones.
-- **Natural experiment** — a real-world change (the fee rollout; the migration) that approximates a randomized treatment, enabling causal claims.
-- **Treatment / control / dose** — the exposed group (fee-paying classes), the unexposed group (fee-free geopolitics), and "dose" = the fee-band size as a continuous treatment.
-- **Difference-in-differences (DiD)** — compares the before→after change in the treated group to that in a control, cancelling anything common to both (e.g. the migration); "staggered" = treatments beginning at different dates.
-- **Fixed effects (FE)** — controls absorbing all differences across a category or period, so identification comes from within-unit variation.
-- **Equivalence test / TOST (two one-sided tests)** — the proper way to assert "no meaningful effect": require the estimate to fall inside a pre-set band (e.g. ±25 %), rather than reading a non-significant result as a null.
-- **Clustered SEs / wild-cluster bootstrap** — standard errors allowing within-group correlation (here 8 classes); the wild-cluster bootstrap corrects them when clusters are few (G = 8).
-- **Holm correction** — a multiple-testing adjustment limiting the chance of any false positive across the primary hypotheses.
-- **Pre-registration / explore–confirm split** — writing down and hashing the exact predictions on Sample A before testing them on Sample B, to prevent over-fitting ("fishing").
-- **Cross-sectional** — a one-time snapshot across units (vs. tracking change over time); the limit of prior Polymarket studies.
-- **Percentage points (pp) vs log points** — pp = the additive gap between two percentages (3 %→7 % = +4 pp); log points = a difference in natural logs (≈ % change for small moves), used for order-size changes.
-- **Stylized facts** — robust empirical regularities a literature has established (e.g. fat-tailed returns).
