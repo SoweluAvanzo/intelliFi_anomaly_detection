@@ -466,7 +466,7 @@ established on 2026-08-29:
   tape). Invariants: taker match via `OrdersMatched`, per-tx conservation,
   completeness vs `FeeCharged` totals. Market metadata and the category →
   fee mapping come from Gamma, which must be fetched from an unblocked
-  network (EU VPS or collaborator).
+  network (an EU VPS).
 
 ### 10.2 Protocol
 

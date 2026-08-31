@@ -1,4 +1,4 @@
-"""Stage 7: export the parquet store to CSV for external collaborators.
+"""Stage 7: export the parquet store to CSV for external researchers.
 
 Writes one CSV per dataset under ``--out`` (default ``data/export/csv``),
 plus ``README.md`` (data dictionary) and ``MANIFEST.csv``. The on-chain

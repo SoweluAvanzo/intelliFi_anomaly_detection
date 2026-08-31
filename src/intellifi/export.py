@@ -1,4 +1,4 @@
-"""CSV export of the parquet store for external collaborators.
+"""CSV export of the parquet store for external researchers.
 
 Every parquet dataset under ``config.PARQUET_DIR`` is flattened to one CSV
 file (partitioned datasets are concatenated, with the partition key kept as a
