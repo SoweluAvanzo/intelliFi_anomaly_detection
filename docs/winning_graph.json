@@ -1,0 +1,47 @@
+{
+ "graph_k": 6000,
+ "cotrade_min": 3,
+ "n_cotrade_pairs": 704904,
+ "n_funding_pairs": 1283,
+ "n_funders": 5456,
+ "n_hub_funders": 162,
+ "n_multi_wallet_clusters": 4,
+ "wallets_in_clusters": 5460,
+ "largest_cluster_wallets": [
+  5451,
+  4,
+  3,
+  2
+ ],
+ "top_clusters_by_pnl": [
+  {
+   "n_wallets": 5451,
+   "total_pnl": 787482888.749775,
+   "cotrade_edges": 704904,
+   "funding_edges": 1273,
+   "both_edges": 673
+  },
+  {
+   "n_wallets": 4,
+   "total_pnl": 154953.8174,
+   "cotrade_edges": 0,
+   "funding_edges": 6,
+   "both_edges": 0
+  },
+  {
+   "n_wallets": 3,
+   "total_pnl": 129582.02709699998,
+   "cotrade_edges": 0,
+   "funding_edges": 3,
+   "both_edges": 0
+  },
+  {
+   "n_wallets": 2,
+   "total_pnl": 57668.38970998391,
+   "cotrade_edges": 0,
+   "funding_edges": 1,
+   "both_edges": 0
+  }
+ ],
+ "note": "COTRADE edge = >=cotrade-min shared (market,side,day); FUNDING edge = shared non-hub USDC funder. Multi-wallet clusters that combine BOTH funding and cotrade edges are the strongest coordinated-operation (syndicate) candidates. Funding data present for 5990 wallets."
+}

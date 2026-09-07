@@ -1,0 +1,202 @@
+{
+ "low_p_threshold": 0.2,
+ "high_p_threshold": 0.8,
+ "n_wallets": 139164,
+ "acct_quartile_notional": [
+  {
+   "q": 1,
+   "n_wallets": 34791,
+   "min_notional": 1e-05,
+   "median_notional": 1.86832,
+   "max_notional": 5.024970000000001
+  },
+  {
+   "q": 2,
+   "n_wallets": 34791,
+   "min_notional": 5.024970000000001,
+   "median_notional": 13.0,
+   "max_notional": 27.282017000000003
+  },
+  {
+   "q": 3,
+   "n_wallets": 34791,
+   "min_notional": 27.289683,
+   "median_notional": 63.6,
+   "max_notional": 151.05546999999999
+  },
+  {
+   "q": 4,
+   "n_wallets": 34791,
+   "min_notional": 151.05546999999999,
+   "median_notional": 631.85,
+   "max_notional": 9251784.210150002
+  }
+ ],
+ "pooled_crosstab": [
+  {
+   "acct_q": 1,
+   "pband": "high(>0.80)",
+   "n_trades": 20207,
+   "n_wallets": 17170,
+   "mean_implied_p": 0.9890678600653703,
+   "realised_hit_rate": 0.995199683278072,
+   "calibration_gap": 0.00613182321270167
+  },
+  {
+   "acct_q": 2,
+   "pband": "high(>0.80)",
+   "n_trades": 24128,
+   "n_wallets": 18668,
+   "mean_implied_p": 0.9879663473847177,
+   "realised_hit_rate": 0.9980106100795756,
+   "calibration_gap": 0.01004426269485792
+  },
+  {
+   "acct_q": 3,
+   "pband": "high(>0.80)",
+   "n_trades": 31866,
+   "n_wallets": 20194,
+   "mean_implied_p": 0.9882985402322851,
+   "realised_hit_rate": 0.99796020837256,
+   "calibration_gap": 0.009661668140274915
+  },
+  {
+   "acct_q": 4,
+   "pband": "high(>0.80)",
+   "n_trades": 96634,
+   "n_wallets": 24313,
+   "mean_implied_p": 0.9877831358037469,
+   "realised_hit_rate": 0.9989444708901629,
+   "calibration_gap": 0.011161335086416035
+  },
+  {
+   "acct_q": 1,
+   "pband": "low(<0.20)",
+   "n_trades": 28557,
+   "n_wallets": 20737,
+   "mean_implied_p": 0.00923093122710228,
+   "realised_hit_rate": 0.002031025667962321,
+   "calibration_gap": -0.007199905559139958
+  },
+  {
+   "acct_q": 2,
+   "pband": "low(<0.20)",
+   "n_trades": 37297,
+   "n_wallets": 23401,
+   "mean_implied_p": 0.011602613077521117,
+   "realised_hit_rate": 0.0010992841247285305,
+   "calibration_gap": -0.010503328952792587
+  },
+  {
+   "acct_q": 3,
+   "pband": "low(<0.20)",
+   "n_trades": 42574,
+   "n_wallets": 21666,
+   "mean_implied_p": 0.012949288212427752,
+   "realised_hit_rate": 0.0009395405646638793,
+   "calibration_gap": -0.012009747647763873
+  },
+  {
+   "acct_q": 4,
+   "pband": "low(<0.20)",
+   "n_trades": 89068,
+   "n_wallets": 27891,
+   "mean_implied_p": 0.014550090605845145,
+   "realised_hit_rate": 0.0008083711321686801,
+   "calibration_gap": -0.013741719473676466
+  },
+  {
+   "acct_q": 1,
+   "pband": "mid",
+   "n_trades": 994,
+   "n_wallets": 832,
+   "mean_implied_p": 0.4846932830490127,
+   "realised_hit_rate": 0.41146881287726356,
+   "calibration_gap": -0.07322447017174916
+  },
+  {
+   "acct_q": 2,
+   "pband": "mid",
+   "n_trades": 1778,
+   "n_wallets": 1162,
+   "mean_implied_p": 0.46929242944277466,
+   "realised_hit_rate": 0.3728908886389201,
+   "calibration_gap": -0.09640154080385455
+  },
+  {
+   "acct_q": 3,
+   "pband": "mid",
+   "n_trades": 2438,
+   "n_wallets": 1215,
+   "mean_implied_p": 0.47465921195137434,
+   "realised_hit_rate": 0.4036095159967186,
+   "calibration_gap": -0.07104969595465571
+  },
+  {
+   "acct_q": 4,
+   "pband": "mid",
+   "n_trades": 7013,
+   "n_wallets": 1737,
+   "mean_implied_p": 0.4968355928424198,
+   "realised_hit_rate": 0.5120490517610152,
+   "calibration_gap": 0.015213458918595435
+  }
+ ],
+ "lowp_wallet_clustered": [
+  {
+   "acct_q": 1,
+   "n_wallets": 154,
+   "mean_wallet_gap": -0.006460495857580963,
+   "ci95": [
+    -0.009089116852180458,
+    -0.004384092033461617
+   ],
+   "gap_ci_excludes_0": true
+  },
+  {
+   "acct_q": 2,
+   "n_wallets": 833,
+   "mean_wallet_gap": -0.007481240754954155,
+   "ci95": [
+    -0.009166318227941209,
+    -0.005331182694710117
+   ],
+   "gap_ci_excludes_0": true
+  },
+  {
+   "acct_q": 3,
+   "n_wallets": 1344,
+   "mean_wallet_gap": -0.011264888268013164,
+   "ci95": [
+    -0.012554903150188089,
+    -0.009931242078763534
+   ],
+   "gap_ci_excludes_0": true
+  },
+  {
+   "acct_q": 4,
+   "n_wallets": 2776,
+   "mean_wallet_gap": -0.013643033232290347,
+   "ci95": [
+    -0.015023447705348855,
+    -0.012184311450402153
+   ],
+   "gap_ci_excludes_0": true
+  }
+ ],
+ "lowp_Q4_minus_Q1": {
+  "diff": -0.007182537374709384,
+  "ci95": [
+   -0.009769158786078307,
+   -0.004331569872713295
+  ],
+  "reliable_positive": false
+ },
+ "verdict": "NOT RELIABLE: no significant wealth->longshot-edge effect at the wallet-clustered level (trade-level pooled patterns may look larger but ignore within-wallet correlation)",
+ "caveats": [
+  "Sample A = taker-side TAIL feed (4000-cap/market, ~90% at extreme prices); a biased slice.",
+  "Account size = cumulative feed taker notional \u2014 a weak wealth proxy (on-chain USDC balance is better).",
+  "Account size is outcome-dependent (winners accumulate): associational, not causal.",
+  "Wallet-clustered CI is the honest test; the pooled cross-tab overstates significance."
+ ]
+}

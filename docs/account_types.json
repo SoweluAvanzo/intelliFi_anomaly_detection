@@ -1,0 +1,388 @@
+{
+ "n_classified": 27111,
+ "type_counts": {
+  "proxy:7e77a9a6": 199,
+  "proxy:cefa4f59": 84,
+  "proxy:f5c62537": 892,
+  "EOA": 5699,
+  "proxy_minor": 20210,
+  "proxy:7652a45d": 27
+ },
+ "dominant_proxy_hashes": [
+  "f5c625376518f07a",
+  "cefa4f597e0304e1",
+  "7e77a9a6f3d8a738",
+  "7652a45dda6a3f58"
+ ],
+ "type_by_pnl_decile": [
+  {
+   "pnl_decile": 1,
+   "acct_type": "proxy:7e77a9a6",
+   "n": 12
+  },
+  {
+   "pnl_decile": 1,
+   "acct_type": "proxy:cefa4f59",
+   "n": 742
+  },
+  {
+   "pnl_decile": 1,
+   "acct_type": "proxy:7652a45d",
+   "n": 10
+  },
+  {
+   "pnl_decile": 1,
+   "acct_type": "EOA",
+   "n": 151
+  },
+  {
+   "pnl_decile": 1,
+   "acct_type": "proxy_minor",
+   "n": 1
+  },
+  {
+   "pnl_decile": 1,
+   "acct_type": "proxy:f5c62537",
+   "n": 1597
+  },
+  {
+   "pnl_decile": 2,
+   "acct_type": "proxy:7652a45d",
+   "n": 9
+  },
+  {
+   "pnl_decile": 2,
+   "acct_type": "EOA",
+   "n": 83
+  },
+  {
+   "pnl_decile": 2,
+   "acct_type": "proxy:f5c62537",
+   "n": 1501
+  },
+  {
+   "pnl_decile": 2,
+   "acct_type": "proxy:cefa4f59",
+   "n": 891
+  },
+  {
+   "pnl_decile": 2,
+   "acct_type": "proxy:7e77a9a6",
+   "n": 24
+  },
+  {
+   "pnl_decile": 2,
+   "acct_type": "proxy_minor",
+   "n": 5
+  },
+  {
+   "pnl_decile": 3,
+   "acct_type": "EOA",
+   "n": 75
+  },
+  {
+   "pnl_decile": 3,
+   "acct_type": "proxy:f5c62537",
+   "n": 1615
+  },
+  {
+   "pnl_decile": 3,
+   "acct_type": "proxy:cefa4f59",
+   "n": 760
+  },
+  {
+   "pnl_decile": 3,
+   "acct_type": "proxy_minor",
+   "n": 6
+  },
+  {
+   "pnl_decile": 3,
+   "acct_type": "proxy:7652a45d",
+   "n": 20
+  },
+  {
+   "pnl_decile": 3,
+   "acct_type": "proxy:7e77a9a6",
+   "n": 37
+  },
+  {
+   "pnl_decile": 4,
+   "acct_type": "proxy_minor",
+   "n": 2
+  },
+  {
+   "pnl_decile": 4,
+   "acct_type": "EOA",
+   "n": 52
+  },
+  {
+   "pnl_decile": 4,
+   "acct_type": "proxy:7652a45d",
+   "n": 6
+  },
+  {
+   "pnl_decile": 4,
+   "acct_type": "proxy:7e77a9a6",
+   "n": 30
+  },
+  {
+   "pnl_decile": 4,
+   "acct_type": "proxy:cefa4f59",
+   "n": 627
+  },
+  {
+   "pnl_decile": 4,
+   "acct_type": "proxy:f5c62537",
+   "n": 1796
+  },
+  {
+   "pnl_decile": 5,
+   "acct_type": "EOA",
+   "n": 33
+  },
+  {
+   "pnl_decile": 5,
+   "acct_type": "proxy:7652a45d",
+   "n": 7
+  },
+  {
+   "pnl_decile": 5,
+   "acct_type": "proxy:f5c62537",
+   "n": 2002
+  },
+  {
+   "pnl_decile": 5,
+   "acct_type": "proxy:cefa4f59",
+   "n": 441
+  },
+  {
+   "pnl_decile": 5,
+   "acct_type": "proxy:7e77a9a6",
+   "n": 27
+  },
+  {
+   "pnl_decile": 5,
+   "acct_type": "proxy_minor",
+   "n": 3
+  },
+  {
+   "pnl_decile": 6,
+   "acct_type": "proxy:cefa4f59",
+   "n": 190
+  },
+  {
+   "pnl_decile": 6,
+   "acct_type": "proxy:f5c62537",
+   "n": 2273
+  },
+  {
+   "pnl_decile": 6,
+   "acct_type": "proxy:7e77a9a6",
+   "n": 10
+  },
+  {
+   "pnl_decile": 6,
+   "acct_type": "EOA",
+   "n": 36
+  },
+  {
+   "pnl_decile": 6,
+   "acct_type": "proxy_minor",
+   "n": 1
+  },
+  {
+   "pnl_decile": 6,
+   "acct_type": "proxy:7652a45d",
+   "n": 3
+  },
+  {
+   "pnl_decile": 7,
+   "acct_type": "proxy:f5c62537",
+   "n": 2325
+  },
+  {
+   "pnl_decile": 7,
+   "acct_type": "proxy:cefa4f59",
+   "n": 52
+  },
+  {
+   "pnl_decile": 7,
+   "acct_type": "proxy:7e77a9a6",
+   "n": 5
+  },
+  {
+   "pnl_decile": 7,
+   "acct_type": "EOA",
+   "n": 131
+  },
+  {
+   "pnl_decile": 8,
+   "acct_type": "EOA",
+   "n": 91
+  },
+  {
+   "pnl_decile": 8,
+   "acct_type": "proxy_minor",
+   "n": 2
+  },
+  {
+   "pnl_decile": 8,
+   "acct_type": "proxy:f5c62537",
+   "n": 2219
+  },
+  {
+   "pnl_decile": 8,
+   "acct_type": "proxy:7e77a9a6",
+   "n": 18
+  },
+  {
+   "pnl_decile": 8,
+   "acct_type": "proxy:cefa4f59",
+   "n": 181
+  },
+  {
+   "pnl_decile": 8,
+   "acct_type": "proxy:7652a45d",
+   "n": 2
+  },
+  {
+   "pnl_decile": 9,
+   "acct_type": "proxy_minor",
+   "n": 4
+  },
+  {
+   "pnl_decile": 9,
+   "acct_type": "proxy:f5c62537",
+   "n": 2011
+  },
+  {
+   "pnl_decile": 9,
+   "acct_type": "proxy:cefa4f59",
+   "n": 402
+  },
+  {
+   "pnl_decile": 9,
+   "acct_type": "proxy:7652a45d",
+   "n": 11
+  },
+  {
+   "pnl_decile": 9,
+   "acct_type": "EOA",
+   "n": 62
+  },
+  {
+   "pnl_decile": 9,
+   "acct_type": "proxy:7e77a9a6",
+   "n": 23
+  },
+  {
+   "pnl_decile": 10,
+   "acct_type": "proxy:7652a45d",
+   "n": 7
+  },
+  {
+   "pnl_decile": 10,
+   "acct_type": "proxy_minor",
+   "n": 3
+  },
+  {
+   "pnl_decile": 10,
+   "acct_type": "proxy:7e77a9a6",
+   "n": 12
+  },
+  {
+   "pnl_decile": 10,
+   "acct_type": "EOA",
+   "n": 158
+  },
+  {
+   "pnl_decile": 10,
+   "acct_type": "proxy:f5c62537",
+   "n": 1792
+  },
+  {
+   "pnl_decile": 10,
+   "acct_type": "proxy:cefa4f59",
+   "n": 541
+  },
+  {
+   "pnl_decile": 11,
+   "acct_type": "proxy:7652a45d",
+   "n": 9
+  },
+  {
+   "pnl_decile": 11,
+   "acct_type": "proxy:f5c62537",
+   "n": 1079
+  },
+  {
+   "pnl_decile": 11,
+   "acct_type": "EOA",
+   "n": 20
+  },
+  {
+   "pnl_decile": 11,
+   "acct_type": "proxy:7e77a9a6",
+   "n": 1
+  },
+  {
+   "pnl_decile": 11,
+   "acct_type": "proxy:cefa4f59",
+   "n": 872
+  }
+ ],
+ "pnl_by_acct_type": [
+  {
+   "acct_type": "proxy_minor",
+   "n": 27,
+   "mean_pnl": -35.17908118518548,
+   "med_pnl": -10.221633,
+   "win_rate": 0.3333333333333333,
+   "med_fills": 112.0
+  },
+  {
+   "acct_type": "proxy:7e77a9a6",
+   "n": 199,
+   "mean_pnl": 764.4837288844084,
+   "med_pnl": -9.973457999999969,
+   "win_rate": 0.271356783919598,
+   "med_fills": 22.0
+  },
+  {
+   "acct_type": "EOA",
+   "n": 892,
+   "mean_pnl": 6700.6651187959405,
+   "med_pnl": -0.28515449999998577,
+   "win_rate": 0.36771300448430494,
+   "med_fills": 46.5
+  },
+  {
+   "acct_type": "proxy:f5c62537",
+   "n": 20210,
+   "mean_pnl": 14835.721515881509,
+   "med_pnl": -1.0009824999999761,
+   "win_rate": 0.3445818901533894,
+   "med_fills": 40.0
+  },
+  {
+   "acct_type": "proxy:7652a45d",
+   "n": 84,
+   "mean_pnl": 42653.75131135675,
+   "med_pnl": -14.864468000000002,
+   "win_rate": 0.34523809523809523,
+   "med_fills": 436.0
+  },
+  {
+   "acct_type": "proxy:cefa4f59",
+   "n": 5699,
+   "mean_pnl": 65347.99747243068,
+   "med_pnl": -12.074498999999992,
+   "win_rate": 0.3502368836638007,
+   "med_fills": 72.0
+  }
+ ],
+ "notes": [
+  "Winners are ~exclusively the two dominant standard proxy types (initial finding). custom_long = long-bytecode contracts (bot/bespoke candidates); proxy_minor = short unique-code (minor proxy variants or per-user CREATE2). EOA ~1%. Identify dominant hashes (Safe vs Polymarket proxy) via getOwners()/known bytecode. Behavioural timing signatures = a follow-up (needs the tape).",
+  "PnL is archive realised (survivorship); descriptive."
+ ]
+}

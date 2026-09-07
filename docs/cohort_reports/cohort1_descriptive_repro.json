@@ -1,0 +1,160 @@
+{
+ "cohort": "1",
+ "block_range": [
+  88080000,
+  88843826
+ ],
+ "n_fills": 84343189,
+ "n_makers": 441070,
+ "n_takers": 414678,
+ "self_match_fills": 0,
+ "H6_maker_concentration": {
+  "hhi_notional": 0.004107823665488146,
+  "top10_notional_share": 0.14660950954910779,
+  "top10_fill_share": 0.0197447626818495,
+  "n_makers": 142917
+ },
+ "H5_fee_incidence_by_size_decile": [
+  {
+   "decile": 1,
+   "n": 3110411,
+   "median_notional": 0.9088,
+   "mean_fee_pct": 2.9965439974231423
+  },
+  {
+   "decile": 2,
+   "n": 3110411,
+   "median_notional": 1.079999,
+   "mean_fee_pct": 3.2334203628026676
+  },
+  {
+   "decile": 3,
+   "n": 3110411,
+   "median_notional": 1.95,
+   "mean_fee_pct": 2.820923168637334
+  },
+  {
+   "decile": 4,
+   "n": 3110411,
+   "median_notional": 2.914,
+   "mean_fee_pct": 2.874746197969059
+  },
+  {
+   "decile": 5,
+   "n": 3110411,
+   "median_notional": 4.4,
+   "mean_fee_pct": 1.9843743459117509
+  },
+  {
+   "decile": 6,
+   "n": 3110411,
+   "median_notional": 5.219999,
+   "mean_fee_pct": 2.2317853754781214
+  },
+  {
+   "decile": 7,
+   "n": 3110411,
+   "median_notional": 9.0,
+   "mean_fee_pct": 1.9270085727893451
+  },
+  {
+   "decile": 8,
+   "n": 3110411,
+   "median_notional": 14.685,
+   "mean_fee_pct": 1.8308131366778349
+  },
+  {
+   "decile": 9,
+   "n": 3110411,
+   "median_notional": 29.98451,
+   "mean_fee_pct": 1.506218375453576
+  },
+  {
+   "decile": 10,
+   "n": 3110410,
+   "median_notional": 106.27362,
+   "mean_fee_pct": 1.1489832486102165
+  }
+ ],
+ "taker_orders_fee_paying_share": 0.9609947354544057,
+ "order_size_by_fee": [
+  {
+   "fee_paying": false,
+   "n": 1213224,
+   "geomean_notional": 7.69987227789531,
+   "median_notional": 8.33
+  },
+  {
+   "fee_paying": true,
+   "n": 29890885,
+   "geomean_notional": 5.6468223079371445,
+   "median_notional": 4.95
+  }
+ ],
+ "builder_attribution": {
+  "n_builders": 1446,
+  "notional_hhi": 0.7969782611961445,
+  "top8": [
+   {
+    "builder": "0x0000000000",
+    "fills": 77159604,
+    "notional_share": 0.8918074181250673,
+    "fee_paying": 0.331999396990166
+   },
+   {
+    "builder": "0xceebf77a83",
+    "fills": 231398,
+    "notional_share": 0.032907094886498976,
+    "fee_paying": 0.08124097874657517
+   },
+   {
+    "builder": "0x25a86cf154",
+    "fills": 55433,
+    "notional_share": 0.02085473226412877,
+    "fee_paying": 0.9890137643641874
+   },
+   {
+    "builder": "0x2c6624a23b",
+    "fills": 669174,
+    "notional_share": 0.007602996343142455,
+    "fee_paying": 0.9392146138373577
+   },
+   {
+    "builder": "0x6b0e773fad",
+    "fills": 295188,
+    "notional_share": 0.006448519566109358,
+    "fee_paying": 0.9980825778825697
+   },
+   {
+    "builder": "0xcf59804ff5",
+    "fills": 103904,
+    "notional_share": 0.0020116411916062484,
+    "fee_paying": 0.003888204496458269
+   },
+   {
+    "builder": "0xc4afa4e9f2",
+    "fills": 10665,
+    "notional_share": 0.0019750308955782947,
+    "fee_paying": 0.12498827941865917
+   },
+   {
+    "builder": "0x2eded69516",
+    "fills": 95996,
+    "notional_share": 0.001844344381689959,
+    "fee_paying": 0.003177215717321555
+   }
+  ]
+ },
+ "H1a_roundtrip_share_by_fee": [
+  {
+   "fee_paying": false,
+   "rt_share": 0.10023787857806968,
+   "n": 1213224
+  },
+  {
+   "fee_paying": true,
+   "rt_share": 0.09946299682997008,
+   "n": 29890885
+  }
+ ]
+}

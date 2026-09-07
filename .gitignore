@@ -1,44 +1,77 @@
+# ============================================================================
+# IntelliFi_anomaly_detection — .gitignore
+# Rule of thumb: commit CODE, SPECS, DOCS and the small RESULT artifacts
+# (docs/*.json, docs/*.md, docs/*.csv). NEVER commit the datasets, derived
+# parquet, snapshots, logs, secrets or caches — the data/ store alone is ~97 GB
+# (v1 archive ~30 GB, atlas ~3.9 GB, the v2 tape, snapshots). None of it is
+# needed to replicate: every script regenerates its output from data/.
+# ============================================================================
+
+# --- Python / build / virtual-envs ---
 __pycache__/
-*.pyc
-*.pyo
+**/__pycache__/
+*.py[cod]
 *.egg-info/
 .eggs/
 build/
 dist/
 .venv/
 venv/
-.env
+env/
 .ipynb_checkpoints/
-
-data/raw/
-data/parquet/
-*.duckdb
-*.duckdb.wal
-
 .pytest_cache/
 .ruff_cache/
+.mypy_cache/
 
-data/export/
+# --- Secrets: ONLY .env.example is allowed ---
+.env
 .env.*
 !.env.example
 
-# --- data: NEVER commit (large parquet/jsonl, the v1 archive, snapshots, logs) ---
+# --- Data: NEVER commit (the whole ~97 GB store, archive, snapshots, tapes) ---
 data/
 data_stage2_v1/
+data_stage2_v1_*/
+
+# --- Heavy data-file types, wherever they land in the tree ---
 *.parquet
+*.parquet.crc
 *.jsonl
 *.duckdb
 *.duckdb.wal
-*.log
-# --- secrets: never commit any real env (only .env.example is allowed) ---
-.env
-.env.*
-!.env.example
-# --- scratch / caches ---
-**/__pycache__/
-*.pyc
-.ipynb_checkpoints/
+*.db
+*.sqlite
+*.sqlite3
+*.feather
+*.arrow
+*.npy
+*.npz
+*.h5
+*.hdf5
 
-# remote crawler runtime output / local env
+# --- Archives / large binaries (not needed for replication) ---
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.gz
+*.7z
+
+# --- Logs / runtime markers / scratch ---
+*.log
+data/logs/
+**/.ip_penalty
+_stream_parts/
+_s*_tmp/
+
+# --- Remote crawler runtime output / local env ---
 deploy/remote_crawler/out/
 deploy/remote_crawler/.env
+
+# --- OS / editor cruft ---
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/

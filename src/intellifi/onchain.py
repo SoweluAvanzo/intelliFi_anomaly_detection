@@ -23,6 +23,7 @@ import logging
 import os
 import time
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any
 
 import requests
@@ -30,6 +31,12 @@ import requests
 from . import config
 
 log = logging.getLogger(__name__)
+
+# How long a stamped per-IP penalty marker is treated as "warm". The observed penalty
+# runs multiple hours (laptop cleared in ~2.5 h, box ~3 h), so the marker must outlive it
+# or the guards periodically false-clear and re-poke the still-penalized IP (audit
+# Finding 3). Default 3 h; override with INTELLIFI_PENALTY_COOLDOWN_S.
+PENALTY_COOLDOWN_S = float(os.getenv("INTELLIFI_PENALTY_COOLDOWN_S", "10800"))
 
 
 # ---------------------------------------------------------------------------
@@ -152,6 +159,28 @@ class PolygonscanError(RuntimeError):
     pass
 
 
+class IPPenaltyError(PolygonscanError):
+    """The IP is under Etherscan's per-IP invalid-key penalty.
+
+    Raised when consecutive "too many invalid api key attempts" responses cross
+    ``invalid_key_breaker``. A poisoned IP needs SILENCE, not retries — every
+    further request keeps it warm and extends the penalty — so callers (crawler,
+    relaunch orchestrator, box entrypoint) must STOP and alert, never relaunch.
+    """
+
+
+class DailyQuotaError(PolygonscanError):
+    """This KEY's per-day call quota (Etherscan free tier: 100k/day) is spent.
+
+    Distinct from a per-second rate limit (retryable) and from an IP penalty
+    (NEVER stamps the .ip_penalty marker — this is per-key and not an IP problem).
+    The quota resets at 00:00 UTC, so callers should STOP this key cleanly and
+    wait for the reset rather than retry-grinding the daily-limit response (which,
+    because it contains the substring "rate limit", would otherwise be swallowed by
+    the retryable path and backed-off 12x per call).
+    """
+
+
 @dataclass
 class Polygonscan:
     """Etherscan V2 multichain client targeting Polygon (chainid=137).
@@ -177,16 +206,33 @@ class Polygonscan:
     # Retries per call on transient errors / rate limits (the free key is
     # enforced at 3 calls/s, measured 2026-08-30 — parallel crawlers must share it).
     max_retries: int = 5
+    # Circuit breaker: after this many CONSECUTIVE per-IP invalid-key responses,
+    # raise IPPenaltyError so callers stop instead of grinding the IP warm. 0 disables.
+    invalid_key_breaker: int = 5
+    # Cross-process penalty marker (best-effort). ``None`` -> DATA_DIR/logs/.ip_penalty.
+    # Orchestrators read it (penalty_active) to refuse launching onto a warm IP.
+    penalty_marker: "Path | None" = None
 
     _last_call_ts: float = 0.0
     calls_made: int = 0          # every HTTP attempt (retries included) — quota accounting
     ok_calls: int = 0            # successful responses — efficiency accounting
+    _consecutive_invalid: int = 0
+    _session: "requests.Session | None" = None
 
     def __post_init__(self) -> None:
         if not self.api_key:
             raise PolygonscanError(
                 "POLYGONSCAN_API_KEY not set — register at polygonscan.com/myapikey"
             )
+        if self.penalty_marker is None:
+            self.penalty_marker = config.DATA_DIR / "logs" / ".ip_penalty"
+        # Reuse one keep-alive connection for every call. The dense-genesis crawl
+        # makes hundreds of calls per 500-block chunk; a fresh TLS handshake per call
+        # (the default requests.get behaviour) both slows it ~30-40% and churns
+        # connections against the endpoint. A pooled Session avoids both.
+        if self._session is None:
+            self._session = requests.Session()
+            self._session.headers.update({"User-Agent": config.USER_AGENT})
 
     @classmethod
     def from_env(cls) -> "Polygonscan":
@@ -198,11 +244,89 @@ class Polygonscan:
             time.sleep(self.min_interval_s - elapsed)
         self._last_call_ts = time.time()
 
+    def _record_penalty(self) -> None:
+        """Best-effort: stamp the cross-process penalty marker with now + count.
+
+        Orchestrators read it via :meth:`penalty_active` to refuse launching onto
+        a still-warm IP. Failure to write is non-fatal (the in-process breaker
+        still fires); the marker "expires" by age, matching the observed decay.
+        """
+        try:
+            self.penalty_marker.parent.mkdir(parents=True, exist_ok=True)
+            self.penalty_marker.write_text(f"{time.time():.0f} {self._consecutive_invalid}\n")
+            log.warning("per-IP penalty marker stamped at %s (consecutive=%d) — launch guards "
+                        "will now refuse this IP until cooldown", self.penalty_marker, self._consecutive_invalid)
+        except OSError as exc:
+            # A failed stamp means the cross-process guard is BLIND — surface it loudly
+            # (e.g. /data/logs not writable by the container uid) rather than swallowing it.
+            log.error("COULD NOT stamp per-IP penalty marker %s (%s) — cross-process guard is "
+                      "inert; fix marker-path permissions", self.penalty_marker, exc)
+
+    def _raise_if_invalid_key(self, message: Any, result: Any) -> None:
+        """If the response is the per-IP invalid-key penalty, stamp the marker and raise
+        (IPPenaltyError once ``invalid_key_breaker`` consecutive hits are seen, else
+        PolygonscanError); no-op otherwise. Called for BOTH HTTP-200 status=0 bodies and
+        HTTP-429 bodies — a recovering IP may deliver the penalty either way, and either
+        must stamp (never retry-grind). Placed before the generic status=0 raise so these
+        signatures are recognised, not swallowed by the catch-all."""
+        combined = f"{message} {result}".lower()
+        if not any(m in combined for m in self._INVALID_KEY_MARKERS):
+            return
+        self._consecutive_invalid += 1
+        log.warning("Etherscan per-IP invalid-key penalty hit (consecutive=%d): %s",
+                    self._consecutive_invalid, message or str(result)[:80])
+        self._record_penalty()
+        if self.invalid_key_breaker and self._consecutive_invalid >= self.invalid_key_breaker:
+            raise IPPenaltyError(
+                f"IP under Etherscan per-IP penalty: {self._consecutive_invalid} consecutive "
+                f"invalid-key responses ({message!r}). STOP — do not relaunch; let the IP go quiet."
+            )
+        raise PolygonscanError(
+            f"Etherscan invalid-key response (consecutive={self._consecutive_invalid}): "
+            f"message={message!r} result={str(result)[:80]!r}"
+        )
+
+    @staticmethod
+    def penalty_active(cooldown_s: float = PENALTY_COOLDOWN_S, marker: "Path | None" = None) -> float:
+        """Seconds remaining in the per-IP penalty cooldown, or 0.0 if clear.
+
+        A crawler that hits the invalid-key penalty stamps ``marker`` (default
+        DATA_DIR/logs/.ip_penalty). While the stamp is younger than ``cooldown_s``
+        (default ``PENALTY_COOLDOWN_S`` = 3 h, matching the observed multi-hour
+        penalty), the IP is treated as still warm and callers should not launch.
+        Successes never clear it — only quiet time (age) does.
+        """
+        marker = marker or (config.DATA_DIR / "logs" / ".ip_penalty")
+        try:
+            ts = float(marker.read_text().split()[0])
+        except (OSError, ValueError, IndexError):
+            return 0.0
+        remaining = cooldown_s - (time.time() - ts)
+        return remaining if remaining > 0 else 0.0
+
     # Transient server messages worth retrying with backoff.
     _RETRYABLE_MARKERS: tuple[str, ...] = (
         "timeout", "server too busy", "temporarily unavailable",
         "rate limit", "max rate limit", "max calls per sec",
     )
+    # Per-IP invalid-key penalty: NEVER retry these (a retry keeps the IP warm and
+    # extends the ban); count consecutive hits toward the circuit breaker instead.
+    _INVALID_KEY_MARKERS: tuple[str, ...] = (
+        "too many invalid", "invalid api key", "#err2",
+    )
+    # Per-KEY daily-quota exhaustion: a clean stop (resets 00:00 UTC), NOT retryable.
+    # Checked BEFORE _RETRYABLE_MARKERS because the daily message contains "rate limit".
+    _DAILY_LIMIT_MARKERS: tuple[str, ...] = (
+        "daily rate limit", "max calls per day", "daily limit", "per day",
+    )
+
+    def _raise_if_daily_quota(self, message: Any, result: Any) -> None:
+        """Raise DailyQuotaError if the response is the per-day quota-exhausted message."""
+        combined = f"{message} {result}".lower()
+        if any(m in combined for m in self._DAILY_LIMIT_MARKERS):
+            raise DailyQuotaError(
+                f"Etherscan daily quota exhausted for this key ({message!r}); stop and resume "
+                f"after the 00:00 UTC reset — not an IP penalty, not retryable")
 
     def _get(self, params: dict[str, Any], *, max_retries: int | None = None) -> Any:
         max_retries = max_retries or self.max_retries
@@ -217,13 +341,25 @@ class Polygonscan:
             self._throttle()
             try:
                 self.calls_made += 1
-                r = requests.get(self.base_url, params=params, timeout=self.timeout,
-                                 headers={"User-Agent": config.USER_AGENT})
+                r = self._session.get(self.base_url, params=params, timeout=self.timeout)
             except requests.RequestException as exc:
                 last_err = f"transport: {exc}"
                 time.sleep(1.5 ** attempt)
                 continue
-            if r.status_code in (429, 500, 502, 503, 504):
+            if r.status_code == 429:
+                # A per-IP invalid-key penalty can surface as HTTP 429; peek the body so
+                # it stamps + stops instead of being retry-ground as a plain rate limit.
+                try:
+                    b = r.json()
+                except ValueError:
+                    b = None
+                if isinstance(b, dict):
+                    self._raise_if_invalid_key(b.get("message", ""), b.get("result", ""))
+                    self._raise_if_daily_quota(b.get("message", ""), b.get("result", ""))
+                last_err = "HTTP 429"
+                time.sleep(1.5 ** attempt)
+                continue
+            if r.status_code in (500, 502, 503, 504):
                 last_err = f"HTTP {r.status_code}"
                 time.sleep(1.5 ** attempt)
                 continue
@@ -231,10 +367,12 @@ class Polygonscan:
             body = r.json()
             if "jsonrpc" in body:          # proxy module answers JSON-RPC style, no "status"
                 self.ok_calls += 1
+                self._consecutive_invalid = 0
                 return body.get("result")
             status = str(body.get("status", "0"))
             if status == "1":
                 self.ok_calls += 1
+                self._consecutive_invalid = 0
                 return body.get("result", [])
             message = body.get("message", "") or ""
             result = body.get("result")
@@ -245,6 +383,11 @@ class Polygonscan:
                 return []
             if "no records found" in f"{message} {result}".lower():   # getLogs empty result
                 return []
+            # Per-IP invalid-key penalty: never retry; stamp the marker + (maybe) hard-stop.
+            self._raise_if_invalid_key(message, result)
+            # Per-KEY daily quota spent: clean stop (checked before the retryable path, which
+            # would otherwise swallow it via the "rate limit" substring and grind 12x).
+            self._raise_if_daily_quota(message, result)
             # Retry-worthy transient errors.
             combined = f"{message} {result}".lower()
             if any(marker in combined for marker in self._RETRYABLE_MARKERS):

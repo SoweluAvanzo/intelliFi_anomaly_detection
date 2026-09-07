@@ -19,8 +19,18 @@ services:
       INTELLIFI_DATA_DIR: /data
       INTELLIFI_USER_AGENT: "IntelliFi-research-crawler/1.0 (academic; contact sowelu94@gmail.com)"
       HOME: /tmp                          # uid 1000 has no passwd entry; give tools a writable HOME
+      # --- genesis-gaps mode (2026-09-01): box crawls ONLY its 2/7 gap subset on keys 5-6;
+      #     local (peer) crawls the 5/7 on keys 1-4/7. Disjoint ranges + disjoint keys. ---
+      CRAWL_GAPS_FILE: /data/genesis_gaps_all.txt
+      CRAWL_CHUNK_BLOCKS: "500"
+      CRAWL_MIN_INTERVAL: "0.6"
+      CRAWL_MAX_CALLS: "25000"
+      CRAWL_WORKERS_PER_KEY: "1"          # 2 keys (5-6) x 1 = 2 workers, 1/key = OPTIMUM (measured). Tested 2/key and it REGRESSED to ~0 chunks/hr (429 backoff): the REMAINING genesis gaps (86.8-87.9M) are dense like the cohort tail, so >1/key contends. ~65 chunks/hr at 1/key is the external Etherscan floor here.
+      CRAWL_MAX_SPAN: "10000"
     volumes:
       - ./out:/data                       # bind: flat parquet output, rsync-pulled from host
+      - ./cohort_runner.sh:/usr/local/bin/cohort_runner.sh:ro  # generic work-queue gaps-runner
+    entrypoint: ["bash", "/usr/local/bin/cohort_runner.sh"]
     networks: [crawler_net]               # dedicated; no web-edge, no other stack reachable
     # ---- hard resource + privilege caps (verified box: 7.6 GB / 4 CPU, ~4.2 GB
     # available, shared with 4 stacks: englishwithsoheila, signet-etch, nortadesyco,

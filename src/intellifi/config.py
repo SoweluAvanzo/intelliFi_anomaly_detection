@@ -39,6 +39,20 @@ if _esk:
     os.environ.setdefault("POLYGONSCAN_API_KEY", _esk)
 ETHERSCAN_API_KEY = _esk
 
+# Vetted-valid Etherscan key env NAMES the crawler is allowed to use. Dead keys
+# (ETHERSCAN_KEY2/3/7 as of 2026-08-31) poison the per-IP reputation on the first
+# request — "too many invalid api key attempts" — which then makes even valid keys
+# from that IP intermittently fail, so a hard allowlist is the primary guard.
+# Enforced by NAME (not value); override with INTELLIFI_CRAWL_KEYS if the vetted set
+# changes. Do NOT add a startup key-validation step — validation itself hits dead
+# keys and re-poisons the IP. Trust this list.
+CRAWL_KEYS = [
+    k.strip() for k in os.getenv(
+        "INTELLIFI_CRAWL_KEYS",
+        "ETHERSCAN_KEY,ETHERSCAN_KEY4,ETHERSCAN_KEY5,ETHERSCAN_KEY6",
+    ).split(",") if k.strip()
+]
+
 # --- API roots -------------------------------------------------------------
 GAMMA = os.getenv("INTELLIFI_GAMMA", "https://gamma-api.polymarket.com")
 CLOB = os.getenv("INTELLIFI_CLOB", "https://clob.polymarket.com")

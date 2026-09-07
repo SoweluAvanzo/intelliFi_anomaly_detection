@@ -1,0 +1,129 @@
+{
+ "top_k": 20000,
+ "n_wallets": 20000,
+ "n_entities": 19394,
+ "n_multi_wallet_entities": 236,
+ "wallets_in_multi_entities": 842,
+ "frac_winner_diversity_that_is_sybil": 0.030299999999999994,
+ "largest_entity_wallets": [
+  170,
+  19,
+  16,
+  15,
+  14,
+  13,
+  9,
+  8,
+  7,
+  6
+ ],
+ "n_funders_total": 13444,
+ "n_hub_funders_excluded": 560,
+ "hub_thresh": 3,
+ "funder_degree_top": [
+  [
+   "0x4d97dcd97ec945f40cf65f87097ace5ea0476045",
+   16935
+  ],
+  [
+   "0x4bfb41d5b3570defd03c39a9a4d8de6bd8b8982e",
+   12177
+  ],
+  [
+   "0x3a3bd7bb9528e159577f7c2e685cc81a765002e2",
+   10684
+  ],
+  [
+   "0xc5d563a36ae78145c45a50134d48a1215220f80a",
+   10653
+  ],
+  [
+   "0xf70da97812cb96acdf810712aa562db8dfa3dbef",
+   9052
+  ],
+  [
+   "0xc288480574783bd7615170660d71753378159c47",
+   6072
+  ],
+  [
+   "0xd36ec33c8bed5a9f7b6630855f1533455b98a418",
+   5015
+  ],
+  [
+   "0xf5042e6ffac5a625d4e7848e0b01373d8eb9e222",
+   4323
+  ],
+  [
+   "0xc417fd8e9661c0d2120b64a04bb3278c17e99db1",
+   3085
+  ],
+  [
+   "0x1929347e025d4f5f8d6b2bd2261e2f4efcacd215",
+   2960
+  ]
+ ],
+ "linkage_edges": 1759,
+ "top_entities_by_pnl": [
+  {
+   "n_wallets": 170,
+   "entity_pnl": 28540231.32505075
+  },
+  {
+   "n_wallets": 1,
+   "entity_pnl": 22029972.635797076
+  },
+  {
+   "n_wallets": 1,
+   "entity_pnl": 16578002.750449076
+  },
+  {
+   "n_wallets": 1,
+   "entity_pnl": 11874745.476138998
+  },
+  {
+   "n_wallets": 1,
+   "entity_pnl": 8705078.460843999
+  },
+  {
+   "n_wallets": 1,
+   "entity_pnl": 7698903.293884997
+  },
+  {
+   "n_wallets": 6,
+   "entity_pnl": 7618838.726638171
+  },
+  {
+   "n_wallets": 1,
+   "entity_pnl": 7581330.439663626
+  },
+  {
+   "n_wallets": 1,
+   "entity_pnl": 7527260.035917001
+  },
+  {
+   "n_wallets": 1,
+   "entity_pnl": 6651513.157348338
+  },
+  {
+   "n_wallets": 1,
+   "entity_pnl": 6080132.347061984
+  },
+  {
+   "n_wallets": 1,
+   "entity_pnl": 5936332.0189909665
+  },
+  {
+   "n_wallets": 1,
+   "entity_pnl": 5709662.641577001
+  },
+  {
+   "n_wallets": 1,
+   "entity_pnl": 5634963.922754997
+  },
+  {
+   "n_wallets": 1,
+   "entity_pnl": 5134848.268745008
+  }
+ ],
+ "note": "funder=shared USDC sender (inbound). Hubs (CEX/bridge/relayer, degree>thresh) excluded. Multi-wallet entities => the wallet-level winner count OVERSTATES independent winners; frac_sybil = 1 - n_entities/n_wallets is the collapse."
+}

@@ -1,0 +1,183 @@
+{
+ "window_blocks": [
+  88080000,
+  92995000
+ ],
+ "class_validation_passed": true,
+ "validation_thresholds": {
+  "taker_notional_coverage_min": 0.85,
+  "unmapped_notional_max": 0.15,
+  "major_class_share_tol_SOFT": 0.12,
+  "max_single_class_share": 0.6
+ },
+ "class_assignment_validation": {
+  "taker_notional_coverage": 0.9999895058189932,
+  "taker_row_coverage": 0.9999813203076706,
+  "unmapped_notional_share": 9.148738238717757e-06,
+  "coverage_ok": true,
+  "unmapped_ok": true,
+  "control_ok": true,
+  "no_gross_bug": true,
+  "largest_class": "sports",
+  "largest_class_share": 0.4739,
+  "distribution_ok_SOFT": false,
+  "major_class_deviations_vs_atlas_SOFT": {
+   "sports": 0.1371,
+   "crypto_updown": 0.1155,
+   "esports_tennis": 0.1325,
+   "geopolitics_world": 0.0016,
+   "politics_us": 0.0741
+  },
+  "class_distribution": [
+   {
+    "cls": "sports",
+    "notional_share": 0.4739071636321399,
+    "taker_orders": 30385354
+   },
+   {
+    "cls": "esports_tennis",
+    "notional_share": 0.227705661515187,
+    "taker_orders": 15710683
+   },
+   {
+    "cls": "crypto_updown",
+    "notional_share": 0.1545341351378578,
+    "taker_orders": 100511065
+   },
+   {
+    "cls": "geopolitics_world",
+    "notional_share": 0.08190400362929619,
+    "taker_orders": 5790462
+   },
+   {
+    "cls": "weather",
+    "notional_share": 0.018427161415495146,
+    "taker_orders": 9968784
+   },
+   {
+    "cls": "finance_macro",
+    "notional_share": 0.013161578031070514,
+    "taker_orders": 785824
+   },
+   {
+    "cls": "politics_us",
+    "notional_share": 0.013135321125714798,
+    "taker_orders": 1998820
+   },
+   {
+    "cls": "finance",
+    "notional_share": 0.006672112017195047,
+    "taker_orders": 973890
+   },
+   {
+    "cls": "culture",
+    "notional_share": 0.0041922735098195085,
+    "taker_orders": 818012
+   },
+   {
+    "cls": "tech_science",
+    "notional_share": 0.0033954860032705293,
+    "taker_orders": 605621
+   },
+   {
+    "cls": "crypto_other",
+    "notional_share": 0.002944805111208889,
+    "taker_orders": 488565
+   },
+   {
+    "cls": "meta_other",
+    "notional_share": 1.1150133505828054e-05,
+    "taker_orders": 3234
+   },
+   {
+    "cls": "__unmapped__",
+    "notional_share": 9.148738238717757e-06,
+    "taker_orders": 3139
+   }
+  ],
+  "atlas_reference_shares": {
+   "sports": 0.3368310791702311,
+   "crypto_updown": 0.27007280356352664,
+   "esports_tennis": 0.09519779323047366,
+   "geopolitics_world": 0.08351293100172763,
+   "politics_us": 0.08720573591119385
+  },
+  "reference": "compare shares to data/parquet/atlas/class_mapping_coverage.csv",
+  "note": "hard gates = coverage_ok AND unmapped_ok AND control_ok AND no_gross_bug; distribution match is a SOFT warning (v2 may legitimately differ, e.g. World Cup)"
+ },
+ "contingency_H3H4": {
+  "control_exists": true,
+  "fee_free_control_classes": [
+   "geopolitics_world"
+  ],
+  "rule": ">=5% fee-free taker orders in a class => usable fee-free control (pre-reg \u00a72)",
+  "per_class_fee_free_share": [
+   {
+    "cls": "crypto_updown",
+    "taker_orders": 100511065,
+    "fee_free_share": 0.0005676091483062088
+   },
+   {
+    "cls": "sports",
+    "taker_orders": 30385354,
+    "fee_free_share": 0.0007005348695295766
+   },
+   {
+    "cls": "esports_tennis",
+    "taker_orders": 15710683,
+    "fee_free_share": 0.00019528113449937217
+   },
+   {
+    "cls": "weather",
+    "taker_orders": 9968784,
+    "fee_free_share": 0.0034272986554829557
+   },
+   {
+    "cls": "geopolitics_world",
+    "taker_orders": 5790462,
+    "fee_free_share": 0.5262996285961293
+   },
+   {
+    "cls": "politics_us",
+    "taker_orders": 1998820,
+    "fee_free_share": 0.015033369688115989
+   },
+   {
+    "cls": "finance",
+    "taker_orders": 973890,
+    "fee_free_share": 0.02578730657466449
+   },
+   {
+    "cls": "culture",
+    "taker_orders": 818012,
+    "fee_free_share": 0.030821063749676043
+   },
+   {
+    "cls": "finance_macro",
+    "taker_orders": 785824,
+    "fee_free_share": 0.004159964572219734
+   },
+   {
+    "cls": "tech_science",
+    "taker_orders": 605621,
+    "fee_free_share": 0.03671107838070344
+   },
+   {
+    "cls": "crypto_other",
+    "taker_orders": 488565,
+    "fee_free_share": 0.0018585039861635606
+   },
+   {
+    "cls": "meta_other",
+    "taker_orders": 3234,
+    "fee_free_share": 0.012677798392084107
+   }
+  ],
+  "implication": "within-B fee-free control exists; H3/H4 fee DiD identified"
+ },
+ "H2_negrisk_band": {
+  "status": "deferred_to_review_layer",
+  "note": "needs synchronized per-family price sums (hourly, members alive); not shipped here to avoid a shaky band. Build in the reviewed phase."
+ },
+ "pending_review": true
+}

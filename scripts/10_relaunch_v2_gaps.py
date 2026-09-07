@@ -17,7 +17,7 @@ TAPE = REPO / "data" / "parquet" / "tape_v2"
 LOGS = Path(os.getenv("INTELLIFI_V2_LOG_DIR", REPO / "data" / "logs"))
 GENESIS = 86_126_978
 COHORT_START = 88_080_000          # cohort 1 start (docs/stage2_cohorts.md)
-KEYS = ["ETHERSCAN_KEY", "ETHERSCAN_KEY2", "ETHERSCAN_KEY3", "ETHERSCAN_KEY4", "ETHERSCAN_KEY5", "ETHERSCAN_KEY6"]
+KEYS = ["ETHERSCAN_KEY", "ETHERSCAN_KEY2", "ETHERSCAN_KEY3", "ETHERSCAN_KEY4", "ETHERSCAN_KEY5", "ETHERSCAN_KEY6", "ETHERSCAN_KEY7"]
 
 
 def on_disk() -> list[tuple[int, int]]:
@@ -101,12 +101,28 @@ def main() -> int:
     # keys come from .env* via intellifi.config
     sys.path.insert(0, str(REPO / "src"))
     from intellifi import config  # noqa: F401  (loads .env files)
+    from intellifi.onchain import Polygonscan
+    # Hard allowlist: refuse to start if any configured key is off the vetted set — a
+    # dead key poisons the per-IP reputation the moment a slot touches it. Fail loud
+    # rather than silently skip, so a poisoned .env can't slip a bad key into rotation.
+    off = [k for k in KEYS if os.getenv(k) and k not in config.CRAWL_KEYS]
+    if off:
+        print(f"refusing to start: unvetted keys in environment {off} — not on CRAWL_KEYS "
+              f"{config.CRAWL_KEYS}. Remove them from .env (dead keys re-arm the per-IP penalty), "
+              f"or set INTELLIFI_CRAWL_KEYS if the vetted set changed.", file=sys.stderr)
+        return 2
+    # Penalty pre-flight: never launch (or even fetch the head block) onto a warm IP.
+    remaining = Polygonscan.penalty_active()
+    if remaining > 0:
+        print(f"refusing to launch: IP under per-IP penalty cooldown, ~{remaining/60:.0f} min left; "
+              f"let it go quiet (clear data/logs/.ip_penalty to force).", file=sys.stderr)
+        return 3
     skip = {k.strip() for k in args.skip_keys.split(',') if k.strip()}
     # keys reserved for the remote (Helsinki) box — never run them locally (per-key rate limit is global)
     skip |= {k.strip() for k in os.getenv('INTELLIFI_REMOTE_KEYS', 'ETHERSCAN_KEY5,ETHERSCAN_KEY6').split(',') if k.strip()}
-    keys = [k for k in KEYS if os.getenv(k) and k not in skip]
+    keys = [k for k in KEYS if os.getenv(k) and k not in skip and k in config.CRAWL_KEYS]
     if not keys:
-        print("no Etherscan keys in environment", file=sys.stderr); return 2
+        print("no vetted Etherscan keys in environment", file=sys.stderr); return 2
     hi = args.to_block or latest_block(os.environ[keys[0]])
     rs = on_disk()
     missing = gaps(COHORT_START, hi, rs)

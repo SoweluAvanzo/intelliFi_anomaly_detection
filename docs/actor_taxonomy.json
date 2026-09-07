@@ -1,0 +1,108 @@
+{
+ "scope": "archive maker+taker; behavioural actor taxonomy (heuristic, descriptive)",
+ "n_wallets": 1518941,
+ "min_fills": 20,
+ "by_actor_type": [
+  {
+   "actor_type": "market_maker",
+   "n": 84120,
+   "mean_maker_share": 0.8443255736406218,
+   "median_fills": 149.0,
+   "median_fills_per_day": 15.625,
+   "mean_hour_entropy_frac": 0.7200115735601205,
+   "median_n_markets": 25.0,
+   "median_n_categories": 7.0,
+   "mean_pnl": 1991.491426832263,
+   "median_pnl": -1.0637105000007239,
+   "frac_winners": 0.47368045649072754,
+   "total_pnl": 167524258.82512996,
+   "account_type_mix": {
+    "gnosis_safe": 1157,
+    "polymarket_proxy": 497,
+    "EOA": 63,
+    "other_proxy": 9
+   }
+  },
+  {
+   "actor_type": "hft_bot",
+   "n": 50441,
+   "mean_maker_share": 0.21671498354483262,
+   "median_fills": 2335.0,
+   "median_fills_per_day": 109.23529411764706,
+   "mean_hour_entropy_frac": 0.9581571649693983,
+   "median_n_markets": 612.0,
+   "median_n_categories": 10.0,
+   "mean_pnl": 1152.463389706342,
+   "median_pnl": -54.94789400000003,
+   "frac_winners": 0.29073571102872664,
+   "total_pnl": 58131405.840177596,
+   "account_type_mix": {
+    "gnosis_safe": 553,
+    "polymarket_proxy": 409,
+    "EOA": 67,
+    "other_proxy": 31
+   }
+  },
+  {
+   "actor_type": "active_trader",
+   "n": 274031,
+   "mean_maker_share": 0.13170858196879007,
+   "median_fills": 186.0,
+   "median_fills_per_day": 32.333333333333336,
+   "mean_hour_entropy_frac": 0.6324685199669529,
+   "median_n_markets": 36.0,
+   "median_n_categories": 7.0,
+   "mean_pnl": -311.76249486114915,
+   "median_pnl": -14.493498999999936,
+   "frac_winners": 0.2063051260623798,
+   "total_pnl": -85432588.22929557,
+   "account_type_mix": {
+    "gnosis_safe": 2026,
+    "polymarket_proxy": 1355,
+    "EOA": 118,
+    "other_proxy": 57
+   }
+  },
+  {
+   "actor_type": "retail_casual",
+   "n": 1086388,
+   "mean_maker_share": 0.17533169944113153,
+   "median_fills": 52.0,
+   "median_fills_per_day": 4.4,
+   "mean_hour_entropy_frac": 0.6747024650732935,
+   "median_n_markets": 21.0,
+   "median_n_categories": 9.0,
+   "mean_pnl": -88.86405697584101,
+   "median_pnl": -4.000544999999989,
+   "frac_winners": 0.3230190318744316,
+   "total_pnl": -96540845.12986997,
+   "account_type_mix": {
+    "gnosis_safe": 10332,
+    "polymarket_proxy": 1814,
+    "EOA": 428,
+    "other_proxy": 103
+   }
+  },
+  {
+   "actor_type": "one_shot_or_casual",
+   "n": 23961,
+   "mean_maker_share": 0.10799996438541887,
+   "median_fills": 26.0,
+   "median_fills_per_day": 12.5,
+   "mean_hour_entropy_frac": 0.3071849571331953,
+   "median_n_markets": 2.0,
+   "median_n_categories": 1.0,
+   "mean_pnl": -346.4230434254414,
+   "median_pnl": -10.300849999999993,
+   "frac_winners": 0.2262843787821877,
+   "total_pnl": -8300642.543517001,
+   "account_type_mix": {
+    "gnosis_safe": 181,
+    "polymarket_proxy": 78,
+    "EOA": 10,
+    "other_proxy": 5
+   }
+  }
+ ],
+ "note": "on-chain type is ~uniformly a proxy wallet; function is behavioural. hft_bot = >=40 fills/active-day AND near-24/7 (hour-entropy ~ max); market_maker = maker_share>=0.7. LLM-agents & AMMs are NOT separable on-chain (see docs/research_ideas \u00a75). Heuristic thresholds \u2014 report the distribution too."
+}

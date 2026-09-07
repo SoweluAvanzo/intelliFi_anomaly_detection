@@ -1,0 +1,195 @@
+{
+ "scope": "whole v1 archive, maker+taker; realised gross per-(wallet,market) PnL; sign-randomization skill test + split-half persistence",
+ "window": {
+  "start": null,
+  "end": null
+ },
+ "buckets": 12,
+ "n_wallets_total": 2628950,
+ "n_classifiable": 1346017,
+ "classifiable_frac_of_all": 0.5119979459480021,
+ "min_positions_for_classification": 10,
+ "z_position": {
+  "mean": -0.5449339569828394,
+  "sd": 1.7098456443984844,
+  "frac_skilled_nominal_z>1.645": 0.05859138480420381,
+  "frac_worse_z<-1.645": 0.18804443034523338,
+  "note": "null: z~mean0,sd1, 5% each tail. SYMMETRIC two-tail excess + sd>1 = cross-market-correlation inflation => the skilled-fraction is an UPPER bound."
+ },
+ "z_fill": {
+  "mean": -0.2584216045455502,
+  "frac_skilled_nominal_z>1.645": 0.04847561360666321,
+  "note": "per-fill unit inflates z further (repeated correct calls counted independent)."
+ },
+ "uncorrected": {
+  "n_skilled": 95670,
+  "frac_skilled": 0.07107636827766663,
+  "n_worse_than_chance": 288459,
+  "frac_worse": 0.21430561426787328,
+  "frac_indistinguishable": 0.7146180174544601,
+  "vs_gomezcram": "their uncorrected ~3.1% skilled / ~6% worse / ~91% indistinguishable"
+ },
+ "fdr_bh_q0.05": {
+  "n_certifiably_skilled": 57657,
+  "frac": 0.04283526879675368,
+  "note": "BH on the upper-tail sign-flip p; the correlation caveat still applies (upper bound)."
+ },
+ "top_candidates": [
+  {
+   "wallet": "0x20d2309cd92b797ae7ca175ed828ed8a27fbe29d",
+   "A_pnl": 188602.308507,
+   "k_pos": 36404,
+   "z_pos": 39.91064682599763,
+   "p_up": 0.0
+  },
+  {
+   "wallet": "0x6031b6eed1c97e853c6e0f03ad3ce3529351f96d",
+   "A_pnl": 858108.5927939997,
+   "k_pos": 28620,
+   "z_pos": 100.2250676831427,
+   "p_up": 0.0
+  },
+  {
+   "wallet": "0xa45fe11dd1420fca906ceac2c067844379a42429",
+   "A_pnl": 213845.94409700012,
+   "k_pos": 22851,
+   "z_pos": 45.0014936297798,
+   "p_up": 0.0
+  },
+  {
+   "wallet": "0x56bad0e7a00913c6e35c00dce3ec7f7cd6a311d7",
+   "A_pnl": 138607.655984,
+   "k_pos": 24170,
+   "z_pos": 64.46385967422103,
+   "p_up": 0.0
+  },
+  {
+   "wallet": "0x60889af507ec3f9da136f38b1c58080bec32f361",
+   "A_pnl": 38446.564833000004,
+   "k_pos": 7435,
+   "z_pos": 36.86558966606307,
+   "p_up": 8.228102518373116e-298
+  },
+  {
+   "wallet": "0xf3531b23b504cf0aed4ff21325232b2a2d496685",
+   "A_pnl": 36356.52085799999,
+   "k_pos": 6746,
+   "z_pos": 35.58952627665054,
+   "p_up": 1.0172496716103045e-277
+  },
+  {
+   "wallet": "0x492494973c94e901e3be9f75796dea83057cfac2",
+   "A_pnl": 30937.453018000026,
+   "k_pos": 11263,
+   "z_pos": 34.35702179025569,
+   "p_up": 5.531591717870499e-259
+  },
+  {
+   "wallet": "0xd07a22ef9a4789c7410f7cbd2aebe8fd24aafa94",
+   "A_pnl": 55853.634327000014,
+   "k_pos": 15545,
+   "z_pos": 33.7511473419622,
+   "p_up": 5.1421481328795234e-250
+  },
+  {
+   "wallet": "0xb4d2499b6cabd0bb93672bb17c5ae47101759ee1",
+   "A_pnl": 168025.49119399994,
+   "k_pos": 16876,
+   "z_pos": 32.54404613870455,
+   "p_up": 1.2709912382097054e-232
+  },
+  {
+   "wallet": "0x70ec235a31eb35f243e2618d6ea3b5b8962bbb5d",
+   "A_pnl": 409749.58665300003,
+   "k_pos": 31033,
+   "z_pos": 31.978588079526848,
+   "p_up": 1.0822394613206641e-224
+  },
+  {
+   "wallet": "0xe00740bce98a594e26861838885ab310ec3b548c",
+   "A_pnl": 812078.9840229999,
+   "k_pos": 46118,
+   "z_pos": 31.646184009425056,
+   "p_up": 4.2788621976618444e-220
+  },
+  {
+   "wallet": "0x732f189193d7a8c8bc8d8eb91f501a22736af081",
+   "A_pnl": 403758.4943,
+   "k_pos": 60837,
+   "z_pos": 30.78242509676247,
+   "p_up": 2.252221139896355e-208
+  },
+  {
+   "wallet": "0xf247584e41117bbbe4cc06e4d2c95741792a5216",
+   "A_pnl": 534335.172811,
+   "k_pos": 18360,
+   "z_pos": 29.293992897510055,
+   "p_up": 6.184769208085967e-189
+  },
+  {
+   "wallet": "0x936027683753c01e2900f245c9db113421e48bc5",
+   "A_pnl": 52340.06584,
+   "k_pos": 16084,
+   "z_pos": 27.446569064231284,
+   "p_up": 3.817309834886672e-166
+  },
+  {
+   "wallet": "0xd9e0aaca471f489be338fd0f91a26e8669a805f2",
+   "A_pnl": 786008.481343,
+   "k_pos": 10674,
+   "z_pos": 26.48141657594888,
+   "p_up": 7.934138475311732e-155
+  },
+  {
+   "wallet": "0xcfb103c37c0234f524c632d964ed31f117b5f694",
+   "A_pnl": 59075.92235999998,
+   "k_pos": 5259,
+   "z_pos": 26.400033760006107,
+   "p_up": 6.844733646552854e-154
+  },
+  {
+   "wallet": "0x0b2e73db8f4eaad4d865be3ec013339891b3ca20",
+   "A_pnl": 720.3695169999993,
+   "k_pos": 3772,
+   "z_pos": 25.81755415047503,
+   "p_up": 2.816428635659681e-147
+  },
+  {
+   "wallet": "0xca85f4b9e472b542e1df039594eeaebb6d466bf2",
+   "A_pnl": 187312.47703199997,
+   "k_pos": 15834,
+   "z_pos": 24.871433559884853,
+   "p_up": 7.582064653804683e-137
+  },
+  {
+   "wallet": "0x5b87d38577b2811179b7aa8f2cddc65d7046b6bd",
+   "A_pnl": 37511.625048000016,
+   "k_pos": 12839,
+   "z_pos": 23.75766200114349,
+   "p_up": 4.5780685331884567e-125
+  },
+  {
+   "wallet": "0x5f4d4927ea3ca72c9735f56778cfbb046c186be0",
+   "A_pnl": 135912.75604999988,
+   "k_pos": 8219,
+   "z_pos": 22.905454457967625,
+   "p_up": 2.049791793671117e-116
+  }
+ ],
+ "persistence": {
+  "n_wallets_both_periods": 161238,
+  "split_ts_epoch": 1771996809.0,
+  "spearman_rho_p1_p2": 0.14607499327013018,
+  "spearman_p": 0.0,
+  "p1_top_quintile_mean_p2_pnl": 1173.6808004424422,
+  "p1_top_quintile_frac_p2_pos": 0.46815306375589183,
+  "p1_bottom_quintile_mean_p2_pnl": -133.92786796692113,
+  "p1_bottom_quintile_frac_p2_pos": 0.3232758620689655,
+  "note": "correlation-IMMUNE: positive rho / top-quintile out-performance => persistent (weak) skill; ~0 => luck."
+ },
+ "caveats": [
+  "Realised, resolution-based PnL \u2014 outcome-dependent (survivorship); tests SIDE-SELECTION skill only.",
+  "Sign-flip cross-market correlation inflates the skilled-fraction (SYMMETRIC two-tail excess + z sd>1 are the tell) -> read it as an UPPER bound; the persistence rho is the correlation-immune signal.",
+  "Full maker+taker; zero-sum before fees; v1 ~fee-free. Partitioned by wallet-hash (memory-safe)."
+ ]
+}

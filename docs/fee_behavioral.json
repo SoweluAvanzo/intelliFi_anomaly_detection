@@ -1,0 +1,127 @@
+{
+ "scope": "v2 tape, taker-order records (is_tk=TRUE, deduped, v2_a/v2_b); fee behavioral/welfare",
+ "monthly": [
+  {
+   "month": "2026-04",
+   "n_orders": 5155270,
+   "notional_usdc": 295274395.48785114,
+   "fee_usdc": 2286802.193587482,
+   "fee_pct_of_notional": 0.7744668107132137,
+   "median_order_usdc": 4.3,
+   "small_order_share": 0.732776362828717,
+   "n_distinct_wallets": 135156,
+   "n_new_wallets": 135156
+  },
+  {
+   "month": "2026-05",
+   "n_orders": 69170448,
+   "notional_usdc": 3270925037.976948,
+   "fee_usdc": 29177740.28919425,
+   "fee_pct_of_notional": 0.8920332918188962,
+   "median_order_usdc": 4.7,
+   "small_order_share": 0.721224156304438,
+   "n_distinct_wallets": 594255,
+   "n_new_wallets": 478507
+  },
+  {
+   "month": "2026-06",
+   "n_orders": 69249278,
+   "notional_usdc": 4172019623.9515014,
+   "fee_usdc": 40811933.57201923,
+   "fee_pct_of_notional": 0.9782296645422888,
+   "median_order_usdc": 4.95,
+   "small_order_share": 0.6963608198196666,
+   "n_distinct_wallets": 630717,
+   "n_new_wallets": 280231
+  },
+  {
+   "month": "2026-07",
+   "n_orders": 62126807,
+   "notional_usdc": 3580556941.3714085,
+   "fee_usdc": 45659889.028455004,
+   "fee_pct_of_notional": 1.2752175087869586,
+   "median_order_usdc": 4.828,
+   "small_order_share": 0.7044297480152167,
+   "n_distinct_wallets": 541213,
+   "n_new_wallets": 177854
+  },
+  {
+   "month": "2026-08",
+   "n_orders": 51256433,
+   "notional_usdc": 2364188388.0459948,
+   "fee_usdc": 35099361.24361815,
+   "fee_pct_of_notional": 1.48462624303082,
+   "median_order_usdc": 4.0,
+   "small_order_share": 0.7358254523876057,
+   "n_distinct_wallets": 303324,
+   "n_new_wallets": 69526
+  }
+ ],
+ "fee_incidence_by_notional_decile": [
+  {
+   "decile": 1,
+   "notional_lo": 0.0,
+   "n": 25468812,
+   "fee_pct_of_notional": 2.735424500563505
+  },
+  {
+   "decile": 2,
+   "notional_lo": 0.999998,
+   "n": 25920080,
+   "fee_pct_of_notional": 3.151413065129185
+  },
+  {
+   "decile": 3,
+   "notional_lo": 1.169997,
+   "n": 23899646,
+   "fee_pct_of_notional": 2.86503054395915
+  },
+  {
+   "decile": 4,
+   "notional_lo": 1.999999,
+   "n": 27467579,
+   "fee_pct_of_notional": 3.1079012228524108
+  },
+  {
+   "decile": 5,
+   "notional_lo": 3.06,
+   "n": 25722570,
+   "fee_pct_of_notional": 2.4075111392608783
+  },
+  {
+   "decile": 6,
+   "notional_lo": 4.739994,
+   "n": 25694018,
+   "fee_pct_of_notional": 2.018993961285085
+  },
+  {
+   "decile": 7,
+   "notional_lo": 5.999952,
+   "n": 25574059,
+   "fee_pct_of_notional": 1.945496434186398
+  },
+  {
+   "decile": 8,
+   "notional_lo": 9.99999,
+   "n": 25819666,
+   "fee_pct_of_notional": 2.0765199444012277
+  },
+  {
+   "decile": 9,
+   "notional_lo": 19.082,
+   "n": 25695972,
+   "fee_pct_of_notional": 1.6559026441152807
+  },
+  {
+   "decile": 10,
+   "notional_lo": 49.44051,
+   "n": 25695834,
+   "fee_pct_of_notional": 0.9992353870698921
+  }
+ ],
+ "caveats": [
+  "Within-v2 (avoids the v1->v2 venue confound); taker-ORDER unit (is_tk=TRUE) where the fee lives.",
+  "Participation counts are on-chain wallet addresses (sybil not collapsed \u2014 see T1); descriptive.",
+  "Effective fee rises over the window as fee-free categories shrink; read the monthly panel with that."
+ ]
+}

@@ -1,0 +1,231 @@
+{
+ "scope": "v1 archive, MAKER side; realised gross PnL (= -taker payoff); descriptive",
+ "n_makers": 1214275,
+ "n_winners": 572312,
+ "n_losers": 637314,
+ "total_maker_pnl": 86025289.43373258,
+ "gini_positive": 0.9462285262425721,
+ "median_maker_pnl": -0.5017600000000004,
+ "top_1pct_share_of_maker_winnings": 0.6933139477942833,
+ "top_0.1pct_share": 0.43203749653679624,
+ "by_volume_decile": [
+  {
+   "decile": 1,
+   "n": 121427,
+   "mean_pnl": -0.2628450472547292,
+   "median_pnl": -0.27500000000000024,
+   "frac_winners": 0.43333854908710584,
+   "total_pnl": -31916.485553,
+   "mean_counterparty_winrate": 0.559384803617833
+  },
+  {
+   "decile": 2,
+   "n": 121407,
+   "mean_pnl": -0.20230427448170196,
+   "median_pnl": -0.6667000000000005,
+   "frac_winners": 0.43591390941214264,
+   "total_pnl": -24561.15505199999,
+   "mean_counterparty_winrate": 0.5532335452805338
+  },
+  {
+   "decile": 3,
+   "n": 121447,
+   "mean_pnl": 2.6800030606108014,
+   "median_pnl": -0.143721,
+   "frac_winners": 0.48864113563941475,
+   "total_pnl": 325478.331702,
+   "mean_counterparty_winrate": 0.4990978504366271
+  },
+  {
+   "decile": 4,
+   "n": 121429,
+   "mean_pnl": 7.54432760880844,
+   "median_pnl": 0.19169399999999465,
+   "frac_winners": 0.5450180764067891,
+   "total_pnl": 916100.1572100001,
+   "mean_counterparty_winrate": 0.46968973307466977
+  },
+  {
+   "decile": 5,
+   "n": 121427,
+   "mean_pnl": 14.03522556922266,
+   "median_pnl": 0.5259999999999965,
+   "frac_winners": 0.5353504574765086,
+   "total_pnl": 1704255.335194,
+   "mean_counterparty_winrate": 0.474238161412892
+  },
+  {
+   "decile": 6,
+   "n": 121428,
+   "mean_pnl": 5.0406088471275154,
+   "median_pnl": -0.11300000000000365,
+   "frac_winners": 0.4956599795763745,
+   "total_pnl": 612071.051089,
+   "mean_counterparty_winrate": 0.5149565423001495
+  },
+  {
+   "decile": 7,
+   "n": 121427,
+   "mean_pnl": -200.9375081275911,
+   "median_pnl": -2.0139999999999985,
+   "frac_winners": 0.4724237607780807,
+   "total_pnl": -24399238.799409002,
+   "mean_counterparty_winrate": 0.5091471726956426
+  },
+  {
+   "decile": 8,
+   "n": 121428,
+   "mean_pnl": -98.63769430351319,
+   "median_pnl": -9.502312499999974,
+   "frac_winners": 0.4346032216622196,
+   "total_pnl": -11977377.943886999,
+   "mean_counterparty_winrate": 0.5350223686870624
+  },
+  {
+   "decile": 9,
+   "n": 121427,
+   "mean_pnl": -81.3208185354575,
+   "median_pnl": -34.580039999999464,
+   "frac_winners": 0.3976627932832072,
+   "total_pnl": -9874543.032304998,
+   "mean_counterparty_winrate": 0.5953164310509789
+  },
+  {
+   "decile": 10,
+   "n": 121428,
+   "mean_pnl": 1060.5051715810484,
+   "median_pnl": -21.419017499998283,
+   "frac_winners": 0.47457752742365844,
+   "total_pnl": 128775021.97474355,
+   "mean_counterparty_winrate": 0.4285029476908575
+  }
+ ],
+ "by_nmarkets_decile": [
+  {
+   "decile": 3,
+   "n": 286294,
+   "mean_pnl": -14.877893084357474,
+   "median_pnl": -0.04958499999999974,
+   "frac_winners": 0.4755565956673909,
+   "total_pnl": -4259451.522693039,
+   "mean_counterparty_winrate": 0.6344244838020595
+  },
+  {
+   "decile": 4,
+   "n": 135394,
+   "mean_pnl": -71.7061467821322,
+   "median_pnl": 0.0,
+   "frac_winners": 0.4967576111201383,
+   "total_pnl": -9708582.037420006,
+   "mean_counterparty_winrate": 0.5428606609252296
+  },
+  {
+   "decile": 5,
+   "n": 152907,
+   "mean_pnl": -250.6478213916499,
+   "median_pnl": -0.02799999999999736,
+   "frac_winners": 0.49764235777302546,
+   "total_pnl": -38325806.42553301,
+   "mean_counterparty_winrate": 0.5685350854181781
+  },
+  {
+   "decile": 6,
+   "n": 146242,
+   "mean_pnl": 33.2778168579341,
+   "median_pnl": -0.6041799999999995,
+   "frac_winners": 0.4750960736313781,
+   "total_pnl": 4866614.492937999,
+   "mean_counterparty_winrate": 0.5352570129299816
+  },
+  {
+   "decile": 7,
+   "n": 105317,
+   "mean_pnl": 48.898968224645586,
+   "median_pnl": -1.218,
+   "frac_winners": 0.46587920278777406,
+   "total_pnl": 5149892.636514999,
+   "mean_counterparty_winrate": 0.5074308192767514
+  },
+  {
+   "decile": 8,
+   "n": 144714,
+   "mean_pnl": 145.62522410216027,
+   "median_pnl": -1.5779999999999998,
+   "frac_winners": 0.46750141658719957,
+   "total_pnl": 21074008.680720024,
+   "mean_counterparty_winrate": 0.47422069141408923
+  },
+  {
+   "decile": 9,
+   "n": 121718,
+   "mean_pnl": -94.30837289126508,
+   "median_pnl": -4.162765999999998,
+   "frac_winners": 0.44827387896613485,
+   "total_pnl": -11479026.531579003,
+   "mean_counterparty_winrate": 0.4639731414150414
+  },
+  {
+   "decile": 10,
+   "n": 121689,
+   "mean_pnl": 975.5001696191488,
+   "median_pnl": -18.306593000000007,
+   "frac_winners": 0.42773792208005657,
+   "total_pnl": 118707640.14078459,
+   "mean_counterparty_winrate": 0.41544893144031875
+  }
+ ],
+ "adverse_selection": {
+  "mean_counterparty_winrate_sizewt": 0.4342341339484536,
+  "interpretation": "size-wt rate at which taker counterparties' bets WON against the maker; >0.5 => makers systematically face winning (informed) takers = adverse selection",
+  "spearman_cp_winrate_vs_pnl_(vol>median)": -0.5803711508750543,
+  "spearman_p": 0.0,
+  "note": "negative rho expected (higher counterparty win-rate -> lower maker PnL); the SPREAD of cp_winrate across makers, and whether a subset stays <0.5, indicates informed vs amateur makers."
+ },
+ "by_year": [
+  {
+   "year": 2022,
+   "n_makers": 124,
+   "total_maker_pnl": -15986.065933000027,
+   "gini_positive": 0.7678703082701358,
+   "n_winners": 45,
+   "n_losers": 79
+  },
+  {
+   "year": 2023,
+   "n_makers": 2686,
+   "total_maker_pnl": 443852.24666397116,
+   "gini_positive": 0.9082473168127894,
+   "n_winners": 1132,
+   "n_losers": 1551
+  },
+  {
+   "year": 2024,
+   "n_makers": 230096,
+   "total_maker_pnl": -9234150.494300794,
+   "gini_positive": 0.9486569423689465,
+   "n_winners": 118939,
+   "n_losers": 110783
+  },
+  {
+   "year": 2025,
+   "n_makers": 644943,
+   "total_maker_pnl": 51009202.840099886,
+   "gini_positive": 0.9509309534403835,
+   "n_winners": 312239,
+   "n_losers": 330405
+  },
+  {
+   "year": 2026,
+   "n_makers": 633639,
+   "total_maker_pnl": 43822370.91337343,
+   "gini_positive": 0.9463999247215394,
+   "n_winners": 293672,
+   "n_losers": 337380
+  }
+ ],
+ "caveats": [
+  "Maker = resting-order owner in the archive; mint/merge legs re-expressed from the taker are excluded (maker IS NOT NULL AND maker<>taker). Realised gross PnL, outcome-dependent (survivorship).",
+  "Adverse-selection proxy is counterparty-win-rate (no order-book midprice available for a spread/AS decomposition); a subset of makers with cp_winrate<0.5 would be the informed/professional makers.",
+  "v1 ~fee-free: maker economics here EXCLUDE the maker rebate/fee flows introduced in v2."
+ ]
+}
