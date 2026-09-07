@@ -16,6 +16,14 @@ mkdir -p /data/logs
 gaps() { python scripts/10_relaunch_v2_gaps.py --dry-run --to-block "$TO" 2>/dev/null | awk '/missing_blocks/{print $3}'; }
 nchunks() { ls "$INTELLIFI_DATA_DIR/parquet/tape_v2" 2>/dev/null | wc -l; }
 while true; do
+  # IP-penalty circuit-breaker guard (2026-09-01): if a worker stamped a warm penalty
+  # marker (/data/logs/.ip_penalty via onchain.py), SLEEP the remaining cooldown instead
+  # of relaunching the fleet onto a penalized IP -- relaunching only grinds it warm and
+  # resets the decay. penalty_active() returns seconds remaining; old code / no marker -> 0.
+  REMAIN=$(python -c "from intellifi.onchain import Polygonscan; import math; print(int(math.ceil(Polygonscan.penalty_active())))" 2>/dev/null || echo 0)
+  if [ "${REMAIN:-0}" -gt 0 ]; then
+    echo "[$(date -u +%FT%TZ)] IP penalty marker warm (${REMAIN}s left) -- sleeping, NOT relaunching"; sleep "$REMAIN"; continue
+  fi
   echo "[$(date -u +%FT%TZ)] launching fleet over $FROM-$TO (per_key=$PER_KEY)"
   # one contiguous sub-range per (key x per_key) slot; each process caps at MAXC
   KEYS=(); for k in ETHERSCAN_KEY ETHERSCAN_KEY2 ETHERSCAN_KEY3 ETHERSCAN_KEY4 ETHERSCAN_KEY5 ETHERSCAN_KEY6; do

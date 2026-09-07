@@ -1,0 +1,28 @@
+{
+ "shard_prefix": "rshard",
+ "n_conditions": 2108903,
+ "n_resolved": 2108903,
+ "n_unresolved": 0,
+ "n_negrisk": 371101,
+ "resolved_frac": 1.0,
+ "raw_resolution_events_fetched": 2108903,
+ "merged_resolved": 2108903,
+ "resolution_events_minus_merged_resolved": 0,
+ "cross_boundary_note": "gap = v1-era markets resolving in the v2 window (correctly excluded, no prep in range) PLUS v2 cross-boundary losses (prep in shard N, resolution in shard N+1 \u2014 WRONGLY dropped). If the gap is large, re-fetch resolutions globally and re-join.",
+ "binary_conditions": 2108850,
+ "winning_index_in_0_1_frac": 1.0,
+ "written": "data/parquet/ctf_v2_conditions.parquet",
+ "token_derivation_match": {
+  "tape_distinct_tokens": 3247953,
+  "matched_to_derived": 2455371,
+  "match_frac": 0.756,
+  "note": "derived position_id token0/token1 vs tokens actually traded in the tape; high frac validates the condition->token->winner chain"
+ },
+ "coverage": {
+  "tape_conditions": 1255250,
+  "in_registry": 1228167,
+  "resolved": 1228167,
+  "resolved_frac_of_tape": 0.9784,
+  "note": "unresolved tape conditions are either still-open markets or cross-boundary losses"
+ }
+}

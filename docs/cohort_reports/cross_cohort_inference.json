@@ -1,0 +1,143 @@
+{
+ "cohorts_loaded": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6
+ ],
+ "equiv_margin_rel": 0.15,
+ "SCOPE": "cohort-level replication stability; NOT the registered class-level H1-H4 (those need the clob_markets class join + Sample-A comparison). n=6 => low power.",
+ "metrics": {
+  "self_match_fills": {
+   "by_cohort": {
+    "1": 0,
+    "2": 0,
+    "3": 0,
+    "4": 0,
+    "5": 0,
+    "6": 0
+   },
+   "mean": 0.0,
+   "min": 0.0,
+   "max": 0.0,
+   "range": 0.0,
+   "stable_within_margin": true,
+   "trend_slope_per_cohort": 0.0,
+   "trend_p_uncorrected": null
+  },
+  "taker_fee_paying_share": {
+   "by_cohort": {
+    "1": 0.9609947354544057,
+    "2": 0.9799395734902583,
+    "3": 0.9857921117035146,
+    "4": 0.9837622929628349,
+    "5": 0.9854480285392535,
+    "6": 0.989726226929731
+   },
+   "mean": 0.9809438281799997,
+   "min": 0.9609947354544057,
+   "max": 0.989726226929731,
+   "range": 0.028731491475325277,
+   "stable_within_margin": true,
+   "trend_slope_per_cohort": 0.004518657250940926,
+   "trend_p_uncorrected": 0.0037901233526698164
+  },
+  "maker_hhi_notional": {
+   "by_cohort": {
+    "1": 0.004107823665488146,
+    "2": 0.005346622237188025,
+    "3": 0.006135846811418606,
+    "4": 0.0059999830092547154,
+    "5": 0.006162606201460785,
+    "6": 0.00545724186943227
+   },
+   "mean": 0.005535020632373758,
+   "min": 0.004107823665488146,
+   "max": 0.006162606201460785,
+   "range": 0.0020547825359726385,
+   "stable_within_margin": false,
+   "trend_slope_per_cohort": 0.0002588336888678573,
+   "trend_p_uncorrected": 0.11396319462138793
+  },
+  "maker_top10_notional": {
+   "by_cohort": {
+    "1": 0.14660950954910779,
+    "2": 0.1773721859642979,
+    "3": 0.17525869380865503,
+    "4": 0.17013424065465668,
+    "5": 0.17704248438114156,
+    "6": 0.173154115419064
+   },
+   "mean": 0.16992853829615384,
+   "min": 0.14660950954910779,
+   "max": 0.1773721859642979,
+   "range": 0.03076267641519012,
+   "stable_within_margin": false,
+   "trend_slope_per_cohort": 0.0036174134698946773,
+   "trend_p_uncorrected": 0.158047280795095
+  },
+  "order_size_median_feepaying": {
+   "by_cohort": {
+    "1": 4.95,
+    "2": 4.997,
+    "3": 4.9,
+    "4": 4.6299765,
+    "5": 4.1,
+    "6": 3.999999
+   },
+   "mean": 4.596162583333333,
+   "min": 3.999999,
+   "max": 4.997,
+   "range": 0.997001,
+   "stable_within_margin": false,
+   "trend_slope_per_cohort": -0.2203151000000001,
+   "trend_p_uncorrected": 3.709978564359062e-07
+  },
+  "order_size_median_nofee": {
+   "by_cohort": {
+    "1": 8.33,
+    "2": 7.482,
+    "3": 5.039998,
+    "4": 4.99,
+    "5": 6.68665,
+    "6": 4.995
+   },
+   "mean": 6.253941333333334,
+   "min": 4.99,
+   "max": 8.33,
+   "range": 3.34,
+   "stable_within_margin": false,
+   "trend_slope_per_cohort": -0.5460299428571429,
+   "trend_p_uncorrected": 0.05023167435897391
+  },
+  "roundtrip_share_feepaying": {
+   "by_cohort": {
+    "1": 0.09946299682997008,
+    "2": 0.09922152076359954,
+    "3": 0.09994941926371945,
+    "4": 0.0856183193080131,
+    "5": 0.0830805270390324,
+    "6": 0.08083965927986006
+   },
+   "mean": 0.09136207374736577,
+   "min": 0.08083965927986006,
+   "max": 0.09994941926371945,
+   "range": 0.019109759983859387,
+   "stable_within_margin": false,
+   "trend_slope_per_cohort": -0.004453450539427366,
+   "trend_p_uncorrected": 4.78031591932826e-06
+  }
+ },
+ "trend_significant_holm": {
+  "order_size_median_feepaying": true,
+  "roundtrip_share_feepaying": true,
+  "taker_fee_paying_share": true,
+  "order_size_median_nofee": false,
+  "maker_hhi_notional": false,
+  "maker_top10_notional": false,
+  "self_match_fills": false
+ },
+ "H1c_self_match_all_zero": true
+}

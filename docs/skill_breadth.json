@@ -1,0 +1,163 @@
+{
+ "scope": "archive maker+taker; per-wallet cross-market breadth vs skill proxy z",
+ "n_wallets": 1345998,
+ "by_skill_tier": [
+  {
+   "tier": "skilled(z>1.645)",
+   "n": 78867,
+   "n_markets": {
+    "n": 78867,
+    "mean": 313.6501451811277,
+    "median": 30.0
+   },
+   "n_categories": {
+    "n": 78867,
+    "mean": 14.002307682554173,
+    "median": 10.0
+   },
+   "market_win_rate": {
+    "n": 78867,
+    "mean": 0.8531001831205771,
+    "median": 0.9393939393939394
+   },
+   "top_market_share_of_gains": {
+    "n": 78867,
+    "mean": 0.21471663719823694,
+    "median": 0.19852687964503654
+   }
+  },
+  {
+   "tier": "neutral",
+   "n": 1014017,
+   "n_markets": {
+    "n": 1014017,
+    "mean": 112.95099391824792,
+    "median": 28.0
+   },
+   "n_categories": {
+    "n": 1014017,
+    "mean": 11.988632340483443,
+    "median": 9.0
+   },
+   "market_win_rate": {
+    "n": 1014017,
+    "mean": 0.5112747162562922,
+    "median": 0.5
+   },
+   "top_market_share_of_gains": {
+    "n": 1002722,
+    "mean": 0.403804355061852,
+    "median": 0.34009609916242345
+   }
+  },
+  {
+   "tier": "anti-skilled(z<-1.645)",
+   "n": 253114,
+   "n_markets": {
+    "n": 253114,
+    "mean": 118.71711955877589,
+    "median": 21.0
+   },
+   "n_categories": {
+    "n": 253114,
+    "mean": 10.954024668726344,
+    "median": 8.0
+   },
+   "market_win_rate": {
+    "n": 253114,
+    "mean": 0.22534927761247692,
+    "median": 0.16666666666666666
+   },
+   "top_market_share_of_gains": {
+    "n": 183703,
+    "mean": 0.4712896224841938,
+    "median": 0.41526848523266124
+   }
+  }
+ ],
+ "interpretation": "skilled wallets trading MORE markets/categories with a HIGHER market win-rate and LOWER top-market concentration => breadth = skill (not one lucky win); the reverse for anti-skilled.",
+ "caveats": [
+  "z is a sign-flip skill proxy (cross-market-correlation caveat applies as in scripts/31); realised, outcome-dependent (survivorship)."
+ ],
+ "dominant_code_hashes": [
+  "f5c625376518f07a",
+  "cefa4f597e0304e1",
+  "7e77a9a6f3d8a738",
+  "7652a45dda6a3f58"
+ ],
+ "skill_by_account_category": [
+  {
+   "acct_category": "proxy_type:7652a45d",
+   "n": 70,
+   "mean_z": 0.6298295580324632,
+   "frac_skilled_z>1.645": 0.15714285714285714,
+   "frac_anti_z<-1.645": 0.17142857142857143,
+   "mean_pnl": 51186.12728758565,
+   "win_rate_markets": 0.5465453060491161,
+   "mean_n_markets": 3095.5714285714284,
+   "mean_n_categories": 13.5,
+   "mean_top_market_share": 0.14545854995092825
+  },
+  {
+   "acct_category": "polymarket_proxy",
+   "n": 3680,
+   "mean_z": 0.13251718494202983,
+   "frac_skilled_z>1.645": 0.1358695652173913,
+   "frac_anti_z<-1.645": 0.13695652173913042,
+   "mean_pnl": 84516.47114922041,
+   "win_rate_markets": 0.4974106494441763,
+   "mean_n_markets": 1033.814945652174,
+   "mean_n_categories": 21.83695652173913,
+   "mean_top_market_share": 0.2789842261034885
+  },
+  {
+   "acct_category": "gnosis_safe",
+   "n": 12632,
+   "mean_z": -0.2959842025854531,
+   "frac_skilled_z>1.645": 0.10022165927802407,
+   "frac_anti_z<-1.645": 0.18366054464851173,
+   "mean_pnl": 19540.71895181689,
+   "win_rate_markets": 0.4904738271537768,
+   "mean_n_markets": 323.1277707409753,
+   "mean_n_categories": 14.203926535782141,
+   "mean_top_market_share": 0.41494326779056284
+  },
+  {
+   "acct_category": "proxy_variant",
+   "n": 20,
+   "mean_z": -0.39640709663138135,
+   "frac_skilled_z>1.645": 0.1,
+   "frac_anti_z<-1.645": 0.2,
+   "mean_pnl": -49.48354410000008,
+   "win_rate_markets": 0.4835407418864923,
+   "mean_n_markets": 189.3,
+   "mean_n_categories": 18.3,
+   "mean_top_market_share": 0.3521971922281387
+  },
+  {
+   "acct_category": "EOA",
+   "n": 539,
+   "mean_z": -0.3464522405518422,
+   "frac_skilled_z>1.645": 0.04823747680890538,
+   "frac_anti_z<-1.645": 0.12987012987012986,
+   "mean_pnl": 10908.769298575142,
+   "win_rate_markets": 0.47225869706259366,
+   "mean_n_markets": 301.44712430426716,
+   "mean_n_categories": 8.235621521335807,
+   "mean_top_market_share": 0.2534111582328116
+  },
+  {
+   "acct_category": "proxy_type:7e77a9a6",
+   "n": 97,
+   "mean_z": -0.5736481846689877,
+   "frac_skilled_z>1.645": 0.041237113402061855,
+   "frac_anti_z<-1.645": 0.17525773195876287,
+   "mean_pnl": -107.75375072164955,
+   "win_rate_markets": 0.49285773511561803,
+   "mean_n_markets": 70.15463917525773,
+   "mean_n_categories": 9.309278350515465,
+   "mean_top_market_share": 0.35703502927164626
+  }
+ ],
+ "skill_gradient_note": "categories sorted by frac_skilled; a monotone gradient (e.g. a specific proxy type or EOA carrying most of the skill, custom_SC bots at the bottom) is the headline \u2014 identify proxy_type1/2 (Gnosis Safe vs Polymarket proxy) via scripts/37 getOwners/bytecode."
+}

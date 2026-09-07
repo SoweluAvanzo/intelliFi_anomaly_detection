@@ -1,0 +1,1248 @@
+{
+ "source": "archive",
+ "side": "taker (aggressor); makers are the counterparty and not measured here",
+ "n_markets_mapped": 100,
+ "A_per_category": [
+  {
+   "category": "geopolitics_world",
+   "n_markets": 32,
+   "n_wallets": 254585,
+   "n_taker_orders": 1764341,
+   "mean_implied_p": 0.39494393634932984,
+   "hit_rate": 0.39292755656656136,
+   "calibration_gap": -0.002016379782768435,
+   "reliability_curve": [
+    {
+     "decile": 0,
+     "mean_p": 0.014342909212558248,
+     "hit_rate": 0.027018792603312608,
+     "gap": 0.01267588339075436,
+     "n": 412279
+    },
+    {
+     "decile": 1,
+     "mean_p": 0.15164578503484968,
+     "hit_rate": 0.2759143740704715,
+     "gap": 0.1242685890356218,
+     "n": 163698
+    },
+    {
+     "decile": 2,
+     "mean_p": 0.2421570415590405,
+     "hit_rate": 0.33696254840387685,
+     "gap": 0.09480550684483635,
+     "n": 130936
+    },
+    {
+     "decile": 3,
+     "mean_p": 0.34778888535800834,
+     "hit_rate": 0.33639117092541937,
+     "gap": -0.011397714432588968,
+     "n": 91171
+    },
+    {
+     "decile": 4,
+     "mean_p": 0.44714451371152025,
+     "hit_rate": 0.3740925927671506,
+     "gap": -0.07305192094436963,
+     "n": 75960
+    },
+    {
+     "decile": 5,
+     "mean_p": 0.550749591992452,
+     "hit_rate": 0.6014306719484228,
+     "gap": 0.05068107995597082,
+     "n": 72392
+    },
+    {
+     "decile": 6,
+     "mean_p": 0.6492866516127402,
+     "hit_rate": 0.6194056260435078,
+     "gap": -0.029881025569232444,
+     "n": 91339
+    },
+    {
+     "decile": 7,
+     "mean_p": 0.7558397685268281,
+     "hit_rate": 0.6561833952475826,
+     "gap": -0.09965637327924548,
+     "n": 117575
+    },
+    {
+     "decile": 8,
+     "mean_p": 0.8478145845318905,
+     "hit_rate": 0.7089236048591955,
+     "gap": -0.13889097967269504,
+     "n": 177228
+    },
+    {
+     "decile": 9,
+     "mean_p": 0.9793385356960838,
+     "hit_rate": 0.9550303028860504,
+     "gap": -0.02430823281003336,
+     "n": 431763
+    }
+   ]
+  },
+  {
+   "category": "finance_macro",
+   "n_markets": 14,
+   "n_wallets": 176188,
+   "n_taker_orders": 969961,
+   "mean_implied_p": 0.4446656134765633,
+   "hit_rate": 0.4428736878851265,
+   "calibration_gap": -0.0017919255914368164,
+   "reliability_curve": [
+    {
+     "decile": 0,
+     "mean_p": 0.010193984099533059,
+     "hit_rate": 0.0,
+     "gap": -0.010193984099533059,
+     "n": 359159
+    },
+    {
+     "decile": 1,
+     "mean_p": 0.13613580156712904,
+     "hit_rate": 5.093928859208614e-05,
+     "gap": -0.13608486227853694,
+     "n": 27146
+    },
+    {
+     "decile": 2,
+     "mean_p": 0.2537241930506576,
+     "hit_rate": 0.06924433554003367,
+     "gap": -0.1844798575106239,
+     "n": 18958
+    },
+    {
+     "decile": 3,
+     "mean_p": 0.33218289705840964,
+     "hit_rate": 0.33488718388492933,
+     "gap": 0.002704286826519686,
+     "n": 16235
+    },
+    {
+     "decile": 4,
+     "mean_p": 0.45786123801447615,
+     "hit_rate": 0.36326977118401216,
+     "gap": -0.09459146683046399,
+     "n": 10327
+    },
+    {
+     "decile": 5,
+     "mean_p": 0.5369736061817986,
+     "hit_rate": 0.5542960031525873,
+     "gap": 0.017322396970788745,
+     "n": 12159
+    },
+    {
+     "decile": 6,
+     "mean_p": 0.6637316475787555,
+     "hit_rate": 0.6567718200652117,
+     "gap": -0.006959827513543737,
+     "n": 15982
+    },
+    {
+     "decile": 7,
+     "mean_p": 0.7412471899888983,
+     "hit_rate": 0.9118676841311834,
+     "gap": 0.17062049414228508,
+     "n": 20702
+    },
+    {
+     "decile": 8,
+     "mean_p": 0.8595594654125166,
+     "hit_rate": 0.9985683136267975,
+     "gap": 0.13900884821428094,
+     "n": 27982
+    },
+    {
+     "decile": 9,
+     "mean_p": 0.9896864863201241,
+     "hit_rate": 1.0,
+     "gap": 0.010313513679875874,
+     "n": 461311
+    }
+   ]
+  },
+  {
+   "category": "politics_us",
+   "n_markets": 18,
+   "n_wallets": 131121,
+   "n_taker_orders": 613411,
+   "mean_implied_p": 0.31818506664468793,
+   "hit_rate": 0.327542244006053,
+   "calibration_gap": 0.009357177361365057,
+   "reliability_curve": [
+    {
+     "decile": 0,
+     "mean_p": 0.00881345913190957,
+     "hit_rate": 0.00051090056279994,
+     "gap": -0.008302558569109629,
+     "n": 125575
+    },
+    {
+     "decile": 1,
+     "mean_p": 0.1479299503787209,
+     "hit_rate": 0.020410958753214452,
+     "gap": -0.12751899162550645,
+     "n": 40598
+    },
+    {
+     "decile": 2,
+     "mean_p": 0.25663444634354976,
+     "hit_rate": 0.2387497373987509,
+     "gap": -0.01788470894479885,
+     "n": 55583
+    },
+    {
+     "decile": 3,
+     "mean_p": 0.35011625137564306,
+     "hit_rate": 0.502253974750688,
+     "gap": 0.15213772337504494,
+     "n": 51926
+    },
+    {
+     "decile": 4,
+     "mean_p": 0.4512306725299366,
+     "hit_rate": 0.6188550914782686,
+     "gap": 0.16762441894833197,
+     "n": 30758
+    },
+    {
+     "decile": 5,
+     "mean_p": 0.5398139750287625,
+     "hit_rate": 0.5604760600458866,
+     "gap": 0.020662085017124077,
+     "n": 30010
+    },
+    {
+     "decile": 6,
+     "mean_p": 0.6502637561338934,
+     "hit_rate": 0.6985530716672821,
+     "gap": 0.048289315533388666,
+     "n": 52590
+    },
+    {
+     "decile": 7,
+     "mean_p": 0.7427632302025187,
+     "hit_rate": 0.7491355123735939,
+     "gap": 0.0063722821710752164,
+     "n": 53806
+    },
+    {
+     "decile": 8,
+     "mean_p": 0.8533020832329095,
+     "hit_rate": 0.9745719603163638,
+     "gap": 0.12126987708345438,
+     "n": 39787
+    },
+    {
+     "decile": 9,
+     "mean_p": 0.9847850293235167,
+     "hit_rate": 0.9979709999447278,
+     "gap": 0.013185970621211074,
+     "n": 132778
+    }
+   ]
+  },
+  {
+   "category": "sports",
+   "n_markets": 17,
+   "n_wallets": 126467,
+   "n_taker_orders": 639406,
+   "mean_implied_p": 0.5063100834674823,
+   "hit_rate": 0.5020615635999414,
+   "calibration_gap": -0.004248519867540979,
+   "reliability_curve": [
+    {
+     "decile": 0,
+     "mean_p": 0.008647383102814923,
+     "hit_rate": 0.0,
+     "gap": -0.008647383102814923,
+     "n": 214150
+    },
+    {
+     "decile": 1,
+     "mean_p": 0.1286134796891465,
+     "hit_rate": 0.0,
+     "gap": -0.1286134796891465,
+     "n": 17102
+    },
+    {
+     "decile": 2,
+     "mean_p": 0.24985026937959814,
+     "hit_rate": 0.0,
+     "gap": -0.24985026937959814,
+     "n": 5830
+    },
+    {
+     "decile": 3,
+     "mean_p": 0.32455008416520714,
+     "hit_rate": 0.0,
+     "gap": -0.32455008416520714,
+     "n": 29791
+    },
+    {
+     "decile": 4,
+     "mean_p": 0.40178808357745216,
+     "hit_rate": 0.0,
+     "gap": -0.40178808357745216,
+     "n": 14
+    },
+    {
+     "decile": 6,
+     "mean_p": 0.6835448927413166,
+     "hit_rate": 1.0,
+     "gap": 0.3164551072586834,
+     "n": 23445
+    },
+    {
+     "decile": 7,
+     "mean_p": 0.7464955532440908,
+     "hit_rate": 1.0,
+     "gap": 0.2535044467559092,
+     "n": 6713
+    },
+    {
+     "decile": 8,
+     "mean_p": 0.8740418311585362,
+     "hit_rate": 1.0,
+     "gap": 0.12595816884146382,
+     "n": 15309
+    },
+    {
+     "decile": 9,
+     "mean_p": 0.9932816106550842,
+     "hit_rate": 0.9999999988139505,
+     "gap": 0.006718388158866273,
+     "n": 327052
+    }
+   ]
+  },
+  {
+   "category": "crypto_updown",
+   "n_markets": 7,
+   "n_wallets": 88978,
+   "n_taker_orders": 229152,
+   "mean_implied_p": 0.5167242064510703,
+   "hit_rate": 0.515888477053865,
+   "calibration_gap": -0.0008357293972054051,
+   "reliability_curve": [
+    {
+     "decile": 0,
+     "mean_p": 0.008907171473654702,
+     "hit_rate": 0.0008292082771907667,
+     "gap": -0.008077963196463936,
+     "n": 73136
+    },
+    {
+     "decile": 1,
+     "mean_p": 0.14578362402781486,
+     "hit_rate": 0.09701232624576096,
+     "gap": -0.0487712977820539,
+     "n": 4081
+    },
+    {
+     "decile": 2,
+     "mean_p": 0.24108078237700106,
+     "hit_rate": 0.32776988453678413,
+     "gap": 0.08668910215978307,
+     "n": 3561
+    },
+    {
+     "decile": 3,
+     "mean_p": 0.345869261578437,
+     "hit_rate": 0.4631995230220589,
+     "gap": 0.11733026144362191,
+     "n": 1952
+    },
+    {
+     "decile": 4,
+     "mean_p": 0.4534912615642177,
+     "hit_rate": 0.4597936491281303,
+     "gap": 0.006302387563912604,
+     "n": 4670
+    },
+    {
+     "decile": 5,
+     "mean_p": 0.5464335427820117,
+     "hit_rate": 0.5121058360824047,
+     "gap": -0.03432770669960705,
+     "n": 5391
+    },
+    {
+     "decile": 6,
+     "mean_p": 0.6489062526209902,
+     "hit_rate": 0.5151719467766496,
+     "gap": -0.13373430584434065,
+     "n": 1994
+    },
+    {
+     "decile": 7,
+     "mean_p": 0.757804064187637,
+     "hit_rate": 0.6398414370394758,
+     "gap": -0.11796262714816119,
+     "n": 2727
+    },
+    {
+     "decile": 8,
+     "mean_p": 0.8523908080008998,
+     "hit_rate": 0.9011636004738527,
+     "gap": 0.04877279247295285,
+     "n": 4977
+    },
+    {
+     "decile": 9,
+     "mean_p": 0.992351326793971,
+     "hit_rate": 0.9987650613741329,
+     "gap": 0.006413734580161923,
+     "n": 126663
+    }
+   ]
+  },
+  {
+   "category": "culture",
+   "n_markets": 5,
+   "n_wallets": 6899,
+   "n_taker_orders": 23443,
+   "mean_implied_p": 0.14610058426693553,
+   "hit_rate": 0.14479433202675504,
+   "calibration_gap": -0.0013062522401805026,
+   "reliability_curve": [
+    {
+     "decile": 0,
+     "mean_p": 0.0017337724164213737,
+     "hit_rate": 0.0,
+     "gap": -0.0017337724164213737,
+     "n": 11005
+    },
+    {
+     "decile": 1,
+     "mean_p": 0.18095926953802735,
+     "hit_rate": 0.11686398940615053,
+     "gap": -0.06409528013187682,
+     "n": 61
+    },
+    {
+     "decile": 2,
+     "mean_p": 0.2743513720113014,
+     "hit_rate": 0.007022088988954774,
+     "gap": -0.2673292830223466,
+     "n": 719
+    },
+    {
+     "decile": 3,
+     "mean_p": 0.36663798424958227,
+     "hit_rate": 0.5794423449129797,
+     "gap": 0.21280436066339747,
+     "n": 1337
+    },
+    {
+     "decile": 4,
+     "mean_p": 0.44130339361160914,
+     "hit_rate": 0.7469034405377092,
+     "gap": 0.30560004692610004,
+     "n": 1585
+    },
+    {
+     "decile": 5,
+     "mean_p": 0.554338913208214,
+     "hit_rate": 0.43731871590801347,
+     "gap": -0.11702019730020058,
+     "n": 1599
+    },
+    {
+     "decile": 6,
+     "mean_p": 0.636314697385464,
+     "hit_rate": 0.2643941340661371,
+     "gap": -0.3719205633193269,
+     "n": 1383
+    },
+    {
+     "decile": 7,
+     "mean_p": 0.7497005224596549,
+     "hit_rate": 0.9900281519569569,
+     "gap": 0.24032762949730202,
+     "n": 754
+    },
+    {
+     "decile": 8,
+     "mean_p": 0.822166052374377,
+     "hit_rate": 0.5515277260644413,
+     "gap": -0.2706383263099357,
+     "n": 97
+    },
+    {
+     "decile": 9,
+     "mean_p": 0.9978885387756943,
+     "hit_rate": 1.0,
+     "gap": 0.002111461224305722,
+     "n": 4903
+    }
+   ]
+  },
+  {
+   "category": "crypto_other",
+   "n_markets": 4,
+   "n_wallets": 27469,
+   "n_taker_orders": 141722,
+   "mean_implied_p": 0.489234753341924,
+   "hit_rate": 0.48776839637852043,
+   "calibration_gap": -0.0014663569634036147,
+   "reliability_curve": [
+    {
+     "decile": 0,
+     "mean_p": 0.021476487828830625,
+     "hit_rate": 2.1590646010335176e-07,
+     "gap": -0.021476271922370522,
+     "n": 14422
+    },
+    {
+     "decile": 1,
+     "mean_p": 0.1468767560550275,
+     "hit_rate": 0.007964905502578355,
+     "gap": -0.13891185055244915,
+     "n": 21482
+    },
+    {
+     "decile": 2,
+     "mean_p": 0.25200535919677364,
+     "hit_rate": 0.0803233821564748,
+     "gap": -0.17168197704029883,
+     "n": 12001
+    },
+    {
+     "decile": 3,
+     "mean_p": 0.3448724287476771,
+     "hit_rate": 0.09809035299359539,
+     "gap": -0.2467820757540817,
+     "n": 15714
+    },
+    {
+     "decile": 4,
+     "mean_p": 0.44252663722511454,
+     "hit_rate": 0.22840146253714774,
+     "gap": -0.2141251746879668,
+     "n": 7671
+    },
+    {
+     "decile": 5,
+     "mean_p": 0.5594016704809499,
+     "hit_rate": 0.7506826231139303,
+     "gap": 0.1912809526329804,
+     "n": 6873
+    },
+    {
+     "decile": 6,
+     "mean_p": 0.6559591291605035,
+     "hit_rate": 0.9076410015606609,
+     "gap": 0.2516818724001574,
+     "n": 14530
+    },
+    {
+     "decile": 7,
+     "mean_p": 0.7436568303408714,
+     "hit_rate": 0.9100696354720346,
+     "gap": 0.1664128051311632,
+     "n": 13483
+    },
+    {
+     "decile": 8,
+     "mean_p": 0.8592480263977582,
+     "hit_rate": 0.9860810692467743,
+     "gap": 0.1268330428490161,
+     "n": 21287
+    },
+    {
+     "decile": 9,
+     "mean_p": 0.9710043102171937,
+     "hit_rate": 0.9998449865638804,
+     "gap": 0.028840676346686744,
+     "n": 14259
+    }
+   ]
+  },
+  {
+   "category": "finance",
+   "n_markets": 3,
+   "n_wallets": 22495,
+   "n_taker_orders": 104996,
+   "mean_implied_p": 0.33242873736981343,
+   "hit_rate": 0.3303186403621446,
+   "calibration_gap": -0.002110097007668889,
+   "reliability_curve": [
+    {
+     "decile": 0,
+     "mean_p": 0.005862162727158115,
+     "hit_rate": 2.992259105568598e-07,
+     "gap": -0.0058618635012475575,
+     "n": 15507
+    },
+    {
+     "decile": 1,
+     "mean_p": 0.15390379461773343,
+     "hit_rate": 0.004194550198041407,
+     "gap": -0.14970924441969202,
+     "n": 9259
+    },
+    {
+     "decile": 2,
+     "mean_p": 0.24774428066290563,
+     "hit_rate": 0.24072291942314594,
+     "gap": -0.007021361239759688,
+     "n": 11441
+    },
+    {
+     "decile": 3,
+     "mean_p": 0.354808031858145,
+     "hit_rate": 0.3675357794756359,
+     "gap": 0.012727747617490903,
+     "n": 8548
+    },
+    {
+     "decile": 4,
+     "mean_p": 0.44162091788418745,
+     "hit_rate": 0.47969885887306213,
+     "gap": 0.03807794098887468,
+     "n": 5197
+    },
+    {
+     "decile": 5,
+     "mean_p": 0.5599123524778106,
+     "hit_rate": 0.43974636483687873,
+     "gap": -0.12016598764093184,
+     "n": 4077
+    },
+    {
+     "decile": 6,
+     "mean_p": 0.6495990198538393,
+     "hit_rate": 0.6434876910150858,
+     "gap": -0.006111328838753427,
+     "n": 8669
+    },
+    {
+     "decile": 7,
+     "mean_p": 0.7538522851974555,
+     "hit_rate": 0.7228419457051096,
+     "gap": -0.031010339492345884,
+     "n": 11090
+    },
+    {
+     "decile": 8,
+     "mean_p": 0.8464137033115975,
+     "hit_rate": 0.9920831058826366,
+     "gap": 0.1456694025710391,
+     "n": 10294
+    },
+    {
+     "decile": 9,
+     "mean_p": 0.986509723704021,
+     "hit_rate": 1.0,
+     "gap": 0.013490276295978987,
+     "n": 20914
+    }
+   ]
+  }
+ ],
+ "B_market_concentration": {
+  "min_market_wallets": 10,
+  "by_category": [
+   {
+    "category": "geopolitics_world",
+    "n_markets": 32,
+    "median_top1_share": 0.07512472985757668,
+    "median_gini": 0.9319085528772584,
+    "median_winner_frac": 0.29962907807807915
+   },
+   {
+    "category": "politics_us",
+    "n_markets": 18,
+    "median_top1_share": 0.09050793608328714,
+    "median_gini": 0.9133545416198501,
+    "median_winner_frac": 0.19186683149908568
+   },
+   {
+    "category": "sports",
+    "n_markets": 17,
+    "median_top1_share": 0.22371704165525177,
+    "median_gini": 0.9373836219219838,
+    "median_winner_frac": 0.041101880192391776
+   },
+   {
+    "category": "finance_macro",
+    "n_markets": 14,
+    "median_top1_share": 0.13507699486365243,
+    "median_gini": 0.967857592260441,
+    "median_winner_frac": 0.15639586502760267
+   },
+   {
+    "category": "crypto_updown",
+    "n_markets": 7,
+    "median_top1_share": 0.10414093398728469,
+    "median_gini": 0.936913367599307,
+    "median_winner_frac": 0.2212075471698113
+   },
+   {
+    "category": "culture",
+    "n_markets": 5,
+    "median_top1_share": 0.4171885227256898,
+    "median_gini": 0.6349176248856856,
+    "median_winner_frac": 0.0353356890459364
+   },
+   {
+    "category": "crypto_other",
+    "n_markets": 4,
+    "median_top1_share": 0.13273744963145456,
+    "median_gini": 0.9323640508425197,
+    "median_winner_frac": 0.2998594379096413
+   },
+   {
+    "category": "finance",
+    "n_markets": 3,
+    "median_top1_share": 0.3022011333961853,
+    "median_gini": 0.9473843303407832,
+    "median_winner_frac": 0.3175412293853073
+   }
+  ],
+  "most_concentrated_markets": [
+   {
+    "condition_id": "0xf2d034812c1e871421eb6ca9afd30f2a03f0494fc910cc4cabc4515685b610cb",
+    "category": "sports",
+    "slug": "will-the-tennessee-titans-win-super-bowl-2026",
+    "n_wallets": 20337,
+    "n_winners": 358,
+    "n_losers": 18600,
+    "total_positive_pnl": 1667.5737717514546,
+    "top1_share": 0.8942553451891855,
+    "top5_share": 0.9351666386837731,
+    "gini_positive_pnl": 0.9883417322786039
+   },
+   {
+    "condition_id": "0xb1a6136ad23d19526c4929d2e79c79e999628de931ca2475d138fb31637fd2c4",
+    "category": "finance",
+    "slug": "will-saudi-aramco-be-the-largest-company-in-the-world-by-market-cap-on-december-31",
+    "n_wallets": 3292,
+    "n_winners": 304,
+    "n_losers": 1743,
+    "total_positive_pnl": 768.8512533860129,
+    "top1_share": 0.8040566979340336,
+    "top5_share": 0.8483069212301761,
+    "gini_positive_pnl": 0.9473843303407832
+   },
+   {
+    "condition_id": "0x4dce6b5f1fa7693336ba4df1537ccff1835f20a3414cc951790e5caf75cd8cff",
+    "category": "culture",
+    "slug": "will-chef-phillip-win-the-2025-national-heads-up-poker-championship",
+    "n_wallets": 200,
+    "n_winners": 11,
+    "n_losers": 142,
+    "total_positive_pnl": 30.41454699999998,
+    "top1_share": 0.7938477597578556,
+    "top5_share": 0.9983216255037431,
+    "gini_positive_pnl": 0.8677511694411469
+   },
+   {
+    "condition_id": "0x7c6c69d91b21cbbea08a13d0ad51c0e96a956045aaadc77bce507c6b0475b66e",
+    "category": "finance_macro",
+    "slug": "fed-increases-interest-rates-by-25-bps-after-january-2026-meeting",
+    "n_wallets": 13659,
+    "n_winners": 1005,
+    "n_losers": 8937,
+    "total_positive_pnl": 22391.68610882462,
+    "top1_share": 0.7720534628782109,
+    "top5_share": 0.9063633828473759,
+    "gini_positive_pnl": 0.9906755472529164
+   },
+   {
+    "condition_id": "0xd28f9dfab98d6b2a8a22d8ff7e8d109678fc8275710be17c96825301efce4a69",
+    "category": "sports",
+    "slug": "will-the-las-vegas-raiders-win-super-bowl-2026",
+    "n_wallets": 13053,
+    "n_winners": 307,
+    "n_losers": 11389,
+    "total_positive_pnl": 536.4957771751256,
+    "top1_share": 0.7121325458580299,
+    "top5_share": 0.8004397460553125,
+    "gini_positive_pnl": 0.9434204211083309
+   },
+   {
+    "condition_id": "0xfcd2fb666c5a346faee448e63267346a3ec394a52bce4c199877559da91cd2c1",
+    "category": "finance_macro",
+    "slug": "fed-increases-interest-rates-by-25-bps-after-december-2025-meeting",
+    "n_wallets": 17018,
+    "n_winners": 1280,
+    "n_losers": 9339,
+    "total_positive_pnl": 8882.787417426689,
+    "top1_share": 0.6518280499025335,
+    "top5_share": 0.857055662140599,
+    "gini_positive_pnl": 0.9832262112528403
+   },
+   {
+    "condition_id": "0xd49b9f68568892e828085f84a31e811a24f4481aea5cd08ab62261810ec0d402",
+    "category": "politics_us",
+    "slug": "will-the-indian-national-congress-inc-win-the-most-seats-in-the-2026-tamil-nadu-legislative-assembly-election",
+    "n_wallets": 166,
+    "n_winners": 15,
+    "n_losers": 81,
+    "total_positive_pnl": 1.9934790000000062,
+    "top1_share": 0.5953310769764838,
+    "top5_share": 0.9127896506559637,
+    "gini_positive_pnl": 0.7804641700932561
+   },
+   {
+    "condition_id": "0xb222caecba4942b88a87adc145f1c27eb822e6fa2d238731e66074c89125f31e",
+    "category": "sports",
+    "slug": "will-the-miami-dolphins-win-super-bowl-2026",
+    "n_wallets": 13339,
+    "n_winners": 411,
+    "n_losers": 11806,
+    "total_positive_pnl": 282.4483179174242,
+    "top1_share": 0.580615247451907,
+    "top5_share": 0.7221544157314921,
+    "gini_positive_pnl": 0.950190618406978
+   },
+   {
+    "condition_id": "0x2135c61c38d5a7bd7fe24eb35b920bf92213573d33373a80e4ae9a7b3b2f435d",
+    "category": "geopolitics_world",
+    "slug": "will-anthony-albanese-be-the-first-leader-out-in-2025",
+    "n_wallets": 1190,
+    "n_winners": 135,
+    "n_losers": 632,
+    "total_positive_pnl": 67271.29593008607,
+    "top1_share": 0.5359269433053402,
+    "top5_share": 0.9978810262551777,
+    "gini_positive_pnl": 0.9851690095285314
+   },
+   {
+    "condition_id": "0x3b7ab4db94da01d99c2b83a1a6a389d2ae57c2147397864f0656afcdd3d02387",
+    "category": "culture",
+    "slug": "will-david-williams-win-the-2025-national-heads-up-poker-championship",
+    "n_wallets": 244,
+    "n_winners": 5,
+    "n_losers": 215,
+    "total_positive_pnl": 37.50981999999936,
+    "top1_share": 0.48667015730813035,
+    "top5_share": 1.0,
+    "gini_positive_pnl": 0.36855351478625353
+   },
+   {
+    "condition_id": "0x8f0f5125028c535d93f548225a4a2479a03793a49705973c763423aa43bdc59d",
+    "category": "sports",
+    "slug": "will-the-cleveland-browns-win-super-bowl-2026",
+    "n_wallets": 13936,
+    "n_winners": 319,
+    "n_losers": 12634,
+    "total_positive_pnl": 330.1053618407334,
+    "top1_share": 0.4544003743640214,
+    "top5_share": 0.8290759248660956,
+    "gini_positive_pnl": 0.9631326491642855
+   },
+   {
+    "condition_id": "0x5e5c9dfaf695371a0cc321b47b35f66a6dbd1482f0503526603d2bd2a91bfdc7",
+    "category": "crypto_updown",
+    "slug": "will-bitcoin-reach-150k-in-february-2026",
+    "n_wallets": 14010,
+    "n_winners": 892,
+    "n_losers": 3137,
+    "total_positive_pnl": 1745.163515869238,
+    "top1_share": 0.44465620725144417,
+    "top5_share": 0.6933716336588001,
+    "gini_positive_pnl": 0.9579951635762869
+   },
+   {
+    "condition_id": "0x963e78843fc55b202a8191d8bce016c79c31943ed711d6b29c0bc1fd19c81c30",
+    "category": "culture",
+    "slug": "will-rob-riggle-win-the-2025-national-heads-up-poker-championship-755",
+    "n_wallets": 283,
+    "n_winners": 10,
+    "n_losers": 215,
+    "total_positive_pnl": 8.616680000000008,
+    "top1_share": 0.4171885227256898,
+    "top5_share": 0.9703249975628657,
+    "gini_positive_pnl": 0.6349176248856856
+   },
+   {
+    "condition_id": "0x184228c1bfc9502d38f6f9984667f3da7b2f955616f195a3ba28b51fb0539bfe",
+    "category": "sports",
+    "slug": "will-the-new-orleans-saints-win-super-bowl-2026",
+    "n_wallets": 14692,
+    "n_winners": 467,
+    "n_losers": 11759,
+    "total_positive_pnl": 210.65132644851104,
+    "top1_share": 0.3975021762519463,
+    "top5_share": 0.6568040801179524,
+    "gini_positive_pnl": 0.9512118509904037
+   },
+   {
+    "condition_id": "0x784d67eb3b205e7f6543b09d8737d5dc1c2a14d43a102bbb59f7f4f94fc56135",
+    "category": "politics_us",
+    "slug": "romania-presidential-election-winner-will-hunor-kelemen-win-the-romanian-presidential-election",
+    "n_wallets": 1363,
+    "n_winners": 20,
+    "n_losers": 1159,
+    "total_positive_pnl": 13.564477907711577,
+    "top1_share": 0.38479328401078,
+    "top5_share": 0.966148501192919,
+    "gini_positive_pnl": 0.8010191126997322
+   }
+  ]
+ },
+ "C_leaderboard": {
+  "n_wallets": 607584,
+  "total_pnl_all_wallets": -2957053.783336289,
+  "top_winners": [
+   {
+    "wallet": "0x0a854897a06d4999e5b2dde5693609f1428ffe9d",
+    "pnl_covered": 506266.26004483335,
+    "n_markets": 18,
+    "n_trades": 561
+   },
+   {
+    "wallet": "0x9f5a4ef65ca562df76fd600fcaca13e5e99923e7",
+    "pnl_covered": 485449.7730158102,
+    "n_markets": 1,
+    "n_trades": 45
+   },
+   {
+    "wallet": "0x35417b3d09d7a0991f75d7cc95162a6e34d7462e",
+    "pnl_covered": 339573.85058285226,
+    "n_markets": 21,
+    "n_trades": 1038
+   },
+   {
+    "wallet": "0x853c37a959a5791b849e3f3225c7f5963746bd03",
+    "pnl_covered": 304309.64478139987,
+    "n_markets": 11,
+    "n_trades": 97
+   },
+   {
+    "wallet": "0xbaa2bcb5439e985ce4ccf815b4700027d1b92c73",
+    "pnl_covered": 266351.5924722521,
+    "n_markets": 23,
+    "n_trades": 943
+   },
+   {
+    "wallet": "0x1caa6a7ad0c6916aef7b67946de2e57ad24846a0",
+    "pnl_covered": 237848.650608797,
+    "n_markets": 4,
+    "n_trades": 44
+   },
+   {
+    "wallet": "0x8df306b761d8e4f95ffa21a2d5d36fd330fe887a",
+    "pnl_covered": 220402.16048898106,
+    "n_markets": 1,
+    "n_trades": 23
+   },
+   {
+    "wallet": "0x37d10ffb61998561c5f9fb941c42c952d8fb4e28",
+    "pnl_covered": 194348.2007092661,
+    "n_markets": 5,
+    "n_trades": 84
+   },
+   {
+    "wallet": "0x0c0df2184722450cc75654eadea16421ce724dd3",
+    "pnl_covered": 191826.48255256622,
+    "n_markets": 2,
+    "n_trades": 49
+   },
+   {
+    "wallet": "0x2974bd0059e48f215c391882976e0f1b4c8c9c23",
+    "pnl_covered": 166074.30168260878,
+    "n_markets": 10,
+    "n_trades": 739
+   },
+   {
+    "wallet": "0x37e4728b3c4607fb2b3b205386bb1d1fb1a8c991",
+    "pnl_covered": 162610.4976570387,
+    "n_markets": 10,
+    "n_trades": 71
+   },
+   {
+    "wallet": "0xd7375270e4769d3cc31885773070a5f12d5bbe95",
+    "pnl_covered": 160470.1370071503,
+    "n_markets": 9,
+    "n_trades": 171
+   },
+   {
+    "wallet": "0x130dfd2b057b5d9bd064531a46284c4dcb39aafc",
+    "pnl_covered": 159326.638218,
+    "n_markets": 1,
+    "n_trades": 10
+   },
+   {
+    "wallet": "0x09d3273fa76282ce09f4f35a87d6f087c05f4e84",
+    "pnl_covered": 153395.8970105146,
+    "n_markets": 4,
+    "n_trades": 50
+   },
+   {
+    "wallet": "0x08ce2678c929934de9edea698a998aea9dbc295e",
+    "pnl_covered": 149678.10363829217,
+    "n_markets": 8,
+    "n_trades": 439
+   }
+  ],
+  "top_losers": [
+   {
+    "wallet": "0xdbade4c82fb72780a0db9a38f821d8671aba9c95",
+    "pnl_covered": -325490.44857423514,
+    "n_markets": 31,
+    "n_trades": 314
+   },
+   {
+    "wallet": "0xa49becb692927d455924583b5e3e5788246f4c40",
+    "pnl_covered": -297953.06673151825,
+    "n_markets": 10,
+    "n_trades": 377
+   },
+   {
+    "wallet": "0xbacd00c9080a82ded56f504ee8810af732b0ab35",
+    "pnl_covered": -246383.2075734094,
+    "n_markets": 61,
+    "n_trades": 3520
+   },
+   {
+    "wallet": "0xa09474e7590a6fa51053ee40d4984c0e0fd18df0",
+    "pnl_covered": -224749.88419999997,
+    "n_markets": 2,
+    "n_trades": 40
+   },
+   {
+    "wallet": "0x72e4daa9b93fd3786f231c3b73c1bdbc4c48740a",
+    "pnl_covered": -214442.53442695452,
+    "n_markets": 4,
+    "n_trades": 117
+   },
+   {
+    "wallet": "0xa0f21e6d351baa9185716b5c00c2925ed9621848",
+    "pnl_covered": -205688.24130246596,
+    "n_markets": 5,
+    "n_trades": 1176
+   },
+   {
+    "wallet": "0xab19716584931d81cd9e7763402673a64baa4876",
+    "pnl_covered": -201056.3608245362,
+    "n_markets": 23,
+    "n_trades": 311
+   },
+   {
+    "wallet": "0x08be5dd0e46a39605bd470ae05c0d33dfd6b2cfc",
+    "pnl_covered": -189139.2571,
+    "n_markets": 2,
+    "n_trades": 33
+   },
+   {
+    "wallet": "0xc13cbd011bc02c0c9fd9a5d4dbd236ecc0e8a202",
+    "pnl_covered": -187371.01928726592,
+    "n_markets": 7,
+    "n_trades": 102
+   },
+   {
+    "wallet": "0x7744bfd749a70020d16a1fcbac1d064761c9999e",
+    "pnl_covered": -186700.61788589307,
+    "n_markets": 25,
+    "n_trades": 508
+   },
+   {
+    "wallet": "0xca765a4d03509c1dfed7a061b3fa632190d428b3",
+    "pnl_covered": -150509.290052097,
+    "n_markets": 7,
+    "n_trades": 67
+   },
+   {
+    "wallet": "0x7c3db723f1d4d8cb9c550095203b686cb11e5c6b",
+    "pnl_covered": -150354.70665610817,
+    "n_markets": 52,
+    "n_trades": 2080
+   },
+   {
+    "wallet": "0x2e15d1f0004101da2251a17d84fb24df34470ac8",
+    "pnl_covered": -128508.93104244588,
+    "n_markets": 4,
+    "n_trades": 36
+   },
+   {
+    "wallet": "0x30447f52f18d7fa8e04f82c104c3207399ee9ff8",
+    "pnl_covered": -109269.77134274518,
+    "n_markets": 2,
+    "n_trades": 27
+   },
+   {
+    "wallet": "0xc0a1298e2d6ba216efb554865369152da9c5a33b",
+    "pnl_covered": -107701.84191914172,
+    "n_markets": 5,
+    "n_trades": 77
+   }
+  ],
+  "by_category_top_winners": [
+   {
+    "category": "crypto_other",
+    "top_winners": [
+     {
+      "wallet": "0x0c0df2184722450cc75654eadea16421ce724dd3",
+      "pnl_covered": 191826.48255256622,
+      "n_markets": 2
+     },
+     {
+      "wallet": "0x78c66755790cce49927ed6269b70ef4354654710",
+      "pnl_covered": 64785.96531644951,
+      "n_markets": 3
+     },
+     {
+      "wallet": "0x9db778f46b7c9b458045764a67ff4afcae917e1f",
+      "pnl_covered": 62849.10050099999,
+      "n_markets": 1
+     }
+    ]
+   },
+   {
+    "category": "crypto_updown",
+    "top_winners": [
+     {
+      "wallet": "0x38e59b36aae31b164200d0cad7c3fe5e0ee795e7",
+      "pnl_covered": 18334.582445484368,
+      "n_markets": 3
+     },
+     {
+      "wallet": "0x5f72b66132f103180baebc056cdacdd56f2c2d20",
+      "pnl_covered": 17590.6105,
+      "n_markets": 1
+     },
+     {
+      "wallet": "0x184e98eb1d39dfb9e7750e860512a9adbcbecf96",
+      "pnl_covered": 12824.328380000003,
+      "n_markets": 1
+     }
+    ]
+   },
+   {
+    "category": "culture",
+    "top_winners": [
+     {
+      "wallet": "0xdf417d8ee71ae422bc3304f34100502e639fe809",
+      "pnl_covered": 12746.42677814093,
+      "n_markets": 1
+     },
+     {
+      "wallet": "0x3d7710f91dbc7efcaaf0a37f305c42a6deacabd5",
+      "pnl_covered": 11146.944683845546,
+      "n_markets": 1
+     },
+     {
+      "wallet": "0xbb53640da89d7cecb0a3f2d7afba1357718ec50b",
+      "pnl_covered": 6703.342798322507,
+      "n_markets": 1
+     }
+    ]
+   },
+   {
+    "category": "finance",
+    "top_winners": [
+     {
+      "wallet": "0xa3d48312c4c35c66752b19670fefbd2f18419969",
+      "pnl_covered": 50244.14196313385,
+      "n_markets": 1
+     },
+     {
+      "wallet": "0xe734e7bf7cfb9e464681f71822f6c2f6be514f0c",
+      "pnl_covered": 22611.827365214816,
+      "n_markets": 1
+     },
+     {
+      "wallet": "0x6b2e32c9df629fb1c36356d1abf776928baf09c8",
+      "pnl_covered": 11470.239999999994,
+      "n_markets": 1
+     }
+    ]
+   },
+   {
+    "category": "finance_macro",
+    "top_winners": [
+     {
+      "wallet": "0x37e4728b3c4607fb2b3b205386bb1d1fb1a8c991",
+      "pnl_covered": 165823.8572748165,
+      "n_markets": 4
+     },
+     {
+      "wallet": "0x08ce2678c929934de9edea698a998aea9dbc295e",
+      "pnl_covered": 149216.02012235054,
+      "n_markets": 4
+     },
+     {
+      "wallet": "0x71ca04d689bc38c5e4dcda8a4d743f279c5a3501",
+      "pnl_covered": 89697.76418551728,
+      "n_markets": 2
+     }
+    ]
+   },
+   {
+    "category": "geopolitics_world",
+    "top_winners": [
+     {
+      "wallet": "0x0a854897a06d4999e5b2dde5693609f1428ffe9d",
+      "pnl_covered": 517356.97980483336,
+      "n_markets": 15
+     },
+     {
+      "wallet": "0x35417b3d09d7a0991f75d7cc95162a6e34d7462e",
+      "pnl_covered": 334081.576491209,
+      "n_markets": 16
+     },
+     {
+      "wallet": "0x853c37a959a5791b849e3f3225c7f5963746bd03",
+      "pnl_covered": 303612.3412721543,
+      "n_markets": 9
+     }
+    ]
+   },
+   {
+    "category": "politics_us",
+    "top_winners": [
+     {
+      "wallet": "0x9f5a4ef65ca562df76fd600fcaca13e5e99923e7",
+      "pnl_covered": 485449.7730158102,
+      "n_markets": 1
+     },
+     {
+      "wallet": "0x8df306b761d8e4f95ffa21a2d5d36fd330fe887a",
+      "pnl_covered": 220402.16048898106,
+      "n_markets": 1
+     },
+     {
+      "wallet": "0x130dfd2b057b5d9bd064531a46284c4dcb39aafc",
+      "pnl_covered": 159326.638218,
+      "n_markets": 1
+     }
+    ]
+   },
+   {
+    "category": "sports",
+    "top_winners": [
+     {
+      "wallet": "0x1d8a377c5020f612ce63a0a151970df64baae842",
+      "pnl_covered": 105396.37919999992,
+      "n_markets": 1
+     },
+     {
+      "wallet": "0x58776759ee5c70a915138706a1308add8bc5d894",
+      "pnl_covered": 58787.50080000001,
+      "n_markets": 1
+     },
+     {
+      "wallet": "0x0b9cae2b0dfe7a71c413e0604eaac1c352f87e44",
+      "pnl_covered": 29086.992960122912,
+      "n_markets": 12
+     }
+    ]
+   }
+  ]
+ },
+ "caveats": [
+  "TAKER side only (proxy_wallet=taker on the archive); makers/liquidity providers are the uncounted counterparty and would need a separate maker-PnL analysis.",
+  "PnL rankings are OUTCOME-DEPENDENT (survivorship): a 'top winner' is defined by having won, so this is DESCRIPTIVE structure, not evidence of skill \u2014 scripts/23 tests skill and is null.",
+  "Covered PnL scales uncovered sells by min(1, bought/sold); rare on the complete archive tape.",
+  "Thin categories (few markets) have wide, unreliable per-category numbers.",
+  "Concentration Gini is over winners' positive PnL within a market (>= min_market_wallets takers)."
+ ]
+}

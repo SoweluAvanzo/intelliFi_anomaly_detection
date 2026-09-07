@@ -54,6 +54,7 @@ import requests
 from dateutil import parser as dtparser
 
 from . import config
+from .onchain import PolygonscanError
 
 log = logging.getLogger(__name__)
 
@@ -462,6 +463,8 @@ WALLET_FILLS_DIR = config.PARQUET_DIR / "wallet_fills"
 RAW_ES_DIR = config.RAW_DIR / "etherscan" / "fills"
 EXCHANGE_DEPLOY_BLOCK = 30_000_000     # both exchanges post-date this Polygon block
 LOG_CAP = 1000                         # Etherscan getLogs hard cap per call
+_MAX_BLOCK_PAGES = 10_000              # safety ceiling for single-block paging (a real
+                                       # block never approaches 10M logs; exceeding it raises)
 
 
 def _topic_address(addr: str) -> str:
@@ -509,22 +512,30 @@ def fetch_logs_bisect(client, address: str, topic_pos: int, topic_val: str,
     if len(res) < LOG_CAP:
         return res
     if to_block <= from_block:
-        # Single block still above the cap: page, with a hard cap and duplicate
-        # detection — Etherscan repeats the last page beyond its paging window,
-        # which otherwise loops forever (bug found 2026-08-30 on the v2 tape).
-        rows, page, seen = list(res), 2, {(l["transactionHash"], l.get("logIndex")) for l in res}
-        while page <= 10:
+        # Single block still above the cap: page to completion or RAISE. Etherscan repeats
+        # its last page beyond its paging window; a FULL page of only-duplicates means the
+        # remainder is unreachable, so we fail loud instead of silently truncating (a silent
+        # short-read here would be locked in permanently by skip-if-exists).
+        rows = list(res)
+        seen = {(l["transactionHash"], l.get("logIndex")) for l in res}
+        page = 2
+        while True:
             more = client._get({**params, "page": page}) or []
             new = [l for l in more if (l["transactionHash"], l.get("logIndex")) not in seen]
-            if not new:
-                break
             rows += new
             seen.update((l["transactionHash"], l.get("logIndex")) for l in new)
             if len(more) < LOG_CAP:
                 break
+            if not new:
+                raise PolygonscanError(
+                    f"single-block pagination stalled at {len(rows)} logs for block {from_block}: "
+                    f"a full page returned no new records; cannot fetch the remainder without "
+                    f"silent truncation")
+            if page >= _MAX_BLOCK_PAGES:
+                raise PolygonscanError(
+                    f"block {from_block} exceeds {_MAX_BLOCK_PAGES} pages of logs ({len(rows)}+); "
+                    f"refusing to truncate silently")
             page += 1
-        else:
-            log.warning("block %d exceeds 10 pages of logs; results may be truncated", from_block)
         return rows
     mid = (from_block + to_block) // 2
     return (fetch_logs_bisect(client, address, topic_pos, topic_val, from_block, mid)
@@ -532,24 +543,37 @@ def fetch_logs_bisect(client, address: str, topic_pos: int, topic_val: str,
 
 
 def _page_single_block(client, address: str | None, topic0: str, block: int) -> list[dict[str, Any]]:
-    """Page one block that holds >= 1,000 logs (duplicate-guarded, 10-page cap)."""
+    """Page one block that holds >= 1,000 logs (duplicate-guarded; complete or raises).
+
+    Pages until a non-full page proves the block is exhausted. If a FULL page returns
+    only duplicates (Etherscan repeating its last page = pagination window reached) or
+    the absurd ``_MAX_BLOCK_PAGES`` ceiling is crossed, it RAISES rather than returning
+    truncated — silent truncation here would be baked in permanently by skip-if-exists.
+    """
     params = {"module": "logs", "action": "getLogs", "fromBlock": block, "toBlock": block,
               "topic0": topic0, "page": 1, "offset": LOG_CAP}
     if address:
         params["address"] = address
     rows: list[dict[str, Any]] = []
     seen: set = set()
-    for page in range(1, 11):
+    page = 1
+    while True:
         res = client._get({**params, "page": page}) or []
         new = [l for l in res if (l["transactionHash"], l.get("logIndex")) not in seen]
-        if not new:
-            break
         rows += new
         seen.update((l["transactionHash"], l.get("logIndex")) for l in new)
         if len(res) < LOG_CAP:
-            break
-    else:
-        log.warning("block %d exceeds 10 pages of logs; results may be truncated", block)
+            break                        # last page not full => block complete
+        if not new:
+            raise PolygonscanError(
+                f"single-block pagination stalled at {len(rows)} logs for block {block}: "
+                f"a full page returned no new records; cannot fetch the remainder without "
+                f"silent truncation")
+        if page >= _MAX_BLOCK_PAGES:
+            raise PolygonscanError(
+                f"block {block} exceeds {_MAX_BLOCK_PAGES} pages of logs ({len(rows)}+); "
+                f"refusing to truncate silently")
+        page += 1
     return rows
 
 
@@ -631,7 +655,10 @@ ORDER_FILLED_V2_TOPIC = "0x" + _keccak(
     b"OrderFilled(bytes32,address,address,uint8,uint256,uint256,uint256,uint256,bytes32,bytes32)").hex()
 ORDERS_MATCHED_V2_TOPIC = "0x" + _keccak(b"OrdersMatched(bytes32,address,uint8,uint256,uint256,uint256)").hex()
 FEE_CHARGED_TOPIC = "0x" + _keccak(b"FeeCharged(address,uint256)").hex()
-V2_GENESIS_BLOCK = 88_000_000        # safely before 2026-04-28 on Polygon (~2.1 s blocks)
+V2_GENESIS_BLOCK = 86_126_978        # true v2 genesis, 2026-04-28 11:00 UTC (matches
+                                     # scripts/10_relaunch_v2_gaps.py GENESIS and scripts/12).
+                                     # Was 88_000_000 — ~1.87M blocks too high, which made the
+                                     # crawler's default --from-block silently skip 86.1M–88.0M.
 TAPE_V2_DIR = config.PARQUET_DIR / "tape_v2"
 RAW_V2_DIR = config.RAW_DIR / "etherscan" / "tape_v2"
 

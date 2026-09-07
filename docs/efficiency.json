@@ -1,0 +1,2300 @@
+{
+ "source": "archive",
+ "n_markets_mapped": 100,
+ "n_markets_with_path": 100,
+ "horizons_hours": [
+  720,
+  336,
+  168,
+  72,
+  24,
+  12,
+  6,
+  3,
+  1
+ ],
+ "overall_curve": [
+  {
+   "hours_before_close": 720,
+   "n_markets": 78,
+   "median_abs_err": 0.03438787697018336,
+   "mean_abs_err": 0.1698415123790383,
+   "p25_abs_err": 0.004999999999999921,
+   "p75_abs_err": 0.22543141592920352
+  },
+  {
+   "hours_before_close": 336,
+   "n_markets": 89,
+   "median_abs_err": 0.015000532397638877,
+   "mean_abs_err": 0.1686518071544014,
+   "p25_abs_err": 0.0039999999999997815,
+   "p75_abs_err": 0.19184726773068372
+  },
+  {
+   "hours_before_close": 168,
+   "n_markets": 94,
+   "median_abs_err": 0.008333796118728698,
+   "mean_abs_err": 0.14749278269651833,
+   "p25_abs_err": 0.002000020731184049,
+   "p75_abs_err": 0.14137769218305102
+  },
+  {
+   "hours_before_close": 72,
+   "n_markets": 99,
+   "median_abs_err": 0.0029999999999998916,
+   "mean_abs_err": 0.08449985038842814,
+   "p25_abs_err": 0.0010000000000000564,
+   "p75_abs_err": 0.03050342515855614
+  },
+  {
+   "hours_before_close": 24,
+   "n_markets": 100,
+   "median_abs_err": 0.0020000000000000573,
+   "mean_abs_err": 0.06450452527823904,
+   "p25_abs_err": 0.0010000000000000009,
+   "p75_abs_err": 0.008000123008184978
+  },
+  {
+   "hours_before_close": 12,
+   "n_markets": 100,
+   "median_abs_err": 0.0010000000087448946,
+   "mean_abs_err": 0.054364790212687135,
+   "p25_abs_err": 0.0010000000000000009,
+   "p75_abs_err": 0.006500000000000006
+  },
+  {
+   "hours_before_close": 6,
+   "n_markets": 100,
+   "median_abs_err": 0.0010000002558471222,
+   "mean_abs_err": 0.04988753830955551,
+   "p25_abs_err": 0.0010000000000000009,
+   "p75_abs_err": 0.003268140737115871
+  },
+  {
+   "hours_before_close": 3,
+   "n_markets": 100,
+   "median_abs_err": 0.0010000000000000009,
+   "mean_abs_err": 0.026333867099789153,
+   "p25_abs_err": 0.0010000000000000009,
+   "p75_abs_err": 0.0020000000000000018
+  },
+  {
+   "hours_before_close": 1,
+   "n_markets": 100,
+   "median_abs_err": 0.0010000000000000009,
+   "mean_abs_err": 0.014939758466909887,
+   "p25_abs_err": 0.0010000000000000009,
+   "p75_abs_err": 0.0010000000000001674
+  }
+ ],
+ "by_category": [
+  {
+   "category": "geopolitics_world",
+   "n_markets": 32,
+   "curve": [
+    {
+     "hours_before_close": 720,
+     "n_markets": 17,
+     "median_abs_err": 0.21999999999999997,
+     "mean_abs_err": 0.310625852854042,
+     "p25_abs_err": 0.038999999999999924,
+     "p75_abs_err": 0.5200001728001106
+    },
+    {
+     "hours_before_close": 336,
+     "n_markets": 25,
+     "median_abs_err": 0.16999999999999993,
+     "mean_abs_err": 0.27591246075969333,
+     "p25_abs_err": 0.027000776663266945,
+     "p75_abs_err": 0.4
+    },
+    {
+     "hours_before_close": 168,
+     "n_markets": 29,
+     "median_abs_err": 0.06999999390999989,
+     "mean_abs_err": 0.21908509543055266,
+     "p25_abs_err": 0.006000000000000005,
+     "p75_abs_err": 0.19999999999999996
+    },
+    {
+     "hours_before_close": 72,
+     "n_markets": 32,
+     "median_abs_err": 0.004500018127202965,
+     "mean_abs_err": 0.07946311380996196,
+     "p25_abs_err": 0.0020000000000000018,
+     "p75_abs_err": 0.042359214696545355
+    },
+    {
+     "hours_before_close": 24,
+     "n_markets": 32,
+     "median_abs_err": 0.0020000085484021546,
+     "mean_abs_err": 0.0632021539965707,
+     "p25_abs_err": 0.001000000000000112,
+     "p75_abs_err": 0.013789883834702088
+    },
+    {
+     "hours_before_close": 12,
+     "n_markets": 32,
+     "median_abs_err": 0.0010000000000000564,
+     "mean_abs_err": 0.05740057281220561,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.0122499236121969
+    },
+    {
+     "hours_before_close": 6,
+     "n_markets": 32,
+     "median_abs_err": 0.0010000002471025615,
+     "mean_abs_err": 0.0548421393226393,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.005250054483757038
+    },
+    {
+     "hours_before_close": 3,
+     "n_markets": 32,
+     "median_abs_err": 0.001000000000000112,
+     "mean_abs_err": 0.02528299163990714,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.0020009059201793744
+    },
+    {
+     "hours_before_close": 1,
+     "n_markets": 32,
+     "median_abs_err": 0.0010000000000000009,
+     "mean_abs_err": 0.0017865019365615985,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.001000000000000112
+    }
+   ],
+   "prices_winner_below_0.25_by_h": 720,
+   "prices_winner_below_0.10_by_h": 168
+  },
+  {
+   "category": "politics_us",
+   "n_markets": 18,
+   "curve": [
+    {
+     "hours_before_close": 720,
+     "n_markets": 16,
+     "median_abs_err": 0.16300000000000003,
+     "mean_abs_err": 0.2956319442442491,
+     "p25_abs_err": 0.03550001287901258,
+     "p75_abs_err": 0.41500000000000004
+    },
+    {
+     "hours_before_close": 336,
+     "n_markets": 17,
+     "median_abs_err": 0.04399999999999993,
+     "mean_abs_err": 0.3106008475623804,
+     "p25_abs_err": 0.0039999999999997815,
+     "p75_abs_err": 0.71
+    },
+    {
+     "hours_before_close": 168,
+     "n_markets": 17,
+     "median_abs_err": 0.02709334171394906,
+     "mean_abs_err": 0.27535652541382244,
+     "p25_abs_err": 0.0030000000000000027,
+     "p75_abs_err": 0.6599999999999999
+    },
+    {
+     "hours_before_close": 72,
+     "n_markets": 18,
+     "median_abs_err": 0.007499999999999951,
+     "mean_abs_err": 0.221166664483737,
+     "p25_abs_err": 0.0030000014095533933,
+     "p75_abs_err": 0.38175
+    },
+    {
+     "hours_before_close": 24,
+     "n_markets": 18,
+     "median_abs_err": 0.0039889531513029874,
+     "mean_abs_err": 0.12285326608435465,
+     "p25_abs_err": 0.001307133019427309,
+     "p75_abs_err": 0.04924999999999996
+    },
+    {
+     "hours_before_close": 12,
+     "n_markets": 18,
+     "median_abs_err": 0.0019999999999999463,
+     "mean_abs_err": 0.09554080900306516,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.019996972020606463
+    },
+    {
+     "hours_before_close": 6,
+     "n_markets": 18,
+     "median_abs_err": 0.0020000000000000018,
+     "mean_abs_err": 0.05699112833981723,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.0062499999999998945
+    },
+    {
+     "hours_before_close": 3,
+     "n_markets": 18,
+     "median_abs_err": 0.0010000000000000009,
+     "mean_abs_err": 0.05634572664717176,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.0037500000000000033
+    },
+    {
+     "hours_before_close": 1,
+     "n_markets": 18,
+     "median_abs_err": 0.0010000000000000009,
+     "mean_abs_err": 0.05483128030497217,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.0020000000000000018
+    }
+   ],
+   "prices_winner_below_0.25_by_h": 720,
+   "prices_winner_below_0.10_by_h": 336
+  },
+  {
+   "category": "sports",
+   "n_markets": 17,
+   "curve": [
+    {
+     "hours_before_close": 720,
+     "n_markets": 15,
+     "median_abs_err": 0.0050000000000000044,
+     "mean_abs_err": 0.03799999999999997,
+     "p25_abs_err": 0.0034999999999999476,
+     "p75_abs_err": 0.008999999999999952
+    },
+    {
+     "hours_before_close": 336,
+     "n_markets": 16,
+     "median_abs_err": 0.003660378316693802,
+     "mean_abs_err": 0.05902004668296905,
+     "p25_abs_err": 0.002749999999999919,
+     "p75_abs_err": 0.031750000000000084
+    },
+    {
+     "hours_before_close": 168,
+     "n_markets": 17,
+     "median_abs_err": 0.0029999999999998916,
+     "mean_abs_err": 0.07464708180833556,
+     "p25_abs_err": 0.0020000000000000018,
+     "p75_abs_err": 0.08100030633344402
+    },
+    {
+     "hours_before_close": 72,
+     "n_markets": 17,
+     "median_abs_err": 0.0020000000000000018,
+     "mean_abs_err": 0.07499359696259267,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.11389115897074298
+    },
+    {
+     "hours_before_close": 24,
+     "n_markets": 17,
+     "median_abs_err": 0.0029999999999998916,
+     "mean_abs_err": 0.07726958337173465,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.12058291731948922
+    },
+    {
+     "hours_before_close": 12,
+     "n_markets": 17,
+     "median_abs_err": 0.0029999999999998916,
+     "mean_abs_err": 0.07358164953548316,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.08888805218321416
+    },
+    {
+     "hours_before_close": 6,
+     "n_markets": 17,
+     "median_abs_err": 0.0029999999999998916,
+     "mean_abs_err": 0.07136982699667284,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.13614654551877203
+    },
+    {
+     "hours_before_close": 3,
+     "n_markets": 17,
+     "median_abs_err": 0.0010000000000000009,
+     "mean_abs_err": 0.023416244067748528,
+     "p25_abs_err": 0.0009999999999998899,
+     "p75_abs_err": 0.001000000000000334
+    },
+    {
+     "hours_before_close": 1,
+     "n_markets": 17,
+     "median_abs_err": 0.0010000000000000009,
+     "mean_abs_err": 0.02335294117647059,
+     "p25_abs_err": 0.0009999999999998899,
+     "p75_abs_err": 0.001000000000000112
+    }
+   ],
+   "prices_winner_below_0.25_by_h": 720,
+   "prices_winner_below_0.10_by_h": 720
+  },
+  {
+   "category": "finance_macro",
+   "n_markets": 14,
+   "curve": [
+    {
+     "hours_before_close": 720,
+     "n_markets": 14,
+     "median_abs_err": 0.019155963302752266,
+     "mean_abs_err": 0.07480799449344597,
+     "p25_abs_err": 0.007249999999999979,
+     "p75_abs_err": 0.11499999999999999
+    },
+    {
+     "hours_before_close": 336,
+     "n_markets": 14,
+     "median_abs_err": 0.00800000000000023,
+     "mean_abs_err": 0.03480749507224199,
+     "p25_abs_err": 0.00400000000000017,
+     "p75_abs_err": 0.04406038647342997
+    },
+    {
+     "hours_before_close": 168,
+     "n_markets": 14,
+     "median_abs_err": 0.003999999999999948,
+     "mean_abs_err": 0.013490019742234951,
+     "p25_abs_err": 0.0019999999999999185,
+     "p75_abs_err": 0.01375224327018948
+    },
+    {
+     "hours_before_close": 72,
+     "n_markets": 14,
+     "median_abs_err": 0.0015000000000000568,
+     "mean_abs_err": 0.012464306792887085,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.006749999999999923
+    },
+    {
+     "hours_before_close": 24,
+     "n_markets": 14,
+     "median_abs_err": 0.0015000000000000013,
+     "mean_abs_err": 0.006357142818798829,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.0057499995973879225
+    },
+    {
+     "hours_before_close": 12,
+     "n_markets": 14,
+     "median_abs_err": 0.0015000000000000013,
+     "mean_abs_err": 0.005786853675396815,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.003999999999999976
+    },
+    {
+     "hours_before_close": 6,
+     "n_markets": 14,
+     "median_abs_err": 0.0014981426966188538,
+     "mean_abs_err": 0.005152699562470172,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.0030181403803289097
+    },
+    {
+     "hours_before_close": 3,
+     "n_markets": 14,
+     "median_abs_err": 0.0010000000000000009,
+     "mean_abs_err": 0.0020199514322194073,
+     "p25_abs_err": 0.0009999999999998899,
+     "p75_abs_err": 0.0010000000000000009
+    },
+    {
+     "hours_before_close": 1,
+     "n_markets": 14,
+     "median_abs_err": 0.0010000000000000009,
+     "mean_abs_err": 0.002019951432219423,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.0010000000000000009
+    }
+   ],
+   "prices_winner_below_0.25_by_h": 720,
+   "prices_winner_below_0.10_by_h": 720
+  },
+  {
+   "category": "crypto_updown",
+   "n_markets": 7,
+   "curve": [
+    {
+     "hours_before_close": 720,
+     "n_markets": 6,
+     "median_abs_err": 0.004500000000000004,
+     "mean_abs_err": 0.007666668748499121,
+     "p25_abs_err": 0.003999999999999837,
+     "p75_abs_err": 0.009500002084320724
+    },
+    {
+     "hours_before_close": 336,
+     "n_markets": 7,
+     "median_abs_err": 0.0040000000000000036,
+     "mean_abs_err": 0.004142860660893073,
+     "p25_abs_err": 0.0029999999999998916,
+     "p75_abs_err": 0.005000012313125912
+    },
+    {
+     "hours_before_close": 168,
+     "n_markets": 7,
+     "median_abs_err": 0.002000000000000224,
+     "mean_abs_err": 0.0018571547035336794,
+     "p25_abs_err": 0.0010000000000000564,
+     "p75_abs_err": 0.0025000414623677636
+    },
+    {
+     "hours_before_close": 72,
+     "n_markets": 7,
+     "median_abs_err": 0.0010000000000000009,
+     "mean_abs_err": 0.0015714285739271139,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.0010000000087448946
+    },
+    {
+     "hours_before_close": 24,
+     "n_markets": 7,
+     "median_abs_err": 0.0010000000000000009,
+     "mean_abs_err": 0.001142857145355669,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.0010000000087448946
+    },
+    {
+     "hours_before_close": 12,
+     "n_markets": 7,
+     "median_abs_err": 0.0010000000000000009,
+     "mean_abs_err": 0.001142857145355669,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.0010000000087448946
+    },
+    {
+     "hours_before_close": 6,
+     "n_markets": 7,
+     "median_abs_err": 0.0010000000000000009,
+     "mean_abs_err": 0.001000000002498542,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.001000000000000334
+    },
+    {
+     "hours_before_close": 3,
+     "n_markets": 7,
+     "median_abs_err": 0.0010000000000000009,
+     "mean_abs_err": 0.0011428571453556532,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.0010000000087448946
+    },
+    {
+     "hours_before_close": 1,
+     "n_markets": 7,
+     "median_abs_err": 0.0010000000000000009,
+     "mean_abs_err": 0.0011428571453556532,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.0010000000087448946
+    }
+   ],
+   "prices_winner_below_0.25_by_h": 720,
+   "prices_winner_below_0.10_by_h": 720
+  },
+  {
+   "category": "culture",
+   "n_markets": 5,
+   "curve": [
+    {
+     "hours_before_close": 720,
+     "n_markets": 4,
+     "median_abs_err": 0.0019999999999999463,
+     "mean_abs_err": 0.07624999999999996,
+     "p25_abs_err": 0.0009999999999999731,
+     "p75_abs_err": 0.07724999999999993
+    },
+    {
+     "hours_before_close": 336,
+     "n_markets": 4,
+     "median_abs_err": 0.002999999999999947,
+     "mean_abs_err": 0.10425000250950228,
+     "p25_abs_err": 0.002499999999999919,
+     "p75_abs_err": 0.10475000250950231
+    },
+    {
+     "hours_before_close": 168,
+     "n_markets": 4,
+     "median_abs_err": 0.002999999999999947,
+     "mean_abs_err": 0.11424999999999996,
+     "p25_abs_err": 0.002499999999999919,
+     "p75_abs_err": 0.11474999999999999
+    },
+    {
+     "hours_before_close": 72,
+     "n_markets": 5,
+     "median_abs_err": 0.0029999999999998916,
+     "mean_abs_err": 0.0021999999999999797,
+     "p25_abs_err": 0.001000000000000112,
+     "p75_abs_err": 0.0029999999999998916
+    },
+    {
+     "hours_before_close": 24,
+     "n_markets": 5,
+     "median_abs_err": 0.0012809263774229418,
+     "mean_abs_err": 0.0018561852754845453,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.0029999999999998916
+    },
+    {
+     "hours_before_close": 12,
+     "n_markets": 5,
+     "median_abs_err": 0.0020000000000000018,
+     "mean_abs_err": 0.0019999999999999575,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.0029999999999998916
+    },
+    {
+     "hours_before_close": 6,
+     "n_markets": 5,
+     "median_abs_err": 0.0020000000000000018,
+     "mean_abs_err": 0.0019999999999999797,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.0029999999999998916
+    },
+    {
+     "hours_before_close": 3,
+     "n_markets": 5,
+     "median_abs_err": 0.0015654191629580483,
+     "mean_abs_err": 0.0019130838325915889,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.0029999999999998916
+    },
+    {
+     "hours_before_close": 1,
+     "n_markets": 5,
+     "median_abs_err": 0.0015654191629580483,
+     "mean_abs_err": 0.0019130838325915889,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.0029999999999998916
+    }
+   ],
+   "prices_winner_below_0.25_by_h": 720,
+   "prices_winner_below_0.10_by_h": 720
+  },
+  {
+   "category": "crypto_other",
+   "n_markets": 4,
+   "curve": [
+    {
+     "hours_before_close": 720,
+     "n_markets": 3,
+     "median_abs_err": 0.22557522123893803,
+     "mean_abs_err": 0.231858407079646,
+     "p25_abs_err": 0.21278761061946905,
+     "p75_abs_err": 0.24778761061946897
+    },
+    {
+     "hours_before_close": 336,
+     "n_markets": 3,
+     "median_abs_err": 0.31000000000000005,
+     "mean_abs_err": 0.2499999938399998,
+     "p25_abs_err": 0.2099999907599997,
+     "p75_abs_err": 0.32
+    },
+    {
+     "hours_before_close": 168,
+     "n_markets": 3,
+     "median_abs_err": 0.11000058740078711,
+     "mean_abs_err": 0.1122224180224846,
+     "p25_abs_err": 0.09000029370039359,
+     "p75_abs_err": 0.13333362703372686
+    },
+    {
+     "hours_before_close": 72,
+     "n_markets": 3,
+     "median_abs_err": 0.002000000000000113,
+     "mean_abs_err": 0.02609138078211759,
+     "p25_abs_err": 0.0015000000000001124,
+     "p75_abs_err": 0.03863707117317633
+    },
+    {
+     "hours_before_close": 24,
+     "n_markets": 4,
+     "median_abs_err": 0.09549999920350905,
+     "mean_abs_err": 0.14799999960175453,
+     "p25_abs_err": 0.0010000000000000842,
+     "p75_abs_err": 0.2424999988052635
+    },
+    {
+     "hours_before_close": 12,
+     "n_markets": 4,
+     "median_abs_err": 0.0636745996937802,
+     "mean_abs_err": 0.1317555339116759,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.1944301336054561
+    },
+    {
+     "hours_before_close": 6,
+     "n_markets": 4,
+     "median_abs_err": 0.07549999213995912,
+     "mean_abs_err": 0.225635052419718,
+     "p25_abs_err": 0.0009999999999998899,
+     "p75_abs_err": 0.3001350445596772
+    },
+    {
+     "hours_before_close": 3,
+     "n_markets": 4,
+     "median_abs_err": 0.024230544554683098,
+     "mean_abs_err": 0.09079675236738777,
+     "p25_abs_err": 0.0009999999999999731,
+     "p75_abs_err": 0.11402729692207089
+    },
+    {
+     "hours_before_close": 1,
+     "n_markets": 4,
+     "median_abs_err": 0.0009999999999998899,
+     "mean_abs_err": 0.0009999999999998899,
+     "p25_abs_err": 0.0009999999999998899,
+     "p75_abs_err": 0.0009999999999998899
+    }
+   ],
+   "prices_winner_below_0.25_by_h": 720,
+   "prices_winner_below_0.10_by_h": 72
+  },
+  {
+   "category": "finance",
+   "n_markets": 3,
+   "curve": [
+    {
+     "hours_before_close": 720,
+     "n_markets": 3,
+     "median_abs_err": 0.02100000000000002,
+     "mean_abs_err": 0.19100006750003717,
+     "p25_abs_err": 0.011500000000000066,
+     "p75_abs_err": 0.2855001012500557
+    },
+    {
+     "hours_before_close": 336,
+     "n_markets": 3,
+     "median_abs_err": 0.011511947335085981,
+     "mean_abs_err": 0.06811973835525657,
+     "p25_abs_err": 0.006255973667542991,
+     "p75_abs_err": 0.10167960753288485
+    },
+    {
+     "hours_before_close": 168,
+     "n_markets": 3,
+     "median_abs_err": 0.008667592237457389,
+     "mean_abs_err": 0.1884216232755107,
+     "p25_abs_err": 0.004833796118728695,
+     "p75_abs_err": 0.28213243491326606
+    },
+    {
+     "hours_before_close": 72,
+     "n_markets": 3,
+     "median_abs_err": 0.0020000000000000018,
+     "mean_abs_err": 0.09733333333333334,
+     "p25_abs_err": 0.0015000000000000013,
+     "p75_abs_err": 0.14550000000000002
+    },
+    {
+     "hours_before_close": 24,
+     "n_markets": 3,
+     "median_abs_err": 0.0020000000000000018,
+     "mean_abs_err": 0.0682536562768844,
+     "p25_abs_err": 0.0015000000000000013,
+     "p75_abs_err": 0.1018804844153266
+    },
+    {
+     "hours_before_close": 12,
+     "n_markets": 3,
+     "median_abs_err": 0.0010000000000000009,
+     "mean_abs_err": 0.0009999999999999638,
+     "p25_abs_err": 0.0009999999999999454,
+     "p75_abs_err": 0.0010000000000000009
+    },
+    {
+     "hours_before_close": 6,
+     "n_markets": 3,
+     "median_abs_err": 0.0010000000000000009,
+     "mean_abs_err": 0.0010000000000000009,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.0010000000000000009
+    },
+    {
+     "hours_before_close": 3,
+     "n_markets": 3,
+     "median_abs_err": 0.0010000000000000009,
+     "mean_abs_err": 0.0010000000000000009,
+     "p25_abs_err": 0.0010000000000000009,
+     "p75_abs_err": 0.0010000000000000009
+    },
+    {
+     "hours_before_close": 1,
+     "n_markets": 3,
+     "median_abs_err": 0.0009999999999998899,
+     "mean_abs_err": 0.000999999999999927,
+     "p25_abs_err": 0.0009999999999998899,
+     "p75_abs_err": 0.0009999999999999454
+    }
+   ],
+   "prices_winner_below_0.25_by_h": 720,
+   "prices_winner_below_0.10_by_h": 720
+  }
+ ],
+ "per_market_winner_price": [
+  {
+   "condition_id": "0x478dfc905dd9f44631e7b3a2a76f8aaf5680bc77fd17fe79179664b0ca819a18",
+   "category": "crypto_other",
+   "slug": "lighter-market-cap-fdv-1b-one-day-after-launch",
+   "winner_price_at": {
+    "6": 0.999,
+    "3": 0.999,
+    "12": 0.999,
+    "336": 0.67,
+    "168": 0.93,
+    "720": 0.7744,
+    "72": 0.998,
+    "24": 0.999,
+    "1": 0.999
+   }
+  },
+  {
+   "condition_id": "0xea1f601faf600380da04e1ce3d46fc4c7dfea5e6247550b2b513761cb40f0a9f",
+   "category": "crypto_other",
+   "slug": "lighter-market-cap-fdv-2b-one-day-after-launch-332",
+   "winner_price_at": {
+    "336": 0.69,
+    "72": 0.999,
+    "24": 0.999,
+    "6": 0.999,
+    "3": 0.999,
+    "720": 0.73,
+    "168": 0.8433,
+    "1": 0.999,
+    "12": 0.999
+   }
+  },
+  {
+   "condition_id": "0x42d812af0840d50685b0aaa0cc0a4b3c07a680cd12a85d88a377558f3621c78c",
+   "category": "crypto_other",
+   "slug": "over-1pt4b-committed-to-the-megaeth-public-sale-773-958-536",
+   "winner_price_at": {
+    "1": 0.999,
+    "24": 0.6,
+    "12": 0.6013,
+    "6": 0.2495,
+    "3": 0.6863
+   }
+  },
+  {
+   "condition_id": "0x9d1e122ce82f7acd66088e2e6216ca732b38fee26cee312156e854f975c28776",
+   "category": "crypto_other",
+   "slug": "will-lighter-perform-an-airdrop-by-december-31",
+   "winner_price_at": {
+    "336": 0.89,
+    "72": 0.9247,
+    "24": 0.81,
+    "6": 0.85,
+    "3": 0.9525,
+    "720": 0.8,
+    "168": 0.89,
+    "1": 0.999,
+    "12": 0.8737
+   }
+  },
+  {
+   "condition_id": "0xd8b9ff369452daebce1ac8cb6a29d6817903e85168356c72812317f38e317613",
+   "category": "crypto_updown",
+   "slug": "will-bitcoin-reach-1000000-by-december-31-2025",
+   "winner_price_at": {
+    "168": 0.999,
+    "1": 0.999,
+    "12": 0.999,
+    "336": 0.997,
+    "6": 0.999,
+    "3": 0.999,
+    "720": 0.997,
+    "72": 0.999,
+    "24": 0.999
+   }
+  },
+  {
+   "condition_id": "0x5e5c9dfaf695371a0cc321b47b35f66a6dbd1482f0503526603d2bd2a91bfdc7",
+   "category": "crypto_updown",
+   "slug": "will-bitcoin-reach-150k-in-february-2026",
+   "winner_price_at": {
+    "72": 0.999,
+    "24": 0.999,
+    "6": 0.999,
+    "3": 0.999,
+    "336": 0.997,
+    "168": 0.999,
+    "12": 0.999,
+    "1": 0.999
+   }
+  },
+  {
+   "condition_id": "0x9708334534b504e2025a5a6af92f8600808c10be577e5066f920c40625fbec16",
+   "category": "crypto_updown",
+   "slug": "will-bitcoin-reach-150k-in-january-2026",
+   "winner_price_at": {
+    "168": 0.998,
+    "72": 0.999,
+    "24": 0.999,
+    "720": 0.995,
+    "6": 0.999,
+    "3": 0.999,
+    "336": 0.995,
+    "12": 0.999,
+    "1": 0.999
+   }
+  },
+  {
+   "condition_id": "0x561ffbf7de21ef3781c441f30536b026d2b301d7a4a0145a8f526f98db049ba2",
+   "category": "crypto_updown",
+   "slug": "will-bitcoin-reach-150k-in-march-2026",
+   "winner_price_at": {
+    "168": 0.997,
+    "6": 0.999,
+    "3": 0.999,
+    "336": 0.997,
+    "720": 0.996,
+    "1": 0.999,
+    "72": 0.999,
+    "24": 0.999,
+    "12": 0.999
+   }
+  },
+  {
+   "condition_id": "0x4e2887e913cd6e091c9b07b5e4013b24f372453efa6f11a0b0c5f65371729cf4",
+   "category": "crypto_updown",
+   "slug": "will-bitcoin-reach-200000-by-december-31-2025",
+   "winner_price_at": {
+    "72": 0.999,
+    "24": 0.999,
+    "336": 0.996,
+    "12": 0.999,
+    "1": 0.999,
+    "6": 0.999,
+    "3": 0.999,
+    "168": 0.999,
+    "720": 0.996
+   }
+  },
+  {
+   "condition_id": "0xeeb92ddd77d671d1f9ea1f5727208d1fa91896a6d1f657fdcd7c9d578fe5c46c",
+   "category": "crypto_updown",
+   "slug": "will-ethereum-hit-5000-by-december-31-796-376",
+   "winner_price_at": {
+    "336": 0.994,
+    "12": 0.999,
+    "72": 0.999,
+    "24": 0.999,
+    "1": 0.999,
+    "720": 0.981,
+    "6": 0.999,
+    "3": 0.999,
+    "168": 0.997
+   }
+  },
+  {
+   "condition_id": "0x293fb49f43b12631ec4ad0617d9c0efc0eacce33416ef16f68521427daca1678",
+   "category": "crypto_updown",
+   "slug": "will-satoshi-move-any-bitcoin-in-2025",
+   "winner_price_at": {
+    "168": 0.998,
+    "6": 0.999,
+    "3": 0.998,
+    "12": 0.998,
+    "1": 0.998,
+    "72": 0.995,
+    "24": 0.998,
+    "720": 0.989,
+    "336": 0.995
+   }
+  },
+  {
+   "condition_id": "0x7971c1427c8fb405b03774efe61de9abd937c83e74944c09f2deefd66601f8b0",
+   "category": "culture",
+   "slug": "elon-musk-of-tweets-february-27-march-6-0-19",
+   "winner_price_at": {
+    "6": 0.998,
+    "3": 0.9984,
+    "12": 0.998,
+    "1": 0.9984,
+    "24": 0.999,
+    "72": 0.999
+   }
+  },
+  {
+   "condition_id": "0x4dce6b5f1fa7693336ba4df1537ccff1835f20a3414cc951790e5caf75cd8cff",
+   "category": "culture",
+   "slug": "will-chef-phillip-win-the-2025-national-heads-up-poker-championship",
+   "winner_price_at": {
+    "12": 0.997,
+    "720": 0.999,
+    "6": 0.997,
+    "3": 0.997,
+    "72": 0.997,
+    "24": 0.997,
+    "168": 0.997,
+    "1": 0.997,
+    "336": 0.997
+   }
+  },
+  {
+   "condition_id": "0x3b7ab4db94da01d99c2b83a1a6a389d2ae57c2147397864f0656afcdd3d02387",
+   "category": "culture",
+   "slug": "will-david-williams-win-the-2025-national-heads-up-poker-championship",
+   "winner_price_at": {
+    "72": 0.997,
+    "24": 0.997,
+    "336": 0.997,
+    "12": 0.997,
+    "1": 0.997,
+    "6": 0.997,
+    "3": 0.997,
+    "168": 0.997,
+    "720": 0.997
+   }
+  },
+  {
+   "condition_id": "0x32707ae194389a70f25314ec934851daba12d893da616c492ffe8b655b7759a9",
+   "category": "culture",
+   "slug": "will-eleven-die-in-stranger-things-season-5",
+   "winner_price_at": {
+    "1": 0.999,
+    "336": 0.59,
+    "12": 0.999,
+    "72": 0.997,
+    "24": 0.9987,
+    "720": 0.7,
+    "168": 0.55,
+    "6": 0.999,
+    "3": 0.999
+   }
+  },
+  {
+   "condition_id": "0x963e78843fc55b202a8191d8bce016c79c31943ed711d6b29c0bc1fd19c81c30",
+   "category": "culture",
+   "slug": "will-rob-riggle-win-the-2025-national-heads-up-poker-championship-755",
+   "winner_price_at": {
+    "720": 0.999,
+    "12": 0.999,
+    "336": 0.999,
+    "1": 0.999,
+    "6": 0.999,
+    "3": 0.999,
+    "168": 0.999,
+    "72": 0.999,
+    "24": 0.999
+   }
+  },
+  {
+   "condition_id": "0x19ee98e348c0ccb341d1b9566fa14521566e9b2ea7aed34dc407a0ec56be36a2",
+   "category": "finance",
+   "slug": "microstrategy-sell-any-bitcoin-in-2025",
+   "winner_price_at": {
+    "72": 0.998,
+    "24": 0.998,
+    "336": 0.9885,
+    "12": 0.999,
+    "1": 0.999,
+    "6": 0.999,
+    "3": 0.999,
+    "168": 0.9913,
+    "720": 0.979
+   }
+  },
+  {
+   "condition_id": "0xc5300759dc2089042380795fe7384010a6b6ebdf9e6da7ed3f786d9a5f61c563",
+   "category": "finance",
+   "slug": "will-crude-oil-cl-hit-high-100-by-end-of-march-658-396-769-971",
+   "winner_price_at": {
+    "1": 0.999,
+    "720": 0.45,
+    "168": 0.4444,
+    "336": 0.8082,
+    "6": 0.999,
+    "3": 0.999,
+    "12": 0.999,
+    "72": 0.711,
+    "24": 0.7982
+   }
+  },
+  {
+   "condition_id": "0xb1a6136ad23d19526c4929d2e79c79e999628de931ca2475d138fb31637fd2c4",
+   "category": "finance",
+   "slug": "will-saudi-aramco-be-the-largest-company-in-the-world-by-market-cap-on-december-31",
+   "winner_price_at": {
+    "1": 0.999,
+    "168": 0.999,
+    "720": 0.998,
+    "72": 0.999,
+    "24": 0.999,
+    "12": 0.999,
+    "6": 0.999,
+    "3": 0.999,
+    "336": 0.999
+   }
+  },
+  {
+   "condition_id": "0xcb111226a8271fed0c71bb5ec1bd67b2a4fd72f1eb08466e2180b9efa99d3f32",
+   "category": "finance_macro",
+   "slug": "fed-decreases-interest-rates-by-25-bps-after-december-2025-meeting",
+   "winner_price_at": {
+    "12": 0.969,
+    "720": 0.68,
+    "6": 0.973,
+    "3": 0.999,
+    "72": 0.93,
+    "24": 0.967,
+    "168": 0.94,
+    "1": 0.999,
+    "336": 0.84
+   }
+  },
+  {
+   "condition_id": "0x35cc41270f5cdfd59b45e68ab85dc51b0b900d286a6c74ea006b8572d9ff5934",
+   "category": "finance_macro",
+   "slug": "fed-decreases-interest-rates-by-25-bps-after-january-2026-meeting",
+   "winner_price_at": {
+    "12": 0.997,
+    "720": 0.87,
+    "6": 0.997,
+    "3": 0.999,
+    "72": 0.994,
+    "24": 0.996,
+    "168": 0.984,
+    "1": 0.999,
+    "336": 0.9459
+   }
+  },
+  {
+   "condition_id": "0x6903b766f5fda3d5b02f4472a6b4154419e78b7fd126c0b29ce17bb8e20b20cc",
+   "category": "finance_macro",
+   "slug": "fed-decreases-interest-rates-by-50-bps-after-december-2025-meeting",
+   "winner_price_at": {
+    "168": 0.993,
+    "6": 0.9951,
+    "3": 0.999,
+    "336": 0.986,
+    "720": 0.973,
+    "1": 0.999,
+    "72": 0.993,
+    "24": 0.994,
+    "12": 0.996
+   }
+  },
+  {
+   "condition_id": "0x17815081230e3b9c78b098162c33b1ffa68c4ec29c123d3d14989599e0c2e113",
+   "category": "finance_macro",
+   "slug": "fed-decreases-interest-rates-by-50-bps-after-january-2026-meeting",
+   "winner_price_at": {
+    "12": 0.999,
+    "720": 0.988,
+    "6": 0.999,
+    "3": 0.999,
+    "72": 0.999,
+    "24": 0.999,
+    "168": 0.999,
+    "1": 0.999,
+    "336": 0.996
+   }
+  },
+  {
+   "condition_id": "0xfcd2fb666c5a346faee448e63267346a3ec394a52bce4c199877559da91cd2c1",
+   "category": "finance_macro",
+   "slug": "fed-increases-interest-rates-by-25-bps-after-december-2025-meeting",
+   "winner_price_at": {
+    "336": 0.996,
+    "72": 0.999,
+    "24": 0.999,
+    "6": 0.999,
+    "3": 0.999,
+    "720": 0.995,
+    "168": 0.998,
+    "1": 0.999,
+    "12": 0.999
+   }
+  },
+  {
+   "condition_id": "0x7c6c69d91b21cbbea08a13d0ad51c0e96a956045aaadc77bce507c6b0475b66e",
+   "category": "finance_macro",
+   "slug": "fed-increases-interest-rates-by-25-bps-after-january-2026-meeting",
+   "winner_price_at": {
+    "6": 0.999,
+    "3": 0.999,
+    "12": 0.999,
+    "336": 0.999,
+    "168": 0.999,
+    "720": 0.997,
+    "72": 0.999,
+    "24": 0.999,
+    "1": 0.999
+   }
+  },
+  {
+   "condition_id": "0x58f4542341fcc66a2197877b7487ebe901b689ec42bcdbb0a070f5536d91459e",
+   "category": "finance_macro",
+   "slug": "no-change-in-fed-interest-rates-after-december-2025-meeting",
+   "winner_price_at": {
+    "1": 0.9857,
+    "336": 0.8478,
+    "12": 0.975,
+    "72": 0.93,
+    "24": 0.974,
+    "720": 0.71,
+    "168": 0.94,
+    "6": 0.9768,
+    "3": 0.9857
+   }
+  },
+  {
+   "condition_id": "0xe93c89c41d1bb08d3bb40066d8565df301a696563b2542256e6e8bbbb1ec490d",
+   "category": "finance_macro",
+   "slug": "no-change-in-fed-interest-rates-after-january-2026-meeting",
+   "winner_price_at": {
+    "1": 0.999,
+    "72": 0.9905,
+    "24": 0.994,
+    "12": 0.995,
+    "168": 0.9791,
+    "336": 0.942,
+    "6": 0.997,
+    "3": 0.999,
+    "720": 0.87
+   }
+  },
+  {
+   "condition_id": "0x0d14f5dc9fb3250ec888b1ac8d9fe9a0ce06f9d3ea60fdf138e8690622fea84c",
+   "category": "finance_macro",
+   "slug": "will-the-fed-decrease-interest-rates-by-25-bps-after-the-april-2026-meeting",
+   "winner_price_at": {
+    "168": 0.997,
+    "1": 0.999,
+    "12": 0.999,
+    "336": 0.995,
+    "6": 0.999,
+    "3": 0.999,
+    "720": 0.988,
+    "72": 0.999,
+    "24": 0.999
+   }
+  },
+  {
+   "condition_id": "0xd6c49a94948e365aa74c09eef54d907b7ca534b243c387c375305d5cdd1afef3",
+   "category": "finance_macro",
+   "slug": "will-the-fed-decrease-interest-rates-by-25-bps-after-the-march-2026-meeting",
+   "winner_price_at": {
+    "72": 0.997,
+    "24": 0.995,
+    "336": 0.988,
+    "12": 0.996,
+    "1": 0.999,
+    "6": 0.998,
+    "3": 0.999,
+    "168": 0.995,
+    "720": 0.93
+   }
+  },
+  {
+   "condition_id": "0xd72622d154dfe65b9c019d6afcfe75a55717e5c502db611f555b101aafbf6ec5",
+   "category": "finance_macro",
+   "slug": "will-the-fed-decrease-interest-rates-by-50-bps-after-the-april-2026-meeting",
+   "winner_price_at": {
+    "336": 0.997,
+    "12": 0.999,
+    "72": 0.999,
+    "24": 0.999,
+    "1": 0.999,
+    "720": 0.995,
+    "6": 0.999,
+    "3": 0.999,
+    "168": 0.998
+   }
+  },
+  {
+   "condition_id": "0xd4d00e5bf8b960cc37c74c1ec19e41e00b0706add203ddcfbb65ad006c5c223a",
+   "category": "finance_macro",
+   "slug": "will-the-fed-increase-interest-rates-by-25-bps-after-the-april-2026-meeting",
+   "winner_price_at": {
+    "168": 0.997,
+    "6": 0.999,
+    "3": 0.999,
+    "12": 0.999,
+    "1": 0.999,
+    "72": 0.999,
+    "24": 0.999,
+    "720": 0.989,
+    "336": 0.996
+   }
+  },
+  {
+   "condition_id": "0x25aa90b3cd98305e849189b4e8b770fc77fe89bccb7cf9656468414e01145d38",
+   "category": "finance_macro",
+   "slug": "will-the-fed-increase-interest-rates-by-25-bps-after-the-march-2026-meeting",
+   "winner_price_at": {
+    "336": 0.995,
+    "12": 0.999,
+    "72": 0.999,
+    "24": 0.999,
+    "1": 0.999,
+    "720": 0.994,
+    "6": 0.999,
+    "3": 0.999,
+    "168": 0.999
+   }
+  },
+  {
+   "condition_id": "0x36e8ca24d2a13435f519f15580d42b45cdbe3bc425fb39a7c2733260357af0fa",
+   "category": "finance_macro",
+   "slug": "will-there-be-no-change-in-fed-interest-rates-after-the-april-2026-meeting",
+   "winner_price_at": {
+    "72": 0.998,
+    "24": 0.998,
+    "336": 0.989,
+    "12": 0.998,
+    "1": 0.998,
+    "6": 0.998,
+    "3": 0.998,
+    "168": 0.993,
+    "720": 0.9737
+   }
+  },
+  {
+   "condition_id": "0x5c2e6aef8af5931e9bfa3750364626d754531d2fada2885d45c356b175962a25",
+   "category": "geopolitics_world",
+   "slug": "iran-x-israelus-conflict-ends-by-april-15-618-586-982",
+   "winner_price_at": {
+    "1": 0.999,
+    "72": 0.997,
+    "24": 0.999,
+    "12": 0.999,
+    "168": 0.904,
+    "336": 0.6698,
+    "6": 0.999,
+    "3": 0.999,
+    "720": 0.28
+   }
+  },
+  {
+   "condition_id": "0x8183a221622f2d5d2b46da86c80d55a61f43d35829589e03c1efae9d072638c5",
+   "category": "geopolitics_world",
+   "slug": "iran-x-israelus-conflict-ends-by-april-7-346",
+   "winner_price_at": {
+    "1": 0.999,
+    "720": 0.16,
+    "168": 0.904,
+    "336": 0.63,
+    "6": 0.999,
+    "3": 0.999,
+    "12": 0.999,
+    "72": 0.997,
+    "24": 0.999
+   }
+  },
+  {
+   "condition_id": "0x23fd2b26c4e095465ba0d2ebce8d5eda57009ddc59aad8b68ab19ca968b41eed",
+   "category": "geopolitics_world",
+   "slug": "israel-strikes-iran-by-january-31-2026-894-994-453",
+   "winner_price_at": {
+    "336": 0.82,
+    "72": 0.95,
+    "24": 0.979,
+    "6": 0.999,
+    "3": 0.998,
+    "720": 0.8913,
+    "168": 0.81,
+    "1": 0.999,
+    "12": 0.985
+   }
+  },
+  {
+   "condition_id": "0x9823d715687a0a82d2a03731792e83bf58a0409f10def1379e00e4d67a95ba69",
+   "category": "geopolitics_world",
+   "slug": "israel-x-hezbollah-ceasefire-by-april-18-2026",
+   "winner_price_at": {
+    "1": 0.999,
+    "6": 0.999,
+    "3": 0.999,
+    "12": 0.999,
+    "24": 0.999,
+    "72": 0.999
+   }
+  },
+  {
+   "condition_id": "0xd4bbf7f6707c67beb736135ad32a41f6db41f8ae52d3ac4919650de9eeb94ed8",
+   "category": "geopolitics_world",
+   "slug": "khamenei-out-as-supreme-leader-of-iran-by-february-28",
+   "winner_price_at": {
+    "720": 0.11,
+    "12": 0.999,
+    "336": 0.03,
+    "1": 0.999,
+    "6": 0.998,
+    "3": 0.9988,
+    "168": 0.019,
+    "72": 0.9602,
+    "24": 0.9975
+   }
+  },
+  {
+   "condition_id": "0xa8b744720006da3c08b4dc8a61a5ce930542f550fcf8d27380ae898de636799d",
+   "category": "geopolitics_world",
+   "slug": "khamenei-out-as-supreme-leader-of-iran-by-january-31",
+   "winner_price_at": {
+    "6": 0.997,
+    "3": 0.998,
+    "72": 0.986,
+    "24": 0.992,
+    "1": 0.999,
+    "12": 0.995,
+    "336": 0.92,
+    "168": 0.95
+   }
+  },
+  {
+   "condition_id": "0x70909f0ba8256a89c301da58812ae47203df54957a07c7f8b10235e877ad63c2",
+   "category": "geopolitics_world",
+   "slug": "khamenei-out-as-supreme-leader-of-iran-by-march-31",
+   "winner_price_at": {
+    "1": 0.999,
+    "72": 0.966,
+    "24": 0.998,
+    "12": 0.999,
+    "168": 0.2,
+    "336": 0.16,
+    "6": 0.999,
+    "3": 0.999,
+    "720": 0.21
+   }
+  },
+  {
+   "condition_id": "0xa78ecba9c4273564cce4b810db46bb36cc35db9cd52fc4e067c77f85af1c1048",
+   "category": "geopolitics_world",
+   "slug": "kharg-island-no-longer-under-iranian-control-by-april-30-912",
+   "winner_price_at": {
+    "1": 0.992,
+    "720": 0.78,
+    "168": 0.948,
+    "336": 0.959,
+    "6": 0.992,
+    "3": 0.992,
+    "12": 0.992,
+    "72": 0.992,
+    "24": 0.992
+   }
+  },
+  {
+   "condition_id": "0x813451b970c8aae23a9b2441fd9be8367e8691a636323ced76f6fd1914c1e0a8",
+   "category": "geopolitics_world",
+   "slug": "military-action-against-iran-ends-by-april-17-2026",
+   "winner_price_at": {
+    "72": 0.999,
+    "24": 0.999,
+    "6": 0.999,
+    "3": 0.999,
+    "168": 0.95,
+    "12": 0.999,
+    "1": 0.999
+   }
+  },
+  {
+   "condition_id": "0x7cb525e831729325d651017f81cbcb6f1adde5011c7b2283babea00b4ae93ae7",
+   "category": "geopolitics_world",
+   "slug": "netanyahu-out-by-march-31-854",
+   "winner_price_at": {
+    "12": 0.999,
+    "720": 0.8906,
+    "6": 0.999,
+    "3": 0.999,
+    "72": 0.999,
+    "24": 0.999,
+    "168": 0.994,
+    "1": 0.999,
+    "336": 0.988
+   }
+  },
+  {
+   "condition_id": "0xb8c1bd306a8a4cedfb280e114e655c5092b3f37edccae05cd877d7f21a5774ce",
+   "category": "geopolitics_world",
+   "slug": "russia-x-ukraine-ceasefire-by-january-31-2026",
+   "winner_price_at": {
+    "720": 0.961,
+    "12": 0.999,
+    "336": 0.973,
+    "1": 0.999,
+    "6": 0.999,
+    "3": 0.999,
+    "168": 0.995,
+    "72": 0.998,
+    "24": 0.998
+   }
+  },
+  {
+   "condition_id": "0x1d54eb5eac2cee8f595f3097c65da7d07f8ab5dee63d7c0c6883eb70e1e9af30",
+   "category": "geopolitics_world",
+   "slug": "russia-x-ukraine-ceasefire-by-march-31-2026",
+   "winner_price_at": {
+    "168": 0.994,
+    "1": 0.999,
+    "12": 0.999,
+    "336": 0.985,
+    "6": 0.999,
+    "3": 0.999,
+    "720": 0.9662,
+    "72": 0.997,
+    "24": 0.999
+   }
+  },
+  {
+   "condition_id": "0x8ee2f1640386310eb5e7ffa596ba9335f2d324e303d21b0dfea6998874445791",
+   "category": "geopolitics_world",
+   "slug": "russia-x-ukraine-ceasefire-in-2025",
+   "winner_price_at": {
+    "1": 0.999,
+    "168": 0.994,
+    "720": 0.93,
+    "72": 0.996,
+    "24": 0.9982,
+    "12": 0.999,
+    "6": 0.999,
+    "3": 0.999,
+    "336": 0.975
+   }
+  },
+  {
+   "condition_id": "0x6d0e09d0f04572d9b1adad84703458b0297bc5603b69dccbde93147ee4443246",
+   "category": "geopolitics_world",
+   "slug": "us-forces-enter-iran-by-april-30-899",
+   "winner_price_at": {
+    "6": 0.998,
+    "3": 0.998,
+    "12": 0.998,
+    "336": 0.58,
+    "168": 0.53,
+    "72": 0.997,
+    "24": 0.997,
+    "1": 0.998
+   }
+  },
+  {
+   "condition_id": "0x306d10d4a4d51b41910dbc779ca00908bd917c131541c5c42bbbc736258d2d56",
+   "category": "geopolitics_world",
+   "slug": "us-forces-enter-iran-by-march-31-222-191-243-517-878-439-519",
+   "winner_price_at": {
+    "72": 0.999,
+    "24": 0.999,
+    "336": 0.83,
+    "12": 0.999,
+    "1": 0.999,
+    "6": 0.999,
+    "3": 0.999,
+    "168": 0.958,
+    "720": 0.6533
+   }
+  },
+  {
+   "condition_id": "0xe1c67f75aac5b10dc28f1a2fbb79b079fc7f7320abfbd6a950a50c372979569b",
+   "category": "geopolitics_world",
+   "slug": "us-strikes-iran-by-february-20-2026-151-468-624-297-614-778-872-127-349-448-499-337-826-553",
+   "winner_price_at": {
+    "12": 0.987,
+    "6": 0.995,
+    "3": 0.999,
+    "72": 0.949,
+    "24": 0.978,
+    "168": 0.96,
+    "1": 0.999,
+    "336": 0.83
+   }
+  },
+  {
+   "condition_id": "0xe5535e41e78edb730150ac1a497fbef7cef536022168771cb51a6b702705ebb1",
+   "category": "geopolitics_world",
+   "slug": "us-strikes-iran-by-february-24-2026",
+   "winner_price_at": {
+    "12": 0.982,
+    "24": 0.9808,
+    "72": 0.94,
+    "1": 0.999,
+    "6": 0.994,
+    "3": 0.999,
+    "168": 0.8845
+   }
+  },
+  {
+   "condition_id": "0x09cbe3e796661a1d820580145488ad2ccb9ad1e720efcd64b448bb77b97007c1",
+   "category": "geopolitics_world",
+   "slug": "us-strikes-iran-by-february-27-2026",
+   "winner_price_at": {
+    "1": 0.999,
+    "12": 0.9621,
+    "72": 0.93,
+    "24": 0.966,
+    "168": 0.84,
+    "6": 0.975,
+    "3": 0.9962
+   }
+  },
+  {
+   "condition_id": "0x3488f31e6449f9803f99a8b5dd232c7ad883637f1c86e6953305a2ef19c77f20",
+   "category": "geopolitics_world",
+   "slug": "us-strikes-iran-by-february-28-2026-227-967-547-688-589-491-592-418-452-924-384-915-464-672-196-157-993-596-269-535-381-391-471-256-988-997-296-225-762-973-292-827-345-182-558-215-794-879-189-761",
+   "winner_price_at": {
+    "168": 0.19,
+    "6": 0.15,
+    "3": 0.684,
+    "12": 0.1882,
+    "1": 0.999,
+    "72": 0.11,
+    "24": 0.0631,
+    "720": 0.48,
+    "336": 0.12
+   }
+  },
+  {
+   "condition_id": "0xda368e1f843931105e33e4d00c06e20f962ffc233389b8df15f53efc9d3d2984",
+   "category": "geopolitics_world",
+   "slug": "us-strikes-iran-by-february-9-2026-113-751",
+   "winner_price_at": {
+    "1": 0.999,
+    "24": 0.974,
+    "72": 0.963,
+    "12": 0.9711,
+    "6": 0.992,
+    "3": 0.9976
+   }
+  },
+  {
+   "condition_id": "0xabb86b080e9858dcb3f46954010e49b6f539c20036856c7f999395bfd58d01e6",
+   "category": "geopolitics_world",
+   "slug": "us-strikes-iran-by-january-31-2026-165",
+   "winner_price_at": {
+    "6": 0.9891,
+    "3": 0.998,
+    "12": 0.9775,
+    "336": 0.78,
+    "168": 0.8,
+    "72": 0.9,
+    "24": 0.96,
+    "1": 0.999
+   }
+  },
+  {
+   "condition_id": "0x773abaa5fe55e5cde51a261f444b7921652a4e059ead6b3be9fe56499c2d4609",
+   "category": "geopolitics_world",
+   "slug": "us-x-iran-ceasefire-by-april-15",
+   "winner_price_at": {
+    "168": 0.2,
+    "72": 0.05,
+    "24": 0.14,
+    "6": 0.2,
+    "3": 0.5663,
+    "336": 0.38,
+    "12": 0.1603,
+    "1": 0.9958
+   }
+  },
+  {
+   "condition_id": "0x4c5701bcde0b8fb7d7f48c8e9d20245a6caa58c61a77f981fad98f2bfa0b1bc7",
+   "category": "geopolitics_world",
+   "slug": "us-x-iran-ceasefire-by-april-7",
+   "winner_price_at": {
+    "1": 0.999,
+    "168": 0.01,
+    "72": 0.993,
+    "24": 0.999,
+    "12": 0.999,
+    "6": 0.999,
+    "3": 0.999,
+    "336": 0.1119
+   }
+  },
+  {
+   "condition_id": "0x1d2787cb8aed975d092b2799ed6f4083e9445f7420cdc09e9d47e7d54356c6cd",
+   "category": "geopolitics_world",
+   "slug": "us-x-iran-ceasefire-extended-by-april-22-2026",
+   "winner_price_at": {
+    "6": 0.997,
+    "3": 0.997,
+    "72": 0.997,
+    "24": 0.997,
+    "1": 0.997,
+    "12": 0.997,
+    "168": 0.998
+   }
+  },
+  {
+   "condition_id": "0x41e47408f8ab39b46a9d9e3c9b15ebd62f1d795eb072ff46df3d376c09eb583e",
+   "category": "geopolitics_world",
+   "slug": "us-x-iran-meeting-by-february-6-2026",
+   "winner_price_at": {
+    "1": 0.999,
+    "24": 0.998,
+    "72": 0.998,
+    "12": 0.999,
+    "6": 0.999,
+    "3": 0.999
+   }
+  },
+  {
+   "condition_id": "0xbbc6689d0f6d57ea42168836712237c7308b3e0118c8914d31b6126d0f3254c5",
+   "category": "geopolitics_world",
+   "slug": "us-x-iran-permanent-peace-deal-by-april-22-2026",
+   "winner_price_at": {
+    "72": 0.82,
+    "24": 0.995,
+    "336": 0.88,
+    "12": 0.999,
+    "1": 0.999,
+    "6": 0.999,
+    "3": 0.999,
+    "168": 0.78
+   }
+  },
+  {
+   "condition_id": "0xceb6dfaa2cf5abc9d47ebc867b984a7715104944249274e8a483a2e17473e5f5",
+   "category": "geopolitics_world",
+   "slug": "us-x-iran-permanent-peace-deal-by-april-30-2026-925",
+   "winner_price_at": {
+    "12": 0.988,
+    "336": 0.6,
+    "1": 0.988,
+    "6": 0.988,
+    "3": 0.988,
+    "168": 0.93,
+    "72": 0.988,
+    "24": 0.988
+   }
+  },
+  {
+   "condition_id": "0x62b0cd598091a179147acbd4616400f804acfdff6f76f029944b481b37cbd45f",
+   "category": "geopolitics_world",
+   "slug": "us-x-venezuela-military-engagement-by-december-31-391-819-722-945-174-285-817-971-353-859-836-598-255-382-192-983",
+   "winner_price_at": {
+    "168": 0.927,
+    "1": 0.999,
+    "12": 0.999,
+    "336": 0.94,
+    "6": 0.999,
+    "3": 0.999,
+    "720": 0.68,
+    "72": 0.998,
+    "24": 0.999
+   }
+  },
+  {
+   "condition_id": "0x2135c61c38d5a7bd7fe24eb35b920bf92213573d33373a80e4ae9a7b3b2f435d",
+   "category": "geopolitics_world",
+   "slug": "will-anthony-albanese-be-the-first-leader-out-in-2025",
+   "winner_price_at": {
+    "720": 0.999,
+    "12": 0.999,
+    "336": 0.999,
+    "1": 0.999,
+    "6": 0.999,
+    "3": 0.999,
+    "168": 0.999,
+    "72": 0.998,
+    "24": 0.999
+   }
+  },
+  {
+   "condition_id": "0xe443dab97ad8b7f58558cc7a6a3932d156031e962a451e0461e9a4578d78fe84",
+   "category": "geopolitics_world",
+   "slug": "will-the-iranian-regime-fall-by-april-30",
+   "winner_price_at": {
+    "1": 0.998,
+    "336": 0.9885,
+    "12": 0.998,
+    "72": 0.998,
+    "24": 0.998,
+    "720": 0.965,
+    "168": 0.994,
+    "6": 0.998,
+    "3": 0.998
+   }
+  },
+  {
+   "condition_id": "0x61ce3773237a948584e422de72265f937034af418a8b703e3a860ea62e59ff36",
+   "category": "geopolitics_world",
+   "slug": "will-the-iranian-regime-fall-by-march-31",
+   "winner_price_at": {
+    "6": 0.999,
+    "3": 0.999,
+    "720": 0.775,
+    "72": 0.995,
+    "24": 0.999,
+    "1": 0.999,
+    "12": 0.999,
+    "336": 0.959,
+    "168": 0.989
+   }
+  },
+  {
+   "condition_id": "0xf2ce8d3897ac5009a131637d3575f1f91c579bd08eecce6ae2b2da0f32bbe6f1",
+   "category": "geopolitics_world",
+   "slug": "xi-jinping-out-in-2025",
+   "winner_price_at": {
+    "1": 0.999,
+    "168": 0.995,
+    "720": 0.988,
+    "72": 0.998,
+    "24": 0.999,
+    "12": 0.999,
+    "6": 0.999,
+    "3": 0.999,
+    "336": 0.994
+   }
+  },
+  {
+   "condition_id": "0xafc235557ace53ff0b0d2e93392314a7c3f3daab26a79050e985c11282f66df7",
+   "category": "politics_us",
+   "slug": "maduro-out-in-2025-411",
+   "winner_price_at": {
+    "168": 0.9725,
+    "6": 0.998,
+    "3": 0.999,
+    "336": 0.956,
+    "720": 0.8,
+    "1": 0.999,
+    "72": 0.991,
+    "24": 0.997,
+    "12": 0.999
+   }
+  },
+  {
+   "condition_id": "0xf220061c0e83defd413070f97fb55660485ca8540c43be13d9e71082ca2cad57",
+   "category": "politics_us",
+   "slug": "qatarenergy-announcesresumes-lng-production-in-qatar-by-april-30",
+   "winner_price_at": {
+    "1": 0.061,
+    "336": 0.29,
+    "12": 0.061,
+    "72": 0.061,
+    "24": 0.061,
+    "720": 0.04,
+    "168": 0.081,
+    "6": 0.061,
+    "3": 0.061
+   }
+  },
+  {
+   "condition_id": "0x5fc28bfcb6f16080415695b53f1f60820f403a94ce16696eea2f0085d823bc92",
+   "category": "politics_us",
+   "slug": "romania-presidential-election-winner-will-george-simion-win-the-romanian-presidential-election",
+   "winner_price_at": {
+    "1": 0.999,
+    "72": 0.48,
+    "24": 0.46,
+    "12": 0.6583,
+    "168": 0.34,
+    "336": 0.31,
+    "6": 0.996,
+    "3": 0.999,
+    "720": 0.75
+   }
+  },
+  {
+   "condition_id": "0x784d67eb3b205e7f6543b09d8737d5dc1c2a14d43a102bbb59f7f4f94fc56135",
+   "category": "politics_us",
+   "slug": "romania-presidential-election-winner-will-hunor-kelemen-win-the-romanian-presidential-election",
+   "winner_price_at": {
+    "72": 0.999,
+    "24": 0.999,
+    "720": 0.999,
+    "6": 0.999,
+    "3": 0.999,
+    "336": 0.999,
+    "168": 0.999,
+    "12": 0.999,
+    "1": 0.999
+   }
+  },
+  {
+   "condition_id": "0xaf51603d78545c838490bafe178ee9ff4c23d0c2161f15e0e530d3735229ad3f",
+   "category": "politics_us",
+   "slug": "romania-presidential-election-winner-will-nicuor-dan-win-the-romanian-presidential-election",
+   "winner_price_at": {
+    "1": 0.999,
+    "168": 0.33,
+    "720": 0.3,
+    "72": 0.5,
+    "24": 0.44,
+    "12": 0.65,
+    "6": 0.993,
+    "3": 0.999,
+    "336": 0.27
+   }
+  },
+  {
+   "condition_id": "0x2865bc483dd523f4a36eb961f7467c8635ee9a13f39748bad55f645ce1f61512",
+   "category": "politics_us",
+   "slug": "trump-declassifies-ufo-files-in-2025",
+   "winner_price_at": {
+    "336": 0.12,
+    "12": 0.976,
+    "72": 0.06,
+    "24": 0.9318,
+    "1": 0.98,
+    "720": 0.1,
+    "6": 0.9792,
+    "3": 0.987,
+    "168": 0.12
+   }
+  },
+  {
+   "condition_id": "0x05beef793157deb1cc34e2d3159539f461b73c7eeaa3b5348617c10eed5509d0",
+   "category": "politics_us",
+   "slug": "us-anti-cartel-ground-operation-in-mexico-by-january-31",
+   "winner_price_at": {
+    "6": 0.998,
+    "3": 0.997,
+    "24": 0.994,
+    "72": 0.007,
+    "1": 0.998,
+    "12": 0.998,
+    "336": 0.074,
+    "168": 0.026
+   }
+  },
+  {
+   "condition_id": "0xbcb33ad98c8141b10f2350ef687eddf0660484ecc15be42ecdae64339e64dce1",
+   "category": "politics_us",
+   "slug": "will-andr-ventura-win-the-2026-portugal-presidential-election",
+   "winner_price_at": {
+    "6": 0.998,
+    "3": 0.999,
+    "12": 0.996,
+    "336": 0.981,
+    "168": 0.99,
+    "720": 0.954,
+    "72": 0.993,
+    "24": 0.994,
+    "1": 0.999
+   }
+  },
+  {
+   "condition_id": "0xab6faa3e66abacc484bbb4bd31ae5e2a56d6f6252b5023631f1bd9e5299fa2f8",
+   "category": "politics_us",
+   "slug": "will-donald-trump-win-nobel-peace-prize-in-2025-635",
+   "winner_price_at": {
+    "720": 0.949,
+    "12": 0.963,
+    "336": 0.967,
+    "1": 0.999,
+    "6": 0.972,
+    "3": 0.967,
+    "168": 0.9729,
+    "72": 0.973,
+    "24": 0.937
+   }
+  },
+  {
+   "condition_id": "0xb3dbb0f2e1df15cc820e0cde749eb112bf160994ec53a8ac57dceff9dbe5007e",
+   "category": "politics_us",
+   "slug": "will-melania-say-career-during-ai-talk-on-friday",
+   "winner_price_at": {
+    "24": 0.997,
+    "72": 0.997,
+    "6": 0.999,
+    "3": 0.999,
+    "12": 0.999,
+    "1": 0.999
+   }
+  },
+  {
+   "condition_id": "0x2017c048aeee624d3597ffd0c2273a0e2c2aec4dfb89ef7505b8e08715636c3b",
+   "category": "politics_us",
+   "slug": "will-octavian-berceanu-be-the-next-mayor-of-bucharest",
+   "winner_price_at": {
+    "168": 0.996,
+    "6": 0.999,
+    "3": 0.999,
+    "336": 0.996,
+    "720": 0.996,
+    "1": 0.999,
+    "72": 0.996,
+    "24": 0.999,
+    "12": 0.999
+   }
+  },
+  {
+   "condition_id": "0x77b4a1d4cd398a86c18b6bb9b5218917dc9f04b01a3cd4bae1c71ea345f15fa8",
+   "category": "politics_us",
+   "slug": "will-polymarket-us-go-live-in-2025",
+   "winner_price_at": {
+    "336": 0.7499,
+    "12": 0.998,
+    "72": 0.981,
+    "24": 0.995,
+    "1": 0.998,
+    "720": 0.874,
+    "6": 0.998,
+    "3": 0.996,
+    "168": 0.7655
+   }
+  },
+  {
+   "condition_id": "0x3b1a3232b14a029f96a3e1b04a5d8dde31575d74024389b53631e73b4a494480",
+   "category": "politics_us",
+   "slug": "will-raul-perestrello-win-the-2026-portugal-presidential-election",
+   "winner_price_at": {
+    "6": 0.999,
+    "3": 0.999,
+    "12": 0.999,
+    "336": 0.999,
+    "168": 0.999,
+    "720": 0.999,
+    "72": 0.999,
+    "24": 0.999,
+    "1": 0.999
+   }
+  },
+  {
+   "condition_id": "0xd49b9f68568892e828085f84a31e811a24f4481aea5cd08ab62261810ec0d402",
+   "category": "politics_us",
+   "slug": "will-the-indian-national-congress-inc-win-the-most-seats-in-the-2026-tamil-nadu-legislative-assembly-election",
+   "winner_price_at": {
+    "6": 0.999,
+    "3": 0.999,
+    "720": 0.9119,
+    "72": 0.999,
+    "24": 0.999,
+    "1": 0.999,
+    "12": 0.999,
+    "336": 0.9119,
+    "168": 0.999
+   }
+  },
+  {
+   "condition_id": "0x068d4f079da544e312b1a7b86e2c5dd39d3fc6a0f5a21b0ec866d1ff34767839",
+   "category": "politics_us",
+   "slug": "will-the-next-prime-minister-of-hungary-be-istvn-kapitny",
+   "winner_price_at": {
+    "1": 0.999,
+    "72": 0.999,
+    "24": 0.999,
+    "12": 0.999,
+    "168": 0.999,
+    "336": 0.999,
+    "6": 0.999,
+    "3": 0.999,
+    "720": 0.997
+   }
+  },
+  {
+   "condition_id": "0x1480b819d03d4b6388d70e848b0384adf38c38d955cb783cdbcf6d4a436dee14",
+   "category": "politics_us",
+   "slug": "will-the-next-prime-minister-of-hungary-be-pter-magyar",
+   "winner_price_at": {
+    "168": 0.992,
+    "1": 0.992,
+    "12": 0.992,
+    "336": 0.99,
+    "6": 0.992,
+    "3": 0.992,
+    "720": 0.68,
+    "72": 0.992,
+    "24": 0.992
+   }
+  },
+  {
+   "condition_id": "0x5ec80dc407457301f282a2b44341947afc700dfaa7923d14c8894e04bc63b03f",
+   "category": "politics_us",
+   "slug": "will-the-next-prime-minister-of-hungary-be-viktor-orbn",
+   "winner_price_at": {
+    "168": 0.997,
+    "1": 0.997,
+    "12": 0.997,
+    "336": 0.997,
+    "6": 0.997,
+    "3": 0.997,
+    "720": 0.69,
+    "72": 0.997,
+    "24": 0.997
+   }
+  },
+  {
+   "condition_id": "0x43ec78527bd98a0588dd9455685b2cc82f5743140cb3a154603dc03c02b57de5",
+   "category": "politics_us",
+   "slug": "will-there-be-another-us-government-shutdown-by-january-31",
+   "winner_price_at": {
+    "1": 0.998,
+    "336": 0.11,
+    "12": 0.998,
+    "72": 0.995,
+    "24": 0.9978,
+    "720": 0.23,
+    "168": 0.74,
+    "6": 0.998,
+    "3": 0.9988
+   }
+  },
+  {
+   "condition_id": "0x204d24f3a0f5dd5fca825292bdeab6a97af3978b2caa2b21bb37e610eddfff5d",
+   "category": "sports",
+   "slug": "nfl-sea-ne-2026-02-08",
+   "winner_price_at": {
+    "336": 0.67,
+    "72": 0.68,
+    "24": 0.68,
+    "6": 0.65,
+    "3": 0.9989,
+    "168": 0.68,
+    "1": 0.999,
+    "12": 0.68
+   }
+  },
+  {
+   "condition_id": "0x94a2b2a1b9227e44fc464614e63dfca6d4082310291c35623c3d34b70aa53693",
+   "category": "sports",
+   "slug": "ucl-atm1-ars-2026-04-29-ars",
+   "winner_price_at": {
+    "168": 0.63,
+    "6": 0.62,
+    "3": 0.62,
+    "1": 0.62,
+    "24": 0.62,
+    "72": 0.63,
+    "12": 0.62
+   }
+  },
+  {
+   "condition_id": "0x365eee5f424708fd861ea3f0d4d03d515e34b513303a30d097f2b35867f11dcd",
+   "category": "sports",
+   "slug": "will-anthony-joshua-win-his-boxing-match-against-jake-paul",
+   "winner_price_at": {
+    "336": 0.85,
+    "24": 0.85,
+    "72": 0.87,
+    "6": 0.86,
+    "3": 0.999,
+    "720": 0.78,
+    "168": 0.85,
+    "1": 0.999,
+    "12": 0.88
+   }
+  },
+  {
+   "condition_id": "0x7e8953cc66f9dabfe80fb0d1a9284bffb7a293f700b21027261fade58a082d73",
+   "category": "sports",
+   "slug": "will-george-russell-be-the-2025-drivers-champion",
+   "winner_price_at": {
+    "1": 0.999,
+    "720": 0.992,
+    "168": 0.999,
+    "336": 0.999,
+    "6": 0.999,
+    "3": 0.999,
+    "12": 0.999,
+    "72": 0.999,
+    "24": 0.999
+   }
+  },
+  {
+   "condition_id": "0x74da675b5e1363b2215f24f29a13c067ff00220e2ac884a0fac7a94a51aa016e",
+   "category": "sports",
+   "slug": "will-jake-paul-win-his-boxing-match-against-anthony-joshua",
+   "winner_price_at": {
+    "6": 0.8639,
+    "3": 0.999,
+    "12": 0.9111,
+    "336": 0.9,
+    "168": 0.919,
+    "720": 0.79,
+    "72": 0.8861,
+    "24": 0.8794,
+    "1": 0.999
+   }
+  },
+  {
+   "condition_id": "0x9c60e608e40b658cf15c18b0aaaddda7c6614e66187ec4ecc34be6c8526ef16f",
+   "category": "sports",
+   "slug": "will-lewis-hamilton-be-the-2025-drivers-champion",
+   "winner_price_at": {
+    "72": 0.999,
+    "24": 0.999,
+    "336": 0.999,
+    "12": 0.999,
+    "1": 0.999,
+    "6": 0.999,
+    "3": 0.999,
+    "168": 0.999,
+    "720": 0.999
+   }
+  },
+  {
+   "condition_id": "0xc319ae3e39f6a0b441fd02d37058ee8af4133967a205c88c9243972deceddbee",
+   "category": "sports",
+   "slug": "will-the-arizona-cardinals-win-super-bowl-2026",
+   "winner_price_at": {
+    "1": 0.999,
+    "168": 0.997,
+    "720": 0.995,
+    "72": 0.997,
+    "24": 0.997,
+    "12": 0.997,
+    "6": 0.997,
+    "3": 0.999,
+    "336": 0.995
+   }
+  },
+  {
+   "condition_id": "0xb232c915770ea41eb3ec3dbb2c7209c727759237383850f51045be7ffa3975e5",
+   "category": "sports",
+   "slug": "will-the-carolina-panthers-win-super-bowl-2026",
+   "winner_price_at": {
+    "168": 0.991,
+    "6": 0.997,
+    "3": 0.999,
+    "12": 0.994,
+    "1": 0.999,
+    "72": 0.994,
+    "24": 0.993,
+    "720": 0.99,
+    "336": 0.991
+   }
+  },
+  {
+   "condition_id": "0x580ffec1f7b057910f9f596c80d203870f3028b04784a982d158d3581514299e",
+   "category": "sports",
+   "slug": "will-the-cincinnati-bengals-win-super-bowl-2026",
+   "winner_price_at": {
+    "336": 0.9967,
+    "12": 0.997,
+    "72": 0.998,
+    "24": 0.997,
+    "1": 0.999,
+    "720": 0.997,
+    "6": 0.997,
+    "3": 0.999,
+    "168": 0.998
+   }
+  },
+  {
+   "condition_id": "0x8f0f5125028c535d93f548225a4a2479a03793a49705973c763423aa43bdc59d",
+   "category": "sports",
+   "slug": "will-the-cleveland-browns-win-super-bowl-2026",
+   "winner_price_at": {
+    "72": 0.999,
+    "24": 0.999,
+    "336": 0.997,
+    "12": 0.999,
+    "1": 0.999,
+    "6": 0.999,
+    "3": 0.999,
+    "168": 0.999,
+    "720": 0.993
+   }
+  },
+  {
+   "condition_id": "0xd28f9dfab98d6b2a8a22d8ff7e8d109678fc8275710be17c96825301efce4a69",
+   "category": "sports",
+   "slug": "will-the-las-vegas-raiders-win-super-bowl-2026",
+   "winner_price_at": {
+    "12": 0.999,
+    "720": 0.995,
+    "6": 0.999,
+    "3": 0.999,
+    "72": 0.999,
+    "24": 0.999,
+    "168": 0.997,
+    "1": 0.999,
+    "336": 0.995
+   }
+  },
+  {
+   "condition_id": "0xb222caecba4942b88a87adc145f1c27eb822e6fa2d238731e66074c89125f31e",
+   "category": "sports",
+   "slug": "will-the-miami-dolphins-win-super-bowl-2026",
+   "winner_price_at": {
+    "336": 0.998,
+    "72": 0.998,
+    "24": 0.998,
+    "6": 0.998,
+    "3": 0.998,
+    "720": 0.997,
+    "168": 0.998,
+    "1": 0.998,
+    "12": 0.998
+   }
+  },
+  {
+   "condition_id": "0xc914317b14972d5d15f30740d3bdf32f4028877c13b9d7ccc78b4ba33f67fb1e",
+   "category": "sports",
+   "slug": "will-the-new-england-patriots-win-super-bowl-2026",
+   "winner_price_at": {
+    "1": 0.999,
+    "72": 0.682,
+    "24": 0.682,
+    "12": 0.682,
+    "168": 0.683,
+    "336": 0.676,
+    "6": 0.8139,
+    "3": 0.999,
+    "720": 0.919
+   }
+  },
+  {
+   "condition_id": "0x184228c1bfc9502d38f6f9984667f3da7b2f955616f195a3ba28b51fb0539bfe",
+   "category": "sports",
+   "slug": "will-the-new-orleans-saints-win-super-bowl-2026",
+   "winner_price_at": {
+    "1": 0.999,
+    "336": 0.996,
+    "12": 0.999,
+    "72": 0.999,
+    "24": 0.999,
+    "720": 0.996,
+    "168": 0.998,
+    "6": 0.999,
+    "3": 0.999
+   }
+  },
+  {
+   "condition_id": "0xf9915c09cfdb45b8ba1335620c1da05d12913ad1d43bbb15832a93609212c27e",
+   "category": "sports",
+   "slug": "will-the-new-york-giants-win-super-bowl-2026",
+   "winner_price_at": {
+    "12": 0.997,
+    "720": 0.994,
+    "6": 0.997,
+    "3": 0.998,
+    "72": 0.997,
+    "24": 0.997,
+    "168": 0.997,
+    "1": 0.999,
+    "336": 0.997
+   }
+  },
+  {
+   "condition_id": "0xd8d889f4c49f58d98538d08182a07c27206f0e98f9f0a125eda3abf94305c8f7",
+   "category": "sports",
+   "slug": "will-the-new-york-jets-win-super-bowl-2026",
+   "winner_price_at": {
+    "6": 0.999,
+    "3": 0.999,
+    "720": 0.997,
+    "72": 0.999,
+    "24": 0.999,
+    "1": 0.999,
+    "12": 0.999,
+    "336": 0.999,
+    "168": 0.999
+   }
+  },
+  {
+   "condition_id": "0xf2d034812c1e871421eb6ca9afd30f2a03f0494fc910cc4cabc4515685b610cb",
+   "category": "sports",
+   "slug": "will-the-tennessee-titans-win-super-bowl-2026",
+   "winner_price_at": {
+    "72": 0.999,
+    "24": 0.999,
+    "720": 0.996,
+    "6": 0.999,
+    "3": 0.999,
+    "336": 0.997,
+    "168": 0.997,
+    "12": 0.999,
+    "1": 0.999
+   }
+  }
+ ],
+ "notes": [
+  "abs_err = 1 - winning-outcome price at that horizon; lower = market prices the winner earlier.",
+  "winner price = raw trades.price where outcome_index=winning_outcome_index (source-agnostic; no token-id join).",
+  "Late convergence (error still high at 24-1h then collapses) flags event/jump-driven resolution \u2014 the Stage C event-study targets (e.g. Fed FOMC markets: priced days out vs jump at the meeting?).",
+  "Illiquid markets have sparse minute paths; horizons with few trades are noisier."
+ ]
+}

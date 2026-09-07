@@ -1,0 +1,684 @@
+{
+ "source": "archive",
+ "late_threshold": 0.7,
+ "pre_jump_hours": 48.0,
+ "n_target_markets": 9,
+ "targets": [
+  {
+   "condition_id": "0x42d812af0840d50685b0aaa0cc0a4b3c07a680cd12a85d88a377558f3621c78c",
+   "category": "crypto_other",
+   "slug": "over-1pt4b-committed-to-the-megaeth-public-sale-773-958-536",
+   "winner_price_24h": 0.6314,
+   "winner_price_start": 0.6047,
+   "path_hours": 43,
+   "jump_ts": "2025-10-30T12:00:00+00:00",
+   "jump_hours_before_close": 3.6,
+   "winner_price_12h_before_jump": 0.5141,
+   "winner_price_3h_before_jump": 0.2479,
+   "winner_price_1h_before_jump": 0.4857,
+   "pre_jump_winner_side_positioners": [
+    {
+     "wallet": "0x5bffcf561bcae83af680ad600cb99f1184d6ffbe",
+     "winner_side_shares": 288977.4,
+     "avg_entry_price": 0.5218,
+     "position_cost_usdc": 150800.88,
+     "implied_profit_if_win": 138176.48,
+     "n_fills": 47
+    },
+    {
+     "wallet": "0x9db778f46b7c9b458045764a67ff4afcae917e1f",
+     "winner_side_shares": 224205.8,
+     "avg_entry_price": 0.3182,
+     "position_cost_usdc": 71345.43,
+     "implied_profit_if_win": 152860.36,
+     "n_fills": 32
+    },
+    {
+     "wallet": "0x05ab749a8554fb7c852238c271d384bae6798145",
+     "winner_side_shares": 160540.6,
+     "avg_entry_price": 0.5357,
+     "position_cost_usdc": 86002.07,
+     "implied_profit_if_win": 74538.55,
+     "n_fills": 222
+    },
+    {
+     "wallet": "0xfaab37ef60570779bf3ac6dbf017a286b14ce6f2",
+     "winner_side_shares": 119941.1,
+     "avg_entry_price": 0.453,
+     "position_cost_usdc": 54334.84,
+     "implied_profit_if_win": 65606.31,
+     "n_fills": 44
+    },
+    {
+     "wallet": "0xf8a72ca42a0a5824cde2beee8df26faa8e1d6fa3",
+     "winner_side_shares": 108067.1,
+     "avg_entry_price": 0.5896,
+     "position_cost_usdc": 63713.41,
+     "implied_profit_if_win": 44353.66,
+     "n_fills": 4
+    },
+    {
+     "wallet": "0x2aa4914695f9d859034f5d22b90281e214d42638",
+     "winner_side_shares": 98125.3,
+     "avg_entry_price": 0.6538,
+     "position_cost_usdc": 64151.04,
+     "implied_profit_if_win": 33974.28,
+     "n_fills": 28
+    },
+    {
+     "wallet": "0x1a090610aedb4f378e07c4526904b4dc91d1af0f",
+     "winner_side_shares": 98013.5,
+     "avg_entry_price": 0.5924,
+     "position_cost_usdc": 58058.73,
+     "implied_profit_if_win": 39954.74,
+     "n_fills": 68
+    },
+    {
+     "wallet": "0xf4456873d3a8792365ba07ee241902a9f1fddf8a",
+     "winner_side_shares": 80805.4,
+     "avg_entry_price": 0.447,
+     "position_cost_usdc": 36119.29,
+     "implied_profit_if_win": 44686.09,
+     "n_fills": 25
+    },
+    {
+     "wallet": "0x6a68f27b256d304f2a7e3ea95016ace05eed627d",
+     "winner_side_shares": 75420.8,
+     "avg_entry_price": 0.7078,
+     "position_cost_usdc": 53380.18,
+     "implied_profit_if_win": 22040.61,
+     "n_fills": 19
+    },
+    {
+     "wallet": "0x59229282121256ed2d629ce5adf0e04cc7fb3388",
+     "winner_side_shares": 67285.4,
+     "avg_entry_price": 0.432,
+     "position_cost_usdc": 29067.03,
+     "implied_profit_if_win": 38218.33,
+     "n_fills": 45
+    }
+   ],
+   "n_pre_jump_positioners": 2304
+  },
+  {
+   "condition_id": "0x3488f31e6449f9803f99a8b5dd232c7ad883637f1c86e6953305a2ef19c77f20",
+   "category": "geopolitics_world",
+   "slug": "us-strikes-iran-by-february-28-2026-227-967-547-688-589-491-592-418-452-924-384-915-464-672-196-157-993-596-269-535-381-391-471-256-988-997-296-225-762-973-292-827-345-182-558-215-794-879-189-761",
+   "winner_price_24h": 0.1153,
+   "winner_price_start": 0.48,
+   "path_hours": 691,
+   "jump_ts": "2026-02-28T06:00:00+00:00",
+   "jump_hours_before_close": 3.52,
+   "winner_price_12h_before_jump": 0.1464,
+   "winner_price_3h_before_jump": 0.1432,
+   "winner_price_1h_before_jump": 0.1901,
+   "pre_jump_winner_side_positioners": [
+    {
+     "wallet": "0x4dfd481c16d9995b809780fd8a9808e8689f6e4a",
+     "winner_side_shares": 784045.8,
+     "avg_entry_price": 0.2052,
+     "position_cost_usdc": 160879.67,
+     "implied_profit_if_win": 623166.17,
+     "n_fills": 39
+    },
+    {
+     "wallet": "0x1caa6a7ad0c6916aef7b67946de2e57ad24846a0",
+     "winner_side_shares": 352258.7,
+     "avg_entry_price": 0.1059,
+     "position_cost_usdc": 37287.49,
+     "implied_profit_if_win": 314971.19,
+     "n_fills": 12
+    },
+    {
+     "wallet": "0x607fec58640fcea5cb837adb09d658747720592c",
+     "winner_side_shares": 252041.6,
+     "avg_entry_price": 0.0998,
+     "position_cost_usdc": 25149.15,
+     "implied_profit_if_win": 226892.44,
+     "n_fills": 7
+    },
+    {
+     "wallet": "0xc8ab97a9089a9ff7e6ef0688e6e591a066946418",
+     "winner_side_shares": 211660.4,
+     "avg_entry_price": 0.1242,
+     "position_cost_usdc": 26283.3,
+     "implied_profit_if_win": 185377.1,
+     "n_fills": 15
+    },
+    {
+     "wallet": "0x38745db27f7360a287f6ca3c9b6a6a9c76149801",
+     "winner_side_shares": 200747.1,
+     "avg_entry_price": 0.1321,
+     "position_cost_usdc": 26513.89,
+     "implied_profit_if_win": 174233.18,
+     "n_fills": 9
+    },
+    {
+     "wallet": "0x09d3273fa76282ce09f4f35a87d6f087c05f4e84",
+     "winner_side_shares": 182795.6,
+     "avg_entry_price": 0.1135,
+     "position_cost_usdc": 20746.03,
+     "implied_profit_if_win": 162049.54,
+     "n_fills": 22
+    },
+    {
+     "wallet": "0x37d10ffb61998561c5f9fb941c42c952d8fb4e28",
+     "winner_side_shares": 159002.2,
+     "avg_entry_price": 0.1147,
+     "position_cost_usdc": 18238.65,
+     "implied_profit_if_win": 140763.55,
+     "n_fills": 3
+    },
+    {
+     "wallet": "0xb2d7cebe60e8e667b177993e382ff3b95b81312c",
+     "winner_side_shares": 155782.6,
+     "avg_entry_price": 0.1797,
+     "position_cost_usdc": 28000.0,
+     "implied_profit_if_win": 127782.57,
+     "n_fills": 4
+    },
+    {
+     "wallet": "0x9c5e99746faad55a59ecee3bb58cc026669e3aeb",
+     "winner_side_shares": 143407.6,
+     "avg_entry_price": 0.1472,
+     "position_cost_usdc": 21107.18,
+     "implied_profit_if_win": 122300.43,
+     "n_fills": 22
+    },
+    {
+     "wallet": "0xbacd00c9080a82ded56f504ee8810af732b0ab35",
+     "winner_side_shares": 132232.2,
+     "avg_entry_price": 0.1467,
+     "position_cost_usdc": 19393.93,
+     "implied_profit_if_win": 112838.26,
+     "n_fills": 38
+    }
+   ],
+   "n_pre_jump_positioners": 3440
+  },
+  {
+   "condition_id": "0x204d24f3a0f5dd5fca825292bdeab6a97af3978b2caa2b21bb37e610eddfff5d",
+   "category": "sports",
+   "slug": "nfl-sea-ne-2026-02-08",
+   "winner_price_24h": 0.6869,
+   "winner_price_start": 0.6691,
+   "path_hours": 317,
+   "jump_ts": "2026-01-26T03:00:00+00:00",
+   "jump_hours_before_close": 339.05,
+   "winner_price_12h_before_jump": 0.6691,
+   "winner_price_3h_before_jump": 0.6691,
+   "winner_price_1h_before_jump": 0.6691,
+   "pre_jump_winner_side_positioners": [],
+   "n_pre_jump_positioners": 0
+  },
+  {
+   "condition_id": "0x773abaa5fe55e5cde51a261f444b7921652a4e059ead6b3be9fe56499c2d4609",
+   "category": "geopolitics_world",
+   "slug": "us-x-iran-ceasefire-by-april-15",
+   "winner_price_24h": 0.1399,
+   "winner_price_start": 0.3411,
+   "path_hours": 590,
+   "jump_ts": "2026-04-07T22:00:00+00:00",
+   "jump_hours_before_close": 3.41,
+   "winner_price_12h_before_jump": 0.1761,
+   "winner_price_3h_before_jump": 0.2616,
+   "winner_price_1h_before_jump": 0.4784,
+   "pre_jump_winner_side_positioners": [
+    {
+     "wallet": "0xa4eb52229991c074bc560f825bf2776d77acd010",
+     "winner_side_shares": 156199.2,
+     "avg_entry_price": 0.1218,
+     "position_cost_usdc": 19028.32,
+     "implied_profit_if_win": 137170.85,
+     "n_fills": 5
+    },
+    {
+     "wallet": "0x35417b3d09d7a0991f75d7cc95162a6e34d7462e",
+     "winner_side_shares": 145135.7,
+     "avg_entry_price": 0.2718,
+     "position_cost_usdc": 39444.85,
+     "implied_profit_if_win": 105690.87,
+     "n_fills": 66
+    },
+    {
+     "wallet": "0xc6587b11a2209e46dfe3928b31c5514a8e33b784",
+     "winner_side_shares": 128505.3,
+     "avg_entry_price": 0.2161,
+     "position_cost_usdc": 27769.2,
+     "implied_profit_if_win": 100736.15,
+     "n_fills": 11
+    },
+    {
+     "wallet": "0x94a428cfa4f84b264e01f70d93d02bc96cb36356",
+     "winner_side_shares": 122997.2,
+     "avg_entry_price": 0.1857,
+     "position_cost_usdc": 22835.68,
+     "implied_profit_if_win": 100161.49,
+     "n_fills": 4
+    },
+    {
+     "wallet": "0xbc43a2f0deb85ba4ad316300762972089c911540",
+     "winner_side_shares": 100000.0,
+     "avg_entry_price": 0.1754,
+     "position_cost_usdc": 17539.9,
+     "implied_profit_if_win": 82460.1,
+     "n_fills": 10
+    },
+    {
+     "wallet": "0xef8310e2a2c1ea0be7c009216c5fce70ee8a96ec",
+     "winner_side_shares": 99497.7,
+     "avg_entry_price": 0.2057,
+     "position_cost_usdc": 20468.83,
+     "implied_profit_if_win": 79028.84,
+     "n_fills": 2
+    },
+    {
+     "wallet": "0x25257a6a89dba93dd0c536b6279365632a4eb919",
+     "winner_side_shares": 80678.9,
+     "avg_entry_price": 0.1931,
+     "position_cost_usdc": 15581.21,
+     "implied_profit_if_win": 65097.73,
+     "n_fills": 18
+    },
+    {
+     "wallet": "0x5c63bae91d6aced35f08ee653d4567e65f5196e9",
+     "winner_side_shares": 53691.7,
+     "avg_entry_price": 0.1966,
+     "position_cost_usdc": 10555.82,
+     "implied_profit_if_win": 43135.83,
+     "n_fills": 21
+    },
+    {
+     "wallet": "0x35bbbad2415fe5e39b12da9a316cdc80b022009b",
+     "winner_side_shares": 52164.4,
+     "avg_entry_price": 0.1857,
+     "position_cost_usdc": 9687.86,
+     "implied_profit_if_win": 42476.57,
+     "n_fills": 37
+    },
+    {
+     "wallet": "0xaba543a9c18d450afd9732188e307d5fde798d62",
+     "winner_side_shares": 52073.9,
+     "avg_entry_price": 0.5761,
+     "position_cost_usdc": 30000.0,
+     "implied_profit_if_win": 22073.95,
+     "n_fills": 7
+    }
+   ],
+   "n_pre_jump_positioners": 2138
+  },
+  {
+   "condition_id": "0x94a2b2a1b9227e44fc464614e63dfca6d4082310291c35623c3d34b70aa53693",
+   "category": "sports",
+   "slug": "ucl-atm1-ars-2026-04-29-ars",
+   "winner_price_24h": 0.62,
+   "winner_price_start": 0.57,
+   "path_hours": 145,
+   "jump_ts": "2026-04-16T18:00:00+00:00",
+   "jump_hours_before_close": 318.49,
+   "winner_price_12h_before_jump": 0.57,
+   "winner_price_3h_before_jump": 0.57,
+   "winner_price_1h_before_jump": 0.57,
+   "pre_jump_winner_side_positioners": [],
+   "n_pre_jump_positioners": 0
+  },
+  {
+   "condition_id": "0xc914317b14972d5d15f30740d3bdf32f4028877c13b9d7ccc78b4ba33f67fb1e",
+   "category": "sports",
+   "slug": "will-the-new-england-patriots-win-super-bowl-2026",
+   "winner_price_24h": 0.683,
+   "winner_price_start": 0.9182,
+   "path_hours": 611,
+   "jump_ts": "2026-01-10T08:00:00+00:00",
+   "jump_hours_before_close": 719.34,
+   "winner_price_12h_before_jump": 0.9182,
+   "winner_price_3h_before_jump": 0.9182,
+   "winner_price_1h_before_jump": 0.9182,
+   "pre_jump_winner_side_positioners": [
+    {
+     "wallet": "0x9a06e9c95315c9ddf56a0f53dfc714a2f32a3800",
+     "winner_side_shares": 60261.2,
+     "avg_entry_price": 0.9196,
+     "position_cost_usdc": 55414.59,
+     "implied_profit_if_win": 4846.58,
+     "n_fills": 2
+    },
+    {
+     "wallet": "0x53ecc53e7a69aad0e6dda60264cc2e363092df91",
+     "winner_side_shares": 28901.8,
+     "avg_entry_price": 0.9205,
+     "position_cost_usdc": 26604.39,
+     "implied_profit_if_win": 2297.46,
+     "n_fills": 2
+    },
+    {
+     "wallet": "0x8e9eedf20dfa70956d49f608a205e402d9df38e4",
+     "winner_side_shares": 10160.6,
+     "avg_entry_price": 0.9191,
+     "position_cost_usdc": 9338.81,
+     "implied_profit_if_win": 821.76,
+     "n_fills": 218
+    },
+    {
+     "wallet": "0x223a958be392f32d75bcb1301ea900906f1e7664",
+     "winner_side_shares": 4044.3,
+     "avg_entry_price": 0.9205,
+     "position_cost_usdc": 3722.85,
+     "implied_profit_if_win": 321.44,
+     "n_fills": 2
+    },
+    {
+     "wallet": "0x1217832819e321d21f4e5a27c62b8ec6ad845d72",
+     "winner_side_shares": 3869.0,
+     "avg_entry_price": 0.9187,
+     "position_cost_usdc": 3554.6,
+     "implied_profit_if_win": 314.4,
+     "n_fills": 169
+    },
+    {
+     "wallet": "0xd218e474776403a330142299f7796e8ba32eb5c9",
+     "winner_side_shares": 3313.2,
+     "avg_entry_price": 0.9193,
+     "position_cost_usdc": 3045.71,
+     "implied_profit_if_win": 267.47,
+     "n_fills": 52
+    },
+    {
+     "wallet": "0x12a7aa8714aef01d3b020f9feb687b2a3be3399b",
+     "winner_side_shares": 3000.0,
+     "avg_entry_price": 0.9188,
+     "position_cost_usdc": 2756.53,
+     "implied_profit_if_win": 243.47,
+     "n_fills": 3
+    },
+    {
+     "wallet": "0x014c23bfc4f0f5771d757b34a24435cc2466f5b6",
+     "winner_side_shares": 2500.0,
+     "avg_entry_price": 0.9209,
+     "position_cost_usdc": 2302.31,
+     "implied_profit_if_win": 197.69,
+     "n_fills": 2
+    },
+    {
+     "wallet": "0x84fbc75bcc325a8860295afd16c9e1edebd044f3",
+     "winner_side_shares": 2453.7,
+     "avg_entry_price": 0.9187,
+     "position_cost_usdc": 2254.13,
+     "implied_profit_if_win": 199.59,
+     "n_fills": 23
+    },
+    {
+     "wallet": "0xa3ad70cf48a2f2b44163e798223c01a2c2536866",
+     "winner_side_shares": 2431.8,
+     "avg_entry_price": 0.9187,
+     "position_cost_usdc": 2234.11,
+     "implied_profit_if_win": 197.72,
+     "n_fills": 61
+    }
+   ],
+   "n_pre_jump_positioners": 350
+  },
+  {
+   "condition_id": "0xaf51603d78545c838490bafe178ee9ff4c23d0c2161f15e0e530d3735229ad3f",
+   "category": "politics_us",
+   "slug": "romania-presidential-election-winner-will-nicuor-dan-win-the-romanian-presidential-election",
+   "winner_price_24h": 0.4498,
+   "winner_price_start": 0.3198,
+   "path_hours": 633,
+   "jump_ts": "2025-05-18T06:00:00+00:00",
+   "jump_hours_before_close": 22.16,
+   "winner_price_12h_before_jump": 0.4696,
+   "winner_price_3h_before_jump": 0.4573,
+   "winner_price_1h_before_jump": 0.4794,
+   "pre_jump_winner_side_positioners": [
+    {
+     "wallet": "0x9f5a4ef65ca562df76fd600fcaca13e5e99923e7",
+     "winner_side_shares": 423696.7,
+     "avg_entry_price": 0.4908,
+     "position_cost_usdc": 207929.92,
+     "implied_profit_if_win": 215766.74,
+     "n_fills": 16
+    },
+    {
+     "wallet": "0x130dfd2b057b5d9bd064531a46284c4dcb39aafc",
+     "winner_side_shares": 188735.9,
+     "avg_entry_price": 0.5287,
+     "position_cost_usdc": 99792.78,
+     "implied_profit_if_win": 88943.1,
+     "n_fills": 4
+    },
+    {
+     "wallet": "0x8df306b761d8e4f95ffa21a2d5d36fd330fe887a",
+     "winner_side_shares": 184847.0,
+     "avg_entry_price": 0.5413,
+     "position_cost_usdc": 100049.24,
+     "implied_profit_if_win": 84797.81,
+     "n_fills": 2
+    },
+    {
+     "wallet": "0x8365a0c9908dca494abaf0b90584162b474ce9a6",
+     "winner_side_shares": 113678.4,
+     "avg_entry_price": 0.517,
+     "position_cost_usdc": 58771.48,
+     "implied_profit_if_win": 54906.96,
+     "n_fills": 2
+    },
+    {
+     "wallet": "0x14a1147ae7d206b835c1ee8f901e4e2eec111149",
+     "winner_side_shares": 84416.6,
+     "avg_entry_price": 0.4709,
+     "position_cost_usdc": 39754.76,
+     "implied_profit_if_win": 44661.85,
+     "n_fills": 3
+    },
+    {
+     "wallet": "0x659c65de373a10e5f319f728b747e0e94fce8dfc",
+     "winner_side_shares": 82831.2,
+     "avg_entry_price": 0.51,
+     "position_cost_usdc": 42243.93,
+     "implied_profit_if_win": 40587.31,
+     "n_fills": 11
+    },
+    {
+     "wallet": "0xc2d1eac09c5a5d1c0828eccf8d6e5bac1cd320f0",
+     "winner_side_shares": 65781.0,
+     "avg_entry_price": 0.4878,
+     "position_cost_usdc": 32086.68,
+     "implied_profit_if_win": 33694.31,
+     "n_fills": 7
+    },
+    {
+     "wallet": "0xfc9c685a78417e3c5932b4c06d2ab9baaa5a4172",
+     "winner_side_shares": 62752.5,
+     "avg_entry_price": 0.4755,
+     "position_cost_usdc": 29837.09,
+     "implied_profit_if_win": 32915.42,
+     "n_fills": 6
+    },
+    {
+     "wallet": "0xe426006ed49c7ed56e09f6c1bd466ec412af9766",
+     "winner_side_shares": 52446.9,
+     "avg_entry_price": 0.5171,
+     "position_cost_usdc": 27120.99,
+     "implied_profit_if_win": 25325.87,
+     "n_fills": 8
+    },
+    {
+     "wallet": "0xf09e99d1c91bb6a1f52ad7c4a8be7359b02eee74",
+     "winner_side_shares": 51193.9,
+     "avg_entry_price": 0.489,
+     "position_cost_usdc": 25033.21,
+     "implied_profit_if_win": 26160.66,
+     "n_fills": 6
+    }
+   ],
+   "n_pre_jump_positioners": 2180
+  },
+  {
+   "condition_id": "0x5fc28bfcb6f16080415695b53f1f60820f403a94ce16696eea2f0085d823bc92",
+   "category": "politics_us",
+   "slug": "romania-presidential-election-winner-will-george-simion-win-the-romanian-presidential-election",
+   "winner_price_24h": 0.4601,
+   "winner_price_start": 0.75,
+   "path_hours": 557,
+   "jump_ts": "2025-05-18T07:00:00+00:00",
+   "jump_hours_before_close": 19.99,
+   "winner_price_12h_before_jump": 0.4601,
+   "winner_price_3h_before_jump": 0.4351,
+   "winner_price_1h_before_jump": 0.474,
+   "pre_jump_winner_side_positioners": [
+    {
+     "wallet": "0xd218e474776403a330142299f7796e8ba32eb5c9",
+     "winner_side_shares": 720994.0,
+     "avg_entry_price": 0.5007,
+     "position_cost_usdc": 360992.51,
+     "implied_profit_if_win": 360001.53,
+     "n_fills": 559
+    },
+    {
+     "wallet": "0x8e9eedf20dfa70956d49f608a205e402d9df38e4",
+     "winner_side_shares": 86954.4,
+     "avg_entry_price": 0.4881,
+     "position_cost_usdc": 42445.75,
+     "implied_profit_if_win": 44508.69,
+     "n_fills": 57
+    },
+    {
+     "wallet": "0x44024c135b77ccfb73ba99fd98b53485c4736334",
+     "winner_side_shares": 80694.3,
+     "avg_entry_price": 0.5306,
+     "position_cost_usdc": 42815.32,
+     "implied_profit_if_win": 37878.98,
+     "n_fills": 5
+    },
+    {
+     "wallet": "0x24c8cf69a0e0a17eee21f69d29752bfa32e823e1",
+     "winner_side_shares": 52560.7,
+     "avg_entry_price": 0.4926,
+     "position_cost_usdc": 25892.83,
+     "implied_profit_if_win": 26667.88,
+     "n_fills": 25
+    },
+    {
+     "wallet": "0x4f2ba33b080882c0f6b296f48cfd07b6c326f448",
+     "winner_side_shares": 49667.6,
+     "avg_entry_price": 0.523,
+     "position_cost_usdc": 25976.24,
+     "implied_profit_if_win": 23691.32,
+     "n_fills": 9
+    },
+    {
+     "wallet": "0xb9cc124e6ee0ba7f340394fb8b207a988d7b387a",
+     "winner_side_shares": 49119.0,
+     "avg_entry_price": 0.493,
+     "position_cost_usdc": 24216.9,
+     "implied_profit_if_win": 24902.08,
+     "n_fills": 9
+    },
+    {
+     "wallet": "0xd3a6e523c440f94f9259398fbcf7b5cc5ccffd55",
+     "winner_side_shares": 46318.1,
+     "avg_entry_price": 0.47,
+     "position_cost_usdc": 21769.48,
+     "implied_profit_if_win": 24548.57,
+     "n_fills": 1
+    },
+    {
+     "wallet": "0x8795bcb2fe129d1ea3e3d73bc13a3d8078047544",
+     "winner_side_shares": 43167.8,
+     "avg_entry_price": 0.4779,
+     "position_cost_usdc": 20628.7,
+     "implied_profit_if_win": 22539.12,
+     "n_fills": 6
+    },
+    {
+     "wallet": "0x8f29522666063bc74f208b21f8957512cfb9dd03",
+     "winner_side_shares": 42640.2,
+     "avg_entry_price": 0.5348,
+     "position_cost_usdc": 22802.4,
+     "implied_profit_if_win": 19837.76,
+     "n_fills": 6
+    },
+    {
+     "wallet": "0x0e3d0bfb5f051d160c12aa8ec37f9b49c8fbc58d",
+     "winner_side_shares": 39001.2,
+     "avg_entry_price": 0.4957,
+     "position_cost_usdc": 19332.16,
+     "implied_profit_if_win": 19669.09,
+     "n_fills": 187
+    }
+   ],
+   "n_pre_jump_positioners": 556
+  },
+  {
+   "condition_id": "0xf220061c0e83defd413070f97fb55660485ca8540c43be13d9e71082ca2cad57",
+   "category": "politics_us",
+   "slug": "qatarenergy-announcesresumes-lng-production-in-qatar-by-april-30",
+   "winner_price_24h": 0.061,
+   "winner_price_start": 0.06,
+   "path_hours": 273,
+   "jump_ts": "2026-04-28T09:00:00+00:00",
+   "jump_hours_before_close": 159.5,
+   "winner_price_12h_before_jump": 0.081,
+   "winner_price_3h_before_jump": 0.061,
+   "winner_price_1h_before_jump": 0.061,
+   "pre_jump_winner_side_positioners": [
+    {
+     "wallet": "0xa1ce579dd53d25132b3dc89d79b61087c5b6927d",
+     "winner_side_shares": 142.1,
+     "avg_entry_price": 0.07,
+     "position_cost_usdc": 9.95,
+     "implied_profit_if_win": 132.19,
+     "n_fills": 2
+    },
+    {
+     "wallet": "0x44128db8ea4c5a1fbb9bebeb5e82f2b63e71f131",
+     "winner_side_shares": 137.2,
+     "avg_entry_price": 0.0624,
+     "position_cost_usdc": 8.56,
+     "implied_profit_if_win": 128.61,
+     "n_fills": 6
+    },
+    {
+     "wallet": "0xc6d76fd31b710883900a14c75eab96515dfb4399",
+     "winner_side_shares": 23.0,
+     "avg_entry_price": 0.06,
+     "position_cost_usdc": 1.38,
+     "implied_profit_if_win": 21.62,
+     "n_fills": 2
+    },
+    {
+     "wallet": "0x18df0872f32470c0902128a81cff8792c7c7a24c",
+     "winner_side_shares": 3.9,
+     "avg_entry_price": 0.05,
+     "position_cost_usdc": 0.2,
+     "implied_profit_if_win": 3.71,
+     "n_fills": 1
+    },
+    {
+     "wallet": "0x587d4f61cd394d38cccca2c74c837c7762984338",
+     "winner_side_shares": 2.1,
+     "avg_entry_price": 0.07,
+     "position_cost_usdc": 0.15,
+     "implied_profit_if_win": 1.97,
+     "n_fills": 1
+    },
+    {
+     "wallet": "0xd179c5f155540f9f619e4107a18f5a182573be34",
+     "winner_side_shares": 1.4,
+     "avg_entry_price": 0.06,
+     "position_cost_usdc": 0.08,
+     "implied_profit_if_win": 1.28,
+     "n_fills": 1
+    }
+   ],
+   "n_pre_jump_positioners": 6
+  }
+ ],
+ "notes": [
+  "TARGET = winner price < late_threshold at 24h before close (event/jump-driven tail).",
+  "Pre-jump positioners = takers with net winning-SIDE notional in the [jump - pre_jump_hours, jump) window at cheap prices; ranked by that notional. These are informed-trading CANDIDATES, not proof.",
+  "Read the drift shape: winner_price_12h/3h/1h_before_jump rising steadily => gradual accumulation (inspect for leak); flat then instantaneous => news-driven (efficient). Needs a news timeline (Stage D) to attribute.",
+  "avg_entry_price is the size-weighted winning-side entry in the pre-jump window; implied_profit_if_win = notional*(1/avg_entry_price - 1) (they did win, since it's the winning side)."
+ ]
+}

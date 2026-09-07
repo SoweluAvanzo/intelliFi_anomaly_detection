@@ -44,11 +44,31 @@ def main() -> int:
     ap.add_argument("--to-block", default="latest")
     ap.add_argument("--api-key-env", default=None)
     ap.add_argument("--min-interval", type=float, default=0.5)
+    ap.add_argument("--out", default=None, help="output parquet (default ctf_v2_conditions.parquet); "
+                    "use distinct paths for parallel block-range shards, then merge")
+    ap.add_argument("--resolutions-only", action="store_true",
+                    help="build the registry from ConditionResolution events ALONE (they carry oracle->negRisk "
+                    "+ payout->winner, so no ConditionPreparation/window/join dependency). Correct + complete: "
+                    "captures v1-era conditions still trading on v2 and avoids the cross-boundary join loss.")
     args = ap.parse_args()
+    out_path = args.out or OUT
     key = os.getenv(args.api_key_env, "") if args.api_key_env else (config.ETHERSCAN_API_KEY or "")
     c = Polygonscan(api_key=key, min_interval_s=args.min_interval, max_calls=60_000, max_retries=12)
     to_block = latest_block(c) if args.to_block == "latest" else int(args.to_block)
     print(f"registry: blocks {args.from_block} -> {to_block}")
+
+    if args.resolutions_only:
+        from pathlib import Path as _P
+        from intellifi.resolutions import decode_resolution as _dr, SCHEMA as _RS
+        res = [_dr(l) for l in fetch_logs_bisect(c, POLYMARKET_CTF, 0, CONDITION_RESOLUTION_TOPIC, args.from_block, to_block)]
+        print(f"  ConditionResolution: {len(res):,} (calls {c.calls_made})", flush=True)
+        df = pl.DataFrame(res, schema=_RS, orient="row" if res else None).unique(subset=["condition_id"], keep="last")
+        _P(out_path).parent.mkdir(parents=True, exist_ok=True)
+        df.write_parquet(out_path, compression="zstd")
+        print(f"wrote {out_path}: {df.height:,} resolved conditions, negRisk {int(df['neg_risk'].sum()):,}, "
+              f"binary-resolved {int(df['winning_outcome_index'].is_not_null().sum()):,}")
+        return 0
+
     prep = [decode_preparation(l) for l in fetch_logs_bisect(c, POLYMARKET_CTF, 0, CONDITION_PREPARATION_TOPIC, args.from_block, to_block)]
     print(f"  ConditionPreparation: {len(prep):,} (calls {c.calls_made})", flush=True)
     p = pl.DataFrame(prep).unique(subset=["condition_id"], keep="first") if prep else pl.DataFrame()
@@ -67,8 +87,10 @@ def main() -> int:
         tok0.append(str(position_id(coll, cid, 1)) if n == 2 else None)
         tok1.append(str(position_id(coll, cid, 2)) if n == 2 else None)
     df = df.with_columns(pl.Series("token0", tok0), pl.Series("token1", tok1))
-    df.write_parquet(OUT, compression="zstd")
-    print(f"wrote {OUT}: {df.height:,} conditions, {df['resolved_ts_utc'].is_not_null().sum():,} resolved, negRisk {int(df['neg_risk'].sum()):,}")
+    from pathlib import Path as _P
+    _P(out_path).parent.mkdir(parents=True, exist_ok=True)
+    df.write_parquet(out_path, compression="zstd")
+    print(f"wrote {out_path}: {df.height:,} conditions, {df['resolved_ts_utc'].is_not_null().sum():,} resolved, negRisk {int(df['neg_risk'].sum()):,}")
     return 0
 
 

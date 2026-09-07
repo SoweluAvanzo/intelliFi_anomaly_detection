@@ -1,0 +1,178 @@
+{
+ "scope": "whole v1 archive; realised gross per-fill PnL; outcome-dependent (descriptive)",
+ "note": "read WITH the no-skill null in skilled_population.json: concentration despite no certifiable skill => scale/variance/survivorship, not an edge.",
+ "taker_side": {
+  "n_wallets": 2588237,
+  "n_winners": 854262,
+  "n_losers": 1731902,
+  "total_gross_pnl": -86067418.3869336,
+  "total_winnings": 844371347.3947083,
+  "gini_positive": 0.9539805287165155,
+  "top_0.1pct_of_winners": {
+   "n": 855,
+   "frac_of_winners": 0.001000863903579932,
+   "share_of_winnings": 0.41459127421411834
+  },
+  "top_1pct_of_winners": {
+   "n": 8543,
+   "frac_of_winners": 0.010000444828401591,
+   "share_of_winnings": 0.6971057210923913
+  },
+  "top_10pct_of_winners": {
+   "n": 85427,
+   "frac_of_winners": 0.10000093648084546,
+   "share_of_winnings": 0.9382130057327597
+  },
+  "top_100_wallets": {
+   "share_of_winnings": 0.20111384913047492
+  },
+  "top_1000_wallets": {
+   "share_of_winnings": 0.43193116682819144
+  },
+  "wallets_for_50pct_of_winnings": {
+   "n": 1806,
+   "frac_of_winners": 0.0021141055086144533,
+   "frac_of_all_wallets": 0.0006977722673773692
+  },
+  "wallets_for_90pct_of_winnings": {
+   "n": 53887,
+   "frac_of_winners": 0.06308017914878573,
+   "frac_of_all_wallets": 0.02081996355047857
+  },
+  "wallets_for_99pct_of_winnings": {
+   "n": 271069,
+   "frac_of_winners": 0.3173136578707703,
+   "frac_of_all_wallets": 0.10473113551811522
+  }
+ },
+ "maker_side": {
+  "n_wallets": 1214277,
+  "n_winners": 572312,
+  "n_losers": 637311,
+  "total_gross_pnl": 86067418.38694914,
+  "total_winnings": 715601293.1198788,
+  "gini_positive": 0.9462291963970371,
+  "top_0.1pct_of_winners": {
+   "n": 573,
+   "frac_of_winners": 0.0010012021414892577,
+   "share_of_winnings": 0.432216194209164
+  },
+  "top_1pct_of_winners": {
+   "n": 5724,
+   "frac_of_winners": 0.010001537622835097,
+   "share_of_winnings": 0.6933303831833435
+  },
+  "top_10pct_of_winners": {
+   "n": 57232,
+   "frac_of_winners": 0.10000139783894099,
+   "share_of_winnings": 0.9200598517755821
+  },
+  "top_100_wallets": {
+   "share_of_winnings": 0.23774450527654165
+  },
+  "top_1000_wallets": {
+   "share_of_winnings": 0.4963214146992908
+  },
+  "wallets_for_50pct_of_winnings": {
+   "n": 1033,
+   "frac_of_winners": 0.0018049595325626581,
+   "frac_of_all_wallets": 0.0008507119874624983
+  },
+  "wallets_for_90pct_of_winnings": {
+   "n": 45805,
+   "frac_of_winners": 0.08003501586547199,
+   "frac_of_all_wallets": 0.03772203541696005
+  },
+  "wallets_for_99pct_of_winnings": {
+   "n": 203513,
+   "frac_of_winners": 0.3555979954989586,
+   "frac_of_all_wallets": 0.16760014395397427
+  }
+ },
+ "per_category_taker": [
+  {
+   "category": "Sports",
+   "n_wallets": 1375371,
+   "gini_positive": 0.9627064570637227,
+   "total_gross_pnl": 1867941.1234627496,
+   "top_1pct_share": 0.7547077692549398
+  },
+  {
+   "category": "Crypto",
+   "n_wallets": 753752,
+   "gini_positive": 0.9651794648607263,
+   "total_gross_pnl": -248973.21724899206,
+   "top_1pct_share": 0.6714961028970716
+  },
+  {
+   "category": "Bitcoin",
+   "n_wallets": 683705,
+   "gini_positive": 0.9720911451150186,
+   "total_gross_pnl": 166110.892502008,
+   "top_1pct_share": 0.7843226244468194
+  },
+  {
+   "category": "Politics",
+   "n_wallets": 681983,
+   "gini_positive": 0.9751433680867335,
+   "total_gross_pnl": -6564327.516486008,
+   "top_1pct_share": 0.785772717840725
+  },
+  {
+   "category": "Up or Down",
+   "n_wallets": 501227,
+   "gini_positive": 0.9368979801492071,
+   "total_gross_pnl": -7153067.904263545,
+   "top_1pct_share": 0.549765861737707
+  },
+  {
+   "category": "Trump",
+   "n_wallets": 491220,
+   "gini_positive": 0.9761679346848112,
+   "total_gross_pnl": -8781071.832653977,
+   "top_1pct_share": 0.8129030061870637
+  },
+  {
+   "category": "Crypto Prices",
+   "n_wallets": 485345,
+   "gini_positive": 0.9563592404573801,
+   "total_gross_pnl": -698777.1590439978,
+   "top_1pct_share": 0.6662035241205145
+  },
+  {
+   "category": "Soccer",
+   "n_wallets": 445582,
+   "gini_positive": 0.9771193398120724,
+   "total_gross_pnl": -2215743.88200399,
+   "top_1pct_share": 0.8402722106662628
+  },
+  {
+   "category": "NBA",
+   "n_wallets": 434052,
+   "gini_positive": 0.9777238514619838,
+   "total_gross_pnl": -6100673.164560002,
+   "top_1pct_share": 0.8255572149527795
+  },
+  {
+   "category": "Ethereum",
+   "n_wallets": 403142,
+   "gini_positive": 0.9782796830116814,
+   "total_gross_pnl": 690545.3671309997,
+   "top_1pct_share": 0.8216777336491682
+  },
+  {
+   "category": "Recurring",
+   "n_wallets": 372419,
+   "gini_positive": 0.9590500436243155,
+   "total_gross_pnl": -635309.3264169997,
+   "top_1pct_share": 0.6916507437793359
+  },
+  {
+   "category": "Culture",
+   "n_wallets": 358629,
+   "gini_positive": 0.9673283775584858,
+   "total_gross_pnl": -3166338.443148001,
+   "top_1pct_share": 0.7557261084721119
+  }
+ ]
+}

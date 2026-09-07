@@ -1,0 +1,258 @@
+{
+ "registered_spec": "docs/stage2_preregistration.md \u00a73",
+ "note": "PRELIMINARY \u2014 no confirmatory CLAIM until reviewed; treatment assignment to be confirmed.",
+ "_cross_sample_caveat": "A=v1 archive, B=v2 tape. (1) H3 HHI/top5 MUST use passB's (market\u00d7maker)-pair definition (not maker-only) or B is inflated 6-85x for high-fill classes; passB's 'maker HHI' conflates market fragmentation with maker concentration (footnote). (2) H4 pools v1 A-pre with v2 B in a DiD; never-treated controls absorb the common v1->v2 shift under parallel trends, but with a SINGLE fee-free control that is fragile.",
+ "_treatment": {
+  "registered_control_PRIMARY": {
+   "rule": "\u00a72 never-treated = A fee-exempt (geopolitics/world/macro/US-politics)",
+   "classes": [
+    "finance_macro",
+    "geopolitics_world",
+    "politics_us"
+   ]
+  },
+  "single_control_sensitivity": {
+   "rule": "mean B fee_free_share >= 0.05",
+   "classes": [
+    "geopolitics_world"
+   ]
+  },
+  "control_fee_free_shares": {
+   "geopolitics_world": 0.482,
+   "culture": 0.035,
+   "tech_science": 0.031,
+   "finance": 0.026,
+   "politics_us": 0.021
+  },
+  "note": "PRIMARY = the registered never-treated set (>=3 controls). finance_macro/politics_us pay fees in B (contaminated controls under a fee DiD), so the single fee-free-in-B control (geopolitics_world) is also reported as a sensitivity. H4 is INCONCLUSIVE under BOTH (nothing significant).",
+  "b_source": "data/parquet/atlas_v2/class_week_b_h3.parquet"
+ },
+ "_contingency_within_B_control_exists": true,
+ "H4_median_reg": {
+  "beta": 0.28989159316462604,
+  "cluster_se": 0.34407752066465486,
+  "t": 0.8425182575270892,
+  "G": 12,
+  "wild_cluster_p": 0.7308,
+  "prediction": "beta < 0 (A order-size effect ~ -0.40 mean / -0.16 median)",
+  "decision_rule": "one-sided p < 0.05 (class-clustered SE + wild-cluster bootstrap)",
+  "confirmed_pending_review": false,
+  "design": "B(post) vs A-pre(Oct-Dec 2025); class FE + post + treated:post; outcome=log(fill_ord_med vs A ord_med)",
+  "classes_in_DiD": {
+   "total": 12,
+   "treated": 9,
+   "control": 3
+  },
+  "status": "COMPUTED_PENDING_REVIEW"
+ },
+ "H4_mean_reg": {
+  "beta": -0.5635195965757334,
+  "cluster_se": 0.3872998586931497,
+  "t": -1.4549956162576325,
+  "G": 12,
+  "wild_cluster_p": 0.1405,
+  "prediction": "beta < 0 (A order-size effect ~ -0.40 mean / -0.16 median)",
+  "decision_rule": "one-sided p < 0.05 (class-clustered SE + wild-cluster bootstrap)",
+  "confirmed_pending_review": false,
+  "design": "B(post) vs A-pre(Oct-Dec 2025); class FE + post + treated:post; outcome=log(fill_ord_mean vs A ord_mean)",
+  "classes_in_DiD": {
+   "total": 12,
+   "treated": 9,
+   "control": 3
+  },
+  "status": "COMPUTED_PENDING_REVIEW"
+ },
+ "H4_median_single": {
+  "beta": 0.963069269813545,
+  "cluster_se": 0.11463539536052579,
+  "t": 8.401151030052397,
+  "G": 12,
+  "wild_cluster_p": 0.8575,
+  "prediction": "beta < 0 (A order-size effect ~ -0.40 mean / -0.16 median)",
+  "decision_rule": "one-sided p < 0.05 (class-clustered SE + wild-cluster bootstrap)",
+  "confirmed_pending_review": false,
+  "design": "B(post) vs A-pre(Oct-Dec 2025); class FE + post + treated:post; outcome=log(fill_ord_med vs A ord_med)",
+  "classes_in_DiD": {
+   "total": 12,
+   "treated": 11,
+   "control": 1
+  },
+  "status": "COMPUTED_PENDING_REVIEW"
+ },
+ "H4_mean_single": {
+  "beta": -0.4830569231855505,
+  "cluster_se": 0.19182350310748286,
+  "t": -2.518236375418935,
+  "G": 12,
+  "wild_cluster_p": 0.2061,
+  "prediction": "beta < 0 (A order-size effect ~ -0.40 mean / -0.16 median)",
+  "decision_rule": "one-sided p < 0.05 (class-clustered SE + wild-cluster bootstrap)",
+  "confirmed_pending_review": false,
+  "design": "B(post) vs A-pre(Oct-Dec 2025); class FE + post + treated:post; outcome=log(fill_ord_mean vs A ord_mean)",
+  "classes_in_DiD": {
+   "total": 12,
+   "treated": 11,
+   "control": 1
+  },
+  "status": "COMPUTED_PENDING_REVIEW"
+ },
+ "H1c": {
+  "self_match_fills": 0,
+  "prediction": "exactly 0 (structural)",
+  "refuted": false,
+  "status": "COMPUTED",
+  "source": "cohort1_descriptive_repro.json (confirmatory window = cohort 1)"
+ },
+ "H3": {
+  "status": "COMPUTED_PENDING_REVIEW",
+  "fee_paying_classes_tested": [
+   "culture",
+   "weather",
+   "politics_us",
+   "crypto_other",
+   "sports",
+   "finance",
+   "meta_other",
+   "crypto_updown",
+   "esports_tennis",
+   "finance_macro",
+   "tech_science"
+  ],
+  "bounds": {
+   "hhi": "\u00b125% (log-ratio)",
+   "top5": "\u00b125% (log-ratio)",
+   "spread": "\u00b10.5 cents (absolute)"
+  },
+  "statistics": {
+   "maker_hhi": {
+    "equivalent": false,
+    "p": 0.38371990723902394,
+    "p_low": 0.13508982337214337,
+    "p_high": 0.38371990723902394,
+    "mean_diff": 0.1176247534099749,
+    "n_classes": 11
+   },
+   "top5_maker_share": {
+    "equivalent": false,
+    "p": 0.1987941773941242,
+    "p_low": 0.03542440546020442,
+    "p_high": 0.1987941773941242,
+    "mean_diff": 0.0677362372472813,
+    "n_classes": 11
+   },
+   "spread_proxy": {
+    "equivalent": false,
+    "p": 0.10156384063172075,
+    "p_low": 0.10156384063172075,
+    "p_high": 0.002426456887361983,
+    "mean_diff": -0.002254983115277684,
+    "n_classes": 11
+   }
+  },
+  "decision_rule": "TOST equivalence, class-clustered, p<0.05 for ALL three; any failure => that stat not confirmed",
+  "confirmed_pending_review": false,
+  "interpretation": "point differences are SMALL after de-confounding (B vs A close); equiv=False here means the \u00b1bound TOST is UNDERPOWERED at n=11 noisy class-level obs (wide CI), NOT a refutation. Read as 'provider structure looks roughly stable but equivalence is not formally established', not 'structure changed'.",
+  "CAVEAT_definition": "A=v1 archive, B=v2 tape. (1) H3 HHI/top5 MUST use passB's (market\u00d7maker)-pair definition (not maker-only) or B is inflated 6-85x for high-fill classes; passB's 'maker HHI' conflates market fragmentation with maker concentration (footnote). (2) H4 pools v1 A-pre with v2 B in a DiD; never-treated controls absorb the common v1->v2 shift under parallel trends, but with a SINGLE fee-free control that is fragile. B now uses A's (condition,maker) HHI basis (corrected table) so the comparison is valid; the (market\u00d7maker) HHI remains a passB quirk worth a footnote.",
+  "spread_status": "spread sign corrected (B records maker side; taker = opposite); spread_proxy now positive (crypto_updown ~+0.022, ~A-April +0.0156)."
+ },
+ "H1a": {
+  "status": "COMPUTED_PENDING_REVIEW",
+  "metric": "rt_any_share (both-legs round-trip vol share, 600s / >=50% overlap)",
+  "decision_rule": "TOST equivalence +-1pp on B - A-April, class-clustered; confirmed if both one-sided p<0.05",
+  "per_class": [
+   {
+    "cls": "politics",
+    "B_rt_any": 0.0525,
+    "A_apr_rt_any": 0.0064,
+    "diff_pp": 4.617
+   },
+   {
+    "cls": "crypto",
+    "B_rt_any": 0.0651,
+    "A_apr_rt_any": 0.0317,
+    "diff_pp": 3.34
+   },
+   {
+    "cls": "sports",
+    "B_rt_any": 0.0227,
+    "A_apr_rt_any": 0.0176,
+    "diff_pp": 0.508
+   },
+   {
+    "cls": "other",
+    "B_rt_any": 0.0108,
+    "A_apr_rt_any": 0.0075,
+    "diff_pp": 0.333
+   },
+   {
+    "cls": "esports",
+    "B_rt_any": 0.0273,
+    "A_apr_rt_any": 0.0261,
+    "diff_pp": 0.111
+   },
+   {
+    "cls": "finance",
+    "B_rt_any": 0.0134,
+    "A_apr_rt_any": 0.013,
+    "diff_pp": 0.047
+   },
+   {
+    "cls": "culture",
+    "B_rt_any": 0.0134,
+    "A_apr_rt_any": 0.0185,
+    "diff_pp": -0.501
+   }
+  ],
+  "mean_diff_pp": 1.208,
+  "n_fee_paying_classes": 7,
+  "classes_over_plus_1pp": [
+   "crypto",
+   "politics"
+  ],
+  "tost": {
+   "equivalent": false,
+   "p": 0.6061194672365453,
+   "p_low": 0.012153580901210326,
+   "p_high": 0.6061194672365453
+  },
+  "confirmed_pending_review": false,
+  "interpretation": "equiv=True => round-tripping did NOT rise >1pp under fees (H1 supported). equiv=False => cannot confirm it is unchanged; may be elevated in B (see classes_over_plus_1pp) \u2014 but subject to the v1-vs-v2 cross-sample caveat + construction residuals, so 'suspicious', not proof.",
+  "geo_footnote": "geopolitics_world excluded (fee-free control, under-captured in B by taxonomy)."
+ },
+ "H1b": {
+  "status": "PENDING",
+  "reason": "B-tape statistic table not provided yet (heavy class-level computation owned by the panel/atlas builder)"
+ },
+ "H2": {
+  "status": "PENDING",
+  "reason": "B-tape statistic table not provided yet (heavy class-level computation owned by the panel/atlas builder)"
+ },
+ "holm_across_available": {
+  "H4": {
+   "p": 0.1405,
+   "reject_null_holm": false
+  },
+  "H3": {
+   "p": 0.38371990723902394,
+   "reject_null_holm": false
+  },
+  "H1a": {
+   "p": 0.6061194672365453,
+   "reject_null_holm": false
+  }
+ },
+ "summary": {
+  "computed": [
+   "H1c",
+   "H3",
+   "H4_mean_reg",
+   "H4_mean_single",
+   "H4_median_reg",
+   "H4_median_single"
+  ],
+  "pending": [
+   "H1b",
+   "H2"
+  ]
+ }
+}

@@ -86,6 +86,71 @@ Remedy, decided before the amended gate was re-run:
 
 Any change to §1–§5 is appended here with date, reason and the statistic affected, before the changed analysis is run.
 
-| date | change | reason |
-|---|---|---|
-| — | — | — |
+### Deviation 2 — 2026-09-05: window, taxonomy, and H4-control departures surfaced in the end-to-end audit
+
+The 2026-09-05 consistency audit (`docs/audit_2026-09-05.md`) found that several confirmatory
+statistics as shipped departed from §1–§5 **without having been logged here**. They are recorded
+now, with the affected statistic and an assessment. **None changes a verdict** — every affected
+test is null and stays null — but the confirmatory *claim* must be read with these in view.
+
+1. **Confirmatory window not enforced for H1a/H3/H4.** §1 froze the window to blocks
+   88,080,000–88,843,826 (~14 days). In fact only **H1c** runs on that window (via the cohort-1
+   descriptive). **H1a, H3, H4** were computed on the **full B tape** — the H3/H4 class-week panel
+   (`atlas_v2/class_week_b_h3.parquet`) spans **19 weeks, 2026-04-27 → 2026-08-31**, and the H1a
+   round-trip table is likewise full-tape. *Root cause:* §1's 14-day window is **design-incompatible**
+   with the weekly-panel / ±8-week-DiD hypotheses registered in §3/§5 (H3, H4) — 14 days is ~2 weeks,
+   too few for a panel. *Resolution:* the window is amended to the full available B tape **for the
+   panel hypotheses H3/H4**, which are therefore **downgraded from confirmatory to amended-window
+   (post-hoc), interpret as weakened**. H1a is window-compatible and *should* be re-run on the frozen
+   window for a clean confirmatory number (pending). *Affected:* H1a, H3, H4.
+
+2. **Excluded 6–7 June hours are inside the H3/H4 panel.** §0 excludes the 6–7 June descriptive
+   hours from every confirmatory test. The weekly panel contains the **2026-06-01 bucket**
+   (Mon 1 Jun – Sun 7 Jun), which cannot be excised at weekly granularity, so those hours are inside
+   the H3/H4 aggregates. *Affected:* H3, H4. *Fix option:* drop the 2026-06-01 week (a re-run item).
+
+3. **H4 treatment assignment is an unregistered operationalization of "never-treated."** §3 H4
+   registers "classes treated during A vs **never-treated** classes," with the §2 5%-fee-free rule as
+   a **global contingency trigger**. The code (`scripts/22:205`) instead uses 5% as a **per-class
+   control-assignment rule** (`control = mean B fee_free_share ≥ 0.05`), yielding a **single control**
+   (`geopolitics_world`) and **G = 12** (registered G = 8). *Assessment:* the code's choice is
+   arguably **cleaner** than the literal registration — classes fee-exempt in A but fee-paying in B
+   (finance_macro, politics_us) are *contaminated* controls under a fee DiD — but it is not what was
+   registered, and the single control makes the wild-cluster p uninformative (already flagged in the
+   verdict). *Affected:* H4 (and H3's fee-paying set, which uses the same rule).
+
+4. **H1a uses a coarser class taxonomy than the frozen §1 mapping.** §1 requires "the same tag→class
+   mapping as Sample A." H1a's table uses an **8-class coarse** taxonomy
+   (`crypto, politics, sports, esports, finance, culture, geopolitics_world, other`), collapsing
+   `crypto_updown`+`crypto_other`→`crypto`, `politics_us`→`politics`, etc., while H3/H4/the contingency
+   use the **fine 13-class** mapping. The coarse mapping is inherited from Sample A's own wash reference,
+   so A carried the dual taxonomy too. *Affected:* H1a (class-clustered SE over 7 coarse clusters, not
+   the fine set).
+
+5. **`np.linalg.pinv` on `XᵀX`.** `cluster_robust_se` (`scripts/22:68`) pseudo-inverts `XᵀX`, silently
+   tolerating rank-deficiency rather than erroring. Needed because early panels had classes absent from
+   one period (singular design); the both-periods filter (`scripts/22:152-154`) now prevents that, but the
+   pinv remains. *Affected:* H3, H4 standard errors (no numerical effect once the design is full-rank).
+
+6. **H3 ±25% bound implemented as an asymmetric log-ratio TOST on the cross-class mean.** §3 reads
+   "within ±25% of A-April HHI/top-5"; the code (`scripts/22:266-268`) tests the **mean of `log(B/A)`**
+   against `[log 0.75, log 1.25]` (asymmetric in log space), a clustered-TOST operationalization rather
+   than a literal per-class ±25%. *Affected:* H3 (defensible, but a wording deviation).
+
+7. **Holm family is the available tests, not H1–H4.** §3 registers "Holm-corrected across H1–H4."
+   As shipped, Holm runs across the **3 available** p-values (H1a, H3, H4); H1c is structural (no p),
+   H1b/H2 are pending. Nothing is significant even uncorrected, so the conclusion is unaffected, but the
+   family is incomplete. *Affected:* multiple-comparison scope.
+
+8. **H4 Holm representative is the median spec (wrong-signed).** The Holm entry for H4 uses the median
+   spec (β = +0.96), whose sign is *opposite* to the prediction, rather than the mean spec (β = −0.48).
+   Both non-significant, so immaterial, but an arbitrary unregistered pick. *Affected:* H4 Holm entry.
+
+| date | change | reason | affected |
+|---|---|---|---|
+| 2026-08-31 | Sample-B tape = the two v2 exchanges only; gate compares like-for-like within them | third emitter `0xe333…` shares the signature (Deviation 1) | gate; all B stats |
+| 2026-09-05 | H1a/H3/H4 amended to the full B tape (19 wk); H3/H4 downgraded to amended-window/weakened; H1c stays on the frozen window | §1 14-day window is design-incompatible with §3/§5 weekly-panel/±8-wk-DiD | H1a, H3, H4 |
+| 2026-09-05 | 6–7 June hours remain inside the H3/H4 `2026-06-01` weekly bucket | weekly aggregation cannot excise 2 days | H3, H4 |
+| 2026-09-05 | §2 5% rule used as per-class control assignment (1 control, G=12), not the global contingency trigger (G=8) | A-exempt/B-paying classes are contaminated controls; cleaner but unregistered | H4, H3 |
+| 2026-09-05 | H1a computed on the coarse 8-class wash taxonomy, not the fine 13-class mapping | inherited from Sample A's wash reference | H1a |
+| 2026-09-05 | `pinv` on `XᵀX`; ±25% as asymmetric log-ratio TOST on the class mean; Holm over the 3 available tests; H4 Holm = median (wrong-signed) spec | numerical robustness / operationalization choices, none verdict-changing | H3, H4, Holm |

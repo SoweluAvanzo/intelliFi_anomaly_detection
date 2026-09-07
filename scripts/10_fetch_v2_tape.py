@@ -40,6 +40,20 @@ def main() -> int:
     logging.basicConfig(level=max(logging.WARNING - 10 * args.verbose, logging.DEBUG),
                         format="%(levelname)s %(name)s | %(message)s")
     import os
+    # Guard 1: only vetted-valid keys. Dead keys poison the per-IP reputation on the
+    # first request, so refuse by NAME before any HTTP (no startup validation call).
+    key_env = args.api_key_env or "ETHERSCAN_KEY"
+    if key_env not in config.CRAWL_KEYS:
+        print(f"refusing to start: {key_env} is not on the vetted CRAWL_KEYS allowlist "
+              f"{config.CRAWL_KEYS} — dead keys poison the IP. Override with INTELLIFI_CRAWL_KEYS.",
+              file=sys.stderr)
+        return 2
+    # Guard 2: do not launch onto an IP still inside the invalid-key penalty cooldown.
+    remaining = Polygonscan.penalty_active()
+    if remaining > 0:
+        print(f"refusing to start: IP under per-IP penalty cooldown, ~{remaining/60:.0f} min left; "
+              f"let it go quiet (clear data/logs/.ip_penalty to force).", file=sys.stderr)
+        return 3
     api_key = os.getenv(args.api_key_env, "") if args.api_key_env else (config.ETHERSCAN_API_KEY or "")
     client = Polygonscan(api_key=api_key, max_calls=args.max_calls,
                          min_interval_s=args.min_interval, max_retries=12)
@@ -51,12 +65,20 @@ def main() -> int:
     for i, a in enumerate(range(start, to_block + 1, args.chunk_blocks)):
         b = min(a + args.chunk_blocks - 1, to_block)
         out = TAPE_V2_DIR / f"blocks={a}-{b}" / "part.parquet"
-        if out.exists():
+        # Size-aware skip-if-exists: a 0-byte file is a broken/interrupted write
+        # (write_parquet of an empty df still emits a valid non-zero parquet), so it
+        # must NOT count as "done" — otherwise it's a silent gap re-crawl never fills.
+        if out.exists() and out.stat().st_size > 0:
             continue
         c0 = client.calls_made
         df = fetch_v2_range(client, a, b, events=tuple(args.events))
         out.parent.mkdir(parents=True, exist_ok=True)
-        df.write_parquet(out, compression="zstd")
+        # Atomic write: temp file in the same dir then os.replace (atomic rename on one
+        # filesystem). A killed process leaves the .tmp (or nothing), never a partial
+        # or 0-byte part.parquet that skip-if-exists would lock in.
+        tmp = out.parent / (out.name + ".tmp")
+        df.write_parquet(tmp, compression="zstd")
+        os.replace(tmp, out)
         ev = df.group_by("event").len().to_dict(as_series=False) if df.height else {}
         print(f"[{i + 1}/{n_chunks}] {a}-{b}: {df.height:,} rows {dict(zip(ev.get('event', []), ev.get('len', [])))} "
               f"in {client.calls_made - c0} calls (total {client.calls_made})")

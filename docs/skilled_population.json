@@ -1,0 +1,134 @@
+{
+ "source": "archive",
+ "n_qualifying_wallets": 14948,
+ "positions_per_wallet": {
+  "min": 5,
+  "median": 6.0,
+  "p90": 11.0,
+  "max": 52
+ },
+ "A_aggregate_gap_vs_price": {
+  "pooled_hit_rate": 0.5232199821071942,
+  "pooled_implied_p": 0.5283113337843727,
+  "pooled_gap": -0.005091351677178446,
+  "mean_wallet_gap": -0.005540222534554804,
+  "wallet_gap_ci95": [
+   -0.00800726749997692,
+   -0.003014197507967572
+  ]
+ },
+ "C_skilled_population": {
+  "alpha": 0.05,
+  "observed_winners": 123,
+  "null_winners_mean": 257.048,
+  "null_winners_ci95": [
+   226.0,
+   289.0
+  ],
+  "excess_winners": -134.048,
+  "empirical_p_winners": 1.0,
+  "observed_losers": 173,
+  "winner_loser_asymmetry": -50,
+  "obs_gap_std": 0.15710143169700436,
+  "null_gap_std_mean": 0.1816614843213321,
+  "obs_gap_p95": 0.25072128674455585,
+  "null_gap_p95_mean": 0.2969069717309255,
+  "obs_gap_p99": 0.3630935990128013,
+  "null_gap_p99_mean": 0.42443045336080276,
+  "interpretation": "winner count within chance \u2014 no population-level skill signal at this alpha"
+ },
+ "D_excess_over_reliability_tail": {
+  "obs_mean_excess": -0.0002099178322854051,
+  "obs_frac_positive": 0.5025421461065025,
+  "obs_excess_p95": 0.25219741142396673,
+  "null_excess_p95_mean": 0.2454713998588433,
+  "null_excess_p95_ci95": [
+   0.2403094020066909,
+   0.24975510075923515
+  ],
+  "empirical_p": 0.001,
+  "interpretation": "skill beyond favorite-longshot: positive tail exceeds activity-preserving null"
+ },
+ "top_wallets_by_gap": [
+  {
+   "wallet": "0x7b0b0ff6b92040a4ea4c7a17c8667e37e2f65896",
+   "n": 6,
+   "wins": 6,
+   "implied_p": 0.343,
+   "gap": 0.657,
+   "binom_p_win": 0.0016
+  },
+  {
+   "wallet": "0xbec8107a020e810fff6f9a140cf560daa6aa6695",
+   "n": 5,
+   "wins": 4,
+   "implied_p": 0.185,
+   "gap": 0.615,
+   "binom_p_win": 0.005
+  },
+  {
+   "wallet": "0xd6e04ba6faa9f47014f00cfc415c84c7e9cb8412",
+   "n": 5,
+   "wins": 4,
+   "implied_p": 0.228,
+   "gap": 0.572,
+   "binom_p_win": 0.011
+  },
+  {
+   "wallet": "0x8bedc4606c80c0b6e522e7bfdaf713dbe0a9224c",
+   "n": 5,
+   "wins": 5,
+   "implied_p": 0.441,
+   "gap": 0.559,
+   "binom_p_win": 0.0167
+  },
+  {
+   "wallet": "0x1e4bfdc88488e1b69b855bab282e5bb78cda07fc",
+   "n": 5,
+   "wins": 4,
+   "implied_p": 0.244,
+   "gap": 0.556,
+   "binom_p_win": 0.0143
+  },
+  {
+   "wallet": "0xad1972ef00580dd337561751f6da9d4dc6ada7ad",
+   "n": 5,
+   "wins": 4,
+   "implied_p": 0.247,
+   "gap": 0.553,
+   "binom_p_win": 0.015
+  },
+  {
+   "wallet": "0xf6c116008bcdcf861d763611ea2e34006037ffab",
+   "n": 5,
+   "wins": 4,
+   "implied_p": 0.248,
+   "gap": 0.552,
+   "binom_p_win": 0.0151
+  },
+  {
+   "wallet": "0xb1ce2eff6a96ba8e2f5b42cab3c8d59ebc35ed4e",
+   "n": 5,
+   "wins": 4,
+   "implied_p": 0.262,
+   "gap": 0.538,
+   "binom_p_win": 0.0186
+  },
+  {
+   "wallet": "0x27bf71d8b5abc8cf97da465c94355aa26f92f9d3",
+   "n": 5,
+   "wins": 4,
+   "implied_p": 0.272,
+   "gap": 0.528,
+   "binom_p_win": 0.0214
+  },
+  {
+   "wallet": "0x566c7ec9579aa44a42bdcfa084483e8477d2c2ce",
+   "n": 5,
+   "wins": 4,
+   "implied_p": 0.273,
+   "gap": 0.527,
+   "binom_p_win": 0.0216
+  }
+ ]
+}
