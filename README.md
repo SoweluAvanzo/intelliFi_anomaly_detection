@@ -6,33 +6,42 @@ captures the maker subsidy, and the structure of the trader population. This fil
 reader; `DATA_DICTIONARY.md` documents every table and column, and
 `research_plan_technical_report.pdf` gives the research questions and findings.
 
+The share is a ready-to-run repository: unpack `polymarket_code.tar.gz` at the root and the code finds
+the data under `data/` with no configuration. See `REPLICATE.md` for the step-by-step download and
+reproduction guide.
+
 ## What's in the share
 ```
-polymarket_dataset/
-├── README.md                          ← this file
-├── DATA_DICTIONARY.md                 ← every store, every column, with units and gotchas
-├── research_plan_technical_report.pdf ← context: RQs, methodology, results
-├── results_json/                      ← headline result artifacts (fee incidence, maker economics, …)
-├── csv_bundle/                        ← human-readable CSV subset (Stage I corpus) + its own README + verify_export.py
-└── parquet/                           ← the analysis-ready data (read these for real work)
-    ├── tape_v2/                       ← v2 on-chain tape: ~697M OrderFilled fills, Apr–Aug 2026 (47 GB)
-    ├── ctf_v2_conditions.parquet      ← v2 winner/resolution registry
-    ├── ctf_resolutions_corpus.parquet ← corpus-wide resolutions
-    ├── clob_markets/                  ← token → market join + category tags
-    ├── gamma_v2/                      ← v2 market metadata
-    ├── neg_risk_families/             ← negRisk family membership
-    ├── onchain_transfers/             ← USDC + ERC-1155 transfers for the universe wallets
-    ├── wallet_fills/                  ← per-wallet v2 fill histories
-    ├── entity/                        ← account-type classification (EOA / proxy / Gnosis Safe)
-    ├── markets/  trades/  holders/  prices_history/  universe.parquet   ← Stage I feed corpus
+polymarket-dataset/
+├── REPLICATE.md                        ← download + reproduction guide (start here)
+├── README.md                           ← this file
+├── DATA_DICTIONARY.md                  ← every store, every column, with units and gotchas
+├── research_plan_technical_report.pdf  ← context: RQs, methodology, results
+├── polymarket_code.tar.gz              ← the full pipeline (src/, scripts/, notebooks/, specs)
+├── results_json/                       ← headline result artifacts (fee incidence, maker economics, …)
+├── csv_bundle/                         ← human-readable CSV subset (Stage I corpus) + verify_export.py
+└── data/                               ← the analysis-ready data (read directly by the code)
+    ├── parquet/
+    │   ├── tape_v2/                     ← v2 on-chain tape: ~697M OrderFilled fills, Apr–Aug 2026 (47 GB)
+    │   ├── ctf_v2_conditions.parquet   ← v2 winner/resolution registry
+    │   ├── ctf_resolutions_corpus.parquet ← corpus-wide resolutions
+    │   ├── clob_markets/               ← token → market join + category tags
+    │   ├── gamma_v2/                    ← v2 market metadata
+    │   ├── neg_risk_families/           ← negRisk family membership
+    │   ├── onchain_transfers/           ← USDC + ERC-1155 transfers for the universe wallets
+    │   ├── wallet_fills/                ← per-wallet v2 fill histories
+    │   ├── entity/                      ← account-type classification (EOA / proxy / Gnosis Safe)
+    │   └── markets/ trades/ holders/ prices_history/ universe.parquet   ← Stage I feed corpus
+    └── external/
+        └── polymarket_v1/              ← public Polymarket-v1 archive (24 GB)
 ```
 
 ## The v1 archive
-If a **`v1_archive/`** folder is present in this share, it holds the **Polymarket-v1 archive**
-(~746M maker fills, Nov 2022 – Apr 2026, ~24 GB; subfolders `daily_aligned/`, `daily_aligned_multi/`,
-`CTF/`). It is also a public CC-BY dataset — **Qin & Yang (2026), arXiv:2606.04217** — so you can
-re-fetch it from source if it is not bundled here. The code loads it under the same view names as
-everything else via `src/intellifi/archive.py::register_archive_views` (see `DATA_DICTIONARY.md §7`).
+`data/external/polymarket_v1/` holds the **Polymarket-v1 archive** (~746M maker fills,
+Nov 2022 – Apr 2026, ~24 GB; subfolders `daily_aligned/`, `daily_aligned_multi/`, `CTF/`). It is also
+a public CC-BY dataset — **Qin & Yang (2026), arXiv:2606.04217** — so it can be re-fetched from source
+instead. The code loads it under the same view names as everything else via
+`src/intellifi/archive.py::register_archive_views` (see `DATA_DICTIONARY.md §7`).
 
 ## How to read the data
 Parquet is the working format — every tool reads it directly (no CSV needed). Use a **recent
