@@ -20,7 +20,7 @@
    "sum_new_wallets": 111398,
    "sum_wallets": 402102,
    "mean_small_share": 0.607626582920873,
-   "notional_wt_med_order": 6.920938353007107,
+   "notional_wt_med_order": 6.920938353007114,
    "total_taker_fee": 0.0
   },
   {
@@ -30,7 +30,7 @@
    "sum_new_wallets": 238314,
    "sum_wallets": 620997,
    "mean_small_share": 0.6366106050476747,
-   "notional_wt_med_order": 6.327393184173845,
+   "notional_wt_med_order": 6.327393184173853,
    "total_taker_fee": 0.0
   },
   {
@@ -40,7 +40,7 @@
    "sum_new_wallets": 161019,
    "sum_wallets": 576637,
    "mean_small_share": 0.6305033319099742,
-   "notional_wt_med_order": 6.798104838246029,
+   "notional_wt_med_order": 6.798104838246038,
    "total_taker_fee": 0.0
   },
   {
@@ -50,7 +50,7 @@
    "sum_new_wallets": 233895,
    "sum_wallets": 673983,
    "mean_small_share": 0.6493580863655966,
-   "notional_wt_med_order": 6.148097524692162,
+   "notional_wt_med_order": 6.148097524692167,
    "total_taker_fee": 0.0
   },
   {
@@ -60,123 +60,1043 @@
    "sum_new_wallets": 281351,
    "sum_wallets": 796182,
    "mean_small_share": 0.6428012782820901,
-   "notional_wt_med_order": 5.007741846081114,
+   "notional_wt_med_order": 5.007741846081112,
    "total_taker_fee": 0.0
   },
   {
    "event_month": -1,
    "n_cat_months": 9,
-   "mean_fee_pct": 0.052260339228040555,
+   "mean_fee_pct": 0.052260339228040804,
    "sum_new_wallets": 278310,
    "sum_wallets": 870738,
    "mean_small_share": 0.6817917849251457,
-   "notional_wt_med_order": 4.897897740863571,
-   "total_taker_fee": 2160092.668120987
+   "notional_wt_med_order": 4.897897740863567,
+   "total_taker_fee": 2160092.668120986
   },
   {
    "event_month": 0,
    "n_cat_months": 9,
-   "mean_fee_pct": 3.332556964443631,
+   "mean_fee_pct": 3.3325569644436097,
    "sum_new_wallets": 317247,
    "sum_wallets": 982451,
    "mean_small_share": 0.7047584077657143,
-   "notional_wt_med_order": 4.337984700669152,
-   "total_taker_fee": 88329984.46521516
+   "notional_wt_med_order": 4.3379847006691525,
+   "total_taker_fee": 88329984.465212
   },
   {
    "event_month": 1,
    "n_cat_months": 6,
-   "mean_fee_pct": 8.191149046106611,
+   "mean_fee_pct": 8.191149046106666,
    "sum_new_wallets": 226464,
    "sum_wallets": 749721,
    "mean_small_share": 0.7117320148062455,
-   "notional_wt_med_order": 4.2909333288258225,
-   "total_taker_fee": 270161814.394424
+   "notional_wt_med_order": 4.290933328825819,
+   "total_taker_fee": 270161814.3944326
   },
   {
    "event_month": 2,
    "n_cat_months": 1,
-   "mean_fee_pct": 11.014926907571557,
+   "mean_fee_pct": 11.014926907570569,
    "sum_new_wallets": 143296,
    "sum_wallets": 387341,
    "mean_small_share": 0.7523822541565747,
    "notional_wt_med_order": 3.382978,
-   "total_taker_fee": 157564351.38068444
+   "total_taker_fee": 157564351.38067776
   },
   {
    "event_month": 3,
    "n_cat_months": 1,
-   "mean_fee_pct": 11.891561475362746,
+   "mean_fee_pct": 11.891561475362192,
    "sum_new_wallets": 89218,
    "sum_wallets": 276096,
    "mean_small_share": 0.7847485492310925,
-   "notional_wt_med_order": 2.9231999999999996,
-   "total_taker_fee": 101972364.78823286
+   "notional_wt_med_order": 2.9232,
+   "total_taker_fee": 101972364.7882294
   }
  ],
+ "event_study_per_category": [
+  {
+   "cls": "crypto_other",
+   "event_month": -6,
+   "fee_pct": 0.0,
+   "n_wallets": 9228,
+   "n_new_wallets": 1949,
+   "med_order": 1.999999,
+   "small_share": 0.6800298586106964,
+   "notional": 1888496.3861969896,
+   "fee": 0.0
+  },
+  {
+   "cls": "crypto_other",
+   "event_month": -5,
+   "fee_pct": 0.0,
+   "n_wallets": 20174,
+   "n_new_wallets": 8597,
+   "med_order": 9.9,
+   "small_share": 0.5110076797765883,
+   "notional": 11182734.078325294,
+   "fee": 0.0
+  },
+  {
+   "cls": "crypto_other",
+   "event_month": -4,
+   "fee_pct": 0.0,
+   "n_wallets": 36368,
+   "n_new_wallets": 9857,
+   "med_order": 10.474345,
+   "small_share": 0.49284661562241633,
+   "notional": 37137959.87201203,
+   "fee": 0.0
+  },
+  {
+   "cls": "crypto_other",
+   "event_month": -3,
+   "fee_pct": 0.0,
+   "n_wallets": 26384,
+   "n_new_wallets": 7785,
+   "med_order": 7.0,
+   "small_share": 0.562600191561224,
+   "notional": 32381794.145315096,
+   "fee": 0.0
+  },
+  {
+   "cls": "crypto_other",
+   "event_month": -2,
+   "fee_pct": 0.0,
+   "n_wallets": 22838,
+   "n_new_wallets": 5772,
+   "med_order": 12.489897500000001,
+   "small_share": 0.46487954478273724,
+   "notional": 22575572.62211676,
+   "fee": 0.0
+  },
+  {
+   "cls": "crypto_other",
+   "event_month": -1,
+   "fee_pct": 0.0,
+   "n_wallets": 19908,
+   "n_new_wallets": 4752,
+   "med_order": 5.739999,
+   "small_share": 0.6047867691033721,
+   "notional": 9445304.489861153,
+   "fee": 0.0
+  },
+  {
+   "cls": "crypto_other",
+   "event_month": 0,
+   "fee_pct": 4.360303173934409,
+   "n_wallets": 17261,
+   "n_new_wallets": 4717,
+   "med_order": 4.999999,
+   "small_share": 0.616016455643424,
+   "notional": 7301705.062878018,
+   "fee": 318376.4776079997
+  },
+  {
+   "cls": "crypto_other",
+   "event_month": 1,
+   "fee_pct": 3.08538152770009,
+   "n_wallets": 14318,
+   "n_new_wallets": 2451,
+   "med_order": 4.999999,
+   "small_share": 0.6097473890922075,
+   "notional": 6851169.979149042,
+   "fee": 211384.73296799866
+  },
+  {
+   "cls": "crypto_updown",
+   "event_month": -6,
+   "fee_pct": 0.0,
+   "n_wallets": 124508,
+   "n_new_wallets": 24461,
+   "med_order": 5.85,
+   "small_share": 0.6111598136628043,
+   "notional": 144364919.36207467,
+   "fee": 0.0
+  },
+  {
+   "cls": "crypto_updown",
+   "event_month": -5,
+   "fee_pct": 0.0,
+   "n_wallets": 101316,
+   "n_new_wallets": 16648,
+   "med_order": 5.859999,
+   "small_share": 0.5968886940273668,
+   "notional": 163877831.26192236,
+   "fee": 0.0
+  },
+  {
+   "cls": "crypto_updown",
+   "event_month": -4,
+   "fee_pct": 0.0,
+   "n_wallets": 89770,
+   "n_new_wallets": 16490,
+   "med_order": 5.7706,
+   "small_share": 0.6141658054528043,
+   "notional": 132546666.78899199,
+   "fee": 0.0
+  },
+  {
+   "cls": "crypto_updown",
+   "event_month": -3,
+   "fee_pct": 0.0,
+   "n_wallets": 195296,
+   "n_new_wallets": 85238,
+   "med_order": 5.5,
+   "small_share": 0.6416744695578941,
+   "notional": 417453721.0077715,
+   "fee": 0.0
+  },
+  {
+   "cls": "crypto_updown",
+   "event_month": -2,
+   "fee_pct": 0.0,
+   "n_wallets": 226463,
+   "n_new_wallets": 78696,
+   "med_order": 5.04,
+   "small_share": 0.6561933348218061,
+   "notional": 447576229.48071885,
+   "fee": 0.0
+  },
+  {
+   "cls": "crypto_updown",
+   "event_month": -1,
+   "fee_pct": 0.0,
+   "n_wallets": 225167,
+   "n_new_wallets": 68059,
+   "med_order": 4.6,
+   "small_share": 0.6827709672181886,
+   "notional": 623576997.6817739,
+   "fee": 0.0
+  },
+  {
+   "cls": "crypto_updown",
+   "event_month": 0,
+   "fee_pct": 5.122729529286487,
+   "n_wallets": 280626,
+   "n_new_wallets": 102916,
+   "med_order": 3.96,
+   "small_share": 0.7244968632320681,
+   "notional": 881069749.9794363,
+   "fee": 45134820.255807206
+  },
+  {
+   "cls": "crypto_updown",
+   "event_month": 1,
+   "fee_pct": 8.44208630833609,
+   "n_wallets": 331839,
+   "n_new_wallets": 124969,
+   "med_order": 3.3198,
+   "small_share": 0.7547542382264766,
+   "notional": 1122030510.4226704,
+   "fee": 94722784.09574582
+  },
+  {
+   "cls": "crypto_updown",
+   "event_month": 2,
+   "fee_pct": 11.014926907570569,
+   "n_wallets": 387341,
+   "n_new_wallets": 143296,
+   "med_order": 3.382978,
+   "small_share": 0.7523822541565747,
+   "notional": 1430462069.361383,
+   "fee": 157564351.38067776
+  },
+  {
+   "cls": "crypto_updown",
+   "event_month": 3,
+   "fee_pct": 11.891561475362192,
+   "n_wallets": 276096,
+   "n_new_wallets": 89218,
+   "med_order": 2.9232,
+   "small_share": 0.7847485492310925,
+   "notional": 857518711.8992171,
+   "fee": 101972364.7882294
+  },
+  {
+   "cls": "culture",
+   "event_month": -6,
+   "fee_pct": 0.0,
+   "n_wallets": 81900,
+   "n_new_wallets": 28732,
+   "med_order": 2.4130000000000003,
+   "small_share": 0.703490277832409,
+   "notional": 45206222.02157863,
+   "fee": 0.0
+  },
+  {
+   "cls": "culture",
+   "event_month": -5,
+   "fee_pct": 0.0,
+   "n_wallets": 94479,
+   "n_new_wallets": 35126,
+   "med_order": 1.84,
+   "small_share": 0.7273254741085623,
+   "notional": 66217209.80966374,
+   "fee": 0.0
+  },
+  {
+   "cls": "culture",
+   "event_month": -4,
+   "fee_pct": 0.0,
+   "n_wallets": 101046,
+   "n_new_wallets": 28611,
+   "med_order": 2.8542300000000003,
+   "small_share": 0.67531105282281,
+   "notional": 134608826.27818748,
+   "fee": 0.0
+  },
+  {
+   "cls": "culture",
+   "event_month": -3,
+   "fee_pct": 0.0,
+   "n_wallets": 91994,
+   "n_new_wallets": 33563,
+   "med_order": 2.220735,
+   "small_share": 0.7090131794559671,
+   "notional": 163244435.3260272,
+   "fee": 0.0
+  },
+  {
+   "cls": "culture",
+   "event_month": -2,
+   "fee_pct": 0.0,
+   "n_wallets": 94243,
+   "n_new_wallets": 27334,
+   "med_order": 2.4,
+   "small_share": 0.7060400306913415,
+   "notional": 107085153.08514136,
+   "fee": 0.0
+  },
+  {
+   "cls": "culture",
+   "event_month": -1,
+   "fee_pct": 0.15069464293047974,
+   "n_wallets": 126019,
+   "n_new_wallets": 34622,
+   "med_order": 1.749999,
+   "small_share": 0.7434477085752893,
+   "notional": 103810568.80778992,
+   "fee": 156436.965988999
+  },
+  {
+   "cls": "culture",
+   "event_month": 0,
+   "fee_pct": 9.762121092152855,
+   "n_wallets": 89561,
+   "n_new_wallets": 15118,
+   "med_order": 1.6,
+   "small_share": 0.7497742432533142,
+   "notional": 58379753.50053929,
+   "fee": 5699102.23002299
+  },
+  {
+   "cls": "esports_tennis",
+   "event_month": -6,
+   "fee_pct": 0.0,
+   "n_wallets": 10406,
+   "n_new_wallets": 2217,
+   "med_order": 20.434386,
+   "small_share": 0.37111872520410505,
+   "notional": 28481976.38195774,
+   "fee": 0.0
+  },
+  {
+   "cls": "esports_tennis",
+   "event_month": -5,
+   "fee_pct": 0.0,
+   "n_wallets": 41427,
+   "n_new_wallets": 21829,
+   "med_order": 14.629999999999999,
+   "small_share": 0.4408084255143398,
+   "notional": 110388179.28339076,
+   "fee": 0.0
+  },
+  {
+   "cls": "esports_tennis",
+   "event_month": -4,
+   "fee_pct": 0.0,
+   "n_wallets": 60297,
+   "n_new_wallets": 19622,
+   "med_order": 13.1399995,
+   "small_share": 0.4539931618457365,
+   "notional": 130833405.71852827,
+   "fee": 0.0
+  },
+  {
+   "cls": "esports_tennis",
+   "event_month": -3,
+   "fee_pct": 0.0,
+   "n_wallets": 33396,
+   "n_new_wallets": 11424,
+   "med_order": 11.22,
+   "small_share": 0.4788800341563696,
+   "notional": 92420174.47896478,
+   "fee": 0.0
+  },
+  {
+   "cls": "esports_tennis",
+   "event_month": -2,
+   "fee_pct": 0.0,
+   "n_wallets": 60818,
+   "n_new_wallets": 27304,
+   "med_order": 6.08,
+   "small_share": 0.5833579752712637,
+   "notional": 209831781.28146097,
+   "fee": 0.0
+  },
+  {
+   "cls": "esports_tennis",
+   "event_month": -1,
+   "fee_pct": 0.03838631407257775,
+   "n_wallets": 76788,
+   "n_new_wallets": 26365,
+   "med_order": 7.8416,
+   "small_share": 0.5446596087198834,
+   "notional": 351337498.72938263,
+   "fee": 134865.51571699968
+  },
+  {
+   "cls": "esports_tennis",
+   "event_month": 0,
+   "fee_pct": 0.6230358606916664,
+   "n_wallets": 88875,
+   "n_new_wallets": 35609,
+   "med_order": 6.966,
+   "small_share": 0.5653705623095535,
+   "notional": 434460993.57456803,
+   "fee": 2706847.7906868756
+  },
+  {
+   "cls": "esports_tennis",
+   "event_month": 1,
+   "fee_pct": 10.11634331347237,
+   "n_wallets": 78240,
+   "n_new_wallets": 25032,
+   "med_order": 7.241379,
+   "small_share": 0.5613028398132551,
+   "notional": 560456968.887351,
+   "fee": 56697751.09692546
+  },
+  {
+   "cls": "finance",
+   "event_month": -6,
+   "fee_pct": 0.0,
+   "n_wallets": 19151,
+   "n_new_wallets": 8836,
+   "med_order": 4.390243,
+   "small_share": 0.634136639067487,
+   "notional": 6947745.360225271,
+   "fee": 0.0
+  },
+  {
+   "cls": "finance",
+   "event_month": -5,
+   "fee_pct": 0.0,
+   "n_wallets": 49440,
+   "n_new_wallets": 18900,
+   "med_order": 2.03,
+   "small_share": 0.7192074670931233,
+   "notional": 16591291.431390362,
+   "fee": 0.0
+  },
+  {
+   "cls": "finance",
+   "event_month": -4,
+   "fee_pct": 0.0,
+   "n_wallets": 43721,
+   "n_new_wallets": 12731,
+   "med_order": 1.66,
+   "small_share": 0.7380977833673951,
+   "notional": 13748414.118001029,
+   "fee": 0.0
+  },
+  {
+   "cls": "finance",
+   "event_month": -3,
+   "fee_pct": 0.0,
+   "n_wallets": 72950,
+   "n_new_wallets": 24761,
+   "med_order": 3.0,
+   "small_share": 0.6684405007949928,
+   "notional": 40438351.84876904,
+   "fee": 0.0
+  },
+  {
+   "cls": "finance",
+   "event_month": -2,
+   "fee_pct": 0.0,
+   "n_wallets": 75812,
+   "n_new_wallets": 17576,
+   "med_order": 3.67,
+   "small_share": 0.6487465125584106,
+   "notional": 38628129.89087179,
+   "fee": 0.0
+  },
+  {
+   "cls": "finance",
+   "event_month": -1,
+   "fee_pct": 0.09766078018776235,
+   "n_wallets": 95973,
+   "n_new_wallets": 32346,
+   "med_order": 4.86,
+   "small_share": 0.624380289145255,
+   "notional": 89168681.01767579,
+   "fee": 87082.82956499932
+  },
+  {
+   "cls": "finance",
+   "event_month": 0,
+   "fee_pct": 6.334155869689222,
+   "n_wallets": 55751,
+   "n_new_wallets": 13139,
+   "med_order": 3.951219,
+   "small_share": 0.649224108305879,
+   "notional": 46435713.05897394,
+   "fee": 2941310.444357042
+  },
+  {
+   "cls": "meta_other",
+   "event_month": -6,
+   "fee_pct": 0.0,
+   "n_wallets": 34280,
+   "n_new_wallets": 9697,
+   "med_order": 9.29174,
+   "small_share": 0.5188670361601377,
+   "notional": 65252421.21161133,
+   "fee": 0.0
+  },
+  {
+   "cls": "meta_other",
+   "event_month": -5,
+   "fee_pct": 0.0,
+   "n_wallets": 67937,
+   "n_new_wallets": 34458,
+   "med_order": 2.204659,
+   "small_share": 0.6809804153600378,
+   "notional": 51801611.639894396,
+   "fee": 0.0
+  },
+  {
+   "cls": "meta_other",
+   "event_month": -4,
+   "fee_pct": 0.0,
+   "n_wallets": 13205,
+   "n_new_wallets": 4997,
+   "med_order": 2.7,
+   "small_share": 0.6922966546408659,
+   "notional": 3045227.697721014,
+   "fee": 0.0
+  },
+  {
+   "cls": "meta_other",
+   "event_month": -3,
+   "fee_pct": 0.0,
+   "n_wallets": 12447,
+   "n_new_wallets": 3432,
+   "med_order": 1.999999,
+   "small_share": 0.7235611398640643,
+   "notional": 2982946.1032920345,
+   "fee": 0.0
+  },
+  {
+   "cls": "meta_other",
+   "event_month": -2,
+   "fee_pct": 0.0,
+   "n_wallets": 34344,
+   "n_new_wallets": 16629,
+   "med_order": 5.9976,
+   "small_share": 0.5837002976555123,
+   "notional": 30729318.60232719,
+   "fee": 0.0
+  },
+  {
+   "cls": "meta_other",
+   "event_month": -1,
+   "fee_pct": 0.0,
+   "n_wallets": 20430,
+   "n_new_wallets": 6384,
+   "med_order": 2.5,
+   "small_share": 0.721156333828075,
+   "notional": 5424844.354287142,
+   "fee": 0.0
+  },
+  {
+   "cls": "meta_other",
+   "event_month": 0,
+   "fee_pct": 0.4591340107641206,
+   "n_wallets": 44003,
+   "n_new_wallets": 13869,
+   "med_order": 2.0017,
+   "small_share": 0.7458425261573757,
+   "notional": 17367511.01476682,
+   "fee": 79740.14989199932
+  },
+  {
+   "cls": "meta_other",
+   "event_month": 1,
+   "fee_pct": 7.497440294093772,
+   "n_wallets": 26680,
+   "n_new_wallets": 5676,
+   "med_order": 1.1,
+   "small_share": 0.8145552090721421,
+   "notional": 5429953.397504406,
+   "fee": 407107.5139750091
+  },
+  {
+   "cls": "sports",
+   "event_month": -6,
+   "fee_pct": 0.0,
+   "n_wallets": 82863,
+   "n_new_wallets": 22067,
+   "med_order": 6.561627,
+   "small_share": 0.5562378988015906,
+   "notional": 270462227.2163378,
+   "fee": 0.0
+  },
+  {
+   "cls": "sports",
+   "event_month": -5,
+   "fee_pct": 0.0,
+   "n_wallets": 182630,
+   "n_new_wallets": 76127,
+   "med_order": 5.92,
+   "small_share": 0.5747314660822808,
+   "notional": 419088603.6158611,
+   "fee": 0.0
+  },
+  {
+   "cls": "sports",
+   "event_month": -4,
+   "fee_pct": 0.0,
+   "n_wallets": 176792,
+   "n_new_wallets": 53852,
+   "med_order": 6.666666,
+   "small_share": 0.5685717083065139,
+   "notional": 665750439.2096752,
+   "fee": 0.0
+  },
+  {
+   "cls": "sports",
+   "event_month": -3,
+   "fee_pct": 0.0,
+   "n_wallets": 183244,
+   "n_new_wallets": 47970,
+   "med_order": 6.9046,
+   "small_share": 0.5660082495014745,
+   "notional": 833335434.4663057,
+   "fee": 0.0
+  },
+  {
+   "cls": "sports",
+   "event_month": -2,
+   "fee_pct": 0.0,
+   "n_wallets": 207984,
+   "n_new_wallets": 86429,
+   "med_order": 4.999999,
+   "small_share": 0.6178139454265023,
+   "notional": 1222173686.5204802,
+   "fee": 0.0
+  },
+  {
+   "cls": "sports",
+   "event_month": -1,
+   "fee_pct": 0.18160035146180292,
+   "n_wallets": 229557,
+   "n_new_wallets": 82802,
+   "med_order": 4.5258,
+   "small_share": 0.6372800336916008,
+   "notional": 980904982.7668782,
+   "fee": 1781326.896210988
+  },
+  {
+   "cls": "sports",
+   "event_month": 0,
+   "fee_pct": 2.096605527574207,
+   "n_wallets": 302921,
+   "n_new_wallets": 105552,
+   "med_order": 4.1,
+   "small_share": 0.654126157764002,
+   "notional": 1483426230.5985494,
+   "fee": 31101596.34821489
+  },
+  {
+   "cls": "sports",
+   "event_month": 1,
+   "fee_pct": 9.813372801849754,
+   "n_wallets": 250387,
+   "n_new_wallets": 54188,
+   "med_order": 4.01751,
+   "small_share": 0.6613460633140649,
+   "notional": 1126884667.986326,
+   "fee": 110585393.51638502
+  },
+  {
+   "cls": "tech_science",
+   "event_month": -6,
+   "fee_pct": 0.0,
+   "n_wallets": 37829,
+   "n_new_wallets": 12961,
+   "med_order": 1.999998,
+   "small_share": 0.6965709875408872,
+   "notional": 10906640.167121269,
+   "fee": 0.0
+  },
+  {
+   "cls": "tech_science",
+   "event_month": -5,
+   "fee_pct": 0.0,
+   "n_wallets": 60134,
+   "n_new_wallets": 25280,
+   "med_order": 1.318899,
+   "small_share": 0.7290841331742922,
+   "notional": 24500901.25340938,
+   "fee": 0.0
+  },
+  {
+   "cls": "tech_science",
+   "event_month": -4,
+   "fee_pct": 0.0,
+   "n_wallets": 46723,
+   "n_new_wallets": 11364,
+   "med_order": 1.5584,
+   "small_share": 0.7230057139422194,
+   "notional": 20928806.491111197,
+   "fee": 0.0
+  },
+  {
+   "cls": "tech_science",
+   "event_month": -3,
+   "fee_pct": 0.0,
+   "n_wallets": 47736,
+   "n_new_wallets": 15461,
+   "med_order": 1.442105,
+   "small_share": 0.7328603873196177,
+   "notional": 11253319.097315017,
+   "fee": 0.0
+  },
+  {
+   "cls": "tech_science",
+   "event_month": -2,
+   "fee_pct": 0.0,
+   "n_wallets": 49379,
+   "n_new_wallets": 12947,
+   "med_order": 2.199998,
+   "small_share": 0.7047959503048394,
+   "notional": 19239371.682804044,
+   "fee": 0.0
+  },
+  {
+   "cls": "tech_science",
+   "event_month": -1,
+   "fee_pct": 0.00200096439974449,
+   "n_wallets": 54706,
+   "n_new_wallets": 15355,
+   "med_order": 1.1786,
+   "small_share": 0.7423003950956458,
+   "notional": 19013863.46746511,
+   "fee": 380.4606390000001
+  },
+  {
+   "cls": "tech_science",
+   "event_month": 0,
+   "fee_pct": 0.8454607335288684,
+   "n_wallets": 55382,
+   "n_new_wallets": 9739,
+   "med_order": 0.639999,
+   "small_share": 0.7768929843019854,
+   "notional": 15056822.799405772,
+   "fee": 127299.52448599794
+  },
+  {
+   "cls": "weather",
+   "event_month": -6,
+   "fee_pct": 0.0,
+   "n_wallets": 1937,
+   "n_new_wallets": 478,
+   "med_order": 2.74,
+   "small_share": 0.69702800940774,
+   "notional": 830094.9434239995,
+   "fee": 0.0
+  },
+  {
+   "cls": "weather",
+   "event_month": -5,
+   "fee_pct": 0.0,
+   "n_wallets": 3460,
+   "n_new_wallets": 1349,
+   "med_order": 1.6828750000000001,
+   "small_share": 0.7494616902924816,
+   "notional": 950135.2704919983,
+   "fee": 0.0
+  },
+  {
+   "cls": "weather",
+   "event_month": -4,
+   "fee_pct": 0.0,
+   "n_wallets": 8715,
+   "n_new_wallets": 3495,
+   "med_order": 2.34,
+   "small_share": 0.7162414911890069,
+   "notional": 4239546.810502009,
+   "fee": 0.0
+  },
+  {
+   "cls": "weather",
+   "event_month": -3,
+   "fee_pct": 0.0,
+   "n_wallets": 10536,
+   "n_new_wallets": 4261,
+   "med_order": 1.438,
+   "small_share": 0.7611846250787649,
+   "notional": 4765569.067887724,
+   "fee": 0.0
+  },
+  {
+   "cls": "weather",
+   "event_month": -2,
+   "fee_pct": 0.0,
+   "n_wallets": 24301,
+   "n_new_wallets": 8664,
+   "med_order": 1.16,
+   "small_share": 0.8196839130263975,
+   "notional": 11527853.804825602,
+   "fee": 0.0
+  },
+  {
+   "cls": "weather",
+   "event_month": -1,
+   "fee_pct": 0.0,
+   "n_wallets": 22190,
+   "n_new_wallets": 7625,
+   "med_order": 1.3102,
+   "small_share": 0.8353439589490009,
+   "notional": 21613106.318957437,
+   "fee": 0.0
+  },
+  {
+   "cls": "weather",
+   "event_month": 0,
+   "fee_pct": 0.38946688237065447,
+   "n_wallets": 48071,
+   "n_new_wallets": 16588,
+   "med_order": 1.05,
+   "small_share": 0.8610817689238272,
+   "notional": 56716309.94462182,
+   "fee": 220891.24413699604
+  },
+  {
+   "cls": "weather",
+   "event_month": 1,
+   "fee_pct": 10.192270031187922,
+   "n_wallets": 48257,
+   "n_new_wallets": 14148,
+   "med_order": 0.999999,
+   "small_share": 0.8686863493193262,
+   "notional": 73952057.93576121,
+   "fee": 7537393.438433319
+  }
+ ],
+ "event_study_balanced": {
+  "window": [
+   -3,
+   1
+  ],
+  "categories": [
+   "crypto_other",
+   "crypto_updown",
+   "esports_tennis",
+   "meta_other",
+   "sports",
+   "weather"
+  ],
+  "n_categories": 6,
+  "by_event_month": [
+   {
+    "event_month": -3,
+    "n_cat": 6,
+    "mean_fee_pct": 0.0,
+    "mean_new_wallets_per_cat": 26685.0,
+    "mean_wallets_per_cat": 76883.83333333333,
+    "mean_small_share": 0.6223181182866319,
+    "mean_med_order": 5.677099833333333,
+    "notional_wt_med_order": 6.741864930219112
+   },
+   {
+    "event_month": -2,
+    "n_cat": 6,
+    "mean_fee_pct": 0.0,
+    "mean_new_wallets_per_cat": 37249.0,
+    "mean_wallets_per_cat": 96124.66666666667,
+    "mean_small_share": 0.6209381684973698,
+    "mean_med_order": 5.961249416666667,
+    "notional_wt_med_order": 5.205716166603109
+   },
+   {
+    "event_month": -1,
+    "n_cat": 6,
+    "mean_fee_pct": 0.036664444255730115,
+    "mean_new_wallets_per_cat": 32664.5,
+    "mean_wallets_per_cat": 99006.66666666667,
+    "mean_small_share": 0.6709996119183534,
+    "mean_med_order": 4.419599833333334,
+    "notional_wt_med_order": 5.099113481290151
+   },
+   {
+    "event_month": 0,
+    "n_cat": 6,
+    "mean_fee_pct": 2.1752124974369242,
+    "mean_new_wallets_per_cat": 46541.833333333336,
+    "mean_wallets_per_cat": 130292.83333333333,
+    "mean_small_share": 0.6944890556717084,
+    "mean_med_order": 3.8462831666666664,
+    "notional_wt_med_order": 4.419045383003347
+   },
+   {
+    "event_month": 1,
+    "n_cat": 6,
+    "mean_fee_pct": 8.191149046106666,
+    "mean_new_wallets_per_cat": 37744.0,
+    "mean_wallets_per_cat": 124953.5,
+    "mean_small_share": 0.7117320148062455,
+    "mean_med_order": 3.6131145,
+    "notional_wt_med_order": 4.290933328825819
+   }
+  ]
+ },
+ "pretrend_diagnostic": {
+  "pre_window": [
+   -6,
+   -1
+  ],
+  "on_balanced_categories": [
+   "crypto_other",
+   "crypto_updown",
+   "esports_tennis",
+   "meta_other",
+   "sports",
+   "weather"
+  ],
+  "med_order_slope_per_month": -0.5113236650228113,
+  "mean_new_wallets_per_cat_slope_per_month": 4384.976190476191,
+  "med_order_pre_series": [
+   [
+    -6,
+    7.458883005182792
+   ],
+   [
+    -5,
+    6.975962644990269
+   ],
+   [
+    -4,
+    7.528606151392813
+   ],
+   [
+    -3,
+    6.741864930219112
+   ],
+   [
+    -2,
+    5.205716166603109
+   ],
+   [
+    -1,
+    5.099113481290151
+   ]
+  ],
+  "new_wallets_per_cat_pre_series": [
+   [
+    -6,
+    10144.833333333334
+   ],
+   [
+    -5,
+    26501.333333333332
+   ],
+   [
+    -4,
+    18052.166666666668
+   ],
+   [
+    -3,
+    26685.0
+   ],
+   [
+    -2,
+    37249.0
+   ],
+   [
+    -1,
+    32664.5
+   ]
+  ],
+  "note": "Slopes over the fee-free pre months. A negative med_order slope pre-treatment is a downward pre-trend that a naive pre-vs-post comparison misattributes to the fee; read the post-fee effect as the deviation from this trend, on the balanced panel."
+ },
  "incidence_by_order_size_decile_posttreat": [
   {
    "decile": 1,
    "notional_lo": 0.0,
    "n": 20520366,
-   "fee_pct": 513.914392558755
+   "fee_pct": 513.9143925598287
   },
   {
    "decile": 2,
    "notional_lo": 0.265822,
    "n": 20521745,
-   "fee_pct": 149.82621161781591
+   "fee_pct": 149.82621161757703
   },
   {
    "decile": 3,
    "notional_lo": 0.818181,
    "n": 20546874,
-   "fee_pct": 72.82917271238937
+   "fee_pct": 72.82917271259288
   },
   {
    "decile": 4,
    "notional_lo": 1.416666,
    "n": 20528425,
-   "fee_pct": 51.189211231455054
+   "fee_pct": 51.18921123155698
   },
   {
    "decile": 5,
    "notional_lo": 2.25641,
    "n": 20384216,
-   "fee_pct": 34.50866813942382
+   "fee_pct": 34.50866813942536
   },
   {
    "decile": 6,
    "notional_lo": 3.3,
    "n": 20676897,
-   "fee_pct": 27.590396871949338
+   "fee_pct": 27.59039687194855
   },
   {
    "decile": 7,
    "notional_lo": 4.883,
    "n": 20530062,
-   "fee_pct": 25.761501700627058
+   "fee_pct": 25.761501700615597
   },
   {
    "decile": 8,
    "notional_lo": 7.557,
    "n": 20529949,
-   "fee_pct": 22.248734809507518
+   "fee_pct": 22.24873480950868
   },
   {
    "decile": 9,
    "notional_lo": 13.064516,
    "n": 20529484,
-   "fee_pct": 17.98695488193206
+   "fee_pct": 17.98695488193137
   },
   {
    "decile": 10,
    "notional_lo": 29.489999999999995,
    "n": 20530156,
-   "fee_pct": 8.804731622989847
+   "fee_pct": 8.804731622989953
   }
  ],
  "caveats": [
+  "POOLED event_study_relative_to_fee_start SUMS over a category set that shrinks with |e| (n_cat_months 9->6->1): sum_new_wallets / sum_wallets and the pooled median mix a treatment effect with panel composition, so the raw 317k->89k / $6.9->$2.9 trajectories overstate the fee response. Use event_study_balanced (constant category set, per-category means) and pretrend_diagnostic for inference; the pooled series is kept for continuity only.",
   "Fee-start derived from data (first month fee%>=thresh); confounds: crypto-vol regime, sports seasonality, platform growth, cross-category substitution \u2014 needs placebo/parallel-trends robustness. Lead with composition+incidence (volume elasticity likely ~null).",
   "Order = fills grouped to (taker,market,second,direction). Realised, descriptive."
  ]
