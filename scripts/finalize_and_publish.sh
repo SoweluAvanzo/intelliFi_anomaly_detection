@@ -17,6 +17,9 @@ bash scripts/build_report_pdf.sh
 
 echo "== 3/6  commit report + analysis changes =="
 git add -A
+if git diff --cached --quiet; then
+  echo "  (nothing new to commit — skipping)"
+else
 git commit -F - <<'MSG'
 Fee event study: correct §5.2 to a null participation response; add balanced panel + figure
 
@@ -31,6 +34,7 @@ Fee event study: correct §5.2 to a null participation response; add balanced pa
 
 Claude-Session: https://claude.ai/code/session_01CCGVEf9t8efYSYsWoPxaov
 MSG
+fi
 
 echo "== 4/6  rebuild code bundle (exclude internal notes; data/ is gitignored) =="
 TARDIR="$(mktemp -d)"
@@ -38,12 +42,15 @@ git archive --format=tar HEAD | tar --delete docs/internal_verification_notes.md
 gzip -f "$TARDIR/polymarket_code.tar"
 
 echo "== 5/6  re-upload changed artifacts to ${REMOTE}:${DEST} =="
+# rclone copy takes ONE source per call; keep these one-per-line.
 rclone copy "$TARDIR/polymarket_code.tar.gz"        "${REMOTE}:${DEST}/"              --checksum
 rclone copy docs/research_plan_technical_report.pdf "${REMOTE}:${DEST}/"              --checksum
 rclone copy docs/fee_rollout_did.json               "${REMOTE}:${DEST}/results_json/" --checksum
-rclone copy docs/fig_fee_rollout_balanced.pdf docs/fig_fee_rollout_balanced.png \
-                                                    "${REMOTE}:${DEST}/results_json/" --checksum
-rclone copy REPLICATE.md README.md docs/DATA_DICTIONARY.md "${REMOTE}:${DEST}/"        --checksum
+rclone copy docs/fig_fee_rollout_balanced.pdf       "${REMOTE}:${DEST}/results_json/" --checksum
+rclone copy docs/fig_fee_rollout_balanced.png       "${REMOTE}:${DEST}/results_json/" --checksum
+rclone copy REPLICATE.md                            "${REMOTE}:${DEST}/"              --checksum
+rclone copy README.md                               "${REMOTE}:${DEST}/"              --checksum
+rclone copy docs/DATA_DICTIONARY.md                 "${REMOTE}:${DEST}/"              --checksum
 
 echo "== 6/6  push to GitHub =="
 git push origin main
