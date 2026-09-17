@@ -134,10 +134,11 @@ sufficient for the main RQ.
 - Sub-RQ 1. The staggered per-category fee rollout is used as a natural experiment; fee
   incidence is computed per taker order and per order-size decile. Result: the fee is steeply
   regressive — small orders bear multiples of the rate that large orders do (§5.1).
-- Sub-RQ 2. An event study aligned to each category's own fee-start date measures order size,
-  new-wallet inflow, and churn before/after. Result: median order size roughly halves and
-  new-entrant inflow falls sharply post-fee, with the growth-trend confound explicitly bounded
-  (§5.2).
+- Sub-RQ 2. A balanced event study (constant set of categories around each category's own
+  fee-start) measures order size and new-wallet inflow, netting out pre-trends. Result: no
+  participation/volume response is identified — order size follows a pre-existing downtrend and new
+  entry does not fall at fee onset; the earlier "orders halve / entry collapses" figures were
+  panel-composition artifacts (§5.2).
 - Sub-RQ 3. Maker-side realised PnL is decomposed against a counterparty-informedness proxy.
   Result: most makers lose; a professional/automated elite that escapes adverse selection
   captures the rebate (§5.3).
@@ -310,23 +311,31 @@ declines from ~2.7–3.2% of notional on the smallest orders to ~1.0% on the lar
 1.0%), not strictly monotone through the middle deciles. The archive rollout's per-order incidence
 shows the same steep decline, from an implausible ~514% on the smallest sub-dollar orders (a
 fixed-minimum-fee artifact on dust — we read the *gradient*, never these levels) down to ~8.8%
-on the largest. In the staggered rollout, each category's effective fee jumps from ≈0% pre-start
-to ~3.3% at its fee-start month, ramping to ~12% as adoption completes (`fee_rollout_did.json`);
-over the mature-fee window (Apr–Aug 2026) the platform collected ≈\$149.5M in taker fees
+on the largest. In the staggered rollout, on a balanced set of
+categories each category's effective fee jumps from ≈0% pre-start to ~2–3% in its fee-start month and
+~8% a month later (`fee_rollout_did.json`, `event_study_balanced`); a higher ~12% tail reflects one
+early-treated category, not the average. Over the mature-fee window (Apr–Aug 2026) the platform
+collected ≈\$149.5M in taker fees
 (`v2_platform.json`). The fee is thus real, sharp at introduction, and regressive — it taxes
 small, price-taking flow proportionally hardest. *(Sub-RQ 1.)*
 
-### 5.2 The fee shrinks orders and slows new entry
-Aligned to each category's own fee-start (event study, `fee_rollout_did.json`), median taker order
-size falls from ~\$6.9 (pre) to ~\$2.9 (three months post) — orders shrink by more than half — and
-new-wallet inflow drops from ~317k in the fee-start month to ~89k three months later. The
-small-order share of activity rises rather than falls, consistent with larger directional orders
-retreating faster than small ones. Because the new-entrant decline coincides with the
-platform's own growth cycle, the event study aligns each category to its own fee-start with
-not-yet-treated categories as controls, and we read the participation response at the composition
-level: the fee is associated with markedly smaller orders and slower new-participant inflow — the
-channel that most affects price informativeness. A placebo / synthetic-control design (§6) sharpens
-the causal magnitude. *(Sub-RQ 2.)*
+### 5.2 No participation response is identified once pre-trends are removed
+A balanced event study — the six market categories present at every month of a [−3, +1] window
+around each category's own fee-start, compared at constant composition (`fee_rollout_did.json`,
+`event_study_balanced`) — finds no participation response attributable to the fee. Median taker
+order size was **already falling before any fee** (pre-fee slope ≈ −\$0.51/month); across the window
+the per-category mean runs 5.68 → 5.96 → 4.42 → 3.85 → 3.61, and the decline at fee onset does not
+exceed that pre-trend (−\$0.57 from month −1 to 0 against a −\$0.51 trend) and in fact *decelerates*
+as the fee ramps to ~8% (−\$0.24 from 0 to +1). New-entrant inflow was **rising** pre-fee
+(≈ +4,400 wallets per category per month) and does not fall at onset — per category it runs
+32,664 (−1) → 46,542 (0) → 37,744 (+1). The earlier pooled figures (order size ~\$6.9→\$2.9, new
+wallets 317k→89k) were artifacts: that pooled series sums over a category set that shrinks from nine
+to one as the window widens (the +2/+3 tail is a single high-frequency category, crypto up/down) and
+does not net out the pre-existing downtrend. On the balanced panel the volume/participation response
+is therefore **not identified**, consistent with the near-null elasticity expected for a small
+transaction cost. What is robust is the fee's sharp onset itself (effective rate 0 → ~2% at
+fee-start → ~8% by +1). The welfare case for the fee thus rests on its **incidence and distribution**
+(§5.1, §5.3), not on a participation collapse. *(Sub-RQ 2.)*
 
 ### 5.3 The fee is a transfer to a professional market-making elite that escapes adverse selection
 On the maker side of the archive, 637,314 of 1,214,275 maker wallets (52.5%) are net-negative
@@ -337,8 +346,12 @@ selection: across makers, the size-weighted rate at which their taker counterpar
 strongly negatively correlated with maker PnL (Spearman ≈ −0.58, p≈0). Small/amateur makers
 (bottom volume deciles) face counterparties who win ~55–56% of the time and lose on average; the
 top-volume decile faces winning counterparties only ~43% of the time, earns ~+\$1,061 mean, and
-captures +\$128.8M in aggregate — more than the entire net maker profit, while the middle-volume
-deciles lose. Size-weighted across *all* makers the counterparty win-rate is 0.43 (<0.5): weighted
+captures +\$128.8M in aggregate — more than the entire net maker profit. Maker profitability is
+**non-monotonic in trading volume, with an interior minimum at the upper-middle (7th–9th) volume
+deciles**: these sizable but non-elite makers carry essentially all the aggregate losses
+(−\$24.4M, −\$12.0M, −\$9.9M) and face the most informed counterparties (win-rates 0.51, 0.54, 0.60),
+while only the top decile escapes adverse selection (0.43) and is net profitable. Size-weighted across *all* makers the
+counterparty win-rate is 0.43 (<0.5): weighted
 by the volume that matters, the professional elite escapes adverse selection and the amateurs absorb
 it. Combined with §5.1–5.2 this frames the fee as a regressive transfer — small directional
 takers pay it; it is rebated to makers but captured by the professional, adverse-selection-avoiding
@@ -403,10 +416,11 @@ prior coordination null. These support, but are not, the contribution.
 
 ## 6. Limitations and next steps
 
-- **Causal scope.** The fee event study is confounded with the platform's own growth and with
-  cross-category substitution, so the participation-response *magnitude* is an association; the
-  incidence and composition results do not depend on the causal design. A placebo / synthetic-control
-  design (below) sharpens the magnitude.
+- **Causal scope.** On a balanced-panel event study with a fee-free pre-trend removed, **no
+  participation/volume response to the fee is identified** (§5.2); the incidence and distribution
+  results (§5.1, §5.3) do not depend on the causal design. A placebo / synthetic-control design
+  (below) would further bound any residual response, but the current reading is a null, not a
+  magnitude to be sharpened.
 - **Behavioral classes.** Market-maker and HFT labels are functional classes inferred from activity;
   public fills do not carry the order/quote lifecycle (Nechepurenko, 2026), so they are behavioral
   types, not identified roles.

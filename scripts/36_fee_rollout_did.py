@@ -11,6 +11,11 @@ with not-yet-treated categories as the implicit control:
   * ORDER SIZE:     median taker order notional (fills grouped to (taker,market,second) orders).
   * TRANSFER:       total taker fees paid (the taker->maker+platform transfer).
 
+Also emits a BALANCED-PANEL event study (categories present at every month in [--bwin-lo,--bwin-hi],
+per-category means, constant composition) and a PRE-TREND slope over the fee-free pre months —
+because the pooled series SUMS over a category set that shrinks with |e| (n_cat_months 9->6->1) and
+so conflates the fee effect with panel composition. Use the balanced panel + pre-trend for inference.
+
 Lead with COMPOSITION + INCIDENCE (volume elasticity is likely ~null). MEMORY-SAFE: archive
 group-bys (file-backed DuckDB, memory_limit 3GB, spill); launch inside systemd-run -p MemoryMax.
 
@@ -39,6 +44,8 @@ def main() -> int:
     ap.add_argument("--out", default="docs/fee_rollout_did.json")
     ap.add_argument("--memory-limit", default="3GB")
     ap.add_argument("--fee-start-thresh", type=float, default=0.2, help="fee%% of notional marking a category as 'treated'")
+    ap.add_argument("--bwin-lo", type=int, default=-3, help="balanced-panel event window low bound (months rel. fee-start)")
+    ap.add_argument("--bwin-hi", type=int, default=1, help="balanced-panel event window high bound")
     args = ap.parse_args()
 
     tmp = _cfg.DATA_DIR / "_s36_tmp"; import shutil; shutil.rmtree(tmp, ignore_errors=True); tmp.mkdir(parents=True)
@@ -120,6 +127,72 @@ def main() -> int:
             "notional_wt_med_order": sum(x["med_order"]*x["notional"] for x in rows)/tot_notional,
             "total_taker_fee": sum(x["fee"] for x in rows)})
 
+    # ---- BALANCED PANEL + PER-CATEGORY GRID + PRE-TREND (fix the changing-panel artifact) ----
+    # The pooled event_study above SUMS over a category set that shrinks with |e| (n_cat_months
+    # 9 -> 6 -> 1), so sum_new_wallets / sum_wallets and the pooled median mix a treatment effect
+    # with panel composition. Below: (1) the full per-(cls,e) grid; (2) a BALANCED panel over the
+    # categories present at EVERY month in [bwin_lo, bwin_hi] (constant composition, per-category
+    # means); (3) a PRE-TREND slope over the fee-free pre months, to separate pre-existing drift.
+    ev_by_cls = {}
+    for r in P:
+        cls = r["cls"]
+        if cls not in fee_start:
+            continue
+        e = midx(r["ym"]) - midx(fee_start[cls])
+        if -6 <= e <= 6:
+            ev_by_cls.setdefault(cls, {})[e] = r
+    event_study_per_category = [
+        {"cls": cls, "event_month": e, "fee_pct": ev_by_cls[cls][e]["fee_pct"],
+         "n_wallets": ev_by_cls[cls][e]["n_wallets"], "n_new_wallets": ev_by_cls[cls][e]["n_new_wallets"],
+         "med_order": ev_by_cls[cls][e]["med_order"], "small_share": ev_by_cls[cls][e]["small_share"],
+         "notional": ev_by_cls[cls][e]["notional"], "fee": ev_by_cls[cls][e]["fee"]}
+        for cls in sorted(ev_by_cls) for e in sorted(ev_by_cls[cls])]
+
+    def _balanced(lo, hi):
+        cats = sorted(c for c in ev_by_cls if all(e in ev_by_cls[c] for e in range(lo, hi + 1)))
+        rows = []
+        for e in range(lo, hi + 1):
+            rs = [ev_by_cls[c][e] for c in cats]
+            if not rs:
+                continue
+            tot = sum(x["notional"] for x in rs) or 1
+            rows.append({"event_month": e, "n_cat": len(rs),
+                "mean_fee_pct": sum(x["fee_pct"] or 0 for x in rs) / len(rs),
+                "mean_new_wallets_per_cat": sum(x["n_new_wallets"] for x in rs) / len(rs),
+                "mean_wallets_per_cat": sum(x["n_wallets"] for x in rs) / len(rs),
+                "mean_small_share": sum(x["small_share"] for x in rs) / len(rs),
+                "mean_med_order": sum(x["med_order"] for x in rs) / len(rs),  # equal-weight (balanced headline)
+                "notional_wt_med_order": sum(x["med_order"] * x["notional"] for x in rs) / tot})
+        return {"window": [lo, hi], "categories": cats, "n_categories": len(cats), "by_event_month": rows}
+
+    balanced = _balanced(args.bwin_lo, args.bwin_hi)
+
+    def _slope(pairs):
+        n = len(pairs)
+        if n < 3:
+            return None
+        sx = sum(x for x, _ in pairs); sy = sum(y for _, y in pairs)
+        sxx = sum(x * x for x, _ in pairs); sxy = sum(x * y for x, y in pairs)
+        den = n * sxx - sx * sx
+        return (n * sxy - sx * sy) / den if den else None
+
+    balcats = set(balanced["categories"])
+    pre_order, pre_neww = [], []
+    for e in range(-6, 0):
+        rs = [ev_by_cls[c][e] for c in balcats if e in ev_by_cls[c]]
+        if not rs:
+            continue
+        tot = sum(x["notional"] for x in rs) or 1
+        pre_order.append((e, sum(x["med_order"] * x["notional"] for x in rs) / tot))
+        pre_neww.append((e, sum(x["n_new_wallets"] for x in rs) / len(rs)))
+    pretrend = {"pre_window": [-6, -1], "on_balanced_categories": sorted(balcats),
+        "med_order_slope_per_month": _slope(pre_order),
+        "mean_new_wallets_per_cat_slope_per_month": _slope(pre_neww),
+        "med_order_pre_series": pre_order, "new_wallets_per_cat_pre_series": pre_neww,
+        "note": "Slopes over the fee-free pre months. A negative med_order slope pre-treatment is a "
+                "downward pre-trend that a naive pre-vs-post comparison misattributes to the fee; read the "
+                "post-fee effect as the deviation from this trend, on the balanced panel."}
+
     # incidence by order-size decile (pooled, treated-category post-fee orders)
     treated_cls = list(fee_start)
     inc = []
@@ -136,8 +209,16 @@ def main() -> int:
     rep = {"scope": "v1 archive staggered fee rollout — event-study DiD (participation/incidence/transfer)",
            "fee_start_by_class": fee_start, "n_treated_classes": len(fee_start),
            "event_study_relative_to_fee_start": event_study,
+           "event_study_per_category": event_study_per_category,
+           "event_study_balanced": balanced,
+           "pretrend_diagnostic": pretrend,
            "incidence_by_order_size_decile_posttreat": inc,
-           "caveats": ["Fee-start derived from data (first month fee%>=thresh); confounds: crypto-vol regime, "
+           "caveats": ["POOLED event_study_relative_to_fee_start SUMS over a category set that shrinks with |e| "
+                       "(n_cat_months 9->6->1): sum_new_wallets / sum_wallets and the pooled median mix a treatment "
+                       "effect with panel composition, so the raw 317k->89k / $6.9->$2.9 trajectories overstate the "
+                       "fee response. Use event_study_balanced (constant category set, per-category means) and "
+                       "pretrend_diagnostic for inference; the pooled series is kept for continuity only.",
+                       "Fee-start derived from data (first month fee%>=thresh); confounds: crypto-vol regime, "
                        "sports seasonality, platform growth, cross-category substitution — needs placebo/parallel-"
                        "trends robustness. Lead with composition+incidence (volume elasticity likely ~null).",
                        "Order = fills grouped to (taker,market,second,direction). Realised, descriptive."]}
@@ -148,6 +229,13 @@ def main() -> int:
     for r in event_study:
         print(f"  e={r['event_month']:+d}  fee%={r['mean_fee_pct']:.2f}  new_W={r['sum_new_wallets']:>8,}  "
               f"small={r['mean_small_share']*100:5.1f}%  med_order={r['notional_wt_med_order']:.2f}  fee={r['total_taker_fee']:,.0f}")
+    print(f"BALANCED PANEL {balanced['window']} on {balanced['n_categories']} categories "
+          f"{balanced['categories']} (constant composition, per-category means):")
+    for r in balanced["by_event_month"]:
+        print(f"  e={r['event_month']:+d}  fee%={r['mean_fee_pct']:.2f}  new_W/cat={r['mean_new_wallets_per_cat']:>8,.0f}  "
+              f"mean_med_order={r['mean_med_order']:.2f}")
+    print(f"PRE-TREND (fee-free) med_order slope/mo = {pretrend['med_order_slope_per_month']}  "
+          f"new_W/cat slope/mo = {pretrend['mean_new_wallets_per_cat_slope_per_month']}")
     con.close(); shutil.rmtree(tmp, ignore_errors=True)
     return 0
 
