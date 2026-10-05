@@ -1,0 +1,108 @@
+{
+ "gate": "Gate-1 fee-field audit",
+ "date": "2026-10-05",
+ "status": "PASS",
+ "v2_ground_truth": {
+  "formula": "fee = feeRate*p*(1-p)*size",
+  "feeRate_confirmed": 0.07,
+  "median_fee_over_p1mp_size": 0.06999,
+  "frac_v2_orders_over_7pct": 0.0016,
+  "note": "v2 on-chain fee matches documented formula; incidence = feeRate*(1-p) <= 7%"
+ },
+ "archive_fee_usdc_defect": {
+  "faithful_to_onchain_fee": false,
+  "implied_law": "fee/share = feeRate*min(1,(1-p)/p), feeRate=0.10 (taker_base_fee=1000 bps)",
+  "frac_2026_rows_over_7pct": 0.7475,
+  "total_2026_fee_usdc_usd_est": 622319492,
+  "actual_fees_collected_ref_usd": "~131-150M (Kober / our v2)",
+  "aggregation_is_double_count": false,
+  "note": "every maker leg carries its own fee (avg frac legs-with-fee=1.000); SUM over legs is legit; defect is the field values themselves"
+ },
+ "reconstruction": {
+  "method": "fee = (taker_base_fee/1e4)*(1-price)*usdc_amount  [= feeRate*p*(1-p)*shares]",
+  "sample_buckets": "22/32",
+  "sample_orders": 151488948,
+  "rate_used_bps": 1000,
+  "incidence_by_order_size_decile": [
+   {
+    "decile": 1,
+    "notional_lo": 0.0,
+    "n": 15260809,
+    "fee_pct_reconstructed": 8.806,
+    "fee_pct_raw_fee_usdc": 497.71
+   },
+   {
+    "decile": 2,
+    "notional_lo": 0.2251,
+    "n": 14957158,
+    "fee_pct_reconstructed": 7.937,
+    "fee_pct_raw_fee_usdc": 155.05
+   },
+   {
+    "decile": 3,
+    "notional_lo": 0.7384,
+    "n": 15300336,
+    "fee_pct_reconstructed": 6.485,
+    "fee_pct_raw_fee_usdc": 75.69
+   },
+   {
+    "decile": 4,
+    "notional_lo": 1.3375,
+    "n": 14877455,
+    "fee_pct_reconstructed": 6.047,
+    "fee_pct_raw_fee_usdc": 51.23
+   },
+   {
+    "decile": 5,
+    "notional_lo": 2.1989,
+    "n": 15380279,
+    "fee_pct_reconstructed": 5.384,
+    "fee_pct_raw_fee_usdc": 33.93
+   },
+   {
+    "decile": 6,
+    "notional_lo": 3.2693,
+    "n": 14886067,
+    "fee_pct_reconstructed": 4.652,
+    "fee_pct_raw_fee_usdc": 27.01
+   },
+   {
+    "decile": 7,
+    "notional_lo": 4.8871,
+    "n": 15334979,
+    "fee_pct_reconstructed": 4.475,
+    "fee_pct_raw_fee_usdc": 24.9
+   },
+   {
+    "decile": 8,
+    "notional_lo": 7.7259,
+    "n": 15209644,
+    "fee_pct_reconstructed": 4.206,
+    "fee_pct_raw_fee_usdc": 21.23
+   },
+   {
+    "decile": 9,
+    "notional_lo": 13.5825,
+    "n": 15204081,
+    "fee_pct_reconstructed": 3.828,
+    "fee_pct_raw_fee_usdc": 17.25
+   },
+   {
+    "decile": 10,
+    "notional_lo": 31.4689,
+    "n": 15078140,
+    "fee_pct_reconstructed": 2.257,
+    "fee_pct_raw_fee_usdc": 7.76
+   }
+  ],
+  "overall_incidence_reconstructed_pct": 2.628,
+  "overall_incidence_raw_fee_usdc_pct": 10.95,
+  "conformance_all_deciles_le_rate": true,
+  "regressive": true,
+  "rate_caveat": "archive declares 10% (1000 bps); v2-confirmed rate is 7%; if v1-era rate was 7%, scale levels by ~0.7"
+ },
+ "timing_validation": {
+  "method": "per-category fee-start from taker_base_fee rate vs fee_usdc%>=0.2",
+  "finding": "rate field is cleaner/more complete; correctly shows geopolitics/politics as fee-exempt; major treated categories (crypto Jan, others Mar-Apr) agree within +-1 month; participation null (report 5.2) depends only on timing and is unaffected"
+ }
+}

@@ -1,6 +1,6 @@
 # Research Plan — Technical Report
 
-*Taxing liquidity on a decentralized prediction market: incidence, participation response, and who captures the maker subsidy*
+*Taxing liquidity on a decentralized prediction market: who pays the fee and who captures the maker subsidy*
 
 Draft technical report laying the foundations for one or more Q1 submissions in DeFi / Information
 Systems venues (e.g., *Information Systems Research*, *Journal of Management Information Systems*,
@@ -27,7 +27,10 @@ A cluster of 2025–2026 studies has established the market's first-order facts:
   (top 1% of positive-PnL users ≈ 76.5% of profits; ≈69% of users end negative) and that
   liquidity provision (posting limit/maker orders) is the single strongest predictor of
   finishing profitable (≈ +9 percentage points per standard-deviation increase in maker-volume
-  share).
+  share). Their sample ends on 29 March 2026, the day before Polymarket introduced fees on all
+  markets, deliberately stopping there because the fee "materially changes the economics of
+  trading" — so their account is the definitive statement of the *pre-fee* distribution and leaves
+  the fee-and-rebate era untouched.
 - **Skill vs. luck.** Gómez-Cram et al. (2026, SSRN 6617059), on ~1.72M accounts, use a
   sign-randomization test (repeatedly shuffle each account's buy/sell directions and compare
   actual profit to the resulting null distribution) and conclude that ~3% of accounts are
@@ -47,26 +50,32 @@ A cluster of 2025–2026 studies has established the market's first-order facts:
   gaps (insider timing, coordination, MEV, replay).
 
 ### 1.2 The gap
-The literature above answers *who profits* and *whether skill exists*. It does not address the
-economic event that most directly shapes those outcomes going forward: Polymarket's introduction
-of a trading fee. Specifically, three questions are untouched by all of the work in §1.1:
+The literature above answers *who profits* and *whether skill exists* — and it answers them for the
+*pre-fee* market, because the definitive who-wins study stops on the eve of the fee. It does not
+address the economic event that most directly reshapes those outcomes: Polymarket's introduction of
+a trading fee. Two questions about that event are untouched by all of the work in §1.1.
 
-1. **Incidence and behavior of the fee.** No study measures the fee's *incidence* (who bears it,
-   as a share of the value they trade), whether it is *regressive* (falls proportionally more on
-   small traders), or how participants change behavior (order size, entry, exit) after it is
-   introduced. The financial-economics literature has strong analogues — Umlauf (1993) and Colliard
-   & Hoffmann (2017) on securities-transaction taxes, and the SEC tick-size pilot — but none on a
-   prediction market, and only Whelan (working paper) models prediction-market fees theoretically.
-2. **Who captures the maker subsidy.** Polymarket's fee is levied on takers and (partly) rebated to
-   makers. The concurrent papers show *makers win on average* but not which makers capture the
-   rebate, nor the mechanism. Adverse selection — the tendency for a passive liquidity provider
-   to be "picked off" by better-informed counterparties (Glosten & Milgrom, 1985) — is the natural
-   candidate mechanism and has never been measured on this venue.
-3. **Who, structurally, is trading.** Prior work treats wallets as homogeneous users. It never
-   resolves each wallet's on-chain account type — an externally owned account (EOA, a raw
-   private key) versus a smart-contract wallet, and among the latter which *proxy* implementation
-   (Polymarket's own factory proxy vs. a Gnosis Safe) — nor crosses that structural layer with a
-   discrete behavioral-actor classification and profitability.
+1. **Who bears the fee, and is it regressive.** No study measures the fee's *incidence* — who bears
+   it, as a share of the value they trade — or whether it is *regressive*, falling proportionally
+   more on small orders. The financial-economics literature has strong analogues — Umlauf (1993) and
+   Colliard & Hoffmann (2017) on securities-transaction taxes, and the SEC tick-size pilot — but none
+   on a prediction market, and only Whelan (working paper) models prediction-market fees theoretically.
+2. **Who captures the maker subsidy, and who structurally are they.** Polymarket's fee is levied on
+   takers and partly rebated to makers, so its ultimate beneficiaries are whichever makers keep that
+   rebate net of trading losses. The concurrent papers show *makers win on average* but not which
+   makers capture the rebate, nor the mechanism. Adverse selection — the tendency for a passive
+   liquidity provider to be "picked off" by better-informed counterparties (Glosten & Milgrom, 1985) —
+   is the natural candidate mechanism and has never been measured on this venue. Nor does any prior
+   work resolve the beneficiary's on-chain account type — an externally owned account versus a
+   smart-contract wallet, and among the latter which proxy implementation — which puts a concrete
+   structural identity on who ends up capturing the transfer.
+
+A third question — how participants change their behavior after the fee, in order size, entry, and
+exit — is of secondary interest here. It is theoretically ambiguous for a cost this small (a fee can
+both deter marginal flow and prune noise; Cipriani & Guarino, 2008), the market-quality side of it
+is partly addressed by concurrent microstructure work, and the staggered rollout affords too few
+treated categories for a well-powered causal estimate. We therefore examine it descriptively, as
+market context for the two incidence-and-capture questions above, rather than as a headline claim.
 
 ### 1.3 Why this matters for Polymarket (and DePMs broadly)
 A prediction market is only socially useful if its prices aggregate information — which requires
@@ -80,7 +89,7 @@ the entire ledger is on-chain, it is also a rare setting where these distributio
 be answered on the *near-complete population* rather than a sample.
 
 ### 1.4 Research questions
-We pose one main question, decomposed into four sub-questions.
+We pose one main question, decomposed into two sub-questions.
 
 Main RQ — How to measure, from public on-chain data, the incidence and distributional consequences
 of introducing a transaction fee on a decentralized prediction market?
@@ -97,56 +106,48 @@ Colliard & Hoffmann, 2017) measures aggregate liquidity and volume effects but n
 incidence, because it lacks the trader-level, whole-population record that an on-chain venue
 provides. This answer establishes whether the fee is flat or regressive — the fact the rest builds on.
 
-Sub-RQ 2 — What behavioral and participation responses (order size, new-entrant inflow, churn) does
-the fee's introduction induce?
-*Why, and the gap it closes.* A prediction market's social value is its price accuracy, which
-depends on broad participation. If a fee shrinks orders and deters new entrants it erodes the very
-crowd whose flow makes prices informative. Prior prediction-market work (Whelan, working paper)
-models fee effects only theoretically; none observes the response to an actual fee introduction. The
-staggered, per-category rollout is a natural experiment that lets us observe it directly.
-
-Sub-RQ 3 — What distinguishes the liquidity providers who capture the maker subsidy from those who
-lose it, and what role does adverse selection play?
+Sub-RQ 2 — Who captures the maker subsidy the fee funds, through what mechanism, and what is their
+structural identity? Specifically, what distinguishes the liquidity providers who keep the rebate
+from those who lose it, what role does adverse selection play, and what on-chain account type and
+behavioral actor do the beneficiaries correspond to?
 *Why, and the gap it closes.* The fee is levied on takers and partly rebated to makers, so its
-ultimate beneficiaries are whichever makers keep that rebate net of trading losses. Concurrent work
-(Akey et al., 2026; Gómez-Cram et al., 2026) shows makers win *on average* but not *which* makers,
-nor the mechanism. Adverse selection — a passive maker being "picked off" by better-informed
-counterparties (Glosten & Milgrom, 1985) — is the classic candidate mechanism and has never been
-measured on this venue. This answer names the beneficiary of the transfer and explains why.
-
-Sub-RQ 4 — What is the on-chain account-type and behavioral-actor composition of the trader
-population, and how does account type map onto who pays versus who captures?
-*Why, and the gap it closes.* All prior work treats wallets as homogeneous users. None resolves
-each wallet's on-chain account type — an externally owned account (a raw key) versus a
+ultimate beneficiaries are whichever makers keep that rebate net of trading losses. The concurrent
+full-population studies (Akey et al., 2026; Gómez-Cram et al., 2026) establish the *pre-fee* picture —
+makers win *on average*, and liquidity provision is the strongest predictor of profit — but not
+*which* makers keep the fee-funded rebate, nor the mechanism, nor who structurally they are. Adverse
+selection — a passive maker being "picked off" by better-informed counterparties (Glosten & Milgrom,
+1985) — is the classic candidate mechanism and has never been measured on this venue. And no prior
+work resolves the beneficiary's on-chain account type — an externally owned account versus a
 smart-contract wallet, and among the latter which proxy implementation — nor crosses that structural
-layer with a behavioral classification and profitability. This puts a concrete, structural identity
-on the payer and the beneficiary of Sub-RQs 1–3.
+layer with a behavioral classification and profitability. This answer names the beneficiary of the
+transfer, explains why, and attaches a concrete structural identity to it.
 
-Together, the four answers compose the main question. Sub-RQ 1 fixes *what* is charged and *on whom*
-(the incidence); Sub-RQ 2 fixes *how the market responds* to that charge (the behavioral and welfare
-consequence); Sub-RQ 3 follows the money to *who ultimately keeps it* and *why* (the mechanism);
-Sub-RQ 4 attaches a *structural identity* to the payer and the beneficiary. Incidence, plus response,
-plus capture, plus identity is precisely what "the incidence and distributional consequences of
-introducing the fee, measured from public on-chain data" means — so the four sub-answers are jointly
-sufficient for the main RQ.
+Together, the two answers compose the main question. Sub-RQ 1 fixes *what* is charged and *on whom* —
+the incidence. Sub-RQ 2 follows the money to *who ultimately keeps it*, *why*, and *who they are* —
+the mechanism and the distributional consequence, down to a structural identity. Incidence plus
+capture-with-identity is precisely what "the incidence and distributional consequences of introducing
+the fee, measured from public on-chain data" means, so the two sub-answers are jointly sufficient for
+the main RQ. The market's behavioral response to the fee — whether order size and entry fall — is
+examined as context in §5.2, not as a third claim, for the reasons given in §1.2.
 
 ### 1.5 How we answer each (preview)
-- Sub-RQ 1. The staggered per-category fee rollout is used as a natural experiment; fee
-  incidence is computed per taker order and per order-size decile. Result: the fee is steeply
-  regressive — small orders bear multiples of the rate that large orders do (§5.1).
-- Sub-RQ 2. A balanced event study (constant set of categories around each category's own
-  fee-start) measures order size and new-wallet inflow, netting out pre-trends. Result: no
-  participation/volume response is identified — order size follows a pre-existing downtrend and new
-  entry does not fall at fee onset; the earlier "orders halve / entry collapses" figures were
-  panel-composition artifacts (§5.2).
-- Sub-RQ 3. Maker-side realised PnL is decomposed against a counterparty-informedness proxy.
-  Result: most makers lose; a professional/automated elite that escapes adverse selection
-  captures the rebate (§5.3).
-- Sub-RQ 4. Every trader is classified by on-chain contract type (from bytecode/storage) and by
-  behavioral function (from activity timing), then crossed with PnL. Result: a ~97%-proxy
-  population with an onboarding-channel split, in which market-makers and high-frequency automated
-  accounts capture the edge (§5.4) — the economic direction replicates Akey/Gómez-Cram; the
-  *account-type axis* is new to this literature.
+- Sub-RQ 1. Fee incidence is computed per taker order and per order-size decile in the mature-fee
+  regime, with the staggered per-category rollout corroborating the onset. Result: the fee is
+  regressive — the smallest orders bear roughly two to three times the rate of the largest (§5.1).
+- Sub-RQ 2. Maker-side realised PnL is decomposed against a counterparty-informedness proxy, and the
+  beneficiaries are then given a structural identity: every active wallet is classified by on-chain
+  account type (from bytecode and storage) and by behavioral function (from activity timing) and
+  crossed with capture. Result: most makers lose, and a professional, largely automated elite that
+  escapes adverse selection captures the rebate; account type resolves to an onboarding channel, not
+  a skill axis (§5.3–§5.4). The economic direction replicates Akey and Gómez-Cram; the
+  adverse-selection mechanism and the account-type identity are new to this literature.
+
+The market's behavioral response to the fee is reported as context, not as a research claim: a
+balanced event study holding category composition constant around each category's own fee-start
+measures order size and new-wallet inflow, netting out pre-trends, and finds no participation or
+volume response attributable to the fee — order size follows a pre-existing downtrend and new entry
+does not fall at onset; the earlier "orders halve / entry collapses" figures were panel-composition
+artifacts (§5.2).
 
 ---
 
@@ -165,8 +166,7 @@ it as descriptive, never as certified skill.
 **2.2 Maker vs. taker and the fee.** On each on-chain `OrderFilled` event we identify the *maker*
 (resting-order owner) and *taker* (aggressor). The fee (in the platform's 6-decimal USD unit)
 is charged once per taker order and recorded on the taker-order record; we therefore read fee
-incidence from those records and PnL from the maker-fill records, a distinction established and
-validated in the project audit (`docs/audit_2026-09-05.md`).
+incidence from those records and PnL from the maker-fill records.
 
 **2.3 The fee rollout as a natural experiment.** Fees were introduced staggered by market
 category over early 2026. We *recover* each category's fee-start month from the data (the first
@@ -178,10 +178,11 @@ units to the change in not-yet-treated units).
 **2.4 Fee incidence and regressivity.** Incidence = fee paid ÷ notional traded, reported per
 order-size decile. "Regressive" means the rate is *higher* for smaller orders.
 
-**2.5 Adverse selection.** A passive maker is *adversely selected* when it disproportionately
-trades against counterparties who turn out to be right. We proxy each maker's exposure by the
-size-weighted rate at which its taker counterparties' directional bets won, and relate it to the
-maker's PnL by Spearman rank correlation (a correlation robust to non-linearity and outliers).
+**2.5 Adverse selection.** A passive maker is *adversely selected* when the price moves against it
+right after it fills — informed flow picking it off. We measure this with an identified signed
+post-fill *markout*: for each maker fill, the token's forward price minus the fill price, signed by
+the maker's side, so a negative markout is adverse selection (Glosten & Harris, 1988; Dubach, 2026).
+We report it over horizons from 60 s to one day and by maker-volume decile.
 
 **2.6 Skill test (supporting).** To separate skill from luck we use a sign-randomization
 (permutation) test: holding each wallet's positions, prices and outcomes fixed, we randomly flip
@@ -244,16 +245,20 @@ differentiator of this work is therefore not data coverage but the fee lens and 
 account-type classification applied to that population.
 
 **3.3 Known data caveats (carried into every result).**
-- **Taker-side tail (v1 feed only).** Some legacy per-wallet statistics derive from a taker-side
-  4,000-fill API tail; all population results here instead use the complete archive/tape, removing
-  that bias. The earlier "no skilled cohort" finding was an artifact of that tail and is corrected.
-- **Chunk overlap (v2).** The resumable crawl can duplicate a fill across overlapping files; all v2
-  aggregates deduplicate on (tx-hash, event-index). Undeduplicated PnL was ~6–8% inflated; corrected.
+- **Taker-side tail (v1 feed only).** All population results use the complete archive and tape, not
+  the taker-side 4,000-fill API tail, so wallet-level statistics are not subject to that sampling bias.
+- **Chunk overlap (v2).** The resumable crawl can duplicate a fill across overlapping files, so all v2
+  aggregates deduplicate on (tx-hash, event-index).
 - **Fee location.** The taker fee lives on `is_taker_order = TRUE` records, not the maker-fill rows;
-  net-of-fee PnL uses the former (audit §1, §8).
+  net-of-fee PnL uses the former.
 - **Survivorship / outcome-dependence** (§2.1) applies throughout; results are descriptive.
-- **Fees vs. eras.** v1 is ~fee-free (gross ≈ net); v2 carries a ~1.17% effective taker fee, so
-  cross-era PnL comparisons use v2 net of fees.
+- **Fees vs. eras.** The v1 window is fee-free until the early-2026 rollout (gross ≈ net for its
+  2022–2025 bulk); v2 carries a ~1.17% effective taker fee, so cross-era PnL comparisons use v2 net of
+  fees.
+- **Fee source.** The v1 archive's per-row fee column does not follow the on-chain fee formula, so fee
+  levels are taken from the v2 on-chain fee (which matches the documented `feeRate·p·(1−p)·size`); the
+  archive-era fee is reconstructed from the documented formula and the per-category rate, and the
+  archive's rate field dates the staggered rollout.
 
 ---
 
@@ -273,7 +278,7 @@ dimension by dimension, so the gap the research questions address is visible dir
 | Whelan (working paper) | theory | ✗ | ✗ | ✔ maker/taker economics | ✔ theory only (no on-chain incidence) | partial (theory) | ✗ | ✗ |
 | Qin & Yang (2026, arXiv 2606.04217) | ✔ (dataset) | ✗ | ✗ | ✔ (aggressor direction) | ✗ | ✗ | ✗ | ✗ |
 | Rahman et al. (2025, arXiv 2510.15612) | SoK | — | — | — | lists as open | lists as open | ✗ | ✗ |
-| This work | ✔ full (both eras) | ✔ (replicates) | ✔ (reconciles) | ✔ | ✔ empirical, staggered DiD | ✔ AS mechanism, −0.58; who captures | ✔ EOA/Safe/proxy/custom | ✔ MM/HFT/active/retail (heuristic) |
+| This work | ✔ full (both eras) | ✔ (replicates) | ✔ (reconciles) | ✔ | ✔ incidence (empirical); behavior null (context) | ✔ identified markout: makers +, spread capture, no fill-time AS; who captures | ✔ EOA/Safe/proxy/custom | ✔ MM/HFT/active/retail (heuristic) |
 
 (✔ = addressed; partial = touched but not the focus; ✗ = not addressed.)
 
@@ -289,14 +294,15 @@ dimension by dimension, so the gap the research questions address is visible dir
   account-*type* taxonomy.
 
 ### 4.3 The gap the RQs address
-Two columns of the matrix are empty across the entire literature: *fee incidence / behavior*
-and *maker-subsidy capture / adverse selection*; a third, *on-chain account type*, is empty as a
-research taxonomy (it exists only as documented product infrastructure — Polymarket's
-`signature_type`). These three empty columns are precisely Sub-RQs 1–2 (fee), 3 (subsidy / adverse
-selection), and 4 (account type). Conversely, the *who-wins / concentration / skill / maker-vs-taker*
-columns are filled — so we treat those results as a replication backdrop, cited to Akey and
-Gómez-Cram, never as our contribution. The lead contribution is therefore the fee experiment and the
-maker-subsidy mechanism, with the account-type axis as the novel supporting layer.
+Two columns of the matrix are empty across the entire literature: *fee incidence / behavior* and
+*maker-subsidy capture / adverse selection*; a third, *on-chain account type*, is empty as a research
+taxonomy — it exists only as documented product infrastructure, Polymarket's `signature_type`. The
+first empty column is Sub-RQ 1 (the incidence of the fee). The second and third together are Sub-RQ 2
+(who captures the fee-funded subsidy and the on-chain account-type identity of the beneficiary). Conversely, the *who-wins / concentration / skill / maker-vs-taker*
+columns are filled — and filled specifically for the pre-fee market, since the definitive who-wins
+study ends on the eve of the fee — so we treat those results as a replication backdrop, cited to Akey
+and Gómez-Cram, never as our contribution. The lead contribution is therefore the fee experiment and
+the maker-subsidy mechanism, with the account-type identity as the structural layer within it.
 
 ---
 
@@ -304,62 +310,69 @@ maker-subsidy mechanism, with the account-type axis as the novel supporting laye
 
 All figures are computed on the full datasets described in §3.
 
-### 5.1 A steeply regressive fee: the smallest orders bear the highest rates
-Reading incidence per taker-order-size decile in the mature (v2) regime, the effective fee
-declines from ~2.7–3.2% of notional on the smallest orders to ~1.0% on the largest
-(`fee_behavioral.json`) — a broadly declining gradient (deciles 1–4 sit at 2.7–3.2%, decile 10 at
-1.0%), not strictly monotone through the middle deciles. The archive rollout's per-order incidence
-shows the same steep decline, from an implausible ~514% on the smallest sub-dollar orders (a
-fixed-minimum-fee artifact on dust — we read the *gradient*, never these levels) down to ~8.8%
-on the largest. In the staggered rollout, on a balanced set of
-categories each category's effective fee jumps from ≈0% pre-start to ~2–3% in its fee-start month and
-~8% a month later (`fee_rollout_did.json`, `event_study_balanced`); a higher ~12% tail reflects one
-early-treated category, not the average. Over the mature-fee window (Apr–Aug 2026) the platform
-collected ≈\$149.5M in taker fees
-(`v2_platform.json`). The fee is thus real, sharp at introduction, and regressive — it taxes
-small, price-taking flow proportionally hardest. *(Sub-RQ 1.)*
+### 5.1 A regressive fee: the smallest orders bear the highest rates
+Reading incidence per taker-order-size decile in the mature (v2) regime, the effective fee declines
+from ~2.7–3.2% of notional on the smallest orders to ~1.0% on the largest (`fee_behavioral.json`) — a
+broadly declining gradient, with deciles 1–4 at 2.7–3.2% and decile 10 at 1.0%, not strictly monotone
+through the middle deciles. This is the fee the documented formula implies, and the v2 tape confirms
+it to the basis point: the on-chain taker fee equals `feeRate · p · (1−p) · size` with `feeRate ≈ 0.07`
+(the median of `fee ÷ [p·(1−p)·size]` over v2 taker orders is 0.0700), so fee-over-notional equals
+`feeRate · (1−p)`, is bounded by the headline rate, and falls as larger orders execute at prices
+closer to the extremes — the smallest, price-taking orders bear the highest rate. Fewer than 0.2% of
+v2 taker orders exceed the ceiling (rounding and wrapped-collateral edges). The taker rate varies by
+category — 7% on crypto, 5% on sports, economics, culture, weather and other, 4% on finance, politics,
+tech and mentions, and zero on geopolitics — so the gradient is a blend of category rates.
+Reconstructed from the documented formula and the per-category rate, the v1-era staggered rollout
+reproduces the same regressive gradient across both eras. Over the mature-fee window (Apr–Aug 2026) the
+platform collected ≈\$149.5M in taker fees (`v2_platform.json`). The fee is thus real, sharp at
+introduction, and regressive — it taxes small, price-taking flow proportionally hardest. *(Sub-RQ 1.)*
 
-### 5.2 No participation response is identified once pre-trends are removed
+### 5.2 Market context: no participation response is identified once pre-trends are removed
 A balanced event study — the six market categories present at every month of a [−3, +1] window
 around each category's own fee-start, compared at constant composition (`fee_rollout_did.json`,
 `event_study_balanced`) — finds no participation response attributable to the fee. Median taker
 order size was **already falling before any fee** (pre-fee slope ≈ −\$0.51/month); across the window
 the per-category mean runs 5.68 → 5.96 → 4.42 → 3.85 → 3.61, and the decline at fee onset does not
 exceed that pre-trend (−\$0.57 from month −1 to 0 against a −\$0.51 trend) and in fact *decelerates*
-as the fee ramps to ~8% (−\$0.24 from 0 to +1). New-entrant inflow was **rising** pre-fee
+as the fee ramps up (−\$0.24 from 0 to +1). New-entrant inflow was **rising** pre-fee
 (≈ +4,400 wallets per category per month) and does not fall at onset — per category it runs
-32,664 (−1) → 46,542 (0) → 37,744 (+1). The earlier pooled figures (order size ~\$6.9→\$2.9, new
-wallets 317k→89k) were artifacts: that pooled series sums over a category set that shrinks from nine
-to one as the window widens (the +2/+3 tail is a single high-frequency category, crypto up/down) and
-does not net out the pre-existing downtrend. On the balanced panel the volume/participation response
+32,664 (−1) → 46,542 (0) → 37,744 (+1). On the balanced panel the volume/participation response
 is therefore **not identified**, consistent with the near-null elasticity expected for a small
-transaction cost. What is robust is the fee's sharp onset itself (effective rate 0 → ~2% at
-fee-start → ~8% by +1). The welfare case for the fee thus rests on its **incidence and distribution**
-(§5.1, §5.3), not on a participation collapse. *(Sub-RQ 2.)*
+transaction cost. What is robust is the fee's sharp onset itself — the effective rate rises from
+zero before fee-start to a positive, climbing level as the schedule ramps. The welfare case for the
+fee thus rests on its **incidence and distribution**
+(§5.1, §5.3–§5.4), not on a participation collapse. *(Market context; see §1.2.)*
 
-### 5.3 The fee is a transfer to a professional market-making elite that escapes adverse selection
-On the maker side of the archive, 637,314 of 1,214,275 maker wallets (52.5%) are net-negative
-(`maker_economics.json`) — just over half of all liquidity providers *lose* — and positive maker
-PnL is hyper-concentrated (Gini ≈ 0.95; the top 1% of winning makers take ~69%). Yet makers as a
-class net +\$86.0M, the exact mirror of the takers' −\$86.1M. The split is driven by adverse
-selection: across makers, the size-weighted rate at which their taker counterparties' bets won is
-strongly negatively correlated with maker PnL (Spearman ≈ −0.58, p≈0). Small/amateur makers
-(bottom volume deciles) face counterparties who win ~55–56% of the time and lose on average; the
-top-volume decile faces winning counterparties only ~43% of the time, earns ~+\$1,061 mean, and
-captures +\$128.8M in aggregate — more than the entire net maker profit. Maker profitability is
-**non-monotonic in trading volume, with an interior minimum at the upper-middle (7th–9th) volume
-deciles**: these sizable but non-elite makers carry essentially all the aggregate losses
-(−\$24.4M, −\$12.0M, −\$9.9M) and face the most informed counterparties (win-rates 0.51, 0.54, 0.60),
-while only the top decile escapes adverse selection (0.43) and is net profitable. Size-weighted across *all* makers the
-counterparty win-rate is 0.43 (<0.5): weighted
-by the volume that matters, the professional elite escapes adverse selection and the amateurs absorb
-it. Combined with §5.1–5.2 this frames the fee as a regressive transfer — small directional
-takers pay it; it is rebated to makers but captured by the professional, adverse-selection-avoiding
-minority, not the amateur LPs. The *direction* (liquidity provision captures the edge) replicates
-Akey and Gómez-Cram; the adverse-selection mechanism and the within-maker heterogeneity are the new
-elements. *(Sub-RQ 3.)*
+### 5.3 The fee is a transfer to high-volume makers, who capture the spread — not by avoiding adverse selection
+On the maker side of the archive, 637,314 of 1,214,275 maker wallets (52.5%) are net-negative in
+realised PnL (`maker_economics.json`) — just over half of all liquidity providers *lose* — and
+positive maker PnL is hyper-concentrated (Gini ≈ 0.95; the top 1% of winning makers take ~69%).
+Makers as a class net +\$86.0M, the exact mirror of the takers' −\$86.1M, and the surplus sits in the
+top volume decile (~+\$1,061 mean, +\$128.8M aggregate — more than the entire net maker profit), while
+the upper-middle (7th–9th) volume deciles carry essentially all the aggregate losses (−\$24.4M,
+−\$12.0M, −\$9.9M). Realised maker profit is thus non-monotonic in volume and concentrated in the
+largest makers.
 
-### 5.4 Who trades: an on-chain account map and the actors who capture the edge
+The *mechanism* for that edge is spread capture. An identified signed post-fill markout on the mature
+(v2) tape — for each maker fill, the token's forward price minus the fill price, signed by the maker's
+side, across 42M maker fills — is **positive at every horizon from 60 s to one day** (dollar-weighted
++0.002 to +0.006 per share): makers systematically earn the post-fill move, capturing the spread rather
+than being picked off by informed flow. The maker edge is thus not adverse-selection avoidance; across
+makers the correlation of volume with markout is ≈ 0, and the only trace of adverse selection is a
+transient effect on the smallest makers at the 60-second horizon that reverts within five minutes. The
+realised-PnL dispersion among makers is therefore not driven by fill-time picking-off — the execution
+component is favourable across the maker population — but by position and inventory selection and the
+eventual outcome.
+
+Combined with §5.1–§5.2 this frames the fee as a regressive transfer whose proceeds, together with the
+bid-ask spread, flow from price-taking takers to the high-volume makers who capture them. The
+fee-funded rebate is allocated by Polymarket's published rule in proportion to the fee value each
+maker's liquidity generates, so it accrues to these same high-volume makers. The *direction* —
+liquidity provision earns the edge — replicates Akey and Gómez-Cram; the new element is the identified
+markout showing the maker edge is spread capture, with adverse selection only a negligible, transient,
+small-maker effect. *(Sub-RQ 2, capture and mechanism.)*
+
+### 5.4 Who captures, structurally: the on-chain account map and the actors behind the edge
 **Account type.** Resolving on-chain contract types on an activity- and PnL-stratified classified
 sample (n≈27,111) shows the population is ~97% smart-contract proxy wallets, split by onboarding
 channel: ~74.5% Gnosis Safe (browser-wallet users, `signature_type` 2), ~21% Polymarket factory
@@ -392,12 +405,12 @@ concurrent papers, and, because public fills do not carry the order/quote lifecy
 new-to-the-literature contribution is the on-chain account-type axis and its crossing with function
 and PnL — most EOAs behave as retail (~62%), with a minority (~6% of the HFT class, ~1.8×
 over-represented) automated, so account type maps to *onboarding channel*, not cleanly to
-bot-vs-human. *(Sub-RQ 4.)*
+bot-vs-human. *(Sub-RQ 2, structural identity.)*
 
 ### 5.5 Supporting / replicated backdrop (cited, not claimed as novel)
 For completeness and to situate §5.1–5.4: takers lose −\$86.1M in the ~fee-free v1 era; in the
 fee era they are gross-positive (+\$20.0M) but −\$129.5M net — the ~1.17% taker fee (≈\$149.5M)
-is the entire loss channel and then some, so the loss mechanism *shifts* from adverse selection (v1)
+is the entire loss channel and then some, so the loss mechanism *shifts* from the maker spread (v1)
 to the fee (v2). Winnings are hyper-concentrated (Gini ≈ 0.95; the top 1% of winning wallets take
 ~70% of all winnings) — replicating Akey. On skill, a full-population sign-randomization test
 yields ~4.3% certifiably skilled after Benjamini–Hochberg correction (7.1% uncorrected) — the
@@ -414,23 +427,26 @@ prior coordination null. These support, but are not, the contribution.
 
 ---
 
-## 6. Limitations and next steps
+## 6. Limitations
 
-- **Causal scope.** On a balanced-panel event study with a fee-free pre-trend removed, **no
-  participation/volume response to the fee is identified** (§5.2); the incidence and distribution
-  results (§5.1, §5.3) do not depend on the causal design. A placebo / synthetic-control design
-  (below) would further bound any residual response, but the current reading is a null, not a
-  magnitude to be sharpened.
-- **Behavioral classes.** Market-maker and HFT labels are functional classes inferred from activity;
-  public fills do not carry the order/quote lifecycle (Nechepurenko, 2026), so they are behavioral
-  types, not identified roles.
-- **Descriptive PnL.** All profit-and-loss is realised and outcome-dependent (subject to
-  survivorship); it measures realised performance, not risk-adjusted skill.
-- **Next analyses.** (a) A formal difference-in-differences with placebo categories and a synthetic
-  control for the participation response; (b) a spread / adverse-selection decomposition of maker PnL
-  where the order lifecycle can be reconstructed; (c) proxy→owner resolution (Gnosis Safe owners /
-  factory owner) to test entity-level concentration directly; (d) net-of-fee incidence by account
-  type, closing the link between the fee and account structure.
+- **Participation response.** The event study holds category composition constant and removes the
+  fee-free pre-trend; on that basis no participation or volume response to the fee is identified. The
+  rollout affords only about nine treated categories, too few for cluster-robust inference, so this is
+  an underpowered null, not a demonstrated absence of effect, and the incidence and capture results do
+  not depend on it.
+- **Descriptive, outcome-dependent PnL.** All profit-and-loss is realised against the resolved outcome
+  and subject to survivorship; it measures realised performance, not risk-adjusted skill. The
+  dispersion in realised PnL among makers reflects position and inventory selection and the eventual
+  outcome, not the fill-time execution component, which is favourable across the maker population (§5.3).
+- **Behavioral classes and account type.** Market-maker and HFT labels are functional classes inferred
+  from public fill activity, which does not carry the order/quote lifecycle (Nechepurenko, 2026), so
+  they are behavioral types, not identified roles. On-chain account type resolves an onboarding and
+  infrastructure channel, not a beneficial owner or human-versus-bot status.
+- **Rebate capture is argued from the published rule.** The maker rebate is allocated by Polymarket's
+  published fee-curve rule in proportion to the fee value each maker's liquidity generates, so it
+  accrues to the high-volume makers shown here to capture the spread (§5.3–§5.4). This is an inference
+  from the published rule and the measured concentration of the maker edge, not a recipient-level
+  accounting of the rebate distribution.
 
 ## References
 - Akey, P., Grégoire, V., et al. (2026). *Who Wins and Who Loses in Prediction Markets? Evidence
@@ -460,3 +476,57 @@ prior coordination null. These support, but are not, the contribution.
   Security.
 - Barber, B. M., & Odean, T. (2000). *Trading Is Hazardous to Your Wealth.* Journal of Finance 55(2),
   773–806.
+
+*Make/take fees and trading costs.*
+- Malinova, K., & Park, A. (2015). *Subsidizing Liquidity: The Impact of Make/Take Fees on Market
+  Quality.* Journal of Finance 70(2), 509–536.
+- Colliard, J.-E., & Foucault, T. (2012). *Trading Fees and Efficiency in Limit Order Markets.* Review
+  of Financial Studies 25(11), 3389–3421.
+- Foucault, T., Kadan, O., & Kandel, E. (2013). *Liquidity Cycles and Make/Take Fees in Electronic
+  Markets.* Journal of Finance 68(1), 299–341.
+- Angel, J. J., Harris, L. E., & Spatt, C. S. (2011). *Equity Trading in the 21st Century.* Quarterly
+  Journal of Finance 1(1), 1–53.
+- Galati, L. (2024). *Exchange fees, maker rebates, and the distribution of trading gains.* Working
+  paper.
+- Polymarket (2026). *Trading Fees* and *Maker Rebates Program.* Polymarket Help Center.
+
+*Adverse selection and spread decomposition.*
+- Kyle, A. S. (1985). *Continuous Auctions and Insider Trading.* Econometrica 53(6), 1315–1335.
+- Glosten, L. R., & Harris, L. E. (1988). *Estimating the Components of the Bid/Ask Spread.* Journal of
+  Financial Economics 21(1), 123–142.
+- Huang, R. D., & Stoll, H. R. (1997). *The Components of the Bid-Ask Spread: A General Approach.*
+  Review of Financial Studies 10(4), 995–1034.
+- Lee, C. M. C., & Ready, M. J. (1991). *Inferring Trade Direction from Intraday Data.* Journal of
+  Finance 46(2), 733–746.
+- Easley, D., López de Prado, M. M., & O'Hara, M. (2012). *Flow Toxicity and Liquidity in a
+  High-Frequency World.* Review of Financial Studies 25(5), 1457–1493.
+
+*Information aggregation under trading costs.*
+- Cipriani, M., & Guarino, A. (2008). *Transaction Costs and Informational Cascades in Financial
+  Markets.* Journal of Economic Behavior & Organization 68(3–4), 581–592.
+- Avery, C., & Zemsky, P. (1998). *Multidimensional Uncertainty and Herd Behavior in Financial
+  Markets.* American Economic Review 88(4), 724–748.
+
+*Staggered difference-in-differences methods.*
+- Callaway, B., & Sant'Anna, P. H. C. (2021). *Difference-in-Differences with Multiple Time Periods.*
+  Journal of Econometrics 225(2), 200–230.
+- Sun, L., & Abraham, S. (2021). *Estimating Dynamic Treatment Effects in Event Studies with
+  Heterogeneous Treatment Effects.* Journal of Econometrics 225(2), 175–199.
+- Bertrand, M., Duflo, E., & Mullainathan, S. (2004). *How Much Should We Trust
+  Differences-in-Differences Estimates?* Quarterly Journal of Economics 119(1), 249–275.
+- Goodman-Bacon, A. (2021). *Difference-in-Differences with Variation in Treatment Timing.* Journal of
+  Econometrics 225(2), 254–277.
+- de Chaisemartin, C., & D'Haultfœuille, X. (2020). *Two-Way Fixed Effects Estimators with
+  Heterogeneous Treatment Effects.* American Economic Review 110(9), 2964–2996.
+
+*Trader taxonomy and prediction-market microstructure.*
+- Rothschild, D. M., & Sethi, R. (2016). *Trading Strategies and Market Microstructure: Evidence from a
+  Prediction Market.* Working paper / Journal of Prediction Markets.
+- Kirilenko, A., Kyle, A. S., Samadi, M., & Tuzun, T. (2017). *The Flash Crash: High-Frequency Trading
+  in an Electronic Market.* Journal of Finance 72(3), 967–998.
+- Dubach (2026). *The Anatomy of a Decentralized Prediction Market: Microstructure Evidence from the
+  Polymarket Order Book.* arXiv 2604.24366.
+- Kober (2026). *On-chain reconstruction of Polymarket fees and maker rebates.* Working paper.
+- Becker (2025). *Maker–taker wealth transfer on a centralized event exchange: evidence from Kalshi.*
+  Working paper.
+- Della Vedova (2026). *Humans, bots, and the anatomy of profit on Polymarket.* Working paper.
