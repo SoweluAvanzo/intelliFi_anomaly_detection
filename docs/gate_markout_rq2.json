@@ -1,0 +1,88 @@
+{
+ "slice_files": 300,
+ "maker_fills": 42442368,
+ "curve": [
+  {
+   "horizon_s": 60,
+   "coverage": 35339638,
+   "coverage_frac": 0.8326500067102759,
+   "median_gap_s": 61,
+   "dollar_wtd_markout_ps": 0.0027394134740755405,
+   "mean_markout_ps": 0.006544786950487797,
+   "frac_negative": 0.4144485860324885,
+   "total_dollar_markout": 9463930.838394232,
+   "spearman_vol_markout": 0.004459901618234525,
+   "d1_markout_ps": -0.00256159844428885,
+   "d10_markout_ps": 0.0028143571108593126
+  },
+  {
+   "horizon_s": 300,
+   "coverage": 19015955,
+   "coverage_frac": 0.448041801060676,
+   "median_gap_s": 313,
+   "dollar_wtd_markout_ps": 0.0037220845697481966,
+   "mean_markout_ps": 0.02876200730666151,
+   "frac_negative": 0.3667362485870418,
+   "total_dollar_markout": 11853517.622444522,
+   "spearman_vol_markout": -0.002144796195483104,
+   "d1_markout_ps": 0.011074964375532237,
+   "d10_markout_ps": 0.0036724941704009808
+  },
+  {
+   "horizon_s": 900,
+   "coverage": 13133376,
+   "coverage_frac": 0.30944022727478354,
+   "median_gap_s": 954,
+   "dollar_wtd_markout_ps": 0.0030328585363894422,
+   "mean_markout_ps": 0.012372297090517653,
+   "frac_negative": 0.3518400752403647,
+   "total_dollar_markout": 9722944.593952328,
+   "spearman_vol_markout": -0.02217570333734325,
+   "d1_markout_ps": 0.00794994421743548,
+   "d10_markout_ps": 0.003049281292908399
+  },
+  {
+   "horizon_s": 3600,
+   "coverage": 11982478,
+   "coverage_frac": 0.2823235027791098,
+   "median_gap_s": 3749,
+   "dollar_wtd_markout_ps": 0.005626006018117715,
+   "mean_markout_ps": 0.01881425621998339,
+   "frac_negative": 0.35555884183555353,
+   "total_dollar_markout": 17419844.840607747,
+   "spearman_vol_markout": -0.02006726231507198,
+   "d1_markout_ps": 0.011154758659687304,
+   "d10_markout_ps": 0.005631663326960591
+  },
+  {
+   "horizon_s": 86400,
+   "coverage": 4617933,
+   "coverage_frac": 0.10880479147629087,
+   "median_gap_s": 87277,
+   "dollar_wtd_markout_ps": 0.002102489020136329,
+   "mean_markout_ps": 0.0061973558623805375,
+   "frac_negative": 0.3971493306637407,
+   "total_dollar_markout": 3152559.1264128936,
+   "spearman_vol_markout": -0.027017897569394874,
+   "d1_markout_ps": 0.028323572996441716,
+   "d10_markout_ps": 0.002094263287202366
+  }
+ ],
+ "gate": "RQ2 adverse-selection markout",
+ "date": "2026-10-05",
+ "status": "PASS - mechanism reframed",
+ "slice": "v2 tape files [4000:4300] (mid-tape), 42.4M maker fills, 24.8M trade-price points",
+ "method": "per MAKER fill, forward price = first taker trade in [t+DELTA, t+DELTA+max(2*DELTA,900)]; markout_ps = (side=BUY? p_fwd-p_fill : p_fill-p_fwd); negative = adverse selection",
+ "verdict": [
+  "Overall maker markout POSITIVE at every horizon 60s..1day (dollar-wtd +0.0021..+0.0056/share) -> makers are NOT systematically adversely selected; they capture the spread.",
+  "Spearman(maker volume, markout) ~= 0 at all horizons (+0.004..-0.027) -> the v1 -0.58 (maker PnL vs counterparty EVENTUAL win-rate) is the outcome/zero-sum identity, NOT fill-time picking-off.",
+  "Only negative cell in the grid: smallest-maker decile at 60s (-0.0026); reverts to +0.011 by 300s. Adverse selection is a sub-minute, small-maker-only, transient effect.",
+  "Small makers earn HIGHER per-share markout than large (d1 +0.011..+0.028 vs d10 +0.003..+0.006) beyond 60s -> opposite of 'amateurs absorb AS'. Dollars concentrate in high-volume makers (volume, not per-unit edge).",
+  "Maker edge = SPREAD CAPTURE (positive markout), not adverse-selection avoidance."
+ ],
+ "caveats": [
+  "v2 (fee era) execution markout vs v1 (archive) realized PnL - complementary, not merged; a maker can have +markout and still lose realized PnL (inventory/holding to resolution/fee).",
+  "Coverage falls with horizon (83% at 60s -> 11% at 1day): longer-horizon and illiquid-token makers under-covered; speaks to liquid-market making.",
+  "One 300-file mid-tape slice (42M fills, large); full-tape confirmation available but not yet run."
+ ]
+}

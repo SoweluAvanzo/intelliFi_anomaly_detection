@@ -59,6 +59,7 @@ def register_archive_views(con: duckdb.DuckDBPyConnection, *, archive_dir: Path 
                block_timestamp,
                lower(maker) AS maker, lower(taker) AS taker,
                taker_direction, D, price, usdc_amount, fee_usdc,
+               taker_base_fee, maker_base_fee,
                usdc_amount / NULLIF(price, 0)                AS shares,
                neg_risk, category, category_refined, market_slug,
                outcome_label, winning_outcome_label, resolution_status,
