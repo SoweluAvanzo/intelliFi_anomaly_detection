@@ -40,9 +40,36 @@ polymarket-dataset/
 
 ## 1. Downloading the dataset
 
-The dataset lives in a Cloudflare R2 bucket named `polymarket-dataset`. Access is via the S3-style
-credentials provided separately: an **Access Key ID**, a **Secret Access Key**, and an **endpoint**
-of the form `https://<ACCOUNT_ID>.r2.cloudflarestorage.com`.
+The dataset lives in a **public** Cloudflare R2 bucket named `polymarket-dataset`. No credentials
+are needed; egress is free.
+
+### Public access (no credentials) — recommended
+Every object is downloadable over plain HTTPS from the bucket's public base URL:
+
+```
+https://pub-2b6130581d1046399accd7722dc68ef5.r2.dev
+```
+
+`MANIFEST.txt` at that base lists every object key. Grab individual files with `curl`, or pull the
+whole dataset with rclone's HTTP backend driven by the manifest (resumable; no keys, no listing):
+
+```bash
+BASE=https://pub-2b6130581d1046399accd7722dc68ef5.r2.dev
+curl -O "$BASE/polymarket_code.tar.gz"             # the full pipeline (~2.5 MB)
+curl -O "$BASE/results_json/maker_markout.json"    # a single result artifact
+curl -O "$BASE/MANIFEST.txt"                        # the list of every object key
+
+# whole dataset (~80 GB), resumable, no credentials:
+rclone copy -P --transfers=16 --http-url "$BASE" :http: ./polymarket-dataset --files-from MANIFEST.txt
+# or only part of it, e.g. everything except the 47 GB v2 tape:
+grep -v '^data/parquet/tape_v2/' MANIFEST.txt > small.txt
+rclone copy -P --transfers=16 --http-url "$BASE" :http: ./polymarket-dataset --files-from small.txt
+```
+
+### Alternative: S3-style credentials
+For tooling that prefers the S3 API (native directory listing), the bucket is also reachable with an
+**Access Key ID**, a **Secret Access Key**, and an **endpoint** of the form
+`https://<ACCOUNT_ID>.r2.cloudflarestorage.com`.
 
 ### Install rclone (version 1.64 or newer)
 ```bash
