@@ -16,16 +16,20 @@ Scope is the WHOLE deduped tape (NOT only resolved markets, unlike scripts/28):
     a `maker` (on a maker-fill row) and as the `taker`. Fill-level self-match
     (maker=taker in a single row) is reported separately (pre-registered H1c: ~0).
 
-Memory-safe (the box has OOM-killed on uncapped scans): deduped rows are written to
-block-range parquet parts, the (tx_hash, wallet) both-sides pass is restricted to
-multi-fill transactions (single-fill txs can only self-deal at the fill level), and
-DuckDB spills to a large temp dir. Run inside MemoryMax=9G + PRAGMA memory_limit.
+Memory-safe. A transaction is mined in exactly one block and the deduped parts are
+block-ranged, so every transaction's fills live entirely inside one part file. The
+self-dealing both-sides pass therefore runs PER PART (small group-by, bounded memory)
+and accumulates only the self-dealing (tx, wallet) pairs, and the distinct-transaction
+count is the sum of per-part distinct counts. This avoids the 257M-group whole-tape
+GROUP BY that OOMs even under a cap. Run inside MemoryMax=9G + PRAGMA memory_limit.
 
-  python scripts/42_self_dealing.py --out docs/self_dealing.json --memory-limit 5GB
+  python scripts/42_self_dealing.py --out docs/self_dealing.json --memory-limit 4GB
+  python scripts/42_self_dealing.py --reuse   # reuse already-built parts in data/_s42_tmp
 """
 from __future__ import annotations
 
 import argparse
+import glob
 import json
 import shutil
 import sys
@@ -56,66 +60,77 @@ def build_parts(con, select_sql: str, parts_dir: Path, b0: int, b1: int, tag: st
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--out", default="docs/self_dealing.json")
-    ap.add_argument("--memory-limit", default="5GB")
+    ap.add_argument("--memory-limit", default="4GB")
+    ap.add_argument("--reuse", action="store_true", help="reuse existing parts in data/_s42_tmp (skip rebuild)")
     args = ap.parse_args()
 
     tmp = _cfg.DATA_DIR / "_s42_tmp"
-    shutil.rmtree(tmp, ignore_errors=True); tmp.mkdir(parents=True, exist_ok=True)
-    con = duckdb.connect((tmp / "w.db").as_posix())
+    fdir, gdir = tmp / "f", tmp / "g"
+    reuse = args.reuse and any(fdir.glob("*.parquet")) and any(gdir.glob("*.parquet"))
+    if not reuse:
+        shutil.rmtree(tmp, ignore_errors=True)
+    tmp.mkdir(parents=True, exist_ok=True)
+    (tmp / "spill").mkdir(parents=True, exist_ok=True)
+
+    con = duckdb.connect()  # in-memory catalog; data stays in on-disk parquet parts
     con.execute(f"PRAGMA memory_limit='{args.memory_limit}'"); con.execute("SET threads=2")
     con.execute("SET preserve_insertion_order=false")
     con.execute(f"SET temp_directory='{(tmp/'spill').as_posix()}'"); con.execute("SET max_temp_directory_size='80GB'")
 
-    b0, b1 = con.sql(f"SELECT min(block_number), max(block_number) FROM read_parquet('{TAPE}', union_by_name=true)").fetchone()
-    b0, b1 = int(b0), int(b1)
-    WHERE = ("t.event='OrderFilled' AND t.exchange IN ('v2_a','v2_b') AND t.price>0 AND t.price<1 "
-             "AND t.shares>0 AND t.block_number >= {lo} AND t.block_number < {hi}")
-    DEDUP = "QUALIFY row_number() OVER (PARTITION BY t.tx_hash, t.evt_index) = 1"
+    if reuse:
+        print(f"[reuse] using existing parts in {tmp}", flush=True)
+    else:
+        b0, b1 = con.sql(f"SELECT min(block_number), max(block_number) FROM read_parquet('{TAPE}', union_by_name=true)").fetchone()
+        b0, b1 = int(b0), int(b1)
+        WHERE = ("t.event='OrderFilled' AND t.exchange IN ('v2_a','v2_b') AND t.price>0 AND t.price<1 "
+                 "AND t.shares>0 AND t.block_number >= {lo} AND t.block_number < {hi}")
+        DEDUP = "QUALIFY row_number() OVER (PARTITION BY t.tx_hash, t.evt_index) = 1"
+        F_SEL = f"""SELECT t.tx_hash, lower(t.maker) AS mk, lower(t.taker) AS tk, t.usdc AS notional
+            FROM read_parquet('{TAPE}', union_by_name=true) t
+            WHERE t.is_taker_order = FALSE AND {WHERE} {DEDUP}"""
+        G_SEL = f"""SELECT t.tx_hash, t.usdc AS notional
+            FROM read_parquet('{TAPE}', union_by_name=true) t
+            WHERE t.is_taker_order = TRUE AND {WHERE} {DEDUP}"""
+        build_parts(con, F_SEL, fdir, b0, b1, "maker-fill")
+        build_parts(con, G_SEL, gdir, b0, b1, "taker-order")
 
-    # maker-fill records (the "fills"): tx, maker wallet, taker wallet, notional
-    F_SEL = f"""SELECT t.tx_hash, lower(t.maker) AS mk, lower(t.taker) AS tk, t.usdc AS notional
-        FROM read_parquet('{TAPE}', union_by_name=true) t
-        WHERE t.is_taker_order = FALSE AND {WHERE} {DEDUP}"""
-    # taker-order records: tx, notional (the trade's dollar value / "volume")
-    G_SEL = f"""SELECT t.tx_hash, t.usdc AS notional
-        FROM read_parquet('{TAPE}', union_by_name=true) t
-        WHERE t.is_taker_order = TRUE AND {WHERE} {DEDUP}"""
+    con.execute(f"CREATE VIEW f AS SELECT * FROM read_parquet('{(fdir/'*.parquet').as_posix()}')")
+    con.execute(f"CREATE VIEW g AS SELECT * FROM read_parquet('{(gdir/'*.parquet').as_posix()}')")
 
-    n_fills = build_parts(con, F_SEL, tmp / "f", b0, b1, "maker-fill")
-    n_orders = build_parts(con, G_SEL, tmp / "g", b0, b1, "taker-order")
-    con.execute(f"CREATE VIEW f AS SELECT * FROM read_parquet('{(tmp/'f'/'*.parquet').as_posix()}')")
-    con.execute(f"CREATE VIEW g AS SELECT * FROM read_parquet('{(tmp/'g'/'*.parquet').as_posix()}')")
-
-    # --- totals -------------------------------------------------------------
-    print("[totals] distinct tx + notional ...", flush=True)
-    ntx = con.sql("SELECT count(DISTINCT tx_hash) FROM f").fetchone()[0]
+    # --- totals (cheap streaming aggregates; distinct-tx summed per part) ---------
+    print("[totals] computing ...", flush=True)
+    n_fills = con.sql("SELECT count(*) FROM f").fetchone()[0]
+    n_orders = con.sql("SELECT count(*) FROM g").fetchone()[0]
     f_notional = con.sql("SELECT sum(notional) FROM f").fetchone()[0]
     taker_volume = con.sql("SELECT sum(notional) FROM g").fetchone()[0]
     fill_self_match = con.sql("SELECT count(*) FROM f WHERE mk = tk").fetchone()[0]
+    fparts = sorted(glob.glob((fdir / "*.parquet").as_posix()))
+    ntx = 0  # a tx is in one block => one part => per-part distinct counts are disjoint
+    for p in fparts:
+        ntx += con.sql(f"SELECT count(DISTINCT tx_hash) FROM read_parquet('{p}')").fetchone()[0]
+    print(f"[totals] fills={n_fills:,} orders={n_orders:,} tx={ntx:,} "
+          f"f_notional=${f_notional:,.0f} taker_vol=${taker_volume:,.0f} fill_self_match={fill_self_match}", flush=True)
 
-    # --- self-dealing (tx-level): a wallet on both sides of one tx -----------
-    # Single-fill txs can only self-deal at the fill level (mk=tk), already counted.
-    # Restrict the (tx, wallet) both-sides pass to multi-fill txs.
-    print("[self-deal] multi-fill tx set ...", flush=True)
-    con.execute("CREATE TABLE multitx AS SELECT tx_hash FROM f GROUP BY tx_hash HAVING count(*) > 1")
-    n_multitx = con.sql("SELECT count(*) FROM multitx").fetchone()[0]
-    print(f"           multi-fill txs = {n_multitx:,}", flush=True)
+    # --- self-dealing: per-part both-sides pass (bounded memory) ------------------
+    print("[self-deal] per-part both-sides pass ...", flush=True)
+    con.execute("CREATE TABLE bsw_all (tx_hash VARCHAR, w VARCHAR)")
+    for i, p in enumerate(fparts):
+        con.execute(f"""INSERT INTO bsw_all
+            SELECT tx_hash, w FROM (
+                SELECT tx_hash, w, max(ismk) hm, max(istk) ht FROM (
+                    SELECT tx_hash, mk AS w, 1 ismk, 0 istk FROM read_parquet('{p}')
+                    UNION ALL
+                    SELECT tx_hash, tk AS w, 0 ismk, 1 istk FROM read_parquet('{p}')
+                ) GROUP BY tx_hash, w
+            ) WHERE hm = 1 AND ht = 1""")
+        if i % 6 == 0 or i == len(fparts) - 1:
+            c = con.sql("SELECT count(*) FROM bsw_all").fetchone()[0]
+            print(f"  self-deal part {i+1}/{len(fparts)}  bsw_all rows={c:,}", flush=True)
 
-    print("[self-deal] both-sides (tx, wallet) pass ...", flush=True)
-    con.execute("""CREATE TABLE bsw AS
-        SELECT tx_hash, w FROM (
-            SELECT tx_hash, w, max(ismk) hm, max(istk) ht FROM (
-                SELECT fx.tx_hash, fx.mk AS w, 1 ismk, 0 istk FROM f fx SEMI JOIN multitx m ON m.tx_hash = fx.tx_hash
-                UNION ALL
-                SELECT fx.tx_hash, fx.tk AS w, 0 ismk, 1 istk FROM f fx SEMI JOIN multitx m ON m.tx_hash = fx.tx_hash
-            ) GROUP BY tx_hash, w
-        ) WHERE hm = 1 AND ht = 1""")
-
-    sd_tx = con.sql("SELECT count(DISTINCT tx_hash) FROM bsw").fetchone()[0]
-    # volume of self-dealing txs = their taker-order notional (fall back to maker-fill notional)
-    sd_vol_taker = con.sql("SELECT sum(notional) FROM g WHERE tx_hash IN (SELECT DISTINCT tx_hash FROM bsw)").fetchone()[0]
-    sd_vol_fill = con.sql("SELECT sum(notional) FROM f WHERE tx_hash IN (SELECT DISTINCT tx_hash FROM bsw)").fetchone()[0]
-    top = con.sql("""SELECT w, count(DISTINCT tx_hash) ntx FROM bsw GROUP BY w ORDER BY ntx DESC LIMIT 5""").fetchall()
+    sd_tx = con.sql("SELECT count(DISTINCT tx_hash) FROM bsw_all").fetchone()[0]
+    sd_vol_taker = con.sql("SELECT sum(notional) FROM g WHERE tx_hash IN (SELECT DISTINCT tx_hash FROM bsw_all)").fetchone()[0]
+    sd_vol_fill = con.sql("SELECT sum(notional) FROM f WHERE tx_hash IN (SELECT DISTINCT tx_hash FROM bsw_all)").fetchone()[0]
+    top = con.sql("SELECT w, count(DISTINCT tx_hash) ntx FROM bsw_all GROUP BY w ORDER BY ntx DESC LIMIT 5").fetchall()
     top_wallet_tx = int(top[0][1]) if top else 0
 
     rep = {
@@ -128,7 +143,6 @@ def main() -> int:
         "fill_level_self_match": int(fill_self_match),
         "self_dealing": {
             "definition": "a wallet is a maker on one fill and the taker on another fill of the same tx_hash",
-            "n_multifill_tx": int(n_multitx),
             "n_self_dealing_tx": int(sd_tx),
             "frac_of_transactions": (sd_tx / ntx) if ntx else None,
             "self_dealing_volume_usdc_taker": float(sd_vol_taker) if sd_vol_taker is not None else None,
@@ -139,8 +153,8 @@ def main() -> int:
         "paper_claims": {"n_fills": "441.5M", "n_transactions": "257.7M",
                          "n_self_dealing_tx": "~7,000 (0.0027%)", "self_dealing_volume": "$77,000",
                          "total_volume": "$14.1B"},
-        "method": "deduped maker-fill + taker-order parts; tx-level both-sides via (tx,wallet) group-by "
-                  "restricted to multi-fill txs; fill-level self-match (mk=tk) reported separately.",
+        "method": "deduped maker-fill + taker-order parts (block-ranged => a tx is wholly within one part); "
+                  "per-part tx-level both-sides group-by accumulated; fill-level self-match (mk=tk) separate.",
     }
     Path(args.out).parent.mkdir(parents=True, exist_ok=True)
     Path(args.out).write_text(json.dumps(rep, indent=1))
@@ -149,8 +163,8 @@ def main() -> int:
     print(f"  fills={rep['n_maker_fills']:,}  tx={rep['n_transactions']:,}  taker_vol=${rep['taker_volume_usdc']:,.0f}")
     print(f"  self-dealing tx={sd['n_self_dealing_tx']:,} ({(sd['frac_of_transactions'] or 0):.6%})  "
           f"vol(taker)=${(sd['self_dealing_volume_usdc_taker'] or 0):,.0f}  "
-          f"top-wallet share={ (sd['top_wallet_share_of_self_dealing_tx'] or 0):.1%}  fill-self-match={rep['fill_level_self_match']}")
-    con.close(); shutil.rmtree(tmp, ignore_errors=True)
+          f"top-wallet share={(sd['top_wallet_share_of_self_dealing_tx'] or 0):.1%}  fill-self-match={rep['fill_level_self_match']}")
+    con.close()
     return 0
 
 
