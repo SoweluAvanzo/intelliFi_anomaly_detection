@@ -1,0 +1,79 @@
+{
+ "scope": "v2 on-chain record, MAKER markout vs horizon; outcome-independent (next-trade price)",
+ "n_maker_fills": 441453395,
+ "n_token_buckets": 24,
+ "limit_files": null,
+ "curve": [
+  {
+   "horizon_s": 60,
+   "coverage": 365946985,
+   "coverage_frac": 0.8289594986578368,
+   "mean_gap_s": 101.6880881147306,
+   "dollar_wtd_markout_ps": 0.0023295882009182816,
+   "mean_markout_ps": 0.006295253554598237,
+   "frac_negative": 0.43417789054881817,
+   "total_dollar_markout": 60793506.56295704,
+   "spearman_vol_markout": -0.059091880544638604,
+   "d1_markout_ps": -0.0010640824902551525,
+   "d10_markout_ps": 0.0024017779739502676
+  },
+  {
+   "horizon_s": 300,
+   "coverage": 186664346,
+   "coverage_frac": 0.42284043596493354,
+   "mean_gap_s": 384.6200969948487,
+   "dollar_wtd_markout_ps": 0.0044192771411510545,
+   "mean_markout_ps": 0.03295749434720834,
+   "frac_negative": 0.38531588673072037,
+   "total_dollar_markout": 102429749.23513094,
+   "spearman_vol_markout": -0.05917084729183461,
+   "d1_markout_ps": 0.012815631796946657,
+   "d10_markout_ps": 0.00438614652382948
+  },
+  {
+   "horizon_s": 900,
+   "coverage": 120191203,
+   "coverage_frac": 0.2722624955687565,
+   "mean_gap_s": 1139.372003065815,
+   "dollar_wtd_markout_ps": 0.0036589478047932464,
+   "mean_markout_ps": 0.012612056553331853,
+   "frac_negative": 0.3703176180040398,
+   "total_dollar_markout": 83264657.10565965,
+   "spearman_vol_markout": -0.08112622465474705,
+   "d1_markout_ps": 0.011374974635142466,
+   "d10_markout_ps": 0.0037065809040200347
+  },
+  {
+   "horizon_s": 3600,
+   "coverage": 110352505,
+   "coverage_frac": 0.2499754362518834,
+   "mean_gap_s": 4454.270742734839,
+   "dollar_wtd_markout_ps": 0.011923871219130066,
+   "mean_markout_ps": 0.025617027425629404,
+   "frac_negative": 0.35873138539084365,
+   "total_dollar_markout": 254675554.03934708,
+   "spearman_vol_markout": -0.04867894813031692,
+   "d1_markout_ps": -0.00024708667419273293,
+   "d10_markout_ps": 0.01208528811452528
+  },
+  {
+   "horizon_s": 86400,
+   "coverage": 44335044,
+   "coverage_frac": 0.10042972712895322,
+   "mean_gap_s": 98242.16564390915,
+   "dollar_wtd_markout_ps": 0.0010207639215183016,
+   "mean_markout_ps": 0.005227576458742792,
+   "frac_negative": 0.37206409448922617,
+   "total_dollar_markout": 9381089.642790059,
+   "spearman_vol_markout": -0.05597390747780889,
+   "d1_markout_ps": 0.013596709441250746,
+   "d10_markout_ps": 0.001045938592800399
+  }
+ ],
+ "method": "per maker fill, forward = first taker trade in [t+D, t+D+max(2D,900)]; markout_ps = BUY:(p_fwd-p_fill)/SELL:(p_fill-p_fwd); negative=adverse selection",
+ "caveats": [
+  "Coverage falls with horizon (illiquid tokens have no near-future taker trade) -> speaks to liquid-market making.",
+  "Complementary to scripts/32 realised maker PnL (v1); a maker can have +markout and still lose realised PnL (inventory / holding to resolution / fee).",
+  "Excludes the maker rebate; measures execution-level liquidity-provision return."
+ ]
+}
