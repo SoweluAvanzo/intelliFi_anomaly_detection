@@ -1,0 +1,26 @@
+{
+ "scope": "v2 tape, WHOLE record (all markets), deduped by (tx_hash,evt_index), v2_a/v2_b, OrderFilled",
+ "n_maker_fills": 440450811,
+ "n_taker_orders": 256958236,
+ "n_transactions": 256958236,
+ "maker_fill_notional_usdc": 13939239210.568573,
+ "taker_volume_usdc": 13682964388.837242,
+ "fill_level_self_match": 0,
+ "self_dealing": {
+  "definition": "a wallet is a maker on one fill and the taker on another fill of the same tx_hash",
+  "n_self_dealing_tx": 0,
+  "frac_of_transactions": 0.0,
+  "self_dealing_volume_usdc_taker": null,
+  "self_dealing_volume_usdc_fill": null,
+  "top_wallets_by_self_dealing_tx": [],
+  "top_wallet_share_of_self_dealing_tx": null
+ },
+ "paper_claims": {
+  "n_fills": "441.5M",
+  "n_transactions": "257.7M",
+  "n_self_dealing_tx": "~7,000 (0.0027%)",
+  "self_dealing_volume": "$77,000",
+  "total_volume": "$14.1B"
+ },
+ "method": "deduped maker-fill + taker-order parts (block-ranged => a tx is wholly within one part); per-part tx-level both-sides group-by accumulated; fill-level self-match (mk=tk) separate."
+}

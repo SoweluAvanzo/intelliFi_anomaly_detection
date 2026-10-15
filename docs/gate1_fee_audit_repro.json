@@ -1,0 +1,20 @@
+{
+ "gate": "Eq.(1)-(2) fee-rate audit (reproduced, full tape, scripted)",
+ "scope": "v2 tape, taker-paid fills (is_taker_order=TRUE, deduped, v2_a/v2_b, OrderFilled)",
+ "n_taker_orders": 251240210,
+ "feeRate_confirmed": 0.06999,
+ "median_fee_over_p1mp_size": 0.06998618212532558,
+ "p90_ratio": 0.07,
+ "p99_ratio": 0.1293610106346259,
+ "frac_ratio_over_7pct": 0.0854059706445875,
+ "frac_incidence_over_7pct": 0.0026769918716434762,
+ "frac_incidence_over_7pct_strict": 0.0026169576916051773,
+ "p99_incidence": 0.06860013408913379,
+ "max_incidence": 0.1,
+ "taker_notional_usdc": 12824326128.55281,
+ "paper_claims": {
+  "median_ratio": 0.07,
+  "frac_incidence_over_ceiling": "< 0.2%"
+ },
+ "method": "ratio=(fee_raw/1e6)/(price*(1-price)*shares) (median confirms r=7%); incidence=(fee_raw/1e6)/usdc=r(1-p) (the 7% ceiling); approx_quantile for medians; frac_over = share above threshold. The ratio's upper tail is a per-order-aggregate artifact (concavity of p(1-p)); the incidence ceiling is the real bound."
+}
