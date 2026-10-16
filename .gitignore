@@ -77,3 +77,6 @@ Thumbs.db
 .vscode/
 
 *.bak
+
+# Unpublished manuscript — keep OUT of git until peer-reviewed (restore/remove this line post-review)
+docs/paper/
