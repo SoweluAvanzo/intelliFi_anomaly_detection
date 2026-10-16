@@ -1,0 +1,57 @@
+{
+ "scope": "whole v2 tape, OrderFilled rows with maker==taker (self-match), all contracts",
+ "self_match_rows_raw": 7156,
+ "self_match_rows_deduped": 7108,
+ "self_match_interior_price_deduped": 7000,
+ "self_match_in_analysis_scope_v2a_v2b": 0,
+ "by_exchange": [
+  {
+   "exchange": "other:0xe3333700ca9d93003f00f0f71f8515005f6c00aa",
+   "rows": 6951,
+   "deduped": 6904,
+   "usdc": 4370.345075000005
+  },
+  {
+   "exchange": "other:0x94b0594cbe11e2584585ec32e855e16470bf7a60",
+   "rows": 195,
+   "deduped": 195,
+   "usdc": 167868.074502
+  },
+  {
+   "exchange": "other:0xdbf75b4057ced0b6fc9b521acfabfe817613af04",
+   "rows": 6,
+   "deduped": 5,
+   "usdc": 3.0
+  },
+  {
+   "exchange": "other:0x9b1b19f34d27118f5c31a73f1d4af4e2a8875ea3",
+   "rows": 4,
+   "deduped": 4,
+   "usdc": 15184.1975
+  }
+ ],
+ "top_wallets": [
+  {
+   "wallet": "0x63613e3b96f418332d43cd2af8dc321014d15907",
+   "rows": 6839
+  },
+  {
+   "wallet": "0x2f0834944849919ae5f434708f74c7167841fa19",
+   "rows": 199
+  },
+  {
+   "wallet": "0xaed0dd16155fe61a33ee7f329c5b2902759d6f18",
+   "rows": 51
+  },
+  {
+   "wallet": "0xa8f16d8d3236e1c84c0c5749ceff7f1ccd45fee6",
+   "rows": 8
+  },
+  {
+   "wallet": "0xfc2d9e99038003a5497ee53e0f856d5638b5b9f3",
+   "rows": 6
+  }
+ ],
+ "n_distinct_self_matching_wallets": 28,
+ "finding": "All self-matches are on auxiliary emitter contracts (not v2_a/v2_b); within the analysis scope (v2_a/v2_b, interior price, maker fills) the count is 0. The earlier 'census' reported ~7,000 because it did not filter to the two fee-charging exchanges. interior_price_deduped reproduces that number."
+}
