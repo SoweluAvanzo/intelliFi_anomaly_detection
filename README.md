@@ -25,6 +25,8 @@ The work has **two stages**:
 
 Most readers want Stage II, which this README orients.
 
+**Headline findings (full results + figures in `DERIVATIONS.md`).** *RQ1:* the fee is **regressive** — its effective rate runs from ~3% on the smallest trades to ~1% on the largest (it bites hardest on low-priced longshots) — and its introduction did not measurably reduce participation. *RQ2:* most liquidity providers lose (52.5% of 1.21M makers), the gains are hyper-concentrated (top 1% take 69%) in a **professional market-making class** (~84k accounts) that profits by **capturing the spread**, not by avoiding adverse selection, with **no self-dealing**.
+
 ## Start here — documentation map (read in this order)
 
 1. **`README.md`** (this file) — what the project is, what data exist, the vocabulary.

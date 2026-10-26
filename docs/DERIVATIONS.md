@@ -55,6 +55,45 @@ and other on-chain venues — should design fees and liquidity subsidies, and th
 first trader-level evidence on what a liquidity tax does to a market whose social value is accurate
 probabilities.
 
+## Results (headline findings)
+
+Measured on the complete on-chain record — the V2 fee-regime tape (440.5M fills / 257.0M transactions /
+~$13.7B taker volume) for the fee law, the markout, and self-dealing; the fully-resolved V1 archive for
+realized-profit concentration (realized profit needs known outcomes). The exact numbers are the result
+JSONs (`docs/*.json`); stated here in prose.
+
+**RQ1 — the fee is regressive, and did not measurably reduce participation.** The taker fee follows
+`fee = r·p(1−p)·s` with `r` confirmed on-chain at **7%** (median `fee/[p(1−p)s] = 0.070` over 251M
+fee-paying taker orders). Its incidence — the fee as a share of the money staked — is `r·(1−p)`, so it
+falls hardest on low-priced "longshot" outcomes: the effective rate runs from about **3% on the
+smallest orders down to 1.0% on the largest** (small trades bear roughly three times the rate), because
+small orders concentrate on longshots. Using the staggered rollout as a natural experiment on a
+balanced panel, **neither active-trader counts nor first-time-trader inflow fell** at the fee, and the
+decline in median order size sat on a pre-existing trend rather than breaking at the fee — i.e. **no
+detectable participation response** (underpowered: 9 categories, short post-fee window, so "not
+detected," not "proven absent").
+
+**RQ2 — the maker subsidy is captured by a small professional class, through spread capture, and it is
+not self-dealing.** Providing liquidity is not, on average, profitable: of **1.21M maker accounts,
+52.5% end net-negative**. Among those that profit the gains are hyper-concentrated — **Gini 0.95**, the
+**top 1% capture 69%** of maker winnings (top 0.1% = 43%, top 10% = 92%), and about **1,000 makers
+capture half**; the highest-volume decile earns ≈ **+$129M** while the upper-middle deciles are
+net-negative. These beneficiaries are a **market-making class of ~84,000 accounts** (high maker share,
+frequent, broad across markets), profitable in aggregate (≈ **+$168M**), while casual and active
+traders lose — a distinction of *behaviour*, not wallet type (nearly all accounts are proxy wallets).
+The mechanism is **spread capture, not adverse-selection avoidance**: the volume-weighted maker
+**markout is positive at every horizon from one minute to one day**, and per-unit markout is
+uncorrelated with a maker's volume, so the large providers dominate aggregate profit through *volume*,
+not a bigger per-trade edge. And it is **genuine provision, not self-dealing**: enumerating all 257.0M
+fee-bearing transactions finds **zero** fills with maker = taker and **zero** transactions with one
+account on both sides (cross-account wash remains beyond a single-account enumeration).
+
+**Honest scope.** Concentration is measured on the pre-fee V1 record (the natural beneficiary set)
+while the markout is on the V2 fee regime; realized profits are outcome-dependent; the actor classes
+are a heuristic partition; the subsidy is characterised through the *return to providing liquidity*
+(markout + realized PnL), since the rebate payments themselves are not in the trade record; and the
+participation and any cross-sample comparisons are underpowered.
+
 ## Shared definitions (reused below)
 
 - **price `p`** ∈ (0,1): USDC per share = implied probability of the outcome. **shares `s`**: number of
