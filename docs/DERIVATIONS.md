@@ -23,6 +23,38 @@ The fee study is organised around two questions; results below are tagged **RQ1*
 - **RQ2 — the maker subsidy.** Who captures the maker rebate the fee funds, through what mechanism,
   and what is their structural identity (what kind of trader)?
 
+## Why this study: the literature gap and why the fee matters
+
+**The gap.** Two literatures bear on this question but neither answers it. Market microstructure has
+studied make/take fees extensively on **equity venues** (Malinova & Park; Colliard & Foucault; Foucault,
+Kadan & Kandel; Battalio et al.; Angel, Harris & Spatt) and on **centralized crypto exchanges** (Galati;
+Brauneis et al.), finding that fee changes tend to shift value toward liquidity providers — but from
+broker- or venue-level aggregates that cannot say *which individual actors* bear or capture it.
+Separately, a growing body characterizes **who profits on Polymarket** (Akey et al.; Gómez-Cram et al.;
+Mitts & Ofir; Dubach; Nechepurenko) — but only on the **pre-fee** record. No prior work has measured the
+*incidence and distribution of a fee on a decentralized prediction market at the level of individual
+traders*; the transition from freely subsidized liquidity to a fee-funded model is itself unstudied.
+
+**Why the fee specifically — and not other aspects of Polymarket.** The fee is the pivotal, recent,
+deliberate design change: it replaced free liquidity provision with a charge on takers that funds a
+subsidy to makers, directly reshaping who can afford to trade and how gains are split. On a prediction
+market a fee is, in effect, a **tax on the trading that makes prices informative**, so its distributional
+effect is a first-order question for the market's integrity and its forecasting value. Crucially, this
+question is **measurable here in a way it is not elsewhere**: because a decentralized venue settles on a
+public blockchain, incidence and capture can be computed on the *complete population* of trades, with the
+true buyer and seller of each — exactly the trader-level data the equity and centralized-crypto fee
+studies lack, and that Polymarket's own public feed cannot provide. Other aspects (for example,
+manipulation patterns) were examined in the project's earlier stage and found null; the fee transition is
+where the novel, consequential, and tractable question lies.
+
+**Implications.** The results speak to fairness and participation (the fee is **regressive** — heaviest,
+as a share of money staked, on the smallest, longshot trades), to market structure (the maker subsidy is
+**captured by a small professional class**, not the broad population), and to integrity (whether a
+fee-funded rebate can be **farmed** through self-dealing). Together they inform how prediction markets —
+and other on-chain venues — should design fees and liquidity subsidies, and they give the community the
+first trader-level evidence on what a liquidity tax does to a market whose social value is accurate
+probabilities.
+
 ## Shared definitions (reused below)
 
 - **price `p`** ∈ (0,1): USDC per share = implied probability of the outcome. **shares `s`**: number of
