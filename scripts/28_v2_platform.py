@@ -4,7 +4,7 @@ ALL resolved markets (standard USDC.e + negRisk WRAPPED; derivation verified for
 
 Mirrors scripts/27 (v1) so the two are apples-to-apples for a v1-vs-v2 comparison.
 
-v2 tape conventions (proven in docs/audit_2026-09-05.md §1-§2, §7):
+v2 tape conventions (verified in the v2 taker-PnL reconciliation):
   - GROSS taker PnL from MAKER-FILL records (is_taker_order = FALSE): taker = the `taker`
     field, taker_side = OPPOSITE of the maker `side` (== the is_taker_order=TRUE record's
     own side, to the dollar). won_out = (this token's outcome won).

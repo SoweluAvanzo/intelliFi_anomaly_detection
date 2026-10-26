@@ -80,3 +80,18 @@ Thumbs.db
 
 # Unpublished manuscript — keep OUT of git until peer-reviewed (restore/remove this line post-review)
 docs/paper/
+
+# Long-form results write-up — keep OUT of git until peer-reviewed (pre-empts the paper)
+docs/research_plan_technical_report.md
+docs/research_plan_technical_report.pdf
+
+# Third-party papers / manuscripts — do NOT redistribute (cite by DOI/arXiv id instead)
+docs/lieterature to review 5_11_26/
+docs/16_Akey_Gregoire_Harvie_Martineau_Polymarket_author_manuscript.pdf
+docs/Polymarket fee study literature taxonomy and publication roadmap.pdf
+docs/Verdict *.md
+
+# Paper-build inputs and planning artifacts (not part of the code/replication share)
+*.xmind
+IEEEtranBST2/
+conference-latex-template/

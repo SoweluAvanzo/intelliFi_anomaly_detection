@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Run ON the remote box (a cloud host / any non-geoblocked host). Idempotent.
+# Run ON the remote collection host (any cloud VM). Idempotent.
 # Sets up an isolated Python venv for the v2 tape crawler. Does NOT touch any
 # other service on the box. Assumes: git, python3.11+, rsync present.
 set -euo pipefail

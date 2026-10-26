@@ -12,7 +12,7 @@ The repo is named `IntelliFi_anomaly_detection` for historical reasons (typo for
 
 1. `polymarket_anomaly_detection_spec_v2.md` — **current design spec**, source of truth. Read it before proposing structure, dependencies, or APIs.
 2. `polymarket_market_manipulation_data_spec.md` — **v1, retained for context only**. v2 explicitly overrides v1 in any conflict.
-3. `Nahid Rahman - SoK Market Microstructure for Decentralized Prediction Markets (DePMs) [2025]-1.pdf` — Rahman, Al-Chami, Clark (arXiv:2510.15612v2). Taxonomy paper, not a detection survey. Its **Research Gaps 1, 3, 8, 10** are the project's north star.
+3. Rahman, Al-Chami, Clark, *SoK: Market Microstructure for Decentralized Prediction Markets (DePMs)* (arXiv:2510.15612v2, 2025). Taxonomy paper, not a detection survey. Its **Research Gaps 1, 3, 8, 10** are the project's north star.
 
 ## Implementation status (as of 2026-08-29)
 
@@ -209,7 +209,7 @@ python scripts/06_convergence.py -v                                # fetch price
 
 Snapshot `data/snapshots/20260511/` holds the outputs of the original 100-market corpus (end_date 2025-12-07 → 2026-05-01).
 
-**Geo-blocking.** All Polymarket hosts (Gamma, Data API, CLOB, website) return HTTP 451 / Cloudflare 1026 from blocked jurisdictions — observed 2026-08-26 from a South Korean network. From an Italian ISP (observed 2026-08-29, REDACTED) the block is different: every Polymarket hostname is DNS-hijacked to REDACTED (a block page with a mismatched certificate), even via 1.1.1.1 — an REDACTED-style domain block at the ISP; needs DNS-over-HTTPS or a VPS in another EU country. Collection must run from an unblocked network (or a small EU VPS with `INTELLIFI_DATA_DIR` and rsync). Polygon on-chain sources (Etherscan V2, subgraphs) are unaffected.
+**Geo-blocking.** Polymarket's own hosts (Gamma, Data API, CLOB, website) are not reachable from every network: some return HTTP 451, and on some ISPs the hostnames resolve to a block page. Collection of Polymarket-API data therefore has to run from a network where those public endpoints resolve normally; if that is a separate machine, set `INTELLIFI_DATA_DIR` there and rsync the output back. The Polygon on-chain sources (Etherscan V2, subgraphs) are unaffected and reachable anywhere.
 
 Then re-run the notebooks. The `behavioural_twin` leader set in script 05 selects the community by maximum overlap with on-chain entity #0, so it stays coherent across Louvain re-numbering.
 

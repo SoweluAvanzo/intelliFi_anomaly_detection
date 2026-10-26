@@ -88,7 +88,7 @@ Any change to §1–§5 is appended here with date, reason and the statistic aff
 
 ### Deviation 2 — 2026-09-05: window, taxonomy, and H4-control departures surfaced in the end-to-end audit
 
-The 2026-09-05 consistency audit (`docs/audit_2026-09-05.md`) found that several confirmatory
+A 2026-09-05 consistency audit found that several confirmatory
 statistics as shipped departed from §1–§5 **without having been logged here**. They are recorded
 now, with the affected statistic and an assessment. **None changes a verdict** — every affected
 test is null and stays null — but the confirmatory *claim* must be read with these in view.

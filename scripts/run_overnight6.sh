@@ -1,6 +1,6 @@
 #!/bin/bash
 set -u
-cd /path/to/IntelliFi_anomaly_detection || exit 1
+cd "$(dirname "$0")/.." || exit 1   # repo root (this script lives in scripts/)
 PY=.venv/bin/python; LOGD=data/logs/overnight; mkdir -p "$LOGD"
 prog() { echo "[$(date '+%F %T')] [stage6] $*" | tee -a "$LOGD/_progress.log"; }
 prog "stage6 waiter started; waiting for stage-5 (all others) to finish"

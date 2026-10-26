@@ -3,7 +3,7 @@
 maker AND taker — with a correlation-immune persistence cross-check. Matched to
 Gomez-Cram et al. (2026) and reconciled with our paid-rate/calibration null.
 
-METHOD (docs/research_framing_2026-09-05.md RQ2):
+METHOD (skill sign-flip null, RQ2):
   Null: no side-selection skill => flipping the buy/sell sign of each directional bet
   leaves expected PnL unchanged.
   * Decision unit = (wallet, MARKET/condition) net realised position. d_g = sum over the

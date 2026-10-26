@@ -1,7 +1,7 @@
 #!/bin/bash
 # Stage-4 waiter: after stage-3 (account types) finishes, run cross-market skill-breadth.
 set -u
-cd /path/to/IntelliFi_anomaly_detection || exit 1
+cd "$(dirname "$0")/.." || exit 1   # repo root (this script lives in scripts/)
 PY=.venv/bin/python
 LOGD=data/logs/overnight; mkdir -p "$LOGD"
 prog() { echo "[$(date '+%F %T')] [stage4] $*" | tee -a "$LOGD/_progress.log"; }

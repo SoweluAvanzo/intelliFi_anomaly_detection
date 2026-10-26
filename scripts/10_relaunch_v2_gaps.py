@@ -118,7 +118,7 @@ def main() -> int:
               f"let it go quiet (clear data/logs/.ip_penalty to force).", file=sys.stderr)
         return 3
     skip = {k.strip() for k in args.skip_keys.split(',') if k.strip()}
-    # keys reserved for the remote (REDACTED) box — never run them locally (per-key rate limit is global)
+    # keys reserved for the remote collection host — never run them locally (per-key rate limit is global)
     skip |= {k.strip() for k in os.getenv('INTELLIFI_REMOTE_KEYS', 'ETHERSCAN_KEY5,ETHERSCAN_KEY6').split(',') if k.strip()}
     keys = [k for k in KEYS if os.getenv(k) and k not in skip and k in config.CRAWL_KEYS]
     if not keys:

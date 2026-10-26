@@ -56,7 +56,6 @@ rclone mkdir "${REMOTE}:${DEST}" || true
 if [ "$do_small" = 1 ]; then
   "${RC[@]}" README.md                               "${REMOTE}:${DEST}/"
   "${RC[@]}" docs/DATA_DICTIONARY.md                 "${REMOTE}:${DEST}/"
-  "${RC[@]}" docs/research_plan_technical_report.pdf "${REMOTE}:${DEST}/"
   "${RC[@]}" --include '*.json' docs                 "${REMOTE}:${DEST}/results_json/"
   "${RC[@]}" data/export/csv                          "${REMOTE}:${DEST}/csv_bundle/"
   "${RC[@]}" data/parquet/ctf_v2_conditions.parquet   "${REMOTE}:${DEST}/parquet/"

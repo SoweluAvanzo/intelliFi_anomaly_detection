@@ -1,19 +1,21 @@
 # Remote crawler bundle (Polymarket v2 tape)
 
-Offloads part of the on-chain crawl to a non-geoblocked box (the a cloud host REDACTED
-host, REDACTED), so it runs in parallel with the local fleet and cannot be
-reached by the Italian DNS block. Outbound-only (Etherscan V2 `getLogs`); no
-inbound port; data is **pulled** back over SSH.
+Runs part of the on-chain crawl on a second host so it proceeds in parallel with
+the local fleet, roughly doubling collection throughput. Etherscan's free tier is
+rate-limited **per API key**, and the same key must not run on two machines at
+once, so the two hosts take disjoint key sets and disjoint block ranges; their
+outputs merge without collision. The crawler is outbound-only (Etherscan V2
+`getLogs`), opens no inbound port, and its results are **pulled** back over SSH.
 
 ## Key partition (do not violate)
 Etherscan's free limit is **per API key**: 3 req/s and 100k calls/day. The same
 key must never run on two machines at once. Assignment:
 - **Local machine:** keys 1–4  → cohorts 1–6 (block 88,080,000 → head).
-- **This box:** keys 5–6  → v2 genesis gap **86,126,978 → 88,079,999** (~977 chunks).
+- **Remote host:** keys 5–6  → v2 genesis gap **86,126,978 → 88,079,999** (~977 chunks).
 Ranges are disjoint, so merges never collide.
 
 ## Deploy (Docker, isolated compose project)
-On the box, in this directory (repo checked out or rsync'd):
+On the remote host, in this directory (repo checked out or rsync'd):
 ```
 cp .env.example .env && chmod 600 .env        # paste ETHERSCAN_KEY5/6
 docker compose up -d --build                   # project name: polymarket-crawler
@@ -25,7 +27,7 @@ ports, `mem_limit 2500m`, `pids_limit 256`, `cpus 2.0`, `no-new-privileges`,
 
 ## Pull results back (run on the LOCAL machine)
 ```
-deploy/remote_crawler/pull_back.sh deploy@REDACTED polymarket-crawler/deploy/remote_crawler/out
+deploy/remote_crawler/pull_back.sh deploy@<remote-host> polymarket-crawler/deploy/remote_crawler/out
 ```
 `--ignore-existing`, content-keyed chunk dirs → idempotent merge into the local
 `data/parquet/tape_v2/`. The local `scripts/10_relaunch_v2_gaps.py` then sees the

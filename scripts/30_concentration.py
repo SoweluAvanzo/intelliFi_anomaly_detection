@@ -2,7 +2,7 @@
 """Profit-concentration profile of the v1 archive — how unequal are realised
 trading profits, on BOTH sides of the book (takers and makers).
 
-Motivating RQ (docs/results_summary_2026-09-05.md, "Result 2"): winnings are
+Motivating RQ: winnings are
 hyper-concentrated (Gini ~0.95) while a separate test finds NO certifiable skilled
 cohort. This script quantifies the concentration rigorously so the two can be read
 together (concentration without demonstrable skill => scale/variance/survivorship,

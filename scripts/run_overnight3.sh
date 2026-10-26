@@ -2,7 +2,7 @@
 # Stage-3 waiter: after stage-2 (fee-rollout DiD) finishes, run the account-type taxonomy
 # investigation (NEW focus: are winners bots or standard proxies?). Memory-safe, sequential.
 set -u
-cd /path/to/IntelliFi_anomaly_detection || exit 1
+cd "$(dirname "$0")/.." || exit 1   # repo root (this script lives in scripts/)
 PY=.venv/bin/python
 LOGD=data/logs/overnight; mkdir -p "$LOGD"
 prog() { echo "[$(date '+%F %T')] [stage3] $*" | tee -a "$LOGD/_progress.log"; }

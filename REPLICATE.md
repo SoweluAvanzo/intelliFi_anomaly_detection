@@ -1,7 +1,7 @@
 # Replication guide
 
 This dataset is self-contained: **code + data + documentation + result artifacts**. Every headline
-number in `research_plan_technical_report.pdf` is produced by one script in
+number in the `results_json/` artifacts is produced by one script in
 `polymarket_code.tar.gz`, reading the parquet stores under `data/`. After download, the folder is a
 ready-to-run repository — no path configuration is needed.
 
@@ -16,7 +16,6 @@ polymarket-dataset/
 ├── REPLICATE.md                        ← this guide
 ├── README.md                           ← dataset orientation
 ├── DATA_DICTIONARY.md                  ← every table and column, with units and gotchas
-├── research_plan_technical_report.pdf  ← the write-up: research questions, methodology, results
 ├── polymarket_code.tar.gz              ← the full pipeline (src/, scripts/, notebooks/, specs)
 ├── results_json/                       ← the exact result artifacts the report cites (reference copies)
 ├── csv_bundle/                         ← a human-readable CSV subset of the Stage I corpus

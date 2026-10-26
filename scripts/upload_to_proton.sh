@@ -59,7 +59,6 @@ if [ "$do_small" = 1 ]; then
   # 1) loose docs at the folder root
   "${RC[@]}" README.md                               "${REMOTE}:${DEST}/"
   "${RC[@]}" docs/DATA_DICTIONARY.md                 "${REMOTE}:${DEST}/"
-  "${RC[@]}" docs/research_plan_technical_report.pdf "${REMOTE}:${DEST}/"
   # 2) headline result artifacts (small JSONs)
   "${RC[@]}" --include '*.json' docs                 "${REMOTE}:${DEST}/results_json/"
   # 3) human-readable CSV subset (Stage I) — includes its own README + verify_export.py

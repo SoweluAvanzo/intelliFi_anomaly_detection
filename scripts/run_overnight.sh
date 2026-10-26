@@ -4,7 +4,7 @@
 # wallet-hash / block-range bucketing keeps every aggregation small). Continue-on-error so
 # one failure does not stop the night. Waits for the already-running full skill job first.
 set -u
-cd /path/to/IntelliFi_anomaly_detection || exit 1
+cd "$(dirname "$0")/.." || exit 1   # repo root (this script lives in scripts/)
 PY=.venv/bin/python
 LOGD=data/logs/overnight; mkdir -p "$LOGD"
 prog() { echo "[$(date '+%F %T')] $*" | tee -a "$LOGD/_progress.log"; }

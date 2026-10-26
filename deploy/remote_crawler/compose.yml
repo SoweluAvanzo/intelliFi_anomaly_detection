@@ -17,7 +17,7 @@ services:
     env_file: .env                        # ETHERSCAN_KEY5, ETHERSCAN_KEY6, CRAWL_* — never committed
     environment:
       INTELLIFI_DATA_DIR: /data
-      INTELLIFI_USER_AGENT: "IntelliFi-research-crawler/1.0 (academic; contact research-contact)"
+      INTELLIFI_USER_AGENT: "IntelliFi-research-crawler/1.0 (academic research crawler)"
       HOME: /tmp                          # uid 1000 has no passwd entry; give tools a writable HOME
       # --- genesis-gaps mode (2026-09-01): box crawls ONLY its 2/7 gap subset on keys 5-6;
       #     local (peer) crawls the 5/7 on keys 1-4/7. Disjoint ranges + disjoint keys. ---

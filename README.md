@@ -3,8 +3,8 @@
 A near-complete, on-chain record of trading on **Polymarket** (a decentralized prediction market on
 Polygon), assembled for a study of the introduction of its transaction fee — who bears it, who
 captures the maker subsidy, and the structure of the trader population. This file orients a new
-reader; `DATA_DICTIONARY.md` documents every table and column, and
-`research_plan_technical_report.pdf` gives the research questions and findings.
+reader; `DATA_DICTIONARY.md` documents every table and column, and the
+`results_json/` artifacts hold the headline findings that the code reproduces.
 
 The share is a ready-to-run repository: unpack `polymarket_code.tar.gz` at the root and the code finds
 the data under `data/` with no configuration. See `REPLICATE.md` for the step-by-step download and
@@ -16,7 +16,6 @@ polymarket-dataset/
 ├── REPLICATE.md                        ← download + reproduction guide (start here)
 ├── README.md                           ← this file
 ├── DATA_DICTIONARY.md                  ← every store, every column, with units and gotchas
-├── research_plan_technical_report.pdf  ← context: RQs, methodology, results
 ├── polymarket_code.tar.gz              ← the full pipeline (src/, scripts/, notebooks/, specs)
 ├── results_json/                       ← headline result artifacts (fee incidence, maker economics, …)
 ├── csv_bundle/                         ← human-readable CSV subset (Stage I corpus) + verify_export.py
