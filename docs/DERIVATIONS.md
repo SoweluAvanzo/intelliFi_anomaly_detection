@@ -4,13 +4,24 @@ This is the lineage / provenance catalog. For each result the pipeline **derives
 data, it states:
 
 - **Inputs** — which collected stores it is computed from (documented in `DATA_DICTIONARY.md`);
-- **Rule** — the exact transformation, with the formula where there is one;
+- **Rule** — the exact **processing method** applied to the data: the sequence of operations that
+  turns each input datum into the derived value and the result, with the formula where there is one;
 - **Why** — the methodological justification for computing it that way;
 - **Producer** — the script that writes it, which is the **authoritative implementation**.
 
 It documents the *logic and rationale*, not column schemas — those live with each producer (see
 `DATA_DICTIONARY.md §8`). Commands to re-run everything are in `REPLICATE.md`; determinism guarantees
 are in `REPRODUCING.md`.
+
+## Research questions
+
+The fee study is organised around two questions; results below are tagged **RQ1** / **RQ2**.
+
+- **RQ1 — fee incidence.** What is the incidence of the fee across order sizes and trader roles — who
+  ultimately bears it, measured as a share of the value they trade — and is it *regressive* (a higher
+  rate on smaller trades)?
+- **RQ2 — the maker subsidy.** Who captures the maker rebate the fee funds, through what mechanism,
+  and what is their structural identity (what kind of trader)?
 
 ## Shared definitions (reused below)
 

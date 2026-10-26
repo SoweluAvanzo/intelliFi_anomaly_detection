@@ -3,6 +3,11 @@
 This document is for researchers who have the repository and want to
 regenerate every table and figure exactly. Read it before running anything.
 
+> **Scope.** This guide covers the **Stage-I** feed pipeline (`scripts/01`–`07`) — the earlier
+> market-integrity / anomaly analysis. For the **Stage-II** fee study (`scripts/1x`–`4x`, the headline
+> fee / maker-economics results), the result-by-script map and run commands are in `REPLICATE.md`, and
+> the derivation rules are in `DERIVATIONS.md`.
+
 ## What can and cannot be reproduced
 
 The pipeline has two kinds of stages.
@@ -31,7 +36,7 @@ on 2026-08-29 for all 20 output tables.
 
 ```bash
 git clone <repo> && cd IntelliFi_anomaly_detection
-python3.13 -m venv .venv && source .venv/bin/activate
+python3.11 -m venv .venv && source .venv/bin/activate
 pip install -r requirements-lock.txt      # exact versions used for the export
 pip install -e .
 

@@ -2,7 +2,7 @@
 
 This dictionary documents every dataset we **collected** — the meaning and format of each column.
 It covers two "eras" of trade data (the public **v1 archive** and our own **v2 on-chain tape**), the
-market/resolution registries that join them, the Stage I feed-based store, and the on-chain
+market/resolution registries that join them, the Stage I feed-based store (**Stage I** = the project's earlier anomaly-detection stage on a small feed corpus; **Stage II** = the current on-chain fee study), and the on-chain
 enrichment. The analysis *outputs* (backtest, coordination, atlas, …) are **derived, not collected**;
 §8 describes each one and explains why they are defined by their producer scripts rather than
 column-documented here.
@@ -41,9 +41,9 @@ we take it from the blockchain rather than from the feed. Each store exists to a
   (`OrderFilled` and related) from Polygon via Etherscan, deduped by `(tx_hash, evt_index)`, and
   validated against an independent source (five markets reconcile exactly: 171,126 / 171,126 fills, with
   full conservation of shares between mint, trade, and redemption).
-- **registries** — winners/resolutions from the CTF contract's `ConditionResolution` events; the
-  market↔token map and category tags by cursor-enumerating the CLOB API.
-- **on-chain enrichment** — USDC(.e) and ERC-1155 transfers for the universe wallets, via Etherscan.
+- **registries** — winners/resolutions from the **CTF** (Conditional Tokens Framework — Polymarket's on-chain contracts that mint and settle the outcome shares) contract's `ConditionResolution` events; the
+  market↔token map and category tags by cursor-enumerating the **CLOB** (central limit order book — the order book that matches trades) API.
+- **on-chain enrichment** — USDC(.e) and ERC-1155 transfers for the *universe* wallets (the subset of wallets selected by trading size, profit, and skill rank for on-chain enrichment — not all wallets), via Etherscan.
 - **Stage I feed store** — Polymarket's public Gamma / Data / CLOB APIs (a taker-side sample).
 
 Collection writes each raw response before normalization and uses content-derived keys, so a store is
@@ -83,7 +83,7 @@ identical schema plus `neg_risk_market_id`). Nov 2022 – Apr 2026.
 | `fee_usdc` | double | realised fee on the fill, USDC. **Dynamic**: ≈ `rate × min(price,1−price) × shares`, so it peaks near p=0.5 and →0 at the extremes. ~0 in the fee-free era, nonzero after the market's fee-start. **This is the V1 (old CTF-Exchange) `min` law at `rate=0.10`; V2 switched to a `p·(1−p)` law at lower per-category rates — see §3.** Stored in **USDC on taker-BUY rows but in outcome-token units on taker-SELL rows**, so divide SELL-row values by `price` before summing; a naive SUM over all rows overstates fees. |
 | `condition_id` | string | market (CTF condition) key |
 | `outcome_seq` | int64 | 1-based outcome index within the market (Yes=1/No=2 for binary) |
-| `neg_risk` | string | `'t'`/`'f'` — market belongs to a negRisk family |
+| `neg_risk` | string | `'t'`/`'f'` — market belongs to a **negRisk** family — a *negative-risk* group of mutually-exclusive outcomes whose prices sum to 1 |
 | `category` | string | coarse market category (e.g. `Sports`, `Up or Down`, `Politics`) |
 | `category_refined` | string | finer category (e.g. `Price Action`) |
 | `outcome_label` | string | label of the outcome token traded (e.g. `Up`, `Nuggets`, `Yes`) |
@@ -108,7 +108,7 @@ On-chain Conditional-Tokens Framework events (market creation, collateral↔shar
 redemptions, resolution). 5 files.
 
 **`preparations.parquet`** — `PrepareCondition` (market created): `id` (event id), `condition_id`,
-`oracle` (UMA adapter), `question_id`, `outcome_slot_count` (# outcomes).
+`oracle` (UMA adapter — **UMA** is the optimistic oracle that reports each market's real-world outcome), `question_id`, `outcome_slot_count` (# outcomes).
 
 **`splits.parquet`** — `PositionSplit` (collateral → a full set of outcome shares) and
 **`merges.parquet`** — `PositionsMerge` (outcome shares → collateral). Both:
@@ -135,7 +135,7 @@ block→time via a proxy), `condition_id`, `oracle`, `question_id`, `outcome_slo
 
 Our extraction of the two v2 exchange contracts' logs on Polygon; **one row per log**, 8,960 chunk
 files, Apr–Aug 2026. `tape_v2_other/` = same-signature events from the third contract; `tape_v2_gate/`
-= the cohort-gate subset. **Dedup by `(tx_hash, evt_index)`.**
+= the cohort-gate subset (the slice checked by the pre-registered completeness gate, `scripts/11`). **Dedup by `(tx_hash, evt_index)`.**
 
 | column | type | meaning |
 |---|---|---|
@@ -321,7 +321,7 @@ outputs follow "the producing script is the unit of correctness.") What each one
 - **`events/`** — the events layer derived from `gamma_v2` — `scripts/16_derive_events.py`.
 - **`fills/`, `fills_reconciliation/`** — the Dune 5-market on-chain fill prototype and its
   four-invariant reconciliation — `scripts/08_fetch_fills_dune.py`.
-- **`atlas/`, `atlas_v2/`** — intermediates for the three archive atlas analyses —
+- **`atlas/`, `atlas_v2/`** — intermediates for the three archive **atlas** analyses (archive-wide studies of the fee rollout, wash/negRisk bounds, and minting/convergence) —
   `docs/atlas_2026-08-30/scripts/atlas{A,B,C}/`.
 - **`tape_v2_gate/`** — the cohort-gate subset of the v2 tape — `scripts/11_gate_v2_cohort.py`.
 - **`_ctf_v2_shards/`** — condition-registry shards merged into `ctf_v2_conditions.parquet` (§4) —

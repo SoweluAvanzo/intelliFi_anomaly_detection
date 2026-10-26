@@ -1,5 +1,14 @@
 # A Market-Integrity Analysis Pipeline for Polymarket Prediction Markets
 
+> **Scope note (read first).** This is the **Stage-I** overview — the earlier
+> *market-integrity / anomaly-detection* analysis on a small feed-based corpus, whose
+> results are **null**. It is **not** the project's current focus. The current work is
+> **Stage II**: the *make/take fee* incidence and maker-economics study on the complete
+> on-chain record — start from `README.md`, then `DATA_DICTIONARY.md` and `DERIVATIONS.md`.
+> Terms used throughout: **Stage I** = this feed-based pipeline; **Stage II** = the on-chain
+> fee study; within Stage II, **Sample A** = the v1-archive replication corpus and
+> **Sample B** = the v2-tape cohort.
+
 > Revised 2026-08-29 after a full correctness and methodology audit. Every
 > figure below is produced by the current pipeline from the 2026-05-11 corpus
 > and is reproducible from the shipped parquet store (see `REPRODUCING.md`).

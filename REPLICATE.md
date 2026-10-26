@@ -1,5 +1,9 @@
 # Replication guide
 
+> This guide describes the **data share** (the downloadable bundle). In the git repository the
+> pipeline is already in `src/` + `scripts/`, the docs and the result JSONs are under `docs/`, and only
+> the bulk `data/` needs downloading — see `README.md` for the repo-vs-share layout.
+
 This dataset is self-contained: **code + data + documentation + result artifacts**. Every headline
 number in the `results_json/` artifacts is produced by one script in
 `polymarket_code.tar.gz`, reading the parquet stores under `data/`. After download, the folder is a
@@ -17,7 +21,7 @@ polymarket-dataset/
 ├── README.md                           ← dataset orientation
 ├── DATA_DICTIONARY.md                  ← every table and column, with units and gotchas
 ├── polymarket_code.tar.gz              ← the full pipeline (src/, scripts/, notebooks/, specs)
-├── results_json/                       ← the exact result artifacts the report cites (reference copies)
+├── results_json/                       ← the headline result artifacts (git repo keeps these as docs/*.json)
 ├── csv_bundle/                         ← a human-readable CSV subset of the Stage I corpus
 └── data/                               ← the analysis data (read directly by the code)
     ├── parquet/
@@ -166,23 +170,23 @@ On a machine without `systemd-run`, run the script directly but keep `--memory-l
 example `--memory-limit 3GB`) and prefer a machine with ≥ 16 GB of RAM for the tape-scale jobs.
 
 ### Which script reproduces which result
-The report's numbers map one-to-one to these scripts and their output JSONs. Reference copies of
-every JSON are in `results_json/`.
+Each headline result is produced by exactly one script and saved as a JSON artifact — in `docs/*.json`
+in the git repo, copied to `results_json/` in the data share:
 
-| Result in the report | Script | Output JSON |
+| Result | Script | Output JSON |
 |---|---|---|
-| §5.1 Regressive fee, per-order incidence | `scripts/33_fee_behavioral.py` | `fee_behavioral.json` |
-| §5.1–5.2 Staggered fee rollout (event-study DiD): incidence, order size, new-entrant inflow | `scripts/36_fee_rollout_did.py` | `fee_rollout_did.json` |
-| §5.3 Maker adverse selection & who captures the subsidy | `scripts/32_maker_economics.py` | `maker_economics.json` |
-| §5.4 On-chain account types (EOA / proxy / Gnosis Safe) | `scripts/37_account_types.py` | `account_types.json` |
-| §5.4 Behavioral actor taxonomy (market-maker / HFT / retail) | `scripts/39_actor_taxonomy.py` | `actor_taxonomy.json` |
-| §5.5 Platform-wide taker PnL, v1 (fee-free era) | `scripts/27_platform_wide.py` | `platform_wide.json` |
-| §5.5 Platform-wide taker PnL, v2 (net of fee) | `scripts/28_v2_platform.py` | `v2_platform.json` |
-| §5.5 Winnings concentration (Gini, top-1%) | `scripts/30_concentration.py` | `concentration.json` |
-| §5.5 Skill: sign-randomization + persistence | `scripts/31_skill_signflip.py` | `skill_signflip.json` |
-| §5.5 Skill: cross-market breadth | `scripts/38_skill_breadth.py` | `skill_breadth.json` |
-| §5.5 Coordination null: funding-graph entity collapse | `scripts/34_entity_funding.py` | `entity_concentration.json` |
-| §5.5 Coordination null: co-trading / winning graph | `scripts/35_winning_graph.py` | `winning_graph.json` |
+| Regressive fee, per-order incidence | `scripts/33_fee_behavioral.py` | `fee_behavioral.json` |
+| Staggered fee rollout (event-study DiD): incidence, order size, new-entrant inflow | `scripts/36_fee_rollout_did.py` | `fee_rollout_did.json` |
+| Maker adverse selection & who captures the subsidy | `scripts/32_maker_economics.py` | `maker_economics.json` |
+| On-chain account types (EOA / proxy / Gnosis Safe) | `scripts/37_account_types.py` | `account_types.json` |
+| Behavioral actor taxonomy (market-maker / HFT / retail) | `scripts/39_actor_taxonomy.py` | `actor_taxonomy.json` |
+| Platform-wide taker PnL, v1 (fee-free era) | `scripts/27_platform_wide.py` | `platform_wide.json` |
+| Platform-wide taker PnL, v2 (net of fee) | `scripts/28_v2_platform.py` | `v2_platform.json` |
+| Winnings concentration (Gini, top-1%) | `scripts/30_concentration.py` | `concentration.json` |
+| Skill: sign-randomization + persistence | `scripts/31_skill_signflip.py` | `skill_signflip.json` |
+| Skill: cross-market breadth | `scripts/38_skill_breadth.py` | `skill_breadth.json` |
+| Coordination null: funding-graph entity collapse | `scripts/34_entity_funding.py` | `entity_concentration.json` |
+| Coordination null: co-trading / winning graph | `scripts/35_winning_graph.py` | `winning_graph.json` |
 | Supporting: position-level skilled population | `scripts/23_skilled_population.py` | `skilled_population.json` |
 
 Run `python scripts/<name>.py --help` for each script's options (`--out`, `--memory-limit`,
