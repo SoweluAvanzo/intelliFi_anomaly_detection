@@ -34,7 +34,7 @@ identical schema plus `neg_risk_market_id`). Nov 2022 – Apr 2026.
 | `taker` | string | taker wallet (aggressor) |
 | `taker_direction` | string | `BUY` / `SELL`, from the taker's side |
 | `usdc_amount` | double | fill notional in USDC (= `price × shares`) |
-| `fee_usdc` | double | realised fee on the fill, USDC. **Dynamic**: ≈ `rate × min(price,1−price) × shares`, so it peaks near p=0.5 and →0 at the extremes. ~0 in the fee-free era, nonzero after the market's fee-start |
+| `fee_usdc` | double | realised fee on the fill, USDC. **Dynamic**: ≈ `rate × min(price,1−price) × shares`, so it peaks near p=0.5 and →0 at the extremes. ~0 in the fee-free era, nonzero after the market's fee-start. **This is the V1 (old CTF-Exchange) `min` law at `rate=0.10`; V2 switched to a `p·(1−p)` law at lower per-category rates — see §3.** Stored in **USDC on taker-BUY rows but in outcome-token units on taker-SELL rows**, so divide SELL-row values by `price` before summing; a naive SUM over all rows overstates fees. |
 | `condition_id` | string | market (CTF condition) key |
 | `outcome_seq` | int64 | 1-based outcome index within the market (Yes=1/No=2 for binary) |
 | `neg_risk` | string | `'t'`/`'f'` — market belongs to a negRisk family |
@@ -43,7 +43,7 @@ identical schema plus `neg_risk_market_id`). Nov 2022 – Apr 2026.
 | `outcome_label` | string | label of the outcome token traded (e.g. `Up`, `Nuggets`, `Yes`) |
 | `winning_outcome_label` | string | label of the outcome that ultimately won |
 | `resolution_status` | string | `resolved` / `pending` / `disputed` / null |
-| `taker_base_fee` | double | taker-side base fee **rate in basis points** (0 pre-rollout; `1000` = 10%) |
+| `taker_base_fee` | double | taker-side base fee **rate in basis points** (0 pre-rollout; `1000` = 10%). *Declared* rate only — many markets carry `1000` yet charge nothing, so define fee treatment from `fee_usdc>0`, not from this field. |
 | `maker_base_fee` | double | maker-side base fee rate in basis points |
 | `opens_at` | timestamp[us,UTC] | market open time |
 | `close_at` | timestamp[us,UTC] | **scheduled** close/deadline — *not* the actual end of trading; prefer a resolution time |
@@ -104,7 +104,7 @@ files, Apr–Aug 2026. `tape_v2_other/` = same-signature events from the third c
 | `token_id` | string | outcome-token id traded |
 | `maker_amount_raw` | int64 | raw amount the maker gave (base units) |
 | `taker_amount_raw` | int64 | raw amount the taker gave (base units) |
-| `fee_raw` | int64 | fee in **6-decimal USDC base units** (`/1e6` = USDC). **Nonzero only where `is_taker_order = TRUE`** |
+| `fee_raw` | int64 | fee in **6-decimal USDC base units** (`/1e6` = USDC). **Nonzero only where `is_taker_order = TRUE`** (takers pay; makers are never charged). The V2 taker-fee law is **`fee = feeRate · price · (1−price) · shares`** — a *product* form, unlike V1's `min(p,1−p)` (§1) — with `feeRate` per category: **0.07 Crypto, 0.04–0.05 most others, 0 for geopolitics/world (fee-free)**. Incidence `= fee/notional = feeRate·(1−price) ≤ feeRate`, largest on low-priced ("longshot") outcomes. Confirmed on-chain by `scripts/41` (median `fee/[p(1−p)·shares]` = 0.070). Matches Polymarket's published Trading-Fees formula. |
 | `builder` | string | block-builder address (usually null/0x0) |
 | `metadata` | string | auxiliary log metadata (usually empty) |
 | `usdc` | double | fill notional, USDC (derived) |
