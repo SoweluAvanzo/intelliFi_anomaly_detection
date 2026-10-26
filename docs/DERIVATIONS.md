@@ -88,7 +88,7 @@ probabilities.
 
 - **Inputs**: v1 archive — each market's fee-start (first day with `fee_usdc>0` on ≥50% of fills), and
   per-category weekly active traders, first-time traders, and median order size.
-- **Rule**: a **staggered difference-in-differences / event study** on a **balanced
+- **Rule**: a **staggered difference-in-differences / event study** (difference-in-differences = compare the treated group's change to a not-yet-treated control's change over the same window) on a **balanced
   (constant-composition) panel**; treatment = a category's fee-start; outcomes = active traders,
   new-wallet inflow, median order size; the effect is read as the **deviation from the fitted
   pre-treatment trend**, with not-yet-treated categories as controls.
@@ -102,7 +102,7 @@ probabilities.
 ## 3. Maker-profit concentration — RQ2
 
 - **Inputs**: the **fully-resolved v1 archive** — per-maker realized PnL.
-- **Rule**: realized gross PnL per maker over resolved markets; **Gini** among profitable makers;
+- **Rule**: realized gross PnL per maker over resolved markets; the **Gini** coefficient among profitable makers (0 = perfectly equal, 1 = all gains to one maker);
   top-k capture shares (0.1% / 1% / 10%); aggregate PnL by equal-count **volume decile**; negRisk
   families deduplicated to one unit.
 - **Why**: realized profit needs known outcomes, so concentration is measured on the fully-resolved V1
@@ -195,7 +195,7 @@ probabilities.
 - **Inputs**: on-chain **USDC** transfers between universe wallets (the funding graph); the co-trading
   graph built from fills.
 - **Rule**: resolve wallets into entities via the funding graph (direct + common-neighbour edges) +
-  Louvain; build the winning-cluster / co-trading graph among top winners; compare against
+  **Louvain** (a community-detection algorithm that groups densely-connected nodes); build the winning-cluster / co-trading graph among top winners; compare against
   **activity-preserving null models** and **matched placebo controls**; identify clusters
   **structurally** (maximum overlap with a reference entity), never by a literal Louvain id.
 - **Why**: raw co-trade and lead–lag statistics overstate coordination, so an activity-preserving null

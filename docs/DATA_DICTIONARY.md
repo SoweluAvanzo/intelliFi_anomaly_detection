@@ -69,7 +69,7 @@ re-runnable record of how each store was built.
 
 arXiv:2606.04217, CC-BY-4.0. **One row per maker fill.** `daily_aligned/*.parquet` (1,247 daily
 files, standard binary markets) and `daily_aligned_multi/*.parquet` (856 files, negRisk markets —
-identical schema plus `neg_risk_market_id`). Nov 2022 – Apr 2026.
+identical schema plus `neg_risk_market_id`). Nov 2022 – Apr 2026; **~746M fills in total**.
 
 | column | type | meaning |
 |---|---|---|
@@ -249,7 +249,7 @@ per market; ~90% at p≤0.05 or ≥0.95):
 
 **`universe.parquet`** — per-wallet aggregates over the corpus: `proxy_wallet`, `total_notional`
 (USDC), `n_trades`, `n_markets`, `realised_pnl` (USDC), `n_bets`, `realised_hit_rate`,
-`mean_implied_p`, `calibration_gap` (= hit_rate − implied_p), `rk_notional`, `rk_pnl`, `rk_skill`
+`mean_implied_p`, `calibration_gap` (the **raw** gap = hit_rate − implied_p; the reported headline statistic is the *Bayesian* gap, posterior_mean − mean_implied_p — see `DERIVATIONS.md §7`), `rk_notional`, `rk_pnl`, `rk_skill`
 (rank columns).
 
 **`prices_history/<token_id>.parquet`** — per-token price series: `token_id`, `ts_utc`, `price`.
@@ -278,7 +278,7 @@ entity graph.
 **`entity/codes.parquet`** — account-type classification cache (from `eth_getCode`): `wallet`,
 `is_eoa` (bool — no contract code = raw key), `code_hash` (bytecode hash identifying the proxy type:
 `f5c625376518f07a` = Gnosis Safe / browser-wallet users, `cefa4f597e0304e1` = Polymarket factory
-proxy / email·Magic users), `code_len` (bytecode length).
+proxy / email·Magic users), `code_len` (bytecode length). **EOA** = externally-owned account (a normal wallet controlled by a private key, not a smart contract).
 
 ## 7. Analysis views (built at query time, not stored)
 
@@ -292,7 +292,7 @@ Stage I code expects:
 - **`markets`** — one row per condition (slug, neg_risk, category, `created_at`, `end_date`,
   `closed_time`, `clob_token_ids`, `volume_clob`, `winning_outcome_label`/`_index`).
 - **`trades`** — maker fills aggregated into taker orders per (second, taker, token, direction):
-  `condition_id, asset_id, proxy_wallet, side, price (VWAP), size, notional_usdc, ts_utc, …`.
+  `condition_id, asset_id, proxy_wallet, side, price (VWAP — volume-weighted average price), size, notional_usdc, ts_utc, …`.
 - **`fills`** — canonical maker-record schema (matches the v2 tape fill schema; `is_taker_order`
   is FALSE for every archive row; `tx_hash` is a synthetic key).
 - **`winning_outcomes`**, **`prices_history`** — resolution and minute-VWAP helpers.
@@ -442,7 +442,7 @@ Program"):
 **Consequence.** Only 20–25% of collected fees are returned, so being both the taker and the maker of
 one's own trade (self-dealing to harvest the rebate) is a **guaranteed net loss**. Because the rebate is
 unobservable in the trade record, "who the rebate rewards" is studied through the **return to providing
-liquidity** (maker markout and realized PnL), not through rebate payments.
+liquidity** (the maker **markout** — the short-horizon price move after a maker's fill, positive = spread capture and negative = adverse selection, defined in `DERIVATIONS.md §4` — and realized PnL), not through rebate payments.
 
 ### Sources
 

@@ -36,6 +36,8 @@ Most readers want Stage II, which this README orients.
 5. **`REPRODUCING.md`** — what is and is not reproducible, and the determinism guarantees.
 6. **`PROJECT_OVERVIEW.md`** — the earlier Stage-I market-integrity analysis (null results).
 
+`REPLICATE.md` (download + Stage-II) and `REPRODUCING.md` (Stage-I, repo-based) are **alternative entry points for different goals, not sequential steps**. Other files under `docs/` — literature, the pre-registration, the result JSONs, the atlas — are **working material, not part of this reader set**.
+
 ## Where am I: the git repo vs. the data share
 
 The same material is distributed two ways, with **different layouts**:
@@ -91,7 +93,7 @@ mint and settle the outcome shares; **UMA** = the optimistic oracle that reports
 real-world outcome; **negRisk** = a *negative-risk* market group — a set of mutually-exclusive outcomes
 whose prices are constrained to sum to 1, so flow is consolidated per group; **universe** = the set of
 wallets *selected* (by trading size, profit, and skill rank) for on-chain enrichment, i.e. a subset, not
-all wallets.
+all wallets; **EOA** = externally-owned account (a normal wallet controlled by a private key, not a smart contract).
 
 ## How to read the data
 

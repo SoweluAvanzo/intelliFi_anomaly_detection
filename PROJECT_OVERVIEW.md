@@ -235,5 +235,5 @@ The corrected pipeline's contribution is methodological: a reproducible
 measurement stack for decentralised prediction markets with explicit null
 models and controls, and a documented map of the ways the public data
 misleads. Closing the trade-sample gap (on-chain `OrderFilled`
-reconstruction, Phase 3 of the specification) is the prerequisite for any
+reconstruction, a later phase of the spec's roadmap) is the prerequisite for any
 positive claim about wallet skill, insider timing or coordination.

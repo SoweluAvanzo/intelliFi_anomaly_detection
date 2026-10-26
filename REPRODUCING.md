@@ -40,8 +40,8 @@ python3.11 -m venv .venv && source .venv/bin/activate
 pip install -r requirements-lock.txt      # exact versions used for the export
 pip install -e .
 
-# 1. Unpack the parquet store shipped with the export (inputs + reference outputs)
-tar -xf polymarket_parquet_store.tar -C .   # creates data/parquet/ (inputs + outputs) and data/snapshots/
+# 1. Obtain the parquet store (inputs + reference outputs): download data/ as in REPLICATE.md
+#    — it is NOT in git; the internal export also bundled it as data/export/polymarket_parquet_store.tar
 
 # 2. Regenerate every analysis output offline
 python scripts/03_resolve_wallet_entities.py --no-fetch -v   # universe + on-chain entity graph + Louvain
@@ -66,7 +66,7 @@ older pyarrow builds fail to read them.
   the reference snapshot table by table (row order ignored, Louvain communities
   matched by membership, numeric tolerance 1e-9 relative).
 - `verify_export.py` recomputes winning outcomes, the bets table, raw and
-  Bayesian calibration, per-market Gini/HHI and the cotrade pairs from the raw
+  Bayesian calibration, per-market Gini/HHI (Herfindahl–Hirschman Index) and the cotrade pairs from the raw
   CSVs with pandas only, and compares them with the exported analysis tables —
   an implementation-independent check of the core formulas.
 
@@ -89,7 +89,7 @@ Reference snapshots: `data/snapshots/20260829/` is the current reference
 (post-audit); `data/snapshots/20260511/` preserves the pre-audit outputs so
 the revision table in `PROJECT_OVERVIEW.md §5` can be checked.
 
-## Phase 3 prototype: on-chain fill reconstruction (stage 08)
+## On-chain fill reconstruction (the stage-08 Dune prototype)
 
 `scripts/08_fetch_fills_dune.py` reconstructs every fill of the corpus markets
 from the `OrderFilled` events of both Polymarket exchanges via Dune, and
@@ -104,6 +104,5 @@ offline. The normaliser and reconciliation are self-tested against synthetic
 ## Extending the dataset
 
 Collection needs a network Polymarket does not block and, for on-chain
-transfers, a free Etherscan V2 key in `POLYGONSCAN_API_KEY`. See CLAUDE.md
-("When asked to extend the dataset") for the hold-out cohort procedure that
-adds newly resolved markets without overwriting the reference corpus.
+transfers, a free Etherscan V2 key in `POLYGONSCAN_API_KEY`. A hold-out cohort procedure (adding newly resolved markets without overwriting the
+reference corpus) is available for maintainers extending the dataset.
