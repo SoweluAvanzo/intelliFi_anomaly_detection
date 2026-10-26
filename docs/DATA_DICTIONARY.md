@@ -278,3 +278,86 @@ con.sql("DESCRIBE arc_raw").show()
 
 For full-tape scans set `PRAGMA memory_limit` and bucket by wallet-hash / block-range (uncapped
 DuckDB scans have OOM-ed the box); always dedup the v2 tape by `(tx_hash, evt_index)`.
+
+## 10. Fees and rebates — the full model
+Takers pay a trading fee; **makers are never charged**. Those fees **fund a daily rebate to makers**.
+The fee *formula and rate changed* when Polymarket migrated from the first-generation exchange
+("V1") to the second ("V2") on **28 April 2026**, so the two records use different laws: `fee_usdc`
+(§1, V1) and `fee_raw` (§3, V2). Everything below is the **taker** fee unless stated.
+
+### 10.1 Contracts, price, notional
+A **share** of an outcome pays **$1 if that outcome occurs and $0 otherwise**. Its **price `p` ∈ (0,1)**
+is the USDC cost of one share and equals the market's implied probability of the outcome; for a binary
+market `p_Yes + p_No = 1`. A trade of `s` shares at price `p` has **notional (dollar value) `= p · s`**
+USDC. (In the tables `s` is `shares`; the Polymarket docs call this quantity `C`.)
+
+### 10.2 The taker fee
+**V1 (old CTF-Exchange, ~Nov 2022 → 28 Apr 2026).** `fee = 0.10 · min(p, 1−p) · s` (rate = 1000 bps =
+10%). Recorded as `fee_usdc` (§1), **in USDC on taker-BUY rows and in outcome-token units on
+taker-SELL rows** — divide SELL values by `p` before summing; a naive SUM of the raw field overstates
+fees (the archive's implied total is several times the fees actually collected). `taker_base_fee=1000`
+is a *declared* rate that many markets carry without charging, so fee treatment in the V1 data is taken
+from `fee_usdc > 0`.
+
+**V2 (new exchange, 28 Apr 2026 →).** `fee = feeRate · p · (1−p) · s`. Recorded as `fee_raw` on the
+taker-order row (§3). `feeRate` is set per **category**:
+
+| Category | Taker `feeRate` | Maker rebate share |
+|---|---|---|
+| Crypto | 0.07 | 20% |
+| Sports | 0.05 | 20% |
+| Economics / Culture / Weather / Other–General | 0.05 | 25% |
+| Finance / Politics / Tech / Mentions | 0.04 | 25% |
+| **Geopolitics / world events** | **0 (fee-free)** | — |
+
+(Polymarket sets these at its discretion and may change them; the rebate column is explained in §10.3.)
+
+**Fee-curve properties.** Both `p(1−p)` (V2) and `min(p,1−p)` (V1) are **symmetric** — a trade at `p`
+and the matching trade at `1−p` pay the same dollar fee (a 30¢ buy ≡ a 70¢ buy) — **zero at the
+extremes** (near-certain outcomes are ~free to trade) and **largest in the middle** (the dollar fee
+peaks at `p = 0.5`).
+
+**Incidence (fee as a share of money staked), V2.** Since notional is `p·s`,
+`incidence = fee / (p·s) = feeRate · (1−p)` — at most `feeRate`, and **largest for low-priced
+("longshot") outcomes**, so the fee is **regressive by price**: the cheaper the outcome, the higher the
+rate on the money put in. (For V1's `min` law the within-fee-market rate is flat at `rate` for `p<0.5`.)
+
+**Worked example (V2 Crypto, `feeRate = 0.07`, buy `s = 100` shares):**
+
+| price `p` | fee `= 0.07·p·(1−p)·100` | notional `p·s` | incidence `= 0.07·(1−p)` |
+|---|---|---|---|
+| 0.10 (longshot) | $0.63 | $10 | 6.3% |
+| 0.50 (even) | $1.75 (max dollar fee) | $50 | 3.5% |
+| 0.90 (favorite) | $0.63 | $90 | 0.7% |
+
+**Precision and eligibility.** Fees round to 5 decimals; the smallest charge is 0.00001 USDC, so very
+small trades near the extremes can round to **no fee**. V2 fees apply only to markets **deployed on/after
+the activation date** in fee-enabled categories (`feesEnabled` flag per market); geopolitics/world is
+excluded. In the **V1 archive window** the rollout was still staggered across categories, so many
+categories (politics, most sports until spring 2026, …) were effectively un-charged even though they are
+fee-enabled on V2.
+
+### 10.3 The maker rebate (V2) — and why it is not a column here
+Taker fees fund a **daily USDC rebate to makers**. It is **not stamped on any fill**, so it does not
+appear in §1–§3; it is a separate per-market, per-day aggregate. Mechanism (Polymarket "Maker Rebates
+Program"):
+
+- A per-category **share `ρ` of the taker fees collected in a market** forms that market's daily
+  **rebate pool** (`ρ` = 20% for Crypto/Sports, 25% for the other fee-enabled categories; geopolitics is
+  fee-free).
+- Each filled maker order is scored with the **same curve**: `fee_equivalent = feeRate · p · (1−p) · s`.
+- A maker's **daily rebate** is its share of the pool, computed **per market**:
+  `rebate = (your fee_equivalent / total fee_equivalent in that market that day) · rebate_pool`.
+- Paid daily in USDC, with a **$1 minimum** accrual before payout.
+
+**Consequence.** Only 20–25% of collected fees are returned, so being both the taker and the maker of
+one's own trade (self-dealing to harvest the rebate) is a **guaranteed net loss**. Because the rebate is
+unobservable in the trade record, "who the rebate rewards" is studied through the **return to providing
+liquidity** (maker markout and realized PnL), not through rebate payments.
+
+### Sources
+Polymarket Help — *Trading Fees* (`help.polymarket.com/en/articles/13364478-trading-fees`) and *Maker
+Rebates Program* (`…/13364471-maker-rebates-program`), retrieved 5 Oct 2026. The V1 `min` law is
+confirmed on-chain against the CTF-Exchange `calculateFee` (`fee_usdc/(s·min(p,1−p)) = 0.100` across all
+price deciles); the V2 `product` law is confirmed by `scripts/41_fee_rate_audit.py`
+(median `fee/[p(1−p)·s] = 0.070`).
