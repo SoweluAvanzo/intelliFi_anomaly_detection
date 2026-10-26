@@ -1,10 +1,54 @@
 # Data dictionary
 
-Every dataset we have collected, with the meaning and format of each column. Two "eras" of trade
-data (the public **v1 archive** and our own **v2 on-chain tape**), the market/resolution
-registries that join them, the Stage I feed-based store, and the on-chain enrichment. Analysis
-*outputs* (backtest, coordination, atlas, …) are listed at the end but not column-documented — they
-are produced by the scripts, not collected.
+This dictionary documents every dataset we **collected** — the meaning and format of each column.
+It covers two "eras" of trade data (the public **v1 archive** and our own **v2 on-chain tape**), the
+market/resolution registries that join them, the Stage I feed-based store, and the on-chain
+enrichment. The analysis *outputs* (backtest, coordination, atlas, …) are **derived, not collected**;
+§8 describes each one and explains why they are defined by their producer scripts rather than
+column-documented here.
+
+## Why we collected these data
+
+The project studies **market integrity on Polymarket**, and specifically the **make/take fee** — who
+bears it, who captures the maker rebate it funds, and how trading profit and liquidity provision are
+distributed across participants, alongside manipulation/anomaly patterns (flow concentration, wash
+trading, coordinated timing).
+
+Answering *who pays and who gains, at the level of individual traders* requires the **complete trade
+record with the true buyer and seller of every trade**. Polymarket's public trade feed cannot support
+this: it returns only a taker-side tail (≤ 4,000 recent trades per market), omits fills, and
+**misreports trade direction**. Because Polymarket settles on-chain, that complete record is public, so
+we take it from the blockchain rather than from the feed. Each store exists to answer a specific need:
+
+- **v1 archive (§1–§2)** — the fully *resolved* past: realized profit/loss and concentration can be
+  computed only once outcomes are known, so the "who wins / who loses" and maker-concentration results
+  use it.
+- **v2 tape (§3)** — the *fee era*: used to confirm the fee law, measure the maker markout, and test
+  self-dealing under the fee regime.
+- **registries (§4)** — attach each trade to its market, its **category** (hence fee rate / rollout
+  group), and its **winning outcome**.
+- **on-chain enrichment (§6)** — USDC transfers / funding graph, to resolve wallets into economic
+  entities.
+- **Stage I feed store (§5)** — the original feed-based corpus, kept for the earlier anomaly-detection
+  work and as the cautionary baseline that motivated moving to the on-chain record.
+
+## How they were collected (high level; the exact crawlers live in `scripts/`)
+
+- **v1 archive** — *not* re-collected by us: the openly released Qin & Yang V1 database
+  (arXiv:2606.04217, CC-BY-4.0), itself reconstructed from Polygon's settlement layer; placed on disk
+  and read directly.
+- **v2 tape** — reconstructed by reading the two v2 exchange contracts' on-chain event logs
+  (`OrderFilled` and related) from Polygon via Etherscan, deduped by `(tx_hash, evt_index)`, and
+  validated against an independent source (five markets reconcile exactly: 171,126 / 171,126 fills, with
+  full conservation of shares between mint, trade, and redemption).
+- **registries** — winners/resolutions from the CTF contract's `ConditionResolution` events; the
+  market↔token map and category tags by cursor-enumerating the CLOB API.
+- **on-chain enrichment** — USDC(.e) and ERC-1155 transfers for the universe wallets, via Etherscan.
+- **Stage I feed store** — Polymarket's public Gamma / Data / CLOB APIs (a taker-side sample).
+
+Collection writes each raw response before normalization and uses content-derived keys, so a store is
+idempotent (re-running skips what already exists); the per-stage scripts in `scripts/` are the exact,
+re-runnable record of how each store was built.
 
 ## Conventions (apply everywhere unless noted)
 - **Addresses** — lowercase 0x-hex strings (wallets, contracts, tx hashes).
@@ -247,12 +291,39 @@ Stage I code expects:
 The warehouse also exposes a **`v2_raw`** view over the v2 tape (`INTELLIFI_SOURCE=tape_v2`) that
 auto-dedups by `(tx_hash, evt_index)`.
 
-## 8. Analysis outputs (produced, not collected — see the scripts)
-Not column-documented here; each is written by its stage script and consumed by the notebooks/report:
-`backtest/`, `convergence/`, `coordination/`, `wallet_graph/`, `entity/` (beyond `codes`), `events/`,
-`fills/` + `fills_reconciliation/` (Dune 5-market prototype), `atlas/` + `atlas_v2/` (the archive
-atlas), `tape_v2_gate/`, `_ctf_v2_shards/`. The headline result artifacts are the `docs/*.json`
-files (e.g. `fee_behavioral.json`, `maker_economics.json`, `actor_taxonomy.json`).
+## 8. Analysis outputs (produced, not collected)
+
+These are **results, not primary data**, which is why they are not column-documented here. This
+dictionary documents the *collected* stores — the ground truth on disk — whereas each output is
+**produced by, and canonically defined by, the script that writes it** (and, for the result JSONs, by
+its own self-describing keys). Pinning their columns in this file would duplicate the producers and
+drift out of sync as the analysis evolves, so each output instead points to its producer, which is the
+single source of truth for its schema. (Inputs follow the rule "whatever is on disk is the truth";
+outputs follow "the producing script is the unit of correctness.") What each one is:
+
+- **`backtest/`** — mirror-strategy backtest events + summary — `scripts/05_backtest_mirror.py`.
+- **`convergence/`** — per-market winner-price error vs hours-to-close, and the aggregate —
+  `scripts/06_convergence.py`.
+- **`coordination/`** — cotrade pairs, leader–lag edges, wash round-trips, behavioural partition —
+  `scripts/04_coordination_analysis.py`.
+- **`wallet_graph/`** — wallet-entity communities + `partition.json` —
+  `scripts/03_resolve_wallet_entities.py`.
+- **`entity/`** — per-wallet account-type codes (EOA / proxy / Gnosis Safe).
+- **`events/`** — the events layer derived from `gamma_v2` — `scripts/16_derive_events.py`.
+- **`fills/`, `fills_reconciliation/`** — the Dune 5-market on-chain fill prototype and its
+  four-invariant reconciliation — `scripts/08_fetch_fills_dune.py`.
+- **`atlas/`, `atlas_v2/`** — intermediates for the three archive atlas analyses —
+  `docs/atlas_2026-08-30/scripts/atlas{A,B,C}/`.
+- **`tape_v2_gate/`** — the cohort-gate subset of the v2 tape — `scripts/11_gate_v2_cohort.py`.
+- **`_ctf_v2_shards/`** — condition-registry shards merged into `ctf_v2_conditions.parquet` (§4) —
+  `scripts/13_merge_verify_ctf_v2.py`.
+- **`docs/*.json`** — the headline result artifacts the write-ups cite; each is written by a numbered
+  stage script and documents its own keys. E.g. `fee_rollout_did.json` (`scripts/36`),
+  `maker_economics.json` (`scripts/32`), `maker_markout.json` (`scripts/40`), `actor_taxonomy.json`
+  (`scripts/39`), `fee_behavioral.json` (`scripts/33`), `gate1_fee_audit_repro.json` (`scripts/41`),
+  `self_dealing.json` (`scripts/42`).
+
+For the exact schema of any output, read its producer script (above) or `DESCRIBE` the parquet (§9).
 
 ## 9. How to consult
 Always use the project venv (base Python's older pyarrow cannot read these files):
