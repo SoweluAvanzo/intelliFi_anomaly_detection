@@ -51,6 +51,7 @@ idempotent (re-running skips what already exists); the per-stage scripts in `scr
 re-runnable record of how each store was built.
 
 ## Conventions (apply everywhere unless noted)
+
 - **Addresses** — lowercase 0x-hex strings (wallets, contracts, tx hashes).
 - **Timestamps** — `ts_utc` is `timestamp[us, UTC]`; `block_timestamp` is Unix epoch **seconds** (int).
 - **price** — a probability in **[0, 1]**, i.e. USDC per share (a share pays \$1 if its outcome wins).
@@ -65,6 +66,7 @@ re-runnable record of how each store was built.
 ---
 
 ## 1. v1 archive — trade fills (`data/external/polymarket_v1/`)
+
 arXiv:2606.04217, CC-BY-4.0. **One row per maker fill.** `daily_aligned/*.parquet` (1,247 daily
 files, standard binary markets) and `daily_aligned_multi/*.parquet` (856 files, negRisk markets —
 identical schema plus `neg_risk_market_id`). Nov 2022 – Apr 2026.
@@ -101,6 +103,7 @@ Note: in v1 the fee is recorded **on the maker-fill row** (`fee_usdc`); in the v
 the taker-order row instead (see §3).
 
 ## 2. v1 archive — CTF lifecycle (`data/external/polymarket_v1/CTF/`)
+
 On-chain Conditional-Tokens Framework events (market creation, collateral↔share conversions,
 redemptions, resolution). 5 files.
 
@@ -117,18 +120,19 @@ redemptions, resolution). 5 files.
 | `collateral_token` | string | collateral address (USDC) |
 | `parent_collection_id` | string | CTF parent collection (0x0 for top-level) |
 | `condition_id` | string | market key |
-| `partition` | list<string> | outcome index-sets involved |
+| `partition` | `list<string>` | outcome index-sets involved |
 | `usdc_amount` | double | collateral moved, USDC |
 
 **`redemptions.parquet`** — `PayoutRedemption` (winning shares → collateral after resolution):
 `id`, `redeemer` (wallet), `collateral_token`, `parent_collection_id`, `condition_id`,
-`index_sets` (list<string>, outcomes redeemed), `usdc_amount` (USDC paid out).
+`index_sets` (`list<string>`, outcomes redeemed), `usdc_amount` (USDC paid out).
 
 **`resolutions.parquet`** — `ConditionResolution` (the winner): `id` (`137_<block>_<logIndex>`, so
 block→time via a proxy), `condition_id`, `oracle`, `question_id`, `outcome_slot_count`,
-`payout_numerators` (list<string>; the index with numerator 1 is the winning outcome).
+`payout_numerators` (`list<string>`; the index with numerator 1 is the winning outcome).
 
 ## 3. v2 on-chain tape (`data/parquet/tape_v2/**/part.parquet`)
+
 Our extraction of the two v2 exchange contracts' logs on Polygon; **one row per log**, 8,960 chunk
 files, Apr–Aug 2026. `tape_v2_other/` = same-signature events from the third contract; `tape_v2_gate/`
 = the cohort-gate subset. **Dedup by `(tx_hash, evt_index)`.**
@@ -161,6 +165,7 @@ files, Apr–Aug 2026. `tape_v2_other/` = same-signature events from the third c
 column (the wallet the file belongs to).
 
 ## 4. Market & resolution registries
+
 **`ctf_v2_conditions.parquet`** (v2 winners) and **`ctf_resolutions_corpus.parquet`** (corpus-wide;
 same schema, `winning_outcome_index` is int64 there):
 
@@ -170,7 +175,7 @@ same schema, `winning_outcome_index` is int64 there):
 | `oracle` | string | UMA adapter address |
 | `question_id` | string | UMA question id |
 | `outcome_slot_count` | int64 | number of outcomes |
-| `payout_numerators` | list<int64> | payout vector; the `1` marks the winner |
+| `payout_numerators` | `list<int64>` | payout vector; the `1` marks the winner |
 | `resolved_block` | int64 | block of `ConditionResolution` |
 | `resolved_ts_utc` | timestamp[us,UTC] | resolution time (the canonical "close" for v2) |
 | `tx_hash` | string | resolution tx |
@@ -190,7 +195,7 @@ negRisk markets get a condition-level row with empty `token_id`):
 | `closed`, `active`, `archived` | bool | market status flags |
 | `event_id` | int32 | parent event id |
 | `end_date_iso` | string | scheduled end date (ISO) |
-| `tags` | list<string> | category tags (e.g. `["Ethereum","Finance","crypto"]`) — the v2 category source |
+| `tags` | `list<string>` | category tags (e.g. `["Ethereum","Finance","crypto"]`) — the v2 category source |
 | `token_id` | string | outcome-token id (empty for negRisk — join by `condition_id`) |
 | `outcome` | string | outcome label for `token_id` |
 
@@ -202,12 +207,13 @@ negRisk markets get a condition-level row with empty `token_id`):
 as the Stage I `markets` table (§5)**.
 
 ## 5. Stage I feed store (the 100-market feed corpus)
+
 **`markets/markets.parquet`** — one row per market, full Gamma metadata.
 
 | group | columns | meaning |
 |---|---|---|
 | identifiers | `id`, `slug`, `question`, `condition_id`, `question_id`, `event_id`, `event_slug` | market/event ids and text |
-| outcomes | `outcomes` (list<str>), `clob_token_ids` (list<str>), `outcome_prices_final` (list<double>) | **positional**: `outcomes[i] ↔ clob_token_ids[i] ↔ outcome_prices_final[i]` (final price 1.0 = winner) |
+| outcomes | `outcomes` (`list<str>`), `clob_token_ids` (`list<str>`), `outcome_prices_final` (`list<double>`) | **positional**: `outcomes[i] ↔ clob_token_ids[i] ↔ outcome_prices_final[i]` (final price 1.0 = winner) |
 | status | `closed`, `active`, `archived`, `accepting_orders`, `enable_order_book`, `clear_book_on_start` | lifecycle flags |
 | resolution | `uma_resolution_statuses` (str), `closed_time` (ts) | UMA status; **`closed_time` = actual close of trading — use this, not `end_date`** |
 | negRisk | `neg_risk`, `neg_risk_other`, `neg_risk_request_id`, `event_neg_risk`, `event_neg_risk_market_id` | negRisk membership |
@@ -249,6 +255,7 @@ per market; ~90% at p≤0.05 or ≥0.95):
 **`prices_history/<token_id>.parquet`** — per-token price series: `token_id`, `ts_utc`, `price`.
 
 ## 6. On-chain enrichment (`data/parquet/onchain_transfers/`, one file per universe wallet)
+
 **`usdc_e/` and `usdc_native/`** — ERC-20 USDC transfers (bridged USDC.e and native USDC):
 
 | column | type | meaning |
@@ -274,8 +281,10 @@ entity graph.
 proxy / email·Magic users), `code_len` (bytecode length).
 
 ## 7. Analysis views (built at query time, not stored)
+
 `intellifi.archive.register_archive_views(con)` builds these over the v1 archive under the names the
 Stage I code expects:
+
 - **`arc_raw`** — one row per maker fill (the workhorse): `condition_id, token_id, outcome_index,
   ts_utc, block_timestamp, maker, taker, taker_direction, D, price, usdc_amount, fee_usdc,
   shares, neg_risk, category, category_refined, market_slug, outcome_label, winning_outcome_label,
@@ -324,8 +333,11 @@ outputs follow "the producing script is the unit of correctness.") What each one
   `self_dealing.json` (`scripts/42`).
 
 For the exact schema of any output, read its producer script (above) or `DESCRIBE` the parquet (§9).
+For the **derivation rule and the rationale** behind each output — what it is computed from, how,
+and why that way — see `DERIVATIONS.md`.
 
 ## 9. How to consult
+
 Always use the project venv (base Python's older pyarrow cannot read these files):
 
 ```bash
@@ -333,12 +345,14 @@ cd /path/to/IntelliFi_anomaly_detection && source .venv/bin/activate
 ```
 
 Schema + peek of any store (DuckDB over the parquet glob):
+
 ```bash
 python -c "import duckdb; duckdb.sql(\"DESCRIBE SELECT * FROM 'data/parquet/tape_v2/**/*.parquet'\").show()"
 python -c "import duckdb; duckdb.sql(\"SELECT * FROM 'data/parquet/ctf_v2_conditions.parquet' LIMIT 5\").show()"
 ```
 
 The v1 analysis views:
+
 ```python
 import sys, duckdb; sys.path.insert(0, "src")
 from intellifi.archive import register_archive_views
@@ -351,18 +365,21 @@ For full-tape scans set `PRAGMA memory_limit` and bucket by wallet-hash / block-
 DuckDB scans have OOM-ed the box); always dedup the v2 tape by `(tx_hash, evt_index)`.
 
 ## 10. Fees and rebates — the full model
+
 Takers pay a trading fee; **makers are never charged**. Those fees **fund a daily rebate to makers**.
 The fee *formula and rate changed* when Polymarket migrated from the first-generation exchange
 ("V1") to the second ("V2") on **28 April 2026**, so the two records use different laws: `fee_usdc`
 (§1, V1) and `fee_raw` (§3, V2). Everything below is the **taker** fee unless stated.
 
 ### 10.1 Contracts, price, notional
+
 A **share** of an outcome pays **$1 if that outcome occurs and $0 otherwise**. Its **price `p` ∈ (0,1)**
 is the USDC cost of one share and equals the market's implied probability of the outcome; for a binary
 market `p_Yes + p_No = 1`. A trade of `s` shares at price `p` has **notional (dollar value) `= p · s`**
 USDC. (In the tables `s` is `shares`; the Polymarket docs call this quantity `C`.)
 
 ### 10.2 The taker fee
+
 **V1 (old CTF-Exchange, ~Nov 2022 → 28 Apr 2026).** `fee = 0.10 · min(p, 1−p) · s` (rate = 1000 bps =
 10%). Recorded as `fee_usdc` (§1), **in USDC on taker-BUY rows and in outcome-token units on
 taker-SELL rows** — divide SELL values by `p` before summing; a naive SUM of the raw field overstates
@@ -409,6 +426,7 @@ categories (politics, most sports until spring 2026, …) were effectively un-ch
 fee-enabled on V2.
 
 ### 10.3 The maker rebate (V2) — and why it is not a column here
+
 Taker fees fund a **daily USDC rebate to makers**. It is **not stamped on any fill**, so it does not
 appear in §1–§3; it is a separate per-market, per-day aggregate. Mechanism (Polymarket "Maker Rebates
 Program"):
@@ -427,6 +445,7 @@ unobservable in the trade record, "who the rebate rewards" is studied through th
 liquidity** (maker markout and realized PnL), not through rebate payments.
 
 ### Sources
+
 Polymarket Help — *Trading Fees* (`help.polymarket.com/en/articles/13364478-trading-fees`) and *Maker
 Rebates Program* (`…/13364471-maker-rebates-program`), retrieved 5 Oct 2026. The V1 `min` law is
 confirmed on-chain against the CTF-Exchange `calculateFee` (`fee_usdc/(s·min(p,1−p)) = 0.100` across all
