@@ -154,8 +154,11 @@ def main() -> int:
             "frac_negative": agg["neg"] / cov if cov else None,
             "total_dollar_markout": agg["sum_dol"],
             "spearman_vol_markout": sp, "d1_markout_ps": d1, "d10_markout_ps": d10})
-        print(f"  D={D:>6}s cov={100*cov/nm_total:4.1f}% dw_mko={agg['sum_dol']/agg['sum_sh']:+.5f} "
-              f"neg={agg['neg']/cov:.3f} spear={sp:+.3f} d1={d1:+.5f} d10={d10:+.5f}", flush=True)
+        if cov and agg["sum_sh"]:
+            print(f"  D={D:>6}s cov={100*cov/nm_total:4.1f}% dw_mko={agg['sum_dol']/agg['sum_sh']:+.5f} "
+                  f"neg={agg['neg']/cov:.3f} spear={(sp or 0):+.3f} d1={(d1 or 0):+.5f} d10={(d10 or 0):+.5f}", flush=True)
+        else:
+            print(f"  D={D:>6}s cov={(100*cov/nm_total if nm_total else 0):4.1f}% (no matches in this slice)", flush=True)
     con.close()
 
     rep = {"scope": "v2 on-chain record, MAKER markout vs horizon; outcome-independent (next-trade price)",

@@ -25,6 +25,14 @@ dev = [
     "pytest>=8.0",
     "ruff>=0.5",
 ]
+# Optional alternative compute engine for the maker-markout stage (scripts/44).
+# PySpark 4.x requires Java 17 or 21. Install with: pip install -e '.[spark]'
+spark = [
+    "pyspark>=4.0,<4.1",
+]
+# NOTE: the optional Airflow orchestration layer (airflow/, docs/AIRFLOW.md) is deliberately
+# NOT an extra here. Airflow pins an old pyarrow and would break the parquet store reads if
+# installed into this venv; it gets its own isolated env via `bash airflow/setup.sh`.
 
 [project.scripts]
 intellifi = "intellifi.cli:main"

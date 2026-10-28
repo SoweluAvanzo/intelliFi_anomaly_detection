@@ -136,3 +136,18 @@ Two script families: **`scripts/01`–`07`** are the Stage-I feed pipeline; **`s
 Stage-II fee pipeline (plus the archive "atlas" analyses). The library is `src/intellifi/`. Analyses are
 deterministic given the parquet store; heavy scans need a `PRAGMA memory_limit` and wallet-/block-
 bucketing (uncapped DuckDB scans can exhaust memory). `DERIVATIONS.md` maps each result to its producer.
+
+The default engine throughout is DuckDB/Polars over Parquet. The maker-markout stage additionally has an
+**optional, interchangeable PySpark engine** (`scripts/44_maker_markout_spark.py`,
+`src/intellifi/spark_markout.py`): it computes the identical result on Apache Spark for cross-engine
+validation and horizontal scalability, runs locally with no cluster, and is validated to agree with the
+DuckDB version by `scripts/45_validate_markout_spark.py`. It is purely additive — the DuckDB path
+(`scripts/40_maker_markout.py`) is unchanged and remains the source of truth for replication. See
+`docs/SPARK_MARKOUT.md`.
+
+The pipeline can also be driven, optionally, by **Apache Airflow** DAGs (`airflow/`) that orchestrate
+the same scripts — collection, offline analysis, and the maker-markout engine switch — with dependency
+management, per-task logs, run history and a fail-safe retry policy (a preflight gate and an IP-penalty
+sensor on the on-chain crawl). Airflow runs in its own isolated environment and the scripts still run by
+hand or via the `scripts/run_*.sh` drivers exactly as before, so it is purely additive. See
+`docs/AIRFLOW.md`.

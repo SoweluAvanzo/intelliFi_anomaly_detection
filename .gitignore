@@ -95,3 +95,12 @@ docs/Verdict *.md
 *.xmind
 IEEEtranBST2/
 conference-latex-template/
+
+# Airflow (optional orchestration layer, docs/AIRFLOW.md) — isolated env + runtime state
+.venv-airflow/
+airflow/home/
+airflow/logs/
+airflow/**/__pycache__/
+
+# Local development notes (not part of the replication artifact)
+CLAUDE.md

@@ -1,0 +1,12 @@
+# Airflow runs in its OWN isolated environment, never the project .venv.
+# Reason: Airflow pins an old pyarrow; the analysis stack needs pyarrow>=24 to read
+# the parquet store (CLAUDE.md). Installing Airflow into .venv would break reads.
+#
+# Install with the official constraints file (see airflow/setup.sh), e.g.:
+#   AIRFLOW_VERSION=2.10.5 ; PYV=3.12
+#   pip install "apache-airflow==${AIRFLOW_VERSION}" \
+#     --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYV}.txt"
+#
+# Core Airflow only — the DAGs shell out to the project venv, so no provider extras
+# are required. pendulum ships as an Airflow dependency.
+apache-airflow==2.10.5
