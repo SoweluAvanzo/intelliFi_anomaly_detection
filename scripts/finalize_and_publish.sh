@@ -1,35 +1,38 @@
 #!/usr/bin/env bash
-# One-shot: regenerate the figure + report PDF, commit the pending analysis/report changes,
-# rebuild the code bundle, re-upload the changed artifacts to R2, and push to GitHub.
-# Run next session (needs a working shell + the r2 rclone remote configured).
-#   bash scripts/finalize_and_publish.sh
+# Publish the current committed HEAD: (optionally) regenerate the figure, rebuild the
+# code bundle, re-upload the changed artifacts to R2, and push to GitHub.
+# It NEVER fabricates a commit — if the tree is dirty it stops and asks you to commit
+# yourself (this repo's commits carry no attribution line). Needs a working shell + the
+# r2 rclone remote configured.
+#   bash scripts/finalize_and_publish.sh                 # sync HEAD to R2 + GitHub
+#   REGEN_FIGURE=1 bash scripts/finalize_and_publish.sh  # also regenerate the balanced-panel figure
 set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 source .venv/bin/activate 2>/dev/null || true
 
 REMOTE="${RCLONE_REMOTE:-r2}"; DEST="${RCLONE_DEST:-polymarket-dataset}"
 
-echo "== 1/6  balanced-panel figure =="
-python scripts/plot_fee_rollout_balanced.py
-
-echo "== 3/6  commit report + analysis changes =="
-git add -A
-if git diff --cached --quiet; then
-  echo "  (nothing new to commit — skipping)"
+# Figure regen is opt-in: matplotlib stamps a fresh timestamp into the tracked PDF/PNG on
+# every run, which would dirty the tree with no real content change. Enable it explicitly
+# only when the figure must actually change (then commit the result yourself, see below).
+if [[ "${REGEN_FIGURE:-0}" == "1" ]]; then
+  echo "== 1/6  balanced-panel figure (REGEN_FIGURE=1) =="
+  python scripts/plot_fee_rollout_balanced.py
 else
-git commit -F - <<'MSG'
-Fee event study: correct §5.2 to a null participation response; add balanced panel + figure
+  echo "== 1/6  balanced-panel figure — skipped (set REGEN_FIGURE=1 to regenerate) =="
+fi
 
-- scripts/36: balanced-panel event study + per-category grid + pre-trend diagnostic (fixes the
-  changing-panel artifact where the pooled series summed over a shrinking category set 9->1).
-- docs/fee_rollout_did.json regenerated with event_study_balanced + pretrend_diagnostic.
-- report: §5.2 reframed to a NULL participation response (order size on its pre-fee trend; entry
-  not falling at onset); §5.1 fee-onset softened; §5.3 refined to a non-monotonic profitability-
-  volume relationship with an interior minimum at the upper-middle (7-9) deciles; §1.5/§6 synced.
-- scripts/plot_fee_rollout_balanced.py (figure).
-
-Claude-Session: https://claude.ai/code/session_01CCGVEf9t8efYSYsWoPxaov
-MSG
+echo "== 3/6  require a clean tree (this script never fabricates a commit) =="
+# A canned commit message can't honestly describe whatever happens to be staged, and this
+# repo's history carries no attribution/AI markers. So we do not auto-commit: if the tree
+# is dirty, stop and let you commit it yourself (your own message, no attribution line).
+# The bundle (git archive HEAD) and the push below then reflect exactly the HEAD you set.
+if [[ -n "$(git status --porcelain)" ]]; then
+  echo "ERROR: working tree has uncommitted changes — refusing to publish." >&2
+  git status --short >&2
+  echo >&2
+  echo "Commit them yourself (no attribution line), then re-run this script." >&2
+  exit 1
 fi
 
 echo "== 4/6  rebuild code bundle (data/ is gitignored) =="
