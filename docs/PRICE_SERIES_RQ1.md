@@ -45,10 +45,18 @@ The tape is not pre-cleaned; six read rules are baked into the build:
 
 ## Columns
 
+The pre-fee counterpart is `data/export/price_series_v1.parquet`, same schema, documented in
+`docs/PRICE_SERIES_V1.md`. Both carry an `era` column (`v1` / `v2`) so they stack into one
+pre/post panel for the fee-regime comparison.
+
 | column | meaning |
 |---|---|
 | `condition_id` | CTF condition id, the market key |
-| `resolved_ts` | resolution timestamp, UTC |
+| `era` | `v2` for this file (fee era) |
+| `resolved_ts` | resolution timestamp (the horizon anchor), UTC |
+| `anchor_source` | `resolved_at` for v2 — the anchor is always the oracle resolution |
+| `resolved_at_raw` | oracle resolution time (equals `resolved_ts` for v2) |
+| `close_at` | NULL for v2 (the tape has no scheduled-close field) |
 | `win_idx` | winning outcome index, 0 or 1 |
 | `realized_y0` | 1 if outcome-0 won, else 0 — the calibration target |
 | `first_ts`, `last_ts` | first and last on-tape trade timestamps |
