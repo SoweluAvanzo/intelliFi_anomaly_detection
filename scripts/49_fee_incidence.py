@@ -4,7 +4,7 @@
 Writes `data/export/incidence_{overall,by_size,by_price}.{json,csv}`. See `docs/FEE_EFFECTS.md`.
 
 MEMORY-SAFE (full-tape scan). Launch inside a scope:
-  systemd-run --user --scope -p MemoryMax=9G .venv/bin/python scripts/43_fee_incidence.py
+  systemd-run --user --scope -p MemoryMax=9G .venv/bin/python scripts/49_fee_incidence.py
 """
 from __future__ import annotations
 

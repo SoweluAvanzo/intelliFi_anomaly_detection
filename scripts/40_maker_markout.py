@@ -50,7 +50,11 @@ def main() -> int:
     ap.add_argument("--limit-files", type=int, default=0, help="VALIDATION ONLY: use first N tape files")
     ap.add_argument("--file-slice", default=None, help="VALIDATION ONLY: 'LO:HI' python slice of sorted files")
     ap.add_argument("--work", default=None, help="work dir (default: scratch under data/)")
+    ap.add_argument("--makers", default=None, help="optional parquet with a 'wallet' column: restrict "
+                    "maker fills to these wallets (same method; e.g. the RQ2 correctors)")
     args = ap.parse_args()
+    mfilter = (f"AND maker IN (SELECT lower(wallet) FROM read_parquet('{args.makers}'))"
+               if args.makers else "")
 
     files = sorted(glob.glob(TAPE, recursive=True))
     if args.file_slice:
@@ -87,7 +91,7 @@ def main() -> int:
           FROM read_parquet({g}, union_by_name=true)
           WHERE event='OrderFilled' AND price>0 AND price<1 AND shares>0 AND (hash(token_id)%{NB})={b}
           QUALIFY row_number() OVER (PARTITION BY tx_hash, evt_index)=1""")
-        con.execute("CREATE TABLE M AS SELECT token_id,t,maker,side,p AS p_fill,shares FROM f WHERE is_taker_order=FALSE")
+        con.execute(f"CREATE TABLE M AS SELECT token_id,t,maker,side,p AS p_fill,shares FROM f WHERE is_taker_order=FALSE {mfilter}")
         # forward reference = ONE deterministic price per (token, second): the volume-weighted taker
         # price. Collapsing ties makes the ASOF match unique, so the result is reproducible and
         # bucket-invariant (several taker trades can share a timestamp; a raw series picks one at random).

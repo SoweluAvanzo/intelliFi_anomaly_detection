@@ -5,7 +5,7 @@ Durable substrate for RQ2 price-correction attribution (scripts/41). Writes
 `data/parquet/negrisk_v2/{map,fills}.parquet`. Pure transform of cached data (no network).
 
 MEMORY-SAFE: file-backed DuckDB + spill. Launch inside a scope:
-  systemd-run --user --scope -p MemoryMax=10G .venv/bin/python scripts/40_build_negrisk_fills.py
+  systemd-run --user --scope -p MemoryMax=10G .venv/bin/python scripts/46_build_negrisk_fills.py
 Add --test N to extract from only the first N tape files (smoke test).
 """
 from __future__ import annotations

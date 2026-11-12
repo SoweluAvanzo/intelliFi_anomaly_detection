@@ -22,8 +22,11 @@ cached parquet store; charts come from `notebooks/fee_effects.ipynb`.
 **RQ2 — who keeps linked markets consistent, and how does the fee change their incentives?** The
 negRisk arbitrage band (RQ1's cross-market object) is closed by a **distinct, concentrated,
 persistent** group of arbitrageurs — not the volume or profit leaders, cross-family generalists,
-stable out-of-sample. The taker fee turns their positive gross edge into a **net loss** (net margin
-**+42.8 → −106.5 bps**, pre → post), without changing who they are. *(publishable, positive)*
+stable out-of-sample. On the correction leg *alone* the taker fee turns their gross edge into a **net
+loss** (net margin **+42.8 → −106.5 bps**, pre → post); but these traders are the platform's major
+**market makers**, and their rebate + spread-capture income offsets most-to-all of their taker fees, so
+they are **not net-taxed** — the fee/rebate design *sustains* correction rather than deterring it.
+*(publishable, positive)*
 
 **How the two RQs relate.** The band `|S−1|` is the **shared object**: RQ1 asks about its *level*
 (does the fee widen it? — no), RQ2 about its *agents* (who closes it, and does the fee change their
@@ -41,10 +44,10 @@ of notional vs ~0.09% for favorites (p>0.90) — ~40×; smallest takers pay ~2×
 
 | Step | Script | Output |
 |------|--------|--------|
-| 1 | `scripts/40_build_negrisk_fills.py [--source tape\|archive]` | `data/parquet/negrisk_{v2,v1}/{map,fills}.parquet` |
-| 2 | `scripts/41_negrisk_correction.py [--source v2\|v1]` | `data/export/rq2_{v2,v1}_{wallets,events}.parquet` + RQ2 analysis |
-| 3 | `scripts/42_fee_calibration.py` | `data/export/calibration_era_decomposition.csv`, `calibration_reliability_1d.csv`, `negrisk_band_audit.json` |
-| 4 | `scripts/43_fee_incidence.py` | `data/export/incidence_{overall.json,by_size.csv,by_price.csv}` |
+| 1 | `scripts/46_build_negrisk_fills.py [--source tape\|archive]` | `data/parquet/negrisk_{v2,v1}/{map,fills}.parquet` |
+| 2 | `scripts/47_negrisk_correction.py [--source v2\|v1]` | `data/export/rq2_{v2,v1}_{wallets,events}.parquet` + RQ2 analysis |
+| 3 | `scripts/48_fee_calibration.py` | `data/export/calibration_era_decomposition.csv`, `calibration_reliability_1d.csv`, `negrisk_band_audit.json` |
+| 4 | `scripts/49_fee_incidence.py` | `data/export/incidence_{overall.json,by_size.csv,by_price.csv}` |
 | — | `notebooks/fee_effects.ipynb` | all tables + charts |
 
 Logic lives in `src/intellifi/{negrisk,correction,fee_calibration,incidence,fee_figures}.py`. RQ1
@@ -55,12 +58,12 @@ Heavy scans are memory-safe (file-backed DuckDB + spill); launch inside
 End-to-end from a populated parquet store (each heavy step inside its own scope):
 
 ```
-scripts/40_build_negrisk_fills.py              # v2 fee-era negRisk fills
-scripts/41_negrisk_correction.py               # RQ2 v2
-scripts/40_build_negrisk_fills.py --source archive   # v1 pre-fee negRisk fills
-scripts/41_negrisk_correction.py --source v1   # RQ2 v1 (pre/post)
-scripts/42_fee_calibration.py                  # RQ1 + band audit
-scripts/43_fee_incidence.py                    # incidence
+scripts/46_build_negrisk_fills.py              # v2 fee-era negRisk fills
+scripts/47_negrisk_correction.py               # RQ2 v2
+scripts/46_build_negrisk_fills.py --source archive   # v1 pre-fee negRisk fills
+scripts/47_negrisk_correction.py --source v1   # RQ2 v1 (pre/post)
+scripts/48_fee_calibration.py                  # RQ1 + band audit
+scripts/49_fee_incidence.py                    # incidence
 jupyter nbconvert --to notebook --execute --inplace notebooks/fee_effects.ipynb
 ```
 
@@ -145,6 +148,27 @@ The fee does two things: the per-dollar arbitrage edge is ~4× smaller in the fe
 (141 bps) exceeds that edge, so **price correction flips from profitable to a net loss** — the fee taxes
 the arbitrageurs who keep linked markets consistent, without changing who they are. (V1 net is a lower
 bound: the archive overcounts low-price sell fees, and true pre-fee fees are ≈ 0.)
+
+## RQ2 maker economics — why the correctors persist (the fee's return side)
+
+The correctors are the platform's **major liquidity providers** (65% also make; their maker volume ≈
+their taker volume, ~$4.4B each, deduped), so the fee's *return* side flows back to them. Two
+components, from `src/intellifi/rebate.py` (`scripts/50_maker_rebate.py`) and the validated markout
+producer run with a corrector filter (`scripts/40_maker_markout.py --makers`):
+
+- **Rebate** (modeled, DATA_DICTIONARY §10.3; `rebate = ρ·Σ fee_equivalent` — the pool denominator
+  cancels): **$13.0M**, ~27% of their $48.3M taker fees (the 20–25%-of-fees design; ≤ the whole pool by
+  construction, so it cannot alone offset the fee).
+- **Markout / spread capture** (gross, outcome-independent next-trade price): **+$19.6M @60s →
+  +$48.4M @900s → +$129M @1h**; under 45% of fills are adverse at every horizon.
+
+Net-net: taker fees **−$48.3M** vs liquidity-provision income (**rebate +$13.0M + markout +$20–48M**)
+→ LP income **covers ~⅔ of the fee bill at 1-min horizons and all of it at ≥15-min**. So the −$7.5M
+negRisk correction loss is a **loss-leader inside a profitable, rebate-subsidized market-making
+business**: the fee does **not** net-tax the correctors, which is why they persist and why price
+quality is preserved (RQ1). *Honest limits:* markout is gross of inventory/holding costs; the rebate is
+modeled, not the on-chain payout; and the correctors' full taker *trading* PnL across all markets is
+not closed — this is the LP-income-vs-fee piece, enough to explain persistence, not a books-closed net.
 
 ## Caveats
 

@@ -7,7 +7,7 @@ distinctness from volume/profit, OOS persistence, and profitability net of fees.
 Writes `data/export/rq2_v2_{wallets,events}.parquet`. See `docs/FEE_EFFECTS.md`.
 
 MEMORY-SAFE. Launch inside a scope:
-  systemd-run --user --scope -p MemoryMax=11G .venv/bin/python scripts/41_negrisk_correction.py
+  systemd-run --user --scope -p MemoryMax=11G .venv/bin/python scripts/47_negrisk_correction.py
 """
 from __future__ import annotations
 

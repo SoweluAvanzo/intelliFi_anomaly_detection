@@ -131,6 +131,29 @@ def fig_rq2_persistence(prefix="rq2_v2"):
     ax.set_title("Price-correction skill persists out-of-sample"); fig.tight_layout(); plt.close(fig); return fig
 
 
+def fig_rq2_lp_economics():
+    """Why correctors persist: their liquidity-provision income (rebate + spread capture) vs the
+    taker fees they pay. LP income crosses the fee line between the 5- and 15-min markout horizon."""
+    import json
+    reb = json.loads((EXPORT / "rq2_v2_rebate_summary.json").read_text())
+    mk = json.loads((EXPORT / "corrector_markout.json").read_text())
+    fees = float(reb["taker_fees_musd"]); rebate = float(reb["rebate_musd"])
+    mko = {c["horizon_s"]: c["total_dollar_markout"] / 1e6 for c in mk["curve"]}
+    hz = [60, 300, 900]; labels = ["1 min", "5 min", "15 min"]
+    x = np.arange(len(hz)); rb = [rebate] * len(hz); mv = [mko[h] for h in hz]
+    fig, ax = plt.subplots(figsize=(6.6, 4.3))
+    ax.bar(x, rb, color=ORANGE, label="maker rebate (modeled)")
+    ax.bar(x, mv, bottom=rb, color=GREEN, label="maker markout (spread capture)")
+    ax.axhline(fees, color=RED, ls="--", lw=1.6, label=f"taker fees paid (${fees:.0f}M)")
+    for xi, (r, m) in enumerate(zip(rb, mv)):
+        ax.text(xi, r + m + 1.5, f"${r + m:.0f}M", ha="center", fontsize=9)
+    ax.set_xticks(x); ax.set_xticklabels([f"markout @ {l}" for l in labels])
+    ax.set_ylabel("USD (millions)")
+    ax.set_title("Correctors' LP income offsets their taker fees")
+    ax.legend(frameon=False, fontsize=8, loc="upper left")
+    fig.tight_layout(); plt.close(fig); return fig
+
+
 def fig_rq2_prepost(v1_analysis: dict, v2_analysis: dict):
     """Pre- vs post-fee: duration-invariant gross edge vs net margin (bps per $ of volume).
     V1 net margin is a lower bound (archive fee_usdc is overcounted; true pre-fee fees ≈ 0)."""
