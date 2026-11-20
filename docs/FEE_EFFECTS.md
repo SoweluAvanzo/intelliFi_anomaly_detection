@@ -24,7 +24,7 @@ negRisk arbitrage band (RQ1's cross-market object) is closed by a **distinct, co
 persistent** group of arbitrageurs — not the volume or profit leaders, cross-family generalists,
 stable out-of-sample. On the correction leg *alone* the taker fee turns their gross edge into a **net
 loss** (net margin **+42.8 → −106.5 bps**, pre → post); but these traders are the platform's major
-**market makers**, and their rebate + spread-capture income offsets most-to-all of their taker fees, so
+**maker-side liquidity providers** (by settled-fill volume), and their rebate + spread-capture income offsets most-to-all of their taker fees, so
 they are **not net-taxed** — the fee/rebate design *sustains* correction rather than deterring it.
 *(publishable, positive)*
 
@@ -48,6 +48,9 @@ of notional vs ~0.09% for favorites (p>0.90) — ~40×; smallest takers pay ~2×
 | 2 | `scripts/47_negrisk_correction.py [--source v2\|v1]` | `data/export/rq2_{v2,v1}_{wallets,events}.parquet` + RQ2 analysis |
 | 3 | `scripts/48_fee_calibration.py` | `data/export/calibration_era_decomposition.csv`, `calibration_reliability_1d.csv`, `negrisk_band_audit.json` |
 | 4 | `scripts/49_fee_incidence.py` | `data/export/incidence_{overall.json,by_size.csv,by_price.csv}` |
+| 5 | `scripts/50_maker_rebate.py` | `data/export/rq2_v2_rebate*` (fee's return side) |
+| 6 | `scripts/51_episode_dynamics.py [--source v2\|v1]` | `data/export/episode_dynamics_{v2,v1}.{json,_episodes,_unconverged}.parquet` |
+| 7 | `scripts/52_fee_did.py` | `data/export/fee_did.json` (causal layer: baseline + refined DiD) |
 | — | `notebooks/fee_effects.ipynb` | all tables + charts |
 
 Logic lives in `src/intellifi/{negrisk,correction,fee_calibration,incidence,fee_figures}.py`. RQ1
@@ -164,16 +167,86 @@ producer run with a corrector filter (`scripts/40_maker_markout.py --makers`):
 
 Net-net: taker fees **−$48.3M** vs liquidity-provision income (**rebate +$13.0M + markout +$20–48M**)
 → LP income **covers ~⅔ of the fee bill at 1-min horizons and all of it at ≥15-min**. So the −$7.5M
-negRisk correction loss is a **loss-leader inside a profitable, rebate-subsidized market-making
-business**: the fee does **not** net-tax the correctors, which is why they persist and why price
+negRisk correction loss is a **loss-leader inside profitable, rebate-subsidized maker-side liquidity
+provision**: the fee does **not** net-tax the correctors, which is why they persist and why price
 quality is preserved (RQ1). *Honest limits:* markout is gross of inventory/holding costs; the rebate is
 modeled, not the on-chain payout; and the correctors' full taker *trading* PnL across all markets is
 not closed — this is the LP-income-vs-fee piece, enough to explain persistence, not a books-closed net.
+
+## Episode dynamics and the fee DiD (`scripts/51`, `scripts/52`)
+
+`scripts/51_episode_dynamics.py` (module `episode_dynamics.py`) instruments the RQ2 detector to also
+record correction *speed*, openings that never converge, and volume/dollar weighting;
+`scripts/52_fee_did.py` (module `fee_did.py`) is the causal layer. The canonical build is now
+**deterministic** (V1 = 365,587 closed episodes; V2 gate = 210,993 exact).
+
+**Descriptive (V1 pre-fee vs V2 fee — robust, regime-level):**
+- **Un-converged openings** are economically negligible: 6.8% (V2) / 1.8% (V1) by count but
+  **0.29% / 0.07% volume-weighted**; 94.7% (V2) are resolution-ended (the market ended, not the fee
+  deterring correction). Never-closed gaps are big-gap but tiny-dollar — quality is preserved where it
+  matters.
+- **Correction speed is governed by liquidity**: log10(correction s) on log10(family volume) has
+  elasticity **−0.58 (V2) vs −0.21 (V1)** (clustered SE ~0.02), ~2.7× steeper under the fee; median
+  correction ~5 min (V2) / 7 min (V1), down to ~15 s in the deepest V2 markets.
+- **Volume-weighted density**: V2 is 1.22× V1 by episode count per active-family-day but **1.30× by
+  corrective-$/afd**; mean corrective-$ per closed episode is regime-invariant (~$180). The extra V2
+  correction is real in dollars, not a swarm of tiny episodes (that is the un-converged tail). ~4× per
+  calendar day = ~3.2× more active families/day × ~1.2× per-family intensity.
+- **Concentration**: top-100 correctors do 32.6% of episode *count* but **57.6% of corrective dollars**
+  (Gini 0.77→0.94); distinctness-from-volume-leaders **survives** dollar-weighting (Spearman
+  0.262→0.263). The terminal/clean split uses a window **relative to family life** (a fixed 48 h window
+  ≈ a whole short V2 market); ~26% of closes are terminal in both eras and concentration holds on the
+  clean (~74%) subset.
+
+**Causal (fee vs no-fee DiD) — not identifiable; a clean null.** Treatment = each family's empirical
+fee-activation. **Zero families traded both before and after their fee turned on** (the fee attaches at
+market birth), so a within-family DiD is impossible. Pooled TWFE shows apparent effects (duration
++0.20, un-converged +2.1 pp, a −0.15 liquidity-gradient interaction), but under the refined spec
+(V1 rollout window + family-age control) they collapse — duration +0.19 with a **placebo still +0.10
+(p≈0.06)**, the interaction **−0.04 (insignificant)** with a clean placebo, un-converged **+0.4 pp**.
+So the V1/V2 correction-dynamics differences are **composition/regime, not the fee** — consistent with
+the calibration null (RQ1) and the rejected band-widening. The fee's *measured* consequences are the
+directly-observed incidence and subsidy capture, not DiD'd behavioral outcomes.
 
 ## Caveats
 
 - RQ2 measures the **taker/aggressor** correction channel; maker-side (liquidity-provider) repricing and
   the **maker rebate** link are not yet included (the natural resolution of "why correct at a loss?").
+- **Fill-attribution scope (cf. Nechepurenko, arXiv:2605.11640):** "correctors" and their maker-side role
+  are defined by *settled-fill* roles (aggressor on is_taker rows; maker-side volume), not quoting /
+  cancellation behaviour, which is unobservable from fills — do not read "market maker" as continuous quoting.
+- **Mint/merge-clean:** volume/dollar metrics use YES-token legs only (the NO leg of complete-set mints is
+  excluded) and is_taker_order=TRUE taker-order aggregates (maker-leg fragmentation collapsed); verified
+  2026-11-19 (34.6M maker legs → 22.07M taker legs; 0 logs carry both is_taker values).
 - V1 ordering is second-resolution (archive has no log index); V2 uses true `(block_number, evt_index)`.
+  `build_canonical_v1` is now fully deterministic (ORDER BY on code tables + evt_index tie-break incl.
+  `is_buy`); scripts/47 and scripts/51 agree (V1 = 365,587).
 - V1/V2 category taxonomies differ; the fee rollout is staggered (see `docs/atlas_2026-08-30/`), so the
-  clean fee contrast is per-market fee status, not the V1/V2 data boundary.
+  clean fee contrast is per-market fee status, not the V1/V2 data boundary — and the fee attaches at
+  market birth, so a within-family DiD is unidentified (0 switchers).
+
+## Reproducing every figure
+
+All figures in the results outline rebuild from one tracked path:
+
+```bash
+# render every figure from existing data/export + committed docs/*.json (fast):
+python scripts/54_build_outline_figures.py
+# or rebuild the derived category-composition table first (scans the negRisk fills, ~40s):
+systemd-run --user --scope -p MemoryMax=6G python scripts/54_build_outline_figures.py --composition
+```
+
+Each figure is a function in `src/intellifi/fee_figures.py`; `scripts/54` is a thin orchestrator.
+Sources (all tracked code / committed JSON / R2-deposited `data/export`):
+
+| figure group | producer | data source |
+|---|---|---|
+| `comp_*` (composition) | `fig_comp_*` | `data/export/category_composition.csv` + `composition_summary.json` (built by `scripts/54 --composition` from the negRisk fills) |
+| `rq1_taker_economics` | `fig_rq1_taker_economics` | `docs/platform_wide.json` (scripts/27), `docs/v2_platform.json` (scripts/28) |
+| `rq1_lorenz`, `rq1_profit_concentration` | `fig_rq1_lorenz`, `fig_rq1_profit_concentration` | `data/export/rq2_{v1,v2}_wallets.parquet` (scripts/47); Gini from the platform JSONs |
+| `rq1_skill` | `fig_rq1_skill` | `docs/skill_signflip.json` (scripts/31), `docs/skill_signflip_v2.json` (scripts/53) |
+| `rq3_incidence_*` | `fig_incidence_*` | `data/export/incidence_by_{price,size}.csv` (scripts/49) |
+| `rq3_lp_economics` | `fig_rq2_lp_economics` | `data/export/rq2_v2_rebate_summary.json`, `corrector_markout.json` (scripts/50) |
+| `rq2_reliability`, `rq2_brier` | `fig_reliability`, `fig_brier_decomp` | `data/export/calibration_*.csv` (scripts/48) |
+| `rq2_speed_by_volume`, `rq2_unconverged_rate`, `rq2_concentration_count_vs_dollar`, `rq2_density_by_category` | episode-dynamics figs | `data/export/episode_dynamics_{v1,v2}.json` (scripts/51) |
+| `rq2_fingerprint_*`, `rq2_prepost_economics` | `fig_rq2_*` | `data/export/rq2_{v1,v2}_{wallets,events}.parquet` (scripts/47) + `correction.analyze` |

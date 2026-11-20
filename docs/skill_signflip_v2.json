@@ -1,0 +1,32 @@
+{
+ "scope": "v2 tape, ALL resolved markets, maker+taker; per-(wallet,condition) realised PnL; sign-flip skill + split-half persistence (port of scripts/31)",
+ "test_blocks": null,
+ "n_wallets_total": 1082253,
+ "n_classifiable": 611673,
+ "classifiable_frac": 0.5651848504924449,
+ "min_positions": 5,
+ "z_position": {
+  "mean": -0.17469842432421473,
+  "sd": 2.293311285999258,
+  "frac_skilled_z>1.645": 0.09292056376527981,
+  "frac_worse_z<-1.645": 0.12833654583413032
+ },
+ "uncorrected": {
+  "n_skilled": 64857,
+  "frac_skilled": 0.10603214462629543,
+  "n_worse": 85149,
+  "frac_worse": 0.139206733009304,
+  "frac_indistinguishable": 0.7547611223644006
+ },
+ "fdr_bh_q0.05": {
+  "n_certifiably_skilled": 34280,
+  "frac": 0.056043016448331054
+ },
+ "persistence": {
+  "n_both_periods": 163415,
+  "spearman_rho": 0.10761302668111303,
+  "spearman_p": 0.0,
+  "p1_top_quintile_mean_p2": 728.8912486454888,
+  "p1_bottom_quintile_mean_p2": -569.7862969352893
+ }
+}

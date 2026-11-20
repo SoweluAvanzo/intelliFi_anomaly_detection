@@ -40,11 +40,15 @@ def build_canonical_v1(con, fills_path: str) -> int:
              sum(usdc) usdc, sum(fee) fee, sum(usdc)/nullif(sum(usdc/price),0) price
       FROM '{fills_path}' WHERE price>0 AND price<1
       GROUP BY family, tok, wallet, is_buy, ts""")
-    con.execute("CREATE OR REPLACE TABLE _dfam AS SELECT family, row_number() OVER ()-1 fid FROM (SELECT DISTINCT family FROM _agg)")
-    con.execute("CREATE OR REPLACE TABLE _dtok AS SELECT tok, row_number() OVER ()-1 tid FROM (SELECT DISTINCT tok FROM _agg)")
-    con.execute("CREATE OR REPLACE TABLE _dwal AS SELECT wallet, row_number() OVER ()-1 wid FROM (SELECT DISTINCT wallet FROM _agg)")
+    # Deterministic code assignment (ORDER BY) so the canonical build — hence the detected episode
+    # set — is reproducible run-to-run. v1 ts is second-resolution (archive has no log index), so
+    # evt_index tie-breaks within a second on (tid, wid); without ORDER BY here those codes were
+    # non-deterministic and shifted ~5/365k episode boundaries between runs (fixed 2026-11-19).
+    con.execute("CREATE OR REPLACE TABLE _dfam AS SELECT family, row_number() OVER (ORDER BY family)-1 fid FROM (SELECT DISTINCT family FROM _agg)")
+    con.execute("CREATE OR REPLACE TABLE _dtok AS SELECT tok, row_number() OVER (ORDER BY tok)-1 tid FROM (SELECT DISTINCT tok FROM _agg)")
+    con.execute("CREATE OR REPLACE TABLE _dwal AS SELECT wallet, row_number() OVER (ORDER BY wallet)-1 wid FROM (SELECT DISTINCT wallet FROM _agg)")
     con.execute("""CREATE OR REPLACE TABLE C AS
-      SELECT *, row_number() OVER (PARTITION BY fid, ts ORDER BY tid, wid) AS evt_index
+      SELECT *, row_number() OVER (PARTITION BY fid, ts ORDER BY tid, wid, is_buy) AS evt_index
       FROM (
         SELECT a.family, a.tok, a.wallet, a.is_buy, a.ts, a.ts AS block_number,
                a.usdc, a.usdc/a.price AS shares, a.fee, a.price, a.yes_won,
