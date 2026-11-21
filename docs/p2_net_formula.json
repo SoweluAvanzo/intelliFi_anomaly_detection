@@ -1,0 +1,39 @@
+{
+ "description": "P2 negRisk net taker PnL by formula (modeled; archive has no measured fee)",
+ "formula": "fee = feeRate*(1-price)*usdc per taker order; rates = _FEERATE (V2 schedule); gate: all-markets 2026-03-30, crypto 2026-03-06",
+ "baseline": {
+  "gross_pnl": -3587095.355461029,
+  "fee": 3588186.795442988,
+  "net_pnl": -7175282.150904017,
+  "gini_gross": 0.9623,
+  "gini_net": 0.9626,
+  "eff_rate_all_pct": 0.67,
+  "eff_rate_charged_pct": 1.49,
+  "charged_notional_frac_pct": 45.1,
+  "notional": 535581179.5455941
+ },
+ "sensitivity": {
+  "no_rollout_gate": {
+   "gross_pnl": -3587095.355461029,
+   "fee": 7644281.536580751,
+   "net_pnl": -11231376.89204178,
+   "gini_gross": 0.9623,
+   "gini_net": 0.9621,
+   "eff_rate_all_pct": 1.43,
+   "eff_rate_charged_pct": 1.43,
+   "charged_notional_frac_pct": 99.6,
+   "notional": 535581179.5455941
+  },
+  "unmatched_rate_zero": {
+   "gross_pnl": -3587095.355461029,
+   "fee": 3588137.436562271,
+   "net_pnl": -7175232.792023297,
+   "gini_gross": 0.9623,
+   "gini_net": 0.9626,
+   "eff_rate_all_pct": 0.67,
+   "eff_rate_charged_pct": 1.49,
+   "charged_notional_frac_pct": 45.1,
+   "notional": 535581179.5455941
+  }
+ }
+}

@@ -34,13 +34,18 @@ def main() -> int:
     ap.add_argument("--threads", type=int, default=6)
     ap.add_argument("--high", type=float, default=correction.HIGH)
     ap.add_argument("--low", type=float, default=correction.LOW)
+    ap.add_argument("--period", choices=["all", "p1", "p2"], default="all",
+                    help="v1 only: all=whole archive; p1=pre-fee ts<2026-03-01; p2=fee tail ts>=2026-03-01")
     args = ap.parse_args()
     sub = {"v2": "negrisk_v2", "v1": "negrisk_v1"}[args.source]
     args.fills = args.fills or str(_cfg.PARQUET_DIR / sub / "fills.parquet")
-    args.out_prefix = args.out_prefix or str(_cfg.DATA_DIR / "export" / f"rq2_{args.source}")
+    _FEE_TS = 1772323200  # 2026-03-01 UTC: the P1 (fee-free) / P2 (fee tail) boundary
+    _bounds = {"all": (None, None), "p1": (None, _FEE_TS), "p2": (_FEE_TS, None)}[args.period]
+    _tag = args.source if (args.period == "all" or args.source == "v2") else args.period
+    args.out_prefix = args.out_prefix or str(_cfg.DATA_DIR / "export" / f"rq2_{_tag}")
     Path(args.out_prefix).parent.mkdir(parents=True, exist_ok=True)
 
-    tmp = _cfg.DATA_DIR / "_s41_tmp"
+    tmp = _cfg.DATA_DIR / "_s47_tmp"
     shutil.rmtree(tmp, ignore_errors=True)
     tmp.mkdir(parents=True)
     con = duckdb.connect((tmp / "w.db").as_posix())
@@ -49,11 +54,19 @@ def main() -> int:
     con.execute("SET preserve_insertion_order=false")
     con.execute(f"SET temp_directory='{(tmp / 'spill').as_posix()}'")
     con.execute("SET max_temp_directory_size='60GB'")
+    import atexit, signal
+    def _cleanup(*_a):
+        try: con.close()
+        except Exception: pass
+        shutil.rmtree(tmp, ignore_errors=True)
+    atexit.register(_cleanup)
+    for _sig in (signal.SIGTERM, signal.SIGINT):
+        signal.signal(_sig, lambda *_a: (_cleanup(), sys.exit(1)))
 
     if args.source == "v2":
         n = correction.build_canonical(con, args.fills)
     else:
-        n = correction.build_canonical_v1(con, args.fills)
+        n = correction.build_canonical_v1(con, args.fills, ts_lo=_bounds[0], ts_hi=_bounds[1])
     print(f"canonical taker trades: {n:,}", flush=True)
     summ = correction.attribute(con, args.out_prefix, high=args.high, low=args.low)
     print(f"attribution: {json.dumps(summ)}", flush=True)

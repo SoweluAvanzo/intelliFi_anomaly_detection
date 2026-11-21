@@ -30,15 +30,18 @@ def build_canonical(con, fills_path: str) -> int:
     return con.execute("SELECT count(*) FROM C").fetchone()[0]
 
 
-def build_canonical_v1(con, fills_path: str) -> int:
+def build_canonical_v1(con, fills_path: str, ts_lo: int | None = None, ts_hi: int | None = None) -> int:
     """Create table C from the v1 archive extract. Aggregates maker legs to one taker-trade per
     (family,token,wallet,second,side); shares = usdc/price; causal order = (ts, synthetic evt_index).
+    Optional ts_lo/ts_hi (epoch seconds) restrict to a period, e.g. P1 (fee-free) = ts_hi=2026-03-01.
     Spill-efficient: string keys are coded via dimension-table joins (no dense_rank sort over long
     strings); the only sort is the evt_index window on compact int codes."""
+    _tf = (f" AND ts >= {int(ts_lo)}" if ts_lo is not None else "") + \
+          (f" AND ts < {int(ts_hi)}" if ts_hi is not None else "")
     con.execute(f"""CREATE OR REPLACE TABLE _agg AS
       SELECT family, tok, wallet, is_buy, ts, any_value(yes_won) yes_won,
              sum(usdc) usdc, sum(fee) fee, sum(usdc)/nullif(sum(usdc/price),0) price
-      FROM '{fills_path}' WHERE price>0 AND price<1
+      FROM '{fills_path}' WHERE price>0 AND price<1{_tf}
       GROUP BY family, tok, wallet, is_buy, ts""")
     # Deterministic code assignment (ORDER BY) so the canonical build — hence the detected episode
     # set — is reproducible run-to-run. v1 ts is second-resolution (archive has no log index), so

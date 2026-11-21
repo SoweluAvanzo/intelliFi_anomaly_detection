@@ -335,15 +335,20 @@ def analyze(E, U, FAM, daily, dailycat, AGG, source, committed=None):
     return rep, E, U
 
 
-def run(con, source: str, out_prefix: str) -> dict:
+def run(con, source: str, out_prefix: str, ts_lo: int | None = None, ts_hi: int | None = None,
+        committed="__auto__") -> dict:
     """Build the canonical set (reusing correction.*), run the instrumented loop, analyze, and write
     `<out_prefix>_{episodes,unconverged}.parquet` + `<out_prefix>.json`. `con` must be a configured
-    (memory-limited, spill-enabled) DuckDB connection. Returns the report dict."""
+    (memory-limited, spill-enabled) DuckDB connection. Optional ts_lo/ts_hi (epoch s) restrict v1 to a
+    period (P1 = fee-free, ts_hi=2026-03-01); episodes straddling the cut are truncated (minor, short
+    market lives). `committed` defaults to the full-era gate reference; pass None for a period subset
+    (the regression gate does not apply). Returns the report dict."""
     t0 = time.time()
     sub = "negrisk_v2" if source == "v2" else "negrisk_v1"
     fills = str(_cfg.PARQUET_DIR / sub / "fills.parquet")
     clob = str(_cfg.PARQUET_DIR / "clob_markets" / "tokens.parquet")
-    n = _corr.build_canonical(con, fills) if source == "v2" else _corr.build_canonical_v1(con, fills)
+    n = (_corr.build_canonical(con, fills) if source == "v2"
+         else _corr.build_canonical_v1(con, fills, ts_lo=ts_lo, ts_hi=ts_hi))
     print(f"[{source}] canonical taker trades: {n:,}  ({time.time()-t0:.0f}s)", flush=True)
 
     ncand = dict(con.execute("SELECT fid, count(DISTINCT tid) FROM C GROUP BY fid").fetchall())
@@ -377,11 +382,12 @@ def run(con, source: str, out_prefix: str) -> dict:
                              ncand, HIGH, LOW, MIN_CAND, STALE)
     print(f"[{source}] loop: closed={len(E):,} unconverged={len(U):,}  ({time.time()-t0:.0f}s)", flush=True)
 
-    rep, E, U = analyze(E, U, FAM, daily, dailycat, AGG, source, committed=COMMITTED.get(source))
+    cref = COMMITTED.get(source) if committed == "__auto__" else committed
+    rep, E, U = analyze(E, U, FAM, daily, dailycat, AGG, source, committed=cref)
     Path(out_prefix).parent.mkdir(parents=True, exist_ok=True)
     E.to_parquet(f"{out_prefix}_episodes.parquet", index=False)
     U.to_parquet(f"{out_prefix}_unconverged.parquet", index=False)
     Path(f"{out_prefix}.json").write_text(json.dumps(rep, indent=2, default=float))
     gate = rep.get("closed_matches_committed")
-    print(f"[{source}] gate closed_matches_committed={gate} (committed={COMMITTED.get(source)})  ({time.time()-t0:.0f}s)", flush=True)
+    print(f"[{source}] gate closed_matches_committed={gate} (committed={cref})  ({time.time()-t0:.0f}s)", flush=True)
     return rep

@@ -52,11 +52,28 @@ def main() -> int:
     ap.add_argument("--out", default="docs/platform_wide.json")
     ap.add_argument("--memory-limit", default="9GB")
     ap.add_argument("--top-k", type=int, default=20)
+    ap.add_argument("--period", choices=["all", "p1", "p2"], default="all",
+                    help="all=whole archive; p1=pre-fee (ts<2026-03-01); p2=fee tail (ts>=2026-03-01)")
+    ap.add_argument("--neg-risk-only", action="store_true",
+                    help="restrict to negRisk markets (for a clean fee-free P1 baseline)")
     args = ap.parse_args()
+    _per = {"all": "", "p1": "ts_utc < TIMESTAMP '2026-03-01'",
+            "p2": "ts_utc >= TIMESTAMP '2026-03-01'"}[args.period]
+    _conds = [c for c in (_per, "neg_risk=TRUE" if args.neg_risk_only else "") if c]
+    EXTRA = "".join(f" AND {c}" for c in _conds)              # unaliased (FROM arc_raw)
+    EXTRA_R = EXTRA.replace("ts_utc", "r.ts_utc").replace("neg_risk", "r.neg_risk")  # aliased (arc_raw r)
 
     tmp = _cfg.DATA_DIR / "_s27_tmp"
     tmp.mkdir(parents=True, exist_ok=True)
     con = duckdb.connect((tmp / "w.db").as_posix())
+    import atexit, signal, shutil as _sh                      # kill-safe spill cleanup (no disk leak)
+    def _cleanup(*_a):
+        try: con.close()
+        except Exception: pass
+        _sh.rmtree(tmp, ignore_errors=True)
+    atexit.register(_cleanup)
+    for _sig in (signal.SIGTERM, signal.SIGINT):
+        signal.signal(_sig, lambda *_a: (_cleanup(), sys.exit(1)))
     con.execute(f"PRAGMA memory_limit='{args.memory_limit}'")
     con.execute("SET preserve_insertion_order=false")
     con.execute(f"SET temp_directory='{(tmp / 'spill').as_posix()}'")
@@ -77,16 +94,17 @@ def main() -> int:
 
     # A resolved-taker-fill filter reused everywhere (won_outcome = did THIS traded outcome resolve YES)
     RESOLVED = ("winning_outcome_label IS NOT NULL AND price>0 AND price<1 AND shares>0 "
-                "AND taker_direction IN ('BUY','SELL')")
+                "AND taker_direction IN ('BUY','SELL')" + EXTRA)
     WON_OUT = "(CASE WHEN outcome_label = winning_outcome_label THEN 1 ELSE 0 END)"
     PNL_FILL = (f"(CASE WHEN taker_direction='BUY' THEN ({WON_OUT}-price)*shares "
                 f"ELSE (price-{WON_OUT})*shares END)")
 
-    rep: dict = {"scope": "WHOLE v1 archive (no cid scoping)", "side": "taker (arc_raw.taker)"}
+    rep: dict = {"scope": "WHOLE v1 archive (no cid scoping)", "side": "taker (arc_raw.taker)",
+                 "period": args.period, "neg_risk_only": bool(args.neg_risk_only)}
 
     # (2) per-category calibration — pure SUM group-by over arc_raw (tiny hash: ~20 classes)
     rep["per_category"] = []
-    for row in con.sql("""
+    for row in con.sql(f"""
             SELECT COALESCE(c.cls,'other') AS cls, count(*) AS n, sum(r.shares) AS shares,
                    sum(r.shares * (CASE WHEN r.taker_direction='BUY' THEN r.price ELSE 1-r.price END)) AS w_imp,
                    sum(r.shares * (CASE WHEN (r.taker_direction='BUY'  AND r.outcome_label =  r.winning_outcome_label)
@@ -94,7 +112,7 @@ def main() -> int:
                                     THEN 1 ELSE 0 END)) AS w_won
             FROM arc_raw r LEFT JOIN cat2cls c ON lower(r.category)=lower(c.category)
             WHERE r.winning_outcome_label IS NOT NULL AND r.price>0 AND r.price<1 AND r.shares>0
-              AND r.taker_direction IN ('BUY','SELL')
+              AND r.taker_direction IN ('BUY','SELL'){EXTRA_R}
             GROUP BY 1 ORDER BY n DESC""").fetchall():
         cls, n, sh, wimp, wwon = row
         rep["per_category"].append({"cls": cls, "n_taker_fills": int(n),

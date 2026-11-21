@@ -31,13 +31,19 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--source", choices=["v2", "v1"], default="v2",
                     help="v2 = fee era (tape); v1 = pre-fee (archive)")
+    ap.add_argument("--period", choices=["all", "p1", "p2"], default="all",
+                    help="v1 only: all=whole archive; p1=pre-fee ts<2026-03-01; p2=fee tail ts>=2026-03-01")
     ap.add_argument("--out-prefix", default=None)
     ap.add_argument("--memory-limit", default="6GB")
     ap.add_argument("--threads", type=int, default=6)
     args = ap.parse_args()
-    out_prefix = args.out_prefix or str(_cfg.DATA_DIR / "export" / f"episode_dynamics_{args.source}")
+    _FEE_TS = 1772323200  # 2026-03-01 UTC: P1 (fee-free) / P2 (fee tail) boundary
+    _bounds = {"all": (None, None), "p1": (None, _FEE_TS), "p2": (_FEE_TS, None)}[args.period]
+    _tag = args.source if (args.period == "all" or args.source == "v2") else args.period
+    _committed = "__auto__" if (args.period == "all" or args.source == "v2") else None
+    out_prefix = args.out_prefix or str(_cfg.DATA_DIR / "export" / f"episode_dynamics_{_tag}")
 
-    tmp = _cfg.DATA_DIR / f"_s51_{args.source}_tmp"
+    tmp = _cfg.DATA_DIR / f"_s51_{_tag}_tmp"
     shutil.rmtree(tmp, ignore_errors=True); tmp.mkdir(parents=True)
     con = duckdb.connect((tmp / "w.db").as_posix())
     con.execute(f"PRAGMA memory_limit='{args.memory_limit}'")
@@ -45,8 +51,16 @@ def main() -> int:
     con.execute("SET preserve_insertion_order=false")
     con.execute(f"SET temp_directory='{(tmp / 'spill').as_posix()}'")
     con.execute("SET max_temp_directory_size='60GB'")
+    import atexit, signal
+    def _cleanup(*_a):
+        try: con.close()
+        except Exception: pass
+        shutil.rmtree(tmp, ignore_errors=True)
+    atexit.register(_cleanup)
+    for _sig in (signal.SIGTERM, signal.SIGINT):
+        signal.signal(_sig, lambda *_a: (_cleanup(), sys.exit(1)))
 
-    rep = ed.run(con, args.source, out_prefix)
+    rep = ed.run(con, args.source, out_prefix, ts_lo=_bounds[0], ts_hi=_bounds[1], committed=_committed)
     con.close(); shutil.rmtree(tmp, ignore_errors=True)
     print("\n=== episode-dynamics summary ===")
     print(json.dumps({k: rep[k] for k in ("source", "closed_matches_committed", "n_openings",

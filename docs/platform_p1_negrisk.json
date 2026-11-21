@@ -1,0 +1,284 @@
+{
+ "scope": "WHOLE v1 archive (no cid scoping)",
+ "side": "taker (arc_raw.taker)",
+ "period": "p1",
+ "neg_risk_only": true,
+ "per_category": [
+  {
+   "cls": "sports",
+   "n_taker_fills": 34375940,
+   "mean_implied_p": 0.37008135717528146,
+   "hit_rate": 0.37072022584176334,
+   "calibration_gap": 0.000638868666481904
+  },
+  {
+   "cls": "politics_us",
+   "n_taker_fills": 15659223,
+   "mean_implied_p": 0.4342333279874869,
+   "hit_rate": 0.43199473981600917,
+   "calibration_gap": -0.002238588171477735
+  },
+  {
+   "cls": "culture",
+   "n_taker_fills": 14617386,
+   "mean_implied_p": 0.438518253686643,
+   "hit_rate": 0.43691131167692737,
+   "calibration_gap": -0.0016069420097156147
+  },
+  {
+   "cls": "other",
+   "n_taker_fills": 6428581,
+   "mean_implied_p": 0.38672112527885666,
+   "hit_rate": 0.3845553273628197,
+   "calibration_gap": -0.0021657979160369487
+  },
+  {
+   "cls": "crypto_updown",
+   "n_taker_fills": 4629023,
+   "mean_implied_p": 0.5433160330780406,
+   "hit_rate": 0.5430678161296278,
+   "calibration_gap": -0.00024821694841272915
+  },
+  {
+   "cls": "finance_macro",
+   "n_taker_fills": 3858050,
+   "mean_implied_p": 0.38689954650576047,
+   "hit_rate": 0.3846353196680333,
+   "calibration_gap": -0.002264226837727141
+  },
+  {
+   "cls": "geopolitics_world",
+   "n_taker_fills": 3351483,
+   "mean_implied_p": 0.3729865343532772,
+   "hit_rate": 0.38257772958078584,
+   "calibration_gap": 0.009591195227508635
+  },
+  {
+   "cls": "weather",
+   "n_taker_fills": 2515368,
+   "mean_implied_p": 0.6119036070838111,
+   "hit_rate": 0.6074969524565986,
+   "calibration_gap": -0.004406654627212526
+  },
+  {
+   "cls": "meta_other",
+   "n_taker_fills": 2449292,
+   "mean_implied_p": 0.3435545977587827,
+   "hit_rate": 0.33722599997932373,
+   "calibration_gap": -0.006328597779459004
+  },
+  {
+   "cls": "tech_science",
+   "n_taker_fills": 1998359,
+   "mean_implied_p": 0.4413782724770181,
+   "hit_rate": 0.4415856576270605,
+   "calibration_gap": 0.00020738515004238496
+  },
+  {
+   "cls": "finance",
+   "n_taker_fills": 1302912,
+   "mean_implied_p": 0.525599039440687,
+   "hit_rate": 0.5260848326352396,
+   "calibration_gap": 0.0004857931945526512
+  },
+  {
+   "cls": "esports_tennis",
+   "n_taker_fills": 1051532,
+   "mean_implied_p": 0.49533163512474965,
+   "hit_rate": 0.5220974647869437,
+   "calibration_gap": 0.02676582966219411
+  },
+  {
+   "cls": "crypto_other",
+   "n_taker_fills": 348396,
+   "mean_implied_p": 0.5235409727945887,
+   "hit_rate": 0.5150012709452422,
+   "calibration_gap": -0.008539701849346474
+  }
+ ],
+ "scale": {
+  "n_resolved_taker_fills": 92585545,
+  "n_markets": 97275,
+  "n_taker_wallets": 1731343
+ },
+ "aggregate_taker_pnl_total_usdc": -21543249.1526062,
+ "n_taker_wallets": 1731343,
+ "aggregate_taker_pnl": {
+  "total_pnl_usdc": -21543249.1526062,
+  "n_wallets": 1731343,
+  "n_winners": 567624,
+  "n_losers": 1160843,
+  "interpretation": "negative total => takers lose net to makers (liquidity providers) platform-wide"
+ },
+ "pnl_gini_positive": 0.9707009156850878,
+ "top_winners": [
+  {
+   "wallet": "0x56687bf447db6ffa42ffe2204a05edaa20f55839",
+   "pnl_usdc": 11472696.94713001
+  },
+  {
+   "wallet": "0xd235973291b2b75ff4070e9c0b01728c520b0f29",
+   "pnl_usdc": 5735668.320251989
+  },
+  {
+   "wallet": "0x1f2dd6d473f3e824cd2f8a89d9c69fb96f6ad0cf",
+   "pnl_usdc": 5647474.619487999
+  },
+  {
+   "wallet": "0x78b9ac44a6d7d7a076c14e0ad518b301b63c6b76",
+   "pnl_usdc": 5278769.979050003
+  },
+  {
+   "wallet": "0x94f199fb7789f1aef7fff6b758d6b375100f4c7a",
+   "pnl_usdc": 4141546.393600002
+  },
+  {
+   "wallet": "0x863134d00841b2e200492805a01e1e2f5defaa53",
+   "pnl_usdc": 4019572.7740200027
+  },
+  {
+   "wallet": "0x204f72f35326db932158cba6adff0b9a1da95e14",
+   "pnl_usdc": 3510644.479278893
+  },
+  {
+   "wallet": "0xd0c042c08f755ff940249f62745e82d356345565",
+   "pnl_usdc": 2956307.65672
+  },
+  {
+   "wallet": "0x033a07b3de5947eab4306676ad74eb546da30d50",
+   "pnl_usdc": 2706076.05944
+  },
+  {
+   "wallet": "0x885783760858e1bd5dd09a3c3f916cfa251ac270",
+   "pnl_usdc": 2612271.0004000003
+  },
+  {
+   "wallet": "0xac44cb78be973ec7d91b69678c4bdfa7009afbd7",
+   "pnl_usdc": 2184492.1828000033
+  },
+  {
+   "wallet": "0x23786fdad0073692157c6d7dc81f281843a35fcb",
+   "pnl_usdc": 2162420.9953599996
+  },
+  {
+   "wallet": "0x16f91db2592924cfed6e03b7e5cb5bb1e32299e3",
+   "pnl_usdc": 1933156.71619
+  },
+  {
+   "wallet": "0xd25c72ac0928385610611c8148803dc717334d20",
+   "pnl_usdc": 1770369.8992000008
+  },
+  {
+   "wallet": "0xd31a2ea0b5f9a10c2eb78dcc36df016497d5386e",
+   "pnl_usdc": 1762838.968450002
+  },
+  {
+   "wallet": "0x2bf64b86b64c315d879571b07a3b76629e467cd0",
+   "pnl_usdc": 1550022.9457199997
+  },
+  {
+   "wallet": "0xa1d75a199ef084ee3ec9ae60dc986b439fe6e17e",
+   "pnl_usdc": 1492894.6636900003
+  },
+  {
+   "wallet": "0x94a428cfa4f84b264e01f70d93d02bc96cb36356",
+   "pnl_usdc": 1475699.4423760017
+  },
+  {
+   "wallet": "0xe9ad918c7678cd38b12603a762e638a5d1ee7091",
+   "pnl_usdc": 1471974.5223859996
+  },
+  {
+   "wallet": "0xed2239a9150c3920000d0094d28fa51c7db03dd0",
+   "pnl_usdc": 1436438.7917600004
+  }
+ ],
+ "top_losers": [
+  {
+   "wallet": "0xfffe4013adfe325c6e02d36dc66e091f5476f52c",
+   "pnl_usdc": -3020389.8132999986
+  },
+  {
+   "wallet": "0xb0a98580b05a323df0c3bce5b1e89a346e53dd8d",
+   "pnl_usdc": -2759972.1448
+  },
+  {
+   "wallet": "0xdabe48d478da5dc9f60a1d1e3adf61ed3c0ebd89",
+   "pnl_usdc": -2526091.909925001
+  },
+  {
+   "wallet": "0x59ce25a63a7b4f3d03f25976f9cb3b2625f5cc34",
+   "pnl_usdc": -2228521.40044
+  },
+  {
+   "wallet": "0xe5c09aed85ffa8d28972ae74bac63f465a3e3f84",
+   "pnl_usdc": -2008471.0897470037
+  },
+  {
+   "wallet": "0xf0f6d93188725b881fc9b75b94b4424db5f58ac6",
+   "pnl_usdc": -1936773.1515200008
+  },
+  {
+   "wallet": "0x24ae4e2bee4afbd04c5fd871fd3a7987e4d8a7fd",
+   "pnl_usdc": -1900291.8007720003
+  },
+  {
+   "wallet": "0xc6587b11a2209e46dfe3928b31c5514a8e33b784",
+   "pnl_usdc": -1743826.965814004
+  },
+  {
+   "wallet": "0x4ffed3efde25b19e404a8043f82295f874850782",
+   "pnl_usdc": -1698081.4087200004
+  },
+  {
+   "wallet": "0x2635b7fb040d817f4c7e7f45fdd116bf476d5408",
+   "pnl_usdc": -1606330.464639999
+  },
+  {
+   "wallet": "0x02227b8f5a9636e895607edd3185ed6ee5598ff7",
+   "pnl_usdc": -1416028.546999995
+  },
+  {
+   "wallet": "0x727bfdcb0ae1a00eca35c4d0a9b85f4e42d4d1a2",
+   "pnl_usdc": -1353738.4034740026
+  },
+  {
+   "wallet": "0x9ad909bd7977cd60161c1d0ce382402086046883",
+   "pnl_usdc": -1259594.038479
+  },
+  {
+   "wallet": "0x8ca5712e00cd8bab6d0accab3d8b524668e976bf",
+   "pnl_usdc": -1256177.0463389999
+  },
+  {
+   "wallet": "0x5d8a990810b5975a98f0a2f593ae1bdac71604ec",
+   "pnl_usdc": -1160387.929479
+  },
+  {
+   "wallet": "0xcaa384180e032b53539985f7b3458ebce5d038f9",
+   "pnl_usdc": -1132202.8623789996
+  },
+  {
+   "wallet": "0xdc876e6873772d38716fda7f2452a78d426d7ab6",
+   "pnl_usdc": -1075905.2070900002
+  },
+  {
+   "wallet": "0xe4c99e75306e0e1421b4712a21e8f90c47cd6ef7",
+   "pnl_usdc": -1049979.0172889992
+  },
+  {
+   "wallet": "0x5557f74a8b21634d2daa199b6364cef137276f2c",
+   "pnl_usdc": -1020817.4548399998
+  },
+  {
+   "wallet": "0xae8758cf74d46eb0c9d889e50f1a089b1e3bc735",
+   "pnl_usdc": -1018991.2399000002
+  }
+ ],
+ "caveats": [
+  "TAKER side (archive proxy_wallet=taker); makers are the uncounted counterparty.",
+  "Realised RAW per-fill PnL (~= covered on the complete archive tape, where uncovered sells are rare); outcome-dependent (survivorship) \u2014 descriptive, not skill.",
+  "Category = archive native `category` -> atlas feeclass; unmapped fall to 'other'.",
+  "Whole v1 archive 2022-11..2026-04; the v2 tape (2026-06+) is a separate dataset."
+ ]
+}
